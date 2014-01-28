@@ -16,22 +16,25 @@
     App.prototype.initScroll = function() {
       console.log(this.$main[0]);
       this.scroller = new IScroll('#js-main', {
+        probeType: 3,
         mouseWheel: true
       });
-      document.addEventListener('touchmove', function(e) {
+      document.addEventListener('touchmove', (function(e) {
         return e.preventDefault();
-      }, false);
+      }), false);
       this.scroller.on('scroll', this.updateScrollPos);
       return this.scroller.on('scrollEnd', this.updateScrollPos);
     };
 
     App.prototype.updateScrollPos = function() {
-      return console.log(this.y);
+      return console.log(this.y >> 0);
     };
 
     return App;
 
   })();
+
+  new App;
 
 }).call(this);
 
