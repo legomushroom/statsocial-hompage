@@ -9,11 +9,24 @@
     }
 
     App.prototype.vars = function() {
-      return this.$main = $('#js-main');
+      this.$main = $('#js-main');
+      return this.scrollPos = 0;
     };
 
     App.prototype.initScroll = function() {
-      return console.log(this.$main[0]);
+      console.log(this.$main[0]);
+      this.scroller = new IScroll('#js-main', {
+        mouseWheel: true
+      });
+      document.addEventListener('touchmove', function(e) {
+        return e.preventDefault();
+      }, false);
+      this.scroller.on('scroll', this.updateScrollPos);
+      return this.scroller.on('scrollEnd', this.updateScrollPos);
+    };
+
+    App.prototype.updateScrollPos = function() {
+      return console.log(this.y);
     };
 
     return App;

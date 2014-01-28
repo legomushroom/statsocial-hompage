@@ -4,16 +4,18 @@
 *
 	bbox()
 
+html
+	rect 100%
+	-ms-touch-action: none
+
 body, html
 	min-rect 100%
 	margin 0
 	padding 0
-	overflow-x hidden
 
 body
-	background-color c-bg
-	font-family 'infinity', monospace
-	letter-spacing 1px
+	background-color red
+	height 1px
 
 @css{
 	::selection{
@@ -29,24 +31,6 @@ body
 	}
 	
 }
-
-
-// COLORS
-.c-grey1-g
-	color c-grey1
-.c-grey2-g
-	color c-grey2
-.c-grey2-hover-g
-	color c-grey2-hover
-
-.c-grey3-g
-	color c-grey3
-// COLORS
-
-// FONT
-.bold-g, .b-g
-	font-weight bold
-// FONT
 
 .op-0-g
 	opacity 0
