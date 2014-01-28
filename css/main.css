@@ -149,6 +149,7 @@ body,
 html {
   margin: 0;
   padding: 0;
+  background-color: #fff;
 }
 body {
   background-color: #f00;
@@ -1854,6 +1855,23 @@ a,
   margin-left: -50px;
   margin-top: -50px;
 }
+.rect-e.is-two {
+  top: 100px;
+  left: 100px;
+}
+.rect-e.is-three {
+  top: 800px;
+  left: 800px;
+}
+.rect-e.is-four {
+  top: 500px;
+  left: 500px;
+}
+.rect-e.is-five {
+  top: 500px;
+  left: 500px;
+  left: 200px;
+}
 .main-l {
   min-width: 100%;
   min-height: 100%;
@@ -1863,7 +1881,7 @@ a,
   bottom: 0;
   left: 0;
   width: 50%;
-  background: #ccc;
+  background: #fff;
   overflow: hidden;
 }
 .main-l #scroller {
@@ -1887,9 +1905,6 @@ a,
   -ms-text-size-adjust: none;
   -o-text-size-adjust: none;
   text-size-adjust: none;
-  background-color: #808080;
-  background-image: linear-gradient(transparent 50%, rgba(255,255,255,0.5) 50%);
-  background-size: 50px 50px;
 }
 .icon {
   width: 32px;

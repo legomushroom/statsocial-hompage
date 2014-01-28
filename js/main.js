@@ -8,6 +8,7 @@
       this.initScroll();
       this.initController();
       this.buildAnimations();
+      this.initParallax();
     }
 
     App.prototype.vars = function() {
@@ -41,20 +42,26 @@
       });
     };
 
+    App.prototype.initParallax = function() {
+      var $scence;
+
+      return $scence = $('#scence').parallax();
+    };
+
     App.prototype.updateScrollPos = function(that, it) {
       return it.controller.setScrollContainerOffset(0, -(that.y >> 0)).triggerCheckAnim(true);
     };
 
     App.prototype.buildAnimations = function() {
-      this.controller.addTween(10, TweenMax.to($('.rect-e'), .75, {
+      this.controller.addTween(10, TweenMax.to($('.rect-e.is-one'), .75, {
         css: {
           y: 800,
           rotation: 900
         }
       }), 2000);
-      return this.controller.addTween(500, TweenMax.to($('.rect-e'), .75, {
+      return this.controller.addTween(500, TweenMax.to($('.rect-e.is-one'), .75, {
         css: {
-          top: 200,
+          top: 300,
           y: 0
         }
       }), 2000);

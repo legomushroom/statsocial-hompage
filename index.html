@@ -8,13 +8,30 @@
   <body>
     <section role="main" id="js-main" class="main-l">
       <div id="scroller">
-        <div class="rect-e"></div>
+        <div id="scence">
+          <div data-depth="0.00" class="layer">
+            <div class="rect-e is-one"></div>
+          </div>
+          <div data-depth="0.10" class="layer">
+            <div class="rect-e is-two"></div>
+          </div>
+          <div data-depth="0.50" class="layer">
+            <div class="rect-e is-three"></div>
+          </div>
+          <div data-depth="0.50" class="layer">
+            <div class="rect-e is-four"></div>
+          </div>
+          <div data-depth="0.90" class="layer">
+            <div class="rect-e is-five"></div>
+          </div>
+        </div>
       </div>
     </section>
     <script src="js/jquery-2.1.0.min.js"></script>
     <script src="js/jquery.superscrollorama.js"></script>
     <script src="js/iscroll.js"></script>
     <script src="js/tweenmax.min.js"></script>
+    <script src="js/jquery.parallax.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

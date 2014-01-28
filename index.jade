@@ -8,15 +8,24 @@ html
 	body
 		section(role="main")#js-main.main-l
 			#scroller
-
-				.rect-e
-
+				#scence
+					.layer(data-depth="0.00")
+						.rect-e.is-one
+					.layer(data-depth="0.10")
+						.rect-e.is-two
+					.layer(data-depth="0.50")
+						.rect-e.is-three
+					.layer(data-depth="0.50")
+						.rect-e.is-four
+					.layer(data-depth="0.90")
+						.rect-e.is-five
 
 
 		script(src="js/jquery-2.1.0.min.js")
 		script(src="js/jquery.superscrollorama.js")
 		script(src="js/iscroll.js")
 		script(src="js/tweenmax.min.js")
+		script(src="js/jquery.parallax.js")
 		script(src="js/main.js")
 
 
