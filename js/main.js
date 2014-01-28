@@ -6,6 +6,8 @@
     function App() {
       this.vars();
       this.initScroll();
+      this.initController();
+      this.buildAnimations();
     }
 
     App.prototype.vars = function() {
@@ -13,8 +15,16 @@
       return this.scrollPos = 0;
     };
 
+    App.prototype.initController = function() {
+      return this.controller = $.superscrollorama({
+        triggerAtCenter: false,
+        playoutAnimations: true
+      });
+    };
+
     App.prototype.initScroll = function() {
-      console.log(this.$main[0]);
+      var it;
+
       this.scroller = new IScroll('#js-main', {
         probeType: 3,
         mouseWheel: true
@@ -22,12 +32,32 @@
       document.addEventListener('touchmove', (function(e) {
         return e.preventDefault();
       }), false);
-      this.scroller.on('scroll', this.updateScrollPos);
-      return this.scroller.on('scrollEnd', this.updateScrollPos);
+      it = this;
+      this.scroller.on('scroll', function() {
+        return it.updateScrollPos(this, it);
+      });
+      return this.scroller.on('scrollEnd', function() {
+        return it.updateScrollPos(this, it);
+      });
     };
 
-    App.prototype.updateScrollPos = function() {
-      return console.log(this.y >> 0);
+    App.prototype.updateScrollPos = function(that, it) {
+      return it.controller.setScrollContainerOffset(0, -(that.y >> 0)).triggerCheckAnim(true);
+    };
+
+    App.prototype.buildAnimations = function() {
+      this.controller.addTween(10, TweenMax.to($('.rect-e'), .75, {
+        css: {
+          y: 800,
+          rotation: 900
+        }
+      }), 2000);
+      return this.controller.addTween(500, TweenMax.to($('.rect-e'), .75, {
+        css: {
+          top: 200,
+          y: 0
+        }
+      }), 2000);
     };
 
     return App;
