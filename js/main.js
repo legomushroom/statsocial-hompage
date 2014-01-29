@@ -45,7 +45,7 @@
     App.prototype.initParallax = function() {
       var $scence;
 
-      return $scence = $('#scence').parallax();
+      return $scence = $('#js-main').parallax();
     };
 
     App.prototype.updateScrollPos = function(that, it) {
@@ -53,18 +53,11 @@
     };
 
     App.prototype.buildAnimations = function() {
-      this.controller.addTween(10, TweenMax.to($('.rect-e.is-one'), .75, {
+      return this.controller.addTween(1, TweenMax.to($('.curtain-l'), .75, {
         css: {
-          y: 800,
-          rotation: 900
+          y: '-1000%'
         }
-      }), 2000);
-      return this.controller.addTween(500, TweenMax.to($('.rect-e.is-one'), .75, {
-        css: {
-          top: 300,
-          y: 0
-        }
-      }), 2000);
+      }), 3000);
     };
 
     return App;

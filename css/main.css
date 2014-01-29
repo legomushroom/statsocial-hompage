@@ -149,7 +149,7 @@ body,
 html {
   margin: 0;
   padding: 0;
-  background-color: #ffc0cb;
+  background-color: #f1f1f1;
 }
 ::selection{
 		background-color: #f59995;
@@ -1841,43 +1841,22 @@ a,
 .c-grey10-bg-g {
   background-color: #fff;
 }
-.rect-e {
-  width: 100px;
-  height: 100px;
-  background: #ffc0cb;
-  position: absolute;
-  top: 200px;
-  left: 200px;
-  margin-left: -50px;
-  margin-top: -50px;
-}
-.rect-e.is-two {
-  top: 100px;
-  left: 100px;
-}
-.rect-e.is-three {
-  top: 800px;
-  left: 800px;
-}
-.rect-e.is-four {
-  top: 500px;
-  left: 500px;
-}
-.rect-e.is-five {
-  top: 500px;
-  left: 500px;
-  left: 200px;
+.status-quo-e {
+  width: 445px;
+  height: 118px;
+  background: url("i/status-quo.svg") no-repeat center center;
 }
 .curtain-l {
   background-color: #ff6d6a;
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   overflow: hidden;
+  z-index: 1;
 }
-.curtain-l > div {
+.curtain-l .curtain-layer-lh {
   width: 200%;
   height: 200%;
   position: absolute;
@@ -1958,9 +1937,10 @@ a,
   top: 0;
   bottom: 0;
   left: 0;
-  width: 50%;
   background: #fff;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 .main-l #scroller {
   height: 999999px;
@@ -1968,11 +1948,13 @@ a,
   z-index: 0;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   width: 100%;
-  -webkit-transform: translateZ(0) translate(0, 0) !important;
-  -moz-transform: translateZ(0) translate(0, 0) !important;
-  -ms-transform: translateZ(0) translate(0, 0) !important;
-  -o-transform: translateZ(0) translate(0, 0) !important;
-  transform: translateZ(0) translate(0, 0) !important;
+  height: 100%;
+  width: 100%;
+  -webkit-transform: translateZ(0) !important;
+  -moz-transform: translateZ(0) !important;
+  -ms-transform: translateZ(0) !important;
+  -o-transform: translateZ(0) !important;
+  transform: translateZ(0) !important;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;

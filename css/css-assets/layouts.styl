@@ -4,13 +4,14 @@
 /* 076c46b86ca2be8ed15c0aa79a53c76a */
 .curtain-l
 	background-color #ff6d6a
-	position fixed
+	position absolute
 	rect 100%
 	nw 0
 	overflow hidden
+	z-index 1
 
 	coef = 10
-	> div
+	.curtain-layer-lh
 		rect 200%
 		position absolute
 		nw -50%
@@ -70,9 +71,9 @@
 	top: 0
 	bottom: 0
 	left: 0
-	width: 50%
 	background: white
 	overflow: hidden
+	rect 100%
 
 	scrollerSize = 999999px
 	#scroller 
@@ -80,8 +81,9 @@
 		position: absolute;
 		z-index: 0;
 		-webkit-tap-highlight-color: rgba(0,0,0,0);
-		width: 100%;
-		transform: translateZ(0) translate(0,0) II
+		rect 100%
+		width 100%
+		transform: translateZ(0) II
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
 		-moz-user-select: none;

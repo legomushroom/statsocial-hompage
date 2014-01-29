@@ -25,24 +25,13 @@ class App
 		@scroller.on 'scrollEnd', -> it.updateScrollPos this, it
 
 	initParallax:->
-		$scence = $('#scence').parallax()
+		$scence = $('#js-main').parallax()
 
 	updateScrollPos:(that, it)->
 		it.controller.setScrollContainerOffset(0, -(that.y>>0)).triggerCheckAnim(true)
 
 	buildAnimations:->
-		@controller.addTween 10, TweenMax.to($('.rect-e.is-one'), .75, {css:{ y: 800, rotation: 900}}), 2000
-		@controller.addTween 500, TweenMax.to($('.rect-e.is-one'), .75, {css:{ top: 300, y: 0 }}), 2000
-
-		# i = 0
-		# interval = setInterval =>
-		# 	@controller.setScrollContainerOffset(0, i++)
-		# 	@controller.triggerCheckAnim(true)
-		# 	if i is 300 then clearInterval interval
-		# , 10
-
-
-
+		@controller.addTween 1, TweenMax.to($('.curtain-l'), .75, {css:{ y: '-1000%' }}), 3000
 
 new App
 

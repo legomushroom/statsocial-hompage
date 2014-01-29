@@ -243,7 +243,7 @@
         this.wrapper = typeof el == 'string' ? document.querySelector(el) : el;
         this.scroller = this.wrapper.children[0];
         this.scrollerStyle = this.scroller.style; // cache style for better performance
-
+        // console.log(this.scrollerStyle);
         this.options = {
 
             resizeScrollbars: true,
@@ -685,6 +685,8 @@
             this.maxScrollX = this.wrapperWidth - this.scrollerWidth;
             this.maxScrollY = this.wrapperHeight - this.scrollerHeight;
 
+            this.maxScrollY = -99999999999999
+
             /* REPLACE END: refresh */
 
             this.hasHorizontalScroll = this.options.scrollX && this.maxScrollX < 0;
@@ -845,7 +847,7 @@
 
                 /* REPLACE START: _translate */
 
-                this.scrollerStyle[utils.style.transform] = 'translate(' + x + 'px,' + y + 'px)' + this.translateZ;
+                // this.scrollerStyle[utils.style.transform] = 'translate(' + x + 'px,' + y + 'px)' + this.translateZ;
 
                 /* REPLACE END: _translate */
 
