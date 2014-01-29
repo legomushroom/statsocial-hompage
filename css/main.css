@@ -149,11 +149,7 @@ body,
 html {
   margin: 0;
   padding: 0;
-  background-color: #fff;
-}
-body {
-  background-color: #f00;
-  overflow: hidden;
+  background-color: #ffc0cb;
 }
 ::selection{
 		background-color: #f59995;
@@ -1872,6 +1868,80 @@ a,
   left: 500px;
   left: 200px;
 }
+.curtain-l {
+  background-color: #ff6d6a;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+.curtain-l > div {
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+.curtain-l .image1 {
+  background: url("i/curtain-dots-bg1.png") repeat;
+  -webkit-animation: rotate 560s ease-out infinite;
+  -moz-animation: rotate 560s ease-out infinite alternate;
+  -ms-animation: rotate 560s ease-out infinite alternate;
+  -o-animation: rotate 560s ease-out infinite alternate;
+  animation: rotate 560s ease-out infinite alternate;
+}
+.curtain-l .image2 {
+  background: url("i/curtain-dots-bg2.png") repeat;
+  -webkit-animation: rotateReverse 280s ease-out infinite alternate;
+  -moz-animation: rotateReverse 280s ease-out infinite alternate;
+  -ms-animation: rotateReverse 280s ease-out infinite alternate;
+  -o-animation: rotateReverse 280s ease-out infinite alternate;
+  animation: rotateReverse 280s ease-out infinite alternate;
+}
+.curtain-l .image3 {
+  background: url("i/curtain-dots-bg3.png") repeat;
+  -webkit-animation: rotateReverse 400s ease-out infinite alternate;
+  -moz-animation: rotateReverse 400s ease-out infinite alternate;
+  -ms-animation: rotateReverse 400s ease-out infinite alternate;
+  -o-animation: rotateReverse 400s ease-out infinite alternate;
+  animation: rotateReverse 400s ease-out infinite alternate;
+}
+.curtain-l .image4 {
+  background: url("i/curtain-logos-bg1.png") repeat;
+  -webkit-animation: rotate 480s ease-out infinite alternate;
+  -moz-animation: rotate 480s ease-out infinite alternate;
+  -ms-animation: rotate 480s ease-out infinite alternate;
+  -o-animation: rotate 480s ease-out infinite alternate;
+  animation: rotate 480s ease-out infinite alternate;
+}
+.curtain-l .image5 {
+  background: url("i/curtain-logos-bg2.png") repeat;
+  -webkit-animation: rotateReverse 600s ease-out infinite alternate;
+  -moz-animation: rotateReverse 600s ease-out infinite alternate;
+  -ms-animation: rotateReverse 600s ease-out infinite alternate;
+  -o-animation: rotateReverse 600s ease-out infinite alternate;
+  animation: rotateReverse 600s ease-out infinite alternate;
+}
+.curtain-l .image6 {
+  background: url("i/curtain-logos-bg3.png") repeat;
+  -webkit-animation: rotateReverse 800s ease-out infinite alternate;
+  -moz-animation: rotateReverse 800s ease-out infinite alternate;
+  -ms-animation: rotateReverse 800s ease-out infinite alternate;
+  -o-animation: rotateReverse 800s ease-out infinite alternate;
+  animation: rotateReverse 800s ease-out infinite alternate;
+}
 .main-l {
   min-width: 100%;
   min-height: 100%;
@@ -1906,9 +1976,179 @@ a,
   -o-text-size-adjust: none;
   text-size-adjust: none;
 }
+@-moz-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-ms-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes rotateReverse {
+  0% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
+}
+@-webkit-keyframes rotateReverse {
+  0% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
+}
+@-o-keyframes rotateReverse {
+  0% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
+}
+@-ms-keyframes rotateReverse {
+  0% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
+}
+@keyframes rotateReverse {
+  0% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
+}
 .icon {
-  width: 32px;
-  height: 32px;
+  width: 144px;
+  height: 144px;
   fill: c-red;
   display: block;
   position: relative;
@@ -1921,12 +2161,13 @@ a,
   top: 0;
   left: 0;
 }
+.icon.is-stroke {
+  stroke: #000;
+  stroke-width: 2px;
+}
 .icon svg {
   float: left;
   width: 100%;
   height: 100%;
-}
-.icon.is-hoverable:hover {
-  fill: c-red-hover;
-  cursor: pointer;
+  stroke: inherit;
 }

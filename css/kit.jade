@@ -5,7 +5,6 @@ html
 		title Social stats UI kit
 		link(rel="stylesheet", type="text/css", href="main.css")
 		link(rel="stylesheet", type="text/css", href="assets/kit.css")
-		link(rel="stylesheet", href="css-assets/font/stylesheet.css", type="text/css", charset="utf-8")
 	body
 		include icons.svg
 		.main-kl
@@ -36,14 +35,40 @@ html
 				.cf 
 					.icon-sample-kl
 						.hash-e 7a570084fcf17dfd19f27128300c8648
-						//- - var data = { path: 'old-pen-icon' }
-						//- include partials/icon
+						- var el = { class: 'is-stroke', path: 'twitter-bird-icon' }
+						include partials/icon
 
 
 			.section-kl
 				.header-ke Elements
-				.hash-e b69a1e4a33a526ed9af2af493cfb4cb1
-				
+				.hash-e 076c46b86ca2be8ed15c0aa79a53c76a
+				.curtain-l
+					.image1
+					.image2
+					.image3
+					.image4
+					.image5
+					.image6
+					//- svg
+					//- 	pattern#curtain-pattern1(width="200", height="200", patternUnits="userSpaceOnUse")
+					//- 		image(xlink:href="i/curtain-dots-bg1.png", height="200", width="200")
+						
+					//- 	pattern#curtain-pattern2(width="200", height="200", patternUnits="userSpaceOnUse")
+					//- 		image(xlink:href="i/curtain-dots-bg2.png", height="200", width="200")
+					
+					//- 	rect(id="curtain-image1", fill="url(#curtain-pattern1)", width="2000", height="2000")
+					//- 	rect(id="curtain-image2", fill="url(#curtain-pattern2)", width="2000", height="2000")
+		
+
+		script(src="../js/jquery-2.1.0.min.js")
+		script(src="../js/jquery.superscrollorama.js")
+		script(src="../js/iscroll.js")
+		script(src="../js/tweenmax.min.js")
+		script(src="../js/jquery.parallax.js")
+		script(src="../js/tween.min.js")
+		script(src="../js/helpers.js")
+		script(src="../js/curtain.js")
+
 
 
 

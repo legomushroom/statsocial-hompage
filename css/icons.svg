@@ -1,4 +1,15 @@
 <svg id="svg-source" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" style="position:absolute; margin-left: -100%" xmlns:xlink="http://www.w3.org/1999/xlink">
 
 
+	<g id="twitter-bird-icon">
+		<polyline vector-effect="non-scaling-stroke" fill-rule="evenodd" clip-rule="evenodd" fill="none" stroke-miterlimit="10" points="13.603,15.524 
+		6.913,22.215 1.75,22.142 12.679,25.453 20.026,25.453 23.476,23.426 29.532,9.653 26.267,6.547 22.581,6.547 17.923,11.205 "/>
+		<polygon vector-effect="non-scaling-stroke" fill-rule="evenodd" clip-rule="evenodd" fill="none" stroke-miterlimit="10" points="22.005,24.29 
+		22.93,23.746 22.712,11.26 9.651,11.26 "/>
+		<polygon vector-effect="non-scaling-stroke" fill-rule="evenodd" clip-rule="evenodd" fill="none" stroke-miterlimit="10" points="20.75,8.048 
+		17.512,11.26 13.937,7.791 "/>
+		<polygon vector-effect="non-scaling-stroke" fill-rule="evenodd" clip-rule="evenodd" fill="none" stroke-miterlimit="10" points="29.532,9.653 
+		31,9.746 29.189,10.434 "/>
+	</g>
+
 </svg>

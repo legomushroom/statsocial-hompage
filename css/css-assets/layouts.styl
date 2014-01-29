@@ -1,6 +1,97 @@
 // LAYOUTS
 @import '../assets/imports.styl'
 
+/* 076c46b86ca2be8ed15c0aa79a53c76a */
+.curtain-l
+	background-color #ff6d6a
+	position fixed
+	rect 100%
+	nw 0
+	overflow hidden
+
+	coef = 20
+	> div
+		rect 200%
+		position absolute
+		nw -50%
+		-webkit-transform translateZ(0)
+		-moz-transform translateZ(0)
+		-ms-transform translateZ(0)
+		-o-transform translateZ(0)
+		transform translateZ(0)
+		-webkit-transform-origin 50% 50%
+		-moz-transform-origin 50% 50%
+		-ms-transform-origin 50% 50%
+		-o-transform-origin 50% 50%
+		transform-origin 50% 50%
+
+	// .image1, .image2, .image3
+	// 	opacity .5
+	
+	easingName = ease-out
+
+	animationTime = (28*coef)s
+	.image1
+		background url('i/curtain-dots-bg1.png') repeat
+		-webkit-animation rotate animationTime easingName infinite
+		-moz-animation rotate animationTime easingName infinite alternate
+		-ms-animation rotate animationTime easingName infinite alternate
+		-o-animation rotate animationTime easingName infinite alternate
+		animation rotate animationTime easingName infinite alternate
+		
+
+	animationTime = (14*coef)s
+	.image2
+		background url('i/curtain-dots-bg2.png') repeat
+		-webkit-animation rotateReverse animationTime easingName infinite alternate
+		-moz-animation rotateReverse animationTime easingName infinite alternate
+		-ms-animation rotateReverse animationTime easingName infinite alternate
+		-o-animation rotateReverse animationTime easingName infinite alternate
+		animation rotateReverse animationTime easingName infinite alternate
+
+	
+	animatinTime = (20*coef)s
+	.image3
+		background url('i/curtain-dots-bg3.png') repeat
+		-webkit-animation rotateReverse animatinTime easingName infinite alternate
+		-moz-animation rotateReverse animatinTime easingName infinite alternate
+		-ms-animation rotateReverse animatinTime easingName infinite alternate
+		-o-animation rotateReverse animatinTime easingName infinite alternate
+		animation rotateReverse animatinTime easingName infinite alternate
+
+	animatinTime = (24*coef)s
+	.image4
+		background url('i/curtain-logos-bg1.png') repeat
+		-webkit-animation rotate animatinTime easingName infinite alternate
+		-moz-animation rotate animatinTime easingName infinite alternate
+		-ms-animation rotate animatinTime easingName infinite alternate
+		-o-animation rotate animatinTime easingName infinite alternate
+		animation rotate animatinTime easingName infinite	 alternate
+		
+
+	animatinTime = (30*coef)s
+	.image5
+		background url('i/curtain-logos-bg2.png') repeat
+		-webkit-animation rotateReverse animatinTime easingName infinite alternate
+		-moz-animation rotateReverse animatinTime easingName infinite alternate
+		-ms-animation rotateReverse animatinTime easingName infinite alternate
+		-o-animation rotateReverse animatinTime easingName infinite alternate
+		animation rotateReverse animatinTime easingName infinite	 alternate
+		
+
+	animatinTime = (40*coef)s
+	.image6
+		background url('i/curtain-logos-bg3.png') repeat
+		-webkit-animation rotateReverse animatinTime easingName infinite alternate
+		-moz-animation rotateReverse animatinTime easingName infinite alternate
+		-ms-animation rotateReverse animatinTime easingName infinite alternate
+		-o-animation rotateReverse animatinTime easingName infinite alternate
+		animation rotateReverse animatinTime easingName infinite	 alternate
+
+
+	
+	// svg
+	// 	rect 100%
 
 .main-l
 	min-rect 100%
