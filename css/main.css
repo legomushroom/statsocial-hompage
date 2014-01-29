@@ -1846,6 +1846,19 @@ a,
   height: 118px;
   background: url("i/status-quo.svg") no-repeat center center;
 }
+.curtain2-l {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 100%;
+  position: absolute;
+  -webkit-transform: translateY(22px);
+  -moz-transform: translateY(22px);
+  -ms-transform: translateY(22px);
+  -o-transform: translateY(22px);
+  transform: translateY(22px);
+  background: #2388b1 url("i/curtain2-pattern.svg") repeat;
+}
 .curtain-l {
   background-color: #ff6d6a;
   position: absolute;
@@ -1853,8 +1866,11 @@ a,
   height: 100%;
   top: 0;
   left: 0;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  padding-bottom: 22px;
   overflow: hidden;
-  z-index: 1;
 }
 .curtain-l .curtain-layer-lh {
   width: 200%;
@@ -1872,6 +1888,13 @@ a,
   -ms-transform-origin: 50% 50%;
   -o-transform-origin: 50% 50%;
   transform-origin: 50% 50%;
+}
+.curtain-l .curtain-mask-lh {
+  height: 22px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background: url("i/curtain-mask.svg") repeat-x;
 }
 .curtain-l .image1 {
   background: url("i/curtain-dots-bg1.png") repeat;

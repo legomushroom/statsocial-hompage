@@ -43,7 +43,7 @@
     };
 
     App.prototype.initParallax = function() {
-      return this.$scence = this.$main.parallax();
+      return this.$scence = this.$('#js-curtain1').parallax();
     };
 
     App.prototype.updateScrollPos = function(that, it) {
@@ -53,11 +53,19 @@
     App.prototype.buildAnimations = function() {
       this.curtainTween1 = TweenMax.to(this.$('.curtain-l'), .75, {
         css: {
-          top: '-100%'
+          top: '-100%',
+          y: -20
         },
         onUpdate: StatSocial.helpers.bind(this.onUpdate, this)
       });
-      return this.controller.addTween(1, this.curtainTween1, 3000);
+      this.curtainTween2 = TweenMax.to(this.$('.curtain2-l'), .75, {
+        css: {
+          top: '0',
+          y: 0
+        }
+      });
+      this.controller.addTween(1, this.curtainTween1, 2500);
+      return this.controller.addTween(1, this.curtainTween2, 2500);
     };
 
     App.prototype.$ = function(selector) {
@@ -67,10 +75,12 @@
     App.prototype.onUpdate = function() {
       if (this.curtainTween1.totalProgress() >= 1) {
         this.isFirstCurtainParallax && this.$scence.parallax('disable');
-        return this.isFirstCurtainParallax = false;
+        this.isFirstCurtainParallax = false;
+        return this.$scence.hide();
       } else {
         !this.isFirstCurtainParallax && this.$scence.parallax('enable');
-        return this.isFirstCurtainParallax = true;
+        this.isFirstCurtainParallax = true;
+        return this.$scence.show();
       }
     };
 

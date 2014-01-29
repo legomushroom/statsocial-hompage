@@ -1,14 +1,25 @@
 // LAYOUTS
 @import '../assets/imports.styl'
 
+
+curtainMaskSize = 22px
+.curtain2-l
+	rect 100%
+	l 0
+	top 100%
+	position absolute
+	transform translateY(curtainMaskSize)
+	background #2388B1 url('i/curtain2-pattern.svg') repeat
+
 /* 076c46b86ca2be8ed15c0aa79a53c76a */
 .curtain-l
 	background-color #ff6d6a
 	position absolute
 	rect 100%
 	nw 0
+	cbox()
+	padding-bottom curtainMaskSize
 	overflow hidden
-	z-index 1
 
 	coef = 10
 	.curtain-layer-lh
@@ -17,6 +28,13 @@
 		nw -50%
 		transform translateZ(0)
 		transform-origin 50% 50%
+
+	.curtain-mask-lh
+		height curtainMaskSize
+		width 100%
+		position absolute
+		bottom 0
+		background url('i/curtain-mask.svg') repeat-x
 
 	// .image1, .image2, .image3
 	// 	opacity .5
