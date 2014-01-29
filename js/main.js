@@ -43,9 +43,7 @@
     };
 
     App.prototype.initParallax = function() {
-      var $scence;
-
-      return $scence = $('#js-main').parallax();
+      return this.$scence = this.$main.parallax();
     };
 
     App.prototype.updateScrollPos = function(that, it) {
@@ -53,11 +51,27 @@
     };
 
     App.prototype.buildAnimations = function() {
-      return this.controller.addTween(1, TweenMax.to($('.curtain-l'), .75, {
+      this.curtainTween1 = TweenMax.to(this.$('.curtain-l'), .75, {
         css: {
-          y: '-1000%'
-        }
-      }), 3000);
+          top: '-100%'
+        },
+        onUpdate: StatSocial.helpers.bind(this.onUpdate, this)
+      });
+      return this.controller.addTween(1, this.curtainTween1, 3000);
+    };
+
+    App.prototype.$ = function(selector) {
+      return this.$main.find(selector);
+    };
+
+    App.prototype.onUpdate = function() {
+      if (this.curtainTween1.totalProgress() >= 1) {
+        this.isFirstCurtainParallax && this.$scence.parallax('disable');
+        return this.isFirstCurtainParallax = false;
+      } else {
+        !this.isFirstCurtainParallax && this.$scence.parallax('enable');
+        return this.isFirstCurtainParallax = true;
+      }
     };
 
     return App;
