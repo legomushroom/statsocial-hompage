@@ -43,7 +43,8 @@
     };
 
     App.prototype.initParallax = function() {
-      return this.$scence = this.$('#js-curtain1').parallax();
+      this.$scence = this.$('#js-curtain1').parallax();
+      return this.$scence2 = this.$('#js-curtain2').parallax();
     };
 
     App.prototype.updateScrollPos = function(that, it) {

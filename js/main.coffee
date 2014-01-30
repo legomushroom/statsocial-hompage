@@ -26,6 +26,7 @@ class App
 
 	initParallax:->
 		@$scence = @$('#js-curtain1').parallax()
+		@$scence2 = @$('#js-curtain2').parallax()
 
 	updateScrollPos:(that, it)->
 		it.controller.setScrollContainerOffset(0, -(that.y>>0)).triggerCheckAnim(true)
