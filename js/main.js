@@ -51,21 +51,58 @@
     };
 
     App.prototype.buildAnimations = function() {
+      var $el, $left, $leftEls, $right, $rightEls, el, i, rotateDegree, rotateElsCountLeft, start, _i, _j, _len, _ref, _ref1;
+
       this.curtainTween1 = TweenMax.to(this.$('.curtain-l'), .75, {
         css: {
-          top: '-100%',
-          y: -20
+          top: '-100%'
         },
         onUpdate: StatSocial.helpers.bind(this.onUpdate, this)
       });
       this.curtainTween2 = TweenMax.to(this.$('.curtain2-l'), .75, {
         css: {
-          top: '0',
+          top: '-22px',
           y: 0
         }
       });
       this.controller.addTween(1, this.curtainTween1, 2500);
-      return this.controller.addTween(1, this.curtainTween2, 2500);
+      this.controller.addTween(1, this.curtainTween2, 2500);
+      $left = this.$('#js-curtain2-left-side');
+      $right = this.$('#js-curtain2-right-side');
+      $leftEls = $left.find('.curtain2-section-lh');
+      $rightEls = $right.find('.curtain2-section-lh');
+      start = 8000;
+      rotateDegree = 5;
+      rotateElsCountLeft = Math.min($leftEls.length, 10);
+      for (i = _i = _ref = $leftEls.length, _ref1 = $leftEls.length - rotateElsCountLeft; _ref <= _ref1 ? _i <= _ref1 : _i >= _ref1; i = _ref <= _ref1 ? ++_i : --_i) {
+        $el = $($leftEls.eq(i));
+        this.controller.addTween(start - (i * 300), TweenMax.to($el, .75, {
+          css: {
+            rotation: rotateDegree,
+            transformOrigin: 'left top'
+          }
+        }), 2500);
+      }
+      for (i = _j = 0, _len = $rightEls.length; _j < _len; i = ++_j) {
+        el = $rightEls[i];
+        $el = $(el);
+        this.controller.addTween(start - (($rightEls.length - i) * 300), TweenMax.to($el, .75, {
+          css: {
+            rotation: -rotateDegree,
+            transformOrigin: 'right top'
+          }
+        }), 2500);
+      }
+      this.controller.addTween(start / 2, TweenMax.to($left, .75, {
+        css: {
+          left: '-100%'
+        }
+      }), 20000);
+      return this.controller.addTween(start / 2, TweenMax.to($right, .75, {
+        css: {
+          left: '100%'
+        }
+      }), 20000);
     };
 
     App.prototype.$ = function(selector) {

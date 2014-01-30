@@ -11,9 +11,9 @@ html
 			#scroller
 				.curtain-l#js-curtain1
 					.status-quo-e.curtain-layer-lh
-					.layer(data-depth=".10")
+					.layer(data-depth="0.10")
 						.image1.curtain-layer-lh
-					.layer(data-depth="0.35")
+					.layer(data-depth="0.15")
 						.image2.curtain-layer-lh
 					.layer(data-depth="0.20")
 						.image3.curtain-layer-lh
@@ -21,14 +21,42 @@ html
 						.image4.curtain-layer-lh
 					.layer(data-depth="0.60")
 						.image5.curtain-layer-lh
-					.layer(data-depth="0.75")
+					.layer(data-depth="0.85")
 						.image6.curtain-layer-lh
 					.layer(data-depth="1.00")
 						.image7.curtain-layer-lh
 
-					.curtain-mask-lh
-
 				.curtain2-l#js-curtain2
+					.curtain2-wrapper-lh
+						.curtain2-body-lh
+							.curtain2-mask-lh
+							- var forkSize = 12
+							.curtain2-left-lh#js-curtain2-left-side
+								.image1.curtain-layer-lh
+								.image2.curtain-layer-lh
+
+								.image3.curtain-layer-lh
+								.image4.curtain-layer-lh
+
+								.image5.curtain-layer-lh
+								.image6.curtain-layer-lh
+
+								- for (var i=0; i< forkSize; i++)
+									.curtain2-section-lh.is-even
+										.curtain2-section-inner-lh
+									.curtain2-section-lh
+
+							.curtain2-right-lh#js-curtain2-right-side
+								.image1.curtain-layer-lh
+								.image2.curtain-layer-lh
+								.image3.curtain-layer-lh
+								.image4.curtain-layer-lh
+								.image5.curtain-layer-lh
+								.image6.curtain-layer-lh
+								- for (var i=0; i< forkSize; i++)
+									.curtain2-section-lh
+									.curtain2-section-lh.is-even
+										.curtain2-section-inner-lh
 
 
 		script(src="js/jquery-2.1.0.min.js")

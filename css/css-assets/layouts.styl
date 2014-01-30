@@ -3,13 +3,130 @@
 
 
 curtainMaskSize = 22px
+sectionWidth = 65px
+sectionsCount = 24
+darkBlue = #2388B1
+sideWidth = sectionsCount*sectionWidth
+
+coef = 10
 .curtain2-l
-	rect 100%
+	height 100%
+	width 100%
 	l 0
 	top 100%
 	position absolute
-	transform translateY(curtainMaskSize)
-	background #2388B1 url('i/curtain2-pattern.svg') repeat
+	padding-top curtainMaskSize
+	text-align center
+	overflow hidden
+
+	.curtain-layer-lh
+		rect 100%
+		position absolute
+		top 0
+		left 0
+		z-index 2
+		overflow hidden
+
+	easingName = linear
+	animationTime = (2*coef)s
+	.image1, .image2
+		background url('i/curtain-dots-bg3.png') repeat
+		animation snowFall animationTime easingName infinite
+
+	.image2
+		animation snowFall2 animationTime easingName infinite
+
+	.image3, .image4, .image5, .image6
+		background url('i/curtain2-konfetti1.svg') repeat
+		animation snowFall animationTime easingName infinite
+
+	.image4, .image6
+		background url('i/curtain2-konfetti2.svg') repeat
+
+	.image5, .image6
+		animation snowFall2 animationTime easingName infinite
+
+	.curtain2-wrapper-lh
+		width 1px
+		height 100%
+		display inline-block
+
+	.curtain2-body-lh
+		margin-left - sideWidth
+		width 2*sideWidth
+		height 100%
+		position relative
+		
+	.curtain2-mask-lh
+		height curtainMaskSize
+		width 100%
+		position absolute
+		left 0
+		top - curtainMaskSize
+		background url('i/curtain-mask.svg') repeat-x
+
+	.curtain2-left-lh, .curtain2-right-lh
+		width sectionsCount*sectionWidth
+		height 100%
+		overflow hidden
+		float left
+		position relative
+	.curtain2-right-lh
+		margin-left - sectionWidth
+
+		.image1, .image2
+			margin-left sectionWidth
+
+
+	.curtain2-section-lh
+		height 100%
+		width sectionWidth
+		float left
+		position relative
+		margin-bottom 100%
+		background-color #22a6df
+		border-bottom-left-radius  26px
+		border-bottom-right-radius 26px
+		z-index 1
+
+		&:before
+			content ''
+			width 100%
+			height 40px
+			position absolute
+			background-color inherit
+			top -20px
+			l 0
+
+		&.is-even
+			border-bottom-left-radius  0
+			border-bottom-right-radius 0
+			z-index 0
+			padding-bottom 40px
+			background-color transparent
+
+	.curtain2-section-inner-lh
+		background-color darkBlue
+		rect 100%
+		height 100%
+		overflow hidden
+		cbox()
+		padding-top 20px
+		margin-top -20px
+
+		&:before
+			content: ''
+			position absolute
+			display block
+			width 100%
+			height 40px
+			border-radius 50%
+			bottom 0
+			border-top 2px solid darkBlue
+			box-shadow 0 -20px 0 darkBlue, 10px -20px 0 darkBlue, -10px -20px 0 darkBlue
+
+
+			
 
 /* 076c46b86ca2be8ed15c0aa79a53c76a */
 .curtain-l
@@ -21,7 +138,6 @@ curtainMaskSize = 22px
 	padding-bottom curtainMaskSize
 	overflow hidden
 
-	coef = 10
 	.curtain-layer-lh
 		rect 200%
 		position absolute
@@ -29,12 +145,8 @@ curtainMaskSize = 22px
 		transform translateZ(0)
 		transform-origin 50% 50%
 
-	.curtain-mask-lh
-		height curtainMaskSize
-		width 100%
-		position absolute
-		bottom 0
-		background url('i/curtain-mask.svg') repeat-x
+	// .curtain-mask-lh
+		
 
 	// .image1, .image2, .image3
 	// 	opacity .5

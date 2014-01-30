@@ -31,11 +31,32 @@ class App
 		it.controller.setScrollContainerOffset(0, -(that.y>>0)).triggerCheckAnim(true)
 
 	buildAnimations:->
-		@curtainTween1 = TweenMax.to @$('.curtain-l'), .75, { css:{ top: '-100%', y: -20 }, onUpdate: StatSocial.helpers.bind(@onUpdate,@) }
-		@curtainTween2 = TweenMax.to @$('.curtain2-l'), .75, { css:{ top: '0', y: 0 } }
+		@curtainTween1 = TweenMax.to @$('.curtain-l'), .75, { css:{ top: '-100%' }, onUpdate: StatSocial.helpers.bind(@onUpdate,@) }
+		@curtainTween2 = TweenMax.to @$('.curtain2-l'), .75, { css:{ top: '-22px', y: 0 } }
 
 		@controller.addTween 1, @curtainTween1, 2500
 		@controller.addTween 1, @curtainTween2, 2500
+
+
+		$left 		= @$('#js-curtain2-left-side')
+		$right 		= @$('#js-curtain2-right-side')
+		$leftEls 	= $left.find('.curtain2-section-lh')
+		$rightEls = $right.find('.curtain2-section-lh')
+
+		start = 8000
+		rotateDegree = 5
+		rotateElsCountLeft = Math.min $leftEls.length, 10
+		for i in [$leftEls.length..$leftEls.length-rotateElsCountLeft]
+			$el = $ $leftEls.eq i
+			@controller.addTween start-(i*300), TweenMax.to($el, .75, { css:{ rotation: rotateDegree, transformOrigin: 'left top' } }), 2500
+
+		for el, i in $rightEls
+			$el = $ el
+			@controller.addTween start-(($rightEls.length-i)*300), TweenMax.to($el, .75, { css:{ rotation: -rotateDegree, transformOrigin: 'right top' } }), 2500
+		
+		@controller.addTween start/2, TweenMax.to($left, .75, { css:{ left: '-100%' } }), 20000
+		@controller.addTween start/2, TweenMax.to($right, .75, { css:{ left: '100%' } }), 20000
+
 
 	$:(selector)->
 		@$main.find(selector)
