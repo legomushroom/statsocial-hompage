@@ -1,2 +1,90 @@
 // BLOCKS
 @import '../assets/imports.styl'
+
+/* 4cbf1f487e13aad9100b274a119b2453 */
+.cloud-b
+	position relative
+	width  114px
+	height 52px 
+	transform scale(1.5)
+
+	.circle-be
+		border-radius 50%
+		background white
+		rect 47px
+		position absolute
+		transition all .5s ease-in
+		transform scale(0)
+
+		&.is-1
+			right 26px
+			top 0
+
+		&.is-2
+			rect 35px
+			right 0
+			bottom 0
+
+		&.is-3
+			rect 26px
+			left 16px
+			bottom 8px
+
+		&.is-4
+			rect 20px
+			left 0
+			bottom 0
+
+		&.is-5
+			rect 20px
+			left 30px
+			bottom 5px
+	
+	.base-be
+		background white
+		bottom 0
+		border-radius 20px
+		width 75%
+		position absolute
+		height 15px
+		transform scale(0)
+		transition all .5s ease-out
+		left 20px
+	
+	.base2-be
+		left 5px
+		rect 20px
+		bottom 5px
+
+	&.is-anima
+		.circle-be, .base-be
+			transform scale(1)
+
+		.base2-be
+			bottom 0
+			height 12px
+			width 40px
+
+		.base-be
+			-webkit-transition-duration .10s
+			-moz-transition-duration .10s
+			-ms-transition-duration .10s
+			-o-transition-duration .10s
+			transition-duration .15s
+			-webkit-transition-delay .3s
+			-moz-transition-delay .3s
+			-ms-transition-delay .3s
+			-o-transition-delay .3s
+			transition-delay .3s
+
+
+
+
+
+
+
+
+
+
+
+
