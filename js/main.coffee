@@ -5,7 +5,7 @@ class App
 		@initScroll()
 		@initController()
 		@buildAnimations()
-		# @initParallax()
+		@initParallax()
 
 	vars:->
 		@$main =  $('#js-main')
@@ -56,10 +56,11 @@ class App
 		@curtainTween2 	= TweenMax.to @$('.curtain2-l'), .75, { css:{ top: '-22px', y: 0 } }
 		@scriptTween1  	= TweenMax.to @$script1, .75, { css:	{ top: '50%', opacity: 1 } }
 		@scriptTween12  = TweenMax.to @$script1, .75, { css:	{ top: '95%' } }
-		@logoTween  		= TweenMax.to @$mainLogo, .1, { css:	{ top: '100%'} }
-		
-		# @logoTween  		= TweenMax.to @$mainLogo, .5, { css:	{ top: '100%'} }
+		@logoTween  		= TweenMax.to @$mainLogo, .75, { css:	{ top: '100%'} }
 
+		# FIX
+		@$mainLogo.css 'top': '50%'
+		
 		@controller.addTween @frameDurationTime, @curtainTween1, @frameDurationTime
 		@controller.addTween @frameDurationTime, @curtainTween2, @frameDurationTime
 		@controller.addTween 1, @scriptTween1, @frameDurationTime/1.5
@@ -78,10 +79,10 @@ class App
 
 
 		# THE SECOND CURTAIN
-		$left 		= @$('#js-curtain2-left-side')
-		$right 		= @$('#js-curtain2-right-side')
-		$leftEls 	= $left.find('.curtain2-section-lh')
-		$rightEls = $right.find('.curtain2-section-lh')
+		@$left 		= @$('#js-curtain2-left-side')
+		@$right 		= @$('#js-curtain2-right-side')
+		$leftEls 	= @$left.find('.curtain2-section-lh')
+		$rightEls = @$right.find('.curtain2-section-lh')
 
 		start = 2*@frameDurationTime
 		rotateDegree = 5
@@ -94,8 +95,10 @@ class App
 			$el = $ el
 			@controller.addTween start-(($rightEls.length-i)*(@frameDurationTime/$rightEls.length)), TweenMax.to($el, .75, { css:{ rotation: -rotateDegree, transformOrigin: 'right top' } }), @frameDurationTime
 		
-		@controller.addTween start, TweenMax.to($left, .75, { css:{ left: -@$window.outerWidth()/2 } }), @frameDurationTime
-		@controller.addTween start, TweenMax.to($right, .75, { css:{ left: (@$window.outerWidth()/2) + $rightEls.first().outerWidth() } }), @frameDurationTime
+		@curtain2LeftTween = TweenMax.to(@$left, .75, { css:{ left: -@$window.outerWidth()/2 }, onUpdate: StatSocial.helpers.bind(@onCurtain2Update,@)  })
+		
+		@controller.addTween start, @curtain2LeftTween, @frameDurationTime
+		@controller.addTween start, TweenMax.to(@$right, .75, { css:{ left: (@$window.outerWidth()/2) + $rightEls.first().outerWidth() } }), @frameDurationTime
 
 		# THE THIRD CURTAIN
 		start = 3.5*@frameDurationTime
@@ -109,13 +112,24 @@ class App
 
 	onCurtain1Update:->
 		if @curtainTween1.totalProgress() >= 1
-			# @isFirstCurtainParallax and @$scence.parallax 'disable'
-			# @isFirstCurtainParallax = false
+			@isFirstCurtainParallax and @$scence.parallax 'disable'
+			@isFirstCurtainParallax = false
 			@$scence.hide()
 		else
-			# !@isFirstCurtainParallax and @$scence.parallax 'enable'
-			# @isFirstCurtainParallax = true
+			!@isFirstCurtainParallax and @$scence.parallax 'enable'
+			@isFirstCurtainParallax = true
 			@$scence.show()
+
+	onCurtain2Update:->
+		console.log @curtain2LeftTween.totalProgress()
+		# if @$left.totalProgress() >= 1
+		# 	@isFirstCurtainParallax and @$scence.parallax 'disable'
+		# 	@isFirstCurtainParallax = false
+		# 	@$scence.hide()
+		# else
+		# 	!@isFirstCurtainParallax and @$scence.parallax 'enable'
+		# 	@isFirstCurtainParallax = true
+		# 	@$scence.show()
 
 
 

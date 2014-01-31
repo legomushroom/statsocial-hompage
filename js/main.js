@@ -8,6 +8,7 @@
       this.initScroll();
       this.initController();
       this.buildAnimations();
+      this.initParallax();
     }
 
     App.prototype.vars = function() {
@@ -60,7 +61,7 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $el, $images, $left, $leftEls, $right, $rightEls, el, i, rotateDegree, rotateElsCountLeft, start, _i, _j, _k, _len, _len1, _ref, _ref1;
+      var $el, $images, $leftEls, $rightEls, el, i, rotateDegree, rotateElsCountLeft, start, _i, _j, _k, _len, _len1, _ref, _ref1;
 
       this.curtainTween1 = TweenMax.to(this.$('.curtain-l'), .75, {
         css: {
@@ -85,10 +86,13 @@
           top: '95%'
         }
       });
-      this.logoTween = TweenMax.to(this.$mainLogo, .1, {
+      this.logoTween = TweenMax.to(this.$mainLogo, .75, {
         css: {
           top: '100%'
         }
+      });
+      this.$mainLogo.css({
+        'top': '50%'
       });
       this.controller.addTween(this.frameDurationTime, this.curtainTween1, this.frameDurationTime);
       this.controller.addTween(this.frameDurationTime, this.curtainTween2, this.frameDurationTime);
@@ -111,10 +115,10 @@
           }
         }), this.frameDurationTime);
       }
-      $left = this.$('#js-curtain2-left-side');
-      $right = this.$('#js-curtain2-right-side');
-      $leftEls = $left.find('.curtain2-section-lh');
-      $rightEls = $right.find('.curtain2-section-lh');
+      this.$left = this.$('#js-curtain2-left-side');
+      this.$right = this.$('#js-curtain2-right-side');
+      $leftEls = this.$left.find('.curtain2-section-lh');
+      $rightEls = this.$right.find('.curtain2-section-lh');
       start = 2 * this.frameDurationTime;
       rotateDegree = 5;
       rotateElsCountLeft = Math.min($leftEls.length, 10);
@@ -137,12 +141,14 @@
           }
         }), this.frameDurationTime);
       }
-      this.controller.addTween(start, TweenMax.to($left, .75, {
+      this.curtain2LeftTween = TweenMax.to(this.$left, .75, {
         css: {
           left: -this.$window.outerWidth() / 2
-        }
-      }), this.frameDurationTime);
-      this.controller.addTween(start, TweenMax.to($right, .75, {
+        },
+        onUpdate: StatSocial.helpers.bind(this.onCurtain2Update, this)
+      });
+      this.controller.addTween(start, this.curtain2LeftTween, this.frameDurationTime);
+      this.controller.addTween(start, TweenMax.to(this.$right, .75, {
         css: {
           left: (this.$window.outerWidth() / 2) + $rightEls.first().outerWidth()
         }
@@ -162,10 +168,18 @@
 
     App.prototype.onCurtain1Update = function() {
       if (this.curtainTween1.totalProgress() >= 1) {
+        this.isFirstCurtainParallax && this.$scence.parallax('disable');
+        this.isFirstCurtainParallax = false;
         return this.$scence.hide();
       } else {
+        !this.isFirstCurtainParallax && this.$scence.parallax('enable');
+        this.isFirstCurtainParallax = true;
         return this.$scence.show();
       }
+    };
+
+    App.prototype.onCurtain2Update = function() {
+      return console.log(this.curtain2LeftTween.totalProgress());
     };
 
     return App;
