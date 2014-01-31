@@ -1942,12 +1942,7 @@ a,
   -ms-transform: scale(1);
   -o-transform: scale(1);
   transform: scale(1);
-  -webkit-transition-timing-function: cubic-bezier(0.545, 0.38, 0.465, 1);
-  -webkit-transition-timing-function: cubic-bezier(0.545, 0.38, 0.465, 1.54);
-  -moz-transition-timing-function: cubic-bezier(0.545, 0.38, 0.465, 1.54);
-  -ms-transition-timing-function: cubic-bezier(0.545, 0.38, 0.465, 1.54);
-  -o-transition-timing-function: cubic-bezier(0.545, 0.38, 0.465, 1.54);
-  transition-timing-function: cubic-bezier(0.545, 0.38, 0.465, 1.54);
+  transition: all 0.4s linear, bottom 0.5s cubic-bezier(0.545, 0.38, 0.465, 1.54);
 }
 .cloud-b.is-anima .base2-be {
   bottom: 6px;
