@@ -1,13 +1,59 @@
 // LAYOUTS
 @import '../assets/imports.styl'
 
+.script-l
+	font-family 'reklame-script'
+	color white
+	position absolute
+	z-index 5
+	text-align center
+	width 100%
+	font-size 50px
+	transform translateZ(0)
+
+	&.is-status-quo
+		font-size 130px
+		top 50%
+		margin-top -100px
+
+	&.is-1
+		top 100%
+		margin-top 40px
+		opacity 0
+
+	&.is-2
+		color white
+		top 150%
+		margin-top - 50px
+
+.layer
+	position absolute
+	nw 0
+	rect 100%
+
+.curtain3-l
+	background-color #72d2d1
+	rect 100%
+	position absolute
+	nw 0
+	z-index 1
+
+	> .ground-ll
+		height 145px
+		position absolute
+		bottom 0
+		width 100%
+		left - 100%
+		background #493542 url('i/curtain-dots-bg3.png') repeat
+		background-position 0 -200px
+
+// .curtain-l, .curtain2-l
+// 	display none II
 
 curtainMaskSize = 22px
 sectionWidth = 65px
 sectionsCount = 24
-darkBlue = #2388B1
 sideWidth = sectionsCount*sectionWidth
-
 coef = 10
 .curtain2-l
 	height 100%
@@ -18,24 +64,30 @@ coef = 10
 	padding-top curtainMaskSize
 	text-align center
 	overflow hidden
+	z-index 2
 	cbox()
 
 	.curtain2-konfetti-lh
 		position absolute
 		nw 0
 		rect 100%
-		z-index 2
+		z-index 3
 
 	.curtain-layer-lh
 		rect 100%
-		position absolute
+		posxition absolute
 		top 0
 		left 0
-		z-index 2
 		overflow hidden
+		transform translateZ(0)
+
+		.no-amimation-g &
+			animation none
 
 	easingName = linear
 	animationTime = (2*coef)s
+	animationTime2 = (1.25*coef)s
+	animationTime3 = (1*coef)s
 	.image1, .image2
 		background url('i/curtain-dots-bg3.png') repeat
 		animation snowFall animationTime easingName infinite
@@ -44,14 +96,24 @@ coef = 10
 		animation snowFall2 animationTime easingName infinite
 
 	.image3, .image4, .image5, .image6
-		background url('i/curtain2-konfetti1.svg') repeat
+		background url('i/curtain2-konfetti1.png') repeat
 		animation snowFall animationTime easingName infinite
-
-	.image4, .image6
-		background url('i/curtain2-konfetti2.svg') repeat
 
 	.image5, .image6
 		animation snowFall2 animationTime easingName infinite
+
+	.image4, .image6
+		background url('i/curtain2-konfetti2.png') repeat
+		-webkit-animation-duration  animationTime2
+		-moz-animation-duration  animationTime2
+		-o-animation-duration  animationTime2
+		animation-duration  animationTime2
+
+	.image3, .image5
+		-webkit-animation-duration  animationTime3
+		-moz-animation-duration  animationTime3
+		-o-animation-duration  animationTime3
+		animation-duration  animationTime3
 
 	.curtain2-wrapper-lh
 		width 1px
@@ -94,7 +156,7 @@ coef = 10
 		background-color #22a6df
 		border-bottom-left-radius  26px
 		border-bottom-right-radius 26px
-		z-index 1
+		z-index 2
 		top 0
 
 		&:before
@@ -113,6 +175,7 @@ coef = 10
 			padding-bottom 40px
 			background-color transparent
 
+
 	.curtain2-section-inner-lh
 		background-color darkBlue
 		rect 100%
@@ -121,6 +184,7 @@ coef = 10
 		cbox()
 		padding-top 20px
 		margin-top -20px
+		box-shadow 20px 0 0 darkBlue, -20px 0 0 darkBlue
 
 		&:before
 			content: ''
@@ -145,6 +209,7 @@ coef = 10
 	cbox()
 	padding-bottom curtainMaskSize
 	overflow hidden
+	z-index 2
 
 	.curtain-layer-lh
 		rect 200%
@@ -153,11 +218,8 @@ coef = 10
 		transform translateZ(0)
 		transform-origin 50% 50%
 
-	// .curtain-mask-lh
-		
-
-	// .image1, .image2, .image3
-	// 	opacity .5
+		.no-amimation-g &
+			animation none
 	
 	easingName = linear
 	animationTime = (70*coef)s

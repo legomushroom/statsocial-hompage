@@ -8,12 +8,20 @@
       this.initScroll();
       this.initController();
       this.buildAnimations();
-      this.initParallax();
     }
 
     App.prototype.vars = function() {
       this.$main = $('#js-main');
-      return this.scrollPos = 0;
+      this.$body = $(document.body);
+      this.scrollPos = 0;
+      this.$window = $(window);
+      this.$window.height();
+      this.frameDurationTime = 2500;
+      this.$mainLogo = this.$('#js-main-logo');
+      this.$script1 = this.$('#js-script1');
+      this.$script2 = this.$('#js-script2');
+      this.$scence = this.$('#js-curtain1');
+      return this.$scence2 = this.$('#js-curtain2');
     };
 
     App.prototype.initController = function() {
@@ -43,8 +51,8 @@
     };
 
     App.prototype.initParallax = function() {
-      this.$scence = this.$('#js-curtain1').parallax();
-      return this.$scence2 = this.$('#js-curtain2').parallax();
+      this.$scence.parallax();
+      return this.$scence2.parallax();
     };
 
     App.prototype.updateScrollPos = function(that, it) {
@@ -52,13 +60,13 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $el, $left, $leftEls, $right, $rightEls, el, i, rotateDegree, rotateElsCountLeft, start, _i, _j, _len, _ref, _ref1;
+      var $el, $images, $left, $leftEls, $right, $rightEls, el, i, rotateDegree, rotateElsCountLeft, start, _i, _j, _k, _len, _len1, _ref, _ref1;
 
       this.curtainTween1 = TweenMax.to(this.$('.curtain-l'), .75, {
         css: {
           top: '-100%'
         },
-        onUpdate: StatSocial.helpers.bind(this.onUpdate, this)
+        onUpdate: StatSocial.helpers.bind(this.onCurtain1Update, this)
       });
       this.curtainTween2 = TweenMax.to(this.$('.curtain2-l'), .75, {
         css: {
@@ -66,58 +74,96 @@
           y: 0
         }
       });
-      this.controller.addTween(1, this.curtainTween1, 2500);
-      this.controller.addTween(1, this.curtainTween2, 2500);
+      this.scriptTween1 = TweenMax.to(this.$script1, .75, {
+        css: {
+          top: '50%',
+          opacity: 1
+        }
+      });
+      this.scriptTween12 = TweenMax.to(this.$script1, .75, {
+        css: {
+          top: '95%'
+        }
+      });
+      this.logoTween = TweenMax.to(this.$mainLogo, .1, {
+        css: {
+          top: '100%'
+        }
+      });
+      this.controller.addTween(this.frameDurationTime, this.curtainTween1, this.frameDurationTime);
+      this.controller.addTween(this.frameDurationTime, this.curtainTween2, this.frameDurationTime);
+      this.controller.addTween(1, this.scriptTween1, this.frameDurationTime / 1.5);
+      this.controller.addTween(this.frameDurationTime, this.scriptTween12, this.frameDurationTime / 2);
+      this.controller.addTween(this.frameDurationTime, this.logoTween, this.frameDurationTime / 2);
+      this.scriptTween2 = TweenMax.to(this.$script2, .75, {
+        css: {
+          top: '50%'
+        }
+      });
+      this.controller.addTween(this.frameDurationTime, this.scriptTween2, this.frameDurationTime * 1.5);
+      $images = this.$scence.find('.curtain-layer-lh');
+      for (i = _i = 0, _len = $images.length; _i < _len; i = ++_i) {
+        el = $images[i];
+        $el = $(el);
+        this.controller.addTween(this.frameDurationTime, TweenMax.to($el, .75, {
+          css: {
+            top: "" + (50 + (i * 5)) + "%"
+          }
+        }), this.frameDurationTime);
+      }
       $left = this.$('#js-curtain2-left-side');
       $right = this.$('#js-curtain2-right-side');
       $leftEls = $left.find('.curtain2-section-lh');
       $rightEls = $right.find('.curtain2-section-lh');
-      start = 8000;
+      start = 2 * this.frameDurationTime;
       rotateDegree = 5;
       rotateElsCountLeft = Math.min($leftEls.length, 10);
-      for (i = _i = _ref = $leftEls.length, _ref1 = $leftEls.length - rotateElsCountLeft; _ref <= _ref1 ? _i <= _ref1 : _i >= _ref1; i = _ref <= _ref1 ? ++_i : --_i) {
+      for (i = _j = _ref = $leftEls.length, _ref1 = $leftEls.length - rotateElsCountLeft; _ref <= _ref1 ? _j <= _ref1 : _j >= _ref1; i = _ref <= _ref1 ? ++_j : --_j) {
         $el = $($leftEls.eq(i));
-        this.controller.addTween(start - (i * 300), TweenMax.to($el, .75, {
+        this.controller.addTween(start - (i * (this.frameDurationTime / $leftEls.length)), TweenMax.to($el, .75, {
           css: {
             rotation: rotateDegree,
             transformOrigin: 'left top'
           }
-        }), 2500);
+        }), this.frameDurationTime);
       }
-      for (i = _j = 0, _len = $rightEls.length; _j < _len; i = ++_j) {
+      for (i = _k = 0, _len1 = $rightEls.length; _k < _len1; i = ++_k) {
         el = $rightEls[i];
         $el = $(el);
-        this.controller.addTween(start - (($rightEls.length - i) * 300), TweenMax.to($el, .75, {
+        this.controller.addTween(start - (($rightEls.length - i) * (this.frameDurationTime / $rightEls.length)), TweenMax.to($el, .75, {
           css: {
             rotation: -rotateDegree,
             transformOrigin: 'right top'
           }
-        }), 2500);
+        }), this.frameDurationTime);
       }
-      this.controller.addTween(start / 2, TweenMax.to($left, .75, {
+      this.controller.addTween(start, TweenMax.to($left, .75, {
         css: {
-          left: '-100%'
+          left: -this.$window.outerWidth() / 2
         }
-      }), 20000);
-      return this.controller.addTween(start / 2, TweenMax.to($right, .75, {
+      }), this.frameDurationTime);
+      this.controller.addTween(start, TweenMax.to($right, .75, {
         css: {
-          left: '100%'
+          left: (this.$window.outerWidth() / 2) + $rightEls.first().outerWidth()
         }
-      }), 20000);
+      }), this.frameDurationTime);
+      start = 3.5 * this.frameDurationTime;
+      this.groundTween = TweenMax.to(this.$('#js-ground'), .75, {
+        css: {
+          left: '0'
+        }
+      });
+      return this.controller.addTween(start, this.groundTween, this.frameDurationTime);
     };
 
     App.prototype.$ = function(selector) {
       return this.$main.find(selector);
     };
 
-    App.prototype.onUpdate = function() {
+    App.prototype.onCurtain1Update = function() {
       if (this.curtainTween1.totalProgress() >= 1) {
-        this.isFirstCurtainParallax && this.$scence.parallax('disable');
-        this.isFirstCurtainParallax = false;
         return this.$scence.hide();
       } else {
-        !this.isFirstCurtainParallax && this.$scence.parallax('enable');
-        this.isFirstCurtainParallax = true;
         return this.$scence.show();
       }
     };
