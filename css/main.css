@@ -1859,7 +1859,7 @@ a,
 .cloud-b .circle-be,
 .cloud2-b .circle-be {
   border-radius: 50%;
-  background: #fff;
+  background: #f9f0dd;
   width: 47px;
   height: 47px;
   position: absolute;
@@ -1905,7 +1905,7 @@ a,
 }
 .cloud-b .base-be,
 .cloud2-b .base-be {
-  background: #fff;
+  background: #f9f0dd;
   bottom: 10px;
   border-radius: 20px;
   width: 75%;
@@ -2041,6 +2041,48 @@ a,
   left: 0;
   z-index: 1;
 }
+.curtain3-l .curtain3-cloud1-lh,
+.curtain3-l .curtain3-cloud2-lh {
+  position: absolute;
+  top: 9%;
+  left: 14%;
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  transform: scale(0.9);
+}
+.curtain3-l .curtain3-cloud2-lh {
+  left: 85%;
+  top: 8%;
+}
+.curtain3-l .curtain3-cloud3-lh {
+  left: 8%;
+  top: 34%;
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  transform: scale(1.5);
+}
+.curtain3-l .curtain4-cloud1-lh {
+  left: 35%;
+  top: 14%;
+  -webkit-transform: scale(0.95);
+  -moz-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  -o-transform: scale(0.95);
+  transform: scale(0.95);
+}
+.curtain3-l .curtain5-cloud3-lh {
+  left: 65%;
+  top: 18%;
+  -webkit-transform: rotateY(180deg) scale(1.45);
+  -moz-transform: rotateY(180deg) scale(1.45);
+  -ms-transform: rotateY(180deg) scale(1.45);
+  -o-transform: rotateY(180deg) scale(1.45);
+  transform: rotateY(180deg) scale(1.45);
+}
 .curtain3-l > .bg-ll {
   background: #72d2d1 url("i/curtain-dots-bg3.png") repeat;
   position: absolute;
@@ -2055,7 +2097,11 @@ a,
   position: absolute;
   bottom: 0;
   width: 100%;
-  left: -100%;
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
+  transform: translateX(-100%);
   background: #493542 url("i/curtain-dots-bg3.png") repeat;
   background-position: 0 -200px;
   z-index: 1;

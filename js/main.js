@@ -61,7 +61,8 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $el, $images, $leftEls, $rightEls, el, i, rotateDegree, rotateElsCountLeft, start, _i, _j, _k, _len, _len1, _ref, _ref1;
+      var $el, $images, $leftEls, $rightEls, el, i, rotateDegree, rotateElsCountLeft, start, _i, _j, _k, _len, _len1, _ref, _ref1,
+        _this = this;
 
       this.curtainTween1 = TweenMax.to(this.$('.curtain-l'), .75, {
         css: {
@@ -156,16 +157,25 @@
       start = 3.5 * this.frameDurationTime;
       this.groundTween = TweenMax.to(this.$('#js-ground'), .75, {
         css: {
-          left: 0
+          x: 0
         }
       });
       this.controller.addTween(start, this.groundTween, this.frameDurationTime);
-      this.bg = TweenMax.to(this.$('#js-bg'), .75, {
+      this.bgTween = TweenMax.to(this.$('#js-bg'), .75, {
         css: {
           opacity: 1
         }
       });
-      return this.controller.addTween(start, this.bg, this.frameDurationTime);
+      this.controller.addTween(start, this.bgTween, this.frameDurationTime);
+      this.cloudTween = TweenMax.to(this.$('.cloud-b'), .75, {
+        onComplete: (function() {
+          return _this.$('.cloud-b').addClass('is-anima');
+        }),
+        onReverseComplete: (function() {
+          return _this.$('.cloud-b').removeClass('is-anima');
+        })
+      });
+      return this.controller.addTween(start, this.cloudTween, 1);
     };
 
     App.prototype.$ = function(selector) {

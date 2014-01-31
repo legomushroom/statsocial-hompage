@@ -102,11 +102,15 @@ class App
 
 		# THE THIRD CURTAIN
 		start = 3.5*@frameDurationTime
-		@groundTween  = TweenMax.to @$('#js-ground'), .75, { css:{ left: 0 } }
+		@groundTween  = TweenMax.to @$('#js-ground'), .75, { css:{ x: 0 } }
 		@controller.addTween start, @groundTween, @frameDurationTime
 
-		@bg  = TweenMax.to @$('#js-bg'), .75, { css:{ opacity: 1 } }
-		@controller.addTween start, @bg, @frameDurationTime
+		@bgTween  = TweenMax.to @$('#js-bg'), .75, { css:{ opacity: 1 } }
+		@controller.addTween start, @bgTween, @frameDurationTime
+
+		@cloudTween = TweenMax.to @$('.cloud-b'), .75, { onComplete: (=> @$('.cloud-b').addClass('is-anima')), onReverseComplete:(=> @$('.cloud-b').removeClass('is-anima')) }
+		@controller.addTween start, @cloudTween, 1
+		
 
 
 
