@@ -32,11 +32,18 @@
 	rect 100%
 
 .curtain3-l
-	background-color #72d2d1
+	background #72d2d1
 	rect 100%
 	position absolute
 	nw 0
 	z-index 1
+
+	> .bg-ll
+		background #72d2d1 url('i/curtain-dots-bg3.png') repeat
+		position absolute
+		nw 0
+		rect 100%
+		opacity 0
 
 	> .ground-ll
 		height 145px
@@ -46,6 +53,7 @@
 		left - 100%
 		background #493542 url('i/curtain-dots-bg3.png') repeat
 		background-position 0 -200px
+		z-index 1
 
 // .curtain-l, .curtain2-l
 // 	display none II

@@ -156,10 +156,16 @@
       start = 3.5 * this.frameDurationTime;
       this.groundTween = TweenMax.to(this.$('#js-ground'), .75, {
         css: {
-          left: '0'
+          left: 0
         }
       });
-      return this.controller.addTween(start, this.groundTween, this.frameDurationTime);
+      this.controller.addTween(start, this.groundTween, this.frameDurationTime);
+      this.bg = TweenMax.to(this.$('#js-bg'), .75, {
+        css: {
+          opacity: 1
+        }
+      });
+      return this.controller.addTween(start, this.bg, this.frameDurationTime);
     };
 
     App.prototype.$ = function(selector) {
@@ -179,7 +185,17 @@
     };
 
     App.prototype.onCurtain2Update = function() {
-      return console.log(this.curtain2LeftTween.totalProgress());
+      if (this.curtain2LeftTween.totalProgress() >= 1) {
+        this.isSecondCurtainParallax && this.$scence2.parallax('disable');
+        this.isSecondCurtainParallax = false;
+        this.$left.hide();
+        return this.$right.hide();
+      } else {
+        !this.isSecondCurtainParallax && this.$scence2.parallax('enable');
+        this.isSecondCurtainParallax = true;
+        this.$left.show();
+        return this.$right.show();
+      }
     };
 
     return App;

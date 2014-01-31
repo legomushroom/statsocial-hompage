@@ -96,14 +96,17 @@ class App
 			@controller.addTween start-(($rightEls.length-i)*(@frameDurationTime/$rightEls.length)), TweenMax.to($el, .75, { css:{ rotation: -rotateDegree, transformOrigin: 'right top' } }), @frameDurationTime
 		
 		@curtain2LeftTween = TweenMax.to(@$left, .75, { css:{ left: -@$window.outerWidth()/2 }, onUpdate: StatSocial.helpers.bind(@onCurtain2Update,@)  })
-		
+
 		@controller.addTween start, @curtain2LeftTween, @frameDurationTime
 		@controller.addTween start, TweenMax.to(@$right, .75, { css:{ left: (@$window.outerWidth()/2) + $rightEls.first().outerWidth() } }), @frameDurationTime
 
 		# THE THIRD CURTAIN
 		start = 3.5*@frameDurationTime
-		@groundTween  = TweenMax.to @$('#js-ground'), .75, { css:{ left: '0' } }
+		@groundTween  = TweenMax.to @$('#js-ground'), .75, { css:{ left: 0 } }
 		@controller.addTween start, @groundTween, @frameDurationTime
+
+		@bg  = TweenMax.to @$('#js-bg'), .75, { css:{ opacity: 1 } }
+		@controller.addTween start, @bg, @frameDurationTime
 
 
 
@@ -121,15 +124,16 @@ class App
 			@$scence.show()
 
 	onCurtain2Update:->
-		console.log @curtain2LeftTween.totalProgress()
-		# if @$left.totalProgress() >= 1
-		# 	@isFirstCurtainParallax and @$scence.parallax 'disable'
-		# 	@isFirstCurtainParallax = false
-		# 	@$scence.hide()
-		# else
-		# 	!@isFirstCurtainParallax and @$scence.parallax 'enable'
-		# 	@isFirstCurtainParallax = true
-		# 	@$scence.show()
+		if @curtain2LeftTween.totalProgress() >= 1
+			@isSecondCurtainParallax and @$scence2.parallax 'disable'
+			@isSecondCurtainParallax = false
+			@$left.hide()
+			@$right.hide()
+		else
+			!@isSecondCurtainParallax and @$scence2.parallax 'enable'
+			@isSecondCurtainParallax = true
+			@$left.show()
+			@$right.show()
 
 
 
