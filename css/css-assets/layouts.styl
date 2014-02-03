@@ -1,10 +1,6 @@
 // LAYOUTS
 @import '../assets/imports.styl'
 
-
-.flip
-	animation flip 2s linear
-
 .script-l
 	font-family 'reklame-script'
 	color white
@@ -48,10 +44,9 @@ groundHeight = 145px
 	.curtain3-plane-lh
 		position absolute
 		top 5%
-		left 100%
-		width 100%
+		right -760px
+		width 760px
 		z-index 3
-		// transform translateX(100%)
 
 	.building-b
 		position absolute
@@ -485,6 +480,24 @@ coef = 10
 	// svg
 	// 	rect 100%
 
+/* 76c1adee9e0430fc11ba2f1521e25b19 */
+.plane-n-text-l
+	position relative
+	transition all .5s linear
+	transform-origin 50% 0
+	
+	.ribbon-b
+		position absolute
+		top 5px
+		left 234px
+
+	&.is-flip
+		transform rotateY(180deg) translateZ(0)
+
+		.plane-n-text--text-bh
+			transform rotateY(-180deg) translateZ(0)
+
+
 .main-l
 	min-rect 100%
 	position: absolute
@@ -518,6 +531,3 @@ coef = 10
 		// background-color: gray
 		// background-image: linear-gradient(transparent 50%, rgba(255,255,255,.5) 50%)
 		// background-size: 50px 50px
-
-
-

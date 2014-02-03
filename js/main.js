@@ -23,7 +23,9 @@
       this.$script2 = this.$('#js-script2');
       this.$scence = this.$('#js-curtain1');
       this.$scence2 = this.$('#js-curtain2');
-      return this.$scence3 = this.$('#js-curtain3');
+      this.$scence3 = this.$('#js-curtain3');
+      this.$plane = this.$('#js-plane');
+      return this.prevPlaneProgress = -1;
     };
 
     App.prototype.initController = function() {
@@ -199,11 +201,12 @@
       start = 8 * this.frameDurationTime;
       this.planeTween = TweenMax.to(this.$('#js-plane'), .75, {
         css: {
-          left: '-100%'
+          left: -760
         },
         onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate, this)
       });
-      return this.controller.addTween(start, this.planeTween, this.frameDurationTime * 4);
+      this.controller.addTween(start, this.planeTween, this.frameDurationTime * 4);
+      return this.$plane;
     };
 
     App.prototype.onPlaneUpdate = function() {
