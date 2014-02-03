@@ -2127,7 +2127,7 @@ a,
 .curtain3-l .curtain3-plane-lh {
   position: absolute;
   top: 5%;
-  right: -760px;
+  left: 100%;
   width: 760px;
   z-index: 3;
 }

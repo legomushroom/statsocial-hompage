@@ -201,7 +201,7 @@
       start = 8 * this.frameDurationTime;
       this.planeTween = TweenMax.to(this.$('#js-plane'), .75, {
         css: {
-          left: -760
+          left: '-100%'
         },
         onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate, this)
       });
@@ -213,6 +213,12 @@
       var progress;
 
       progress = this.planeTween.totalProgress();
+      if (this.prevPlaneProgress > progress) {
+        this.$plane.addClass('is-flip');
+      } else {
+        this.$plane.removeClass('is-flip');
+      }
+      this.prevPlaneProgress = progress;
       if (progress > 0 && progress < .85) {
         !this.isBuildingCategories && this.$scence3.addClass('show-building-categories-gt');
         return this.isBuildingCategories = true;

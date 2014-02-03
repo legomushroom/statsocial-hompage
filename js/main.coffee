@@ -127,18 +127,18 @@ class App
 
 		# -> PLANE
 		start = 8*@frameDurationTime
-		@planeTween  = TweenMax.to @$('#js-plane'), .75, { css:{ left: -760 }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate,@) }
+		@planeTween  = TweenMax.to @$('#js-plane'), .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate,@) }
 		@controller.addTween start, @planeTween, @frameDurationTime*4
 
 		@$plane
 
 	onPlaneUpdate:->
 		progress = @planeTween.totalProgress()
-		# if @prevPlaneProgress > (progress)
-		# 	@$plane.addClass 'is-flip'
-		# else @$plane.removeClass 'is-flip'
+		if @prevPlaneProgress > progress
+			@$plane.addClass 'is-flip'
+		else @$plane.removeClass 'is-flip'
 
-		# @prevPlaneProgress = progress
+		@prevPlaneProgress = progress
 
 		if progress > 0 and progress < .85
 			!@isBuildingCategories and @$scence3.addClass 'show-building-categories-gt'
