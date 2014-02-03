@@ -1,6 +1,10 @@
 // LAYOUTS
 @import '../assets/imports.styl'
 
+
+.flip
+	animation flip 2s linear
+
 .script-l
 	font-family 'reklame-script'
 	color white
@@ -31,12 +35,192 @@
 	nw 0
 	rect 100%
 
+animationTime   = 200s
+animationEasing = ease
+groundHeight = 145px
 .curtain3-l
 	background #72d2d1
 	rect 100%
 	position absolute
 	nw 0
 	z-index 1
+
+	.curtain3-plane-lh
+		position absolute
+		top 5%
+		left 100%
+		width 100%
+		z-index 3
+		// transform translateX(100%)
+
+	.building-b
+		position absolute
+		bottom groundHeight
+		transform translateY(150%)
+		bottom 0
+
+	leftSize  = 1
+	widthSize = 10
+	progress = leftSize + widthSize
+	.curtain3-building1-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 25%
+		> .text-be
+			animation-delay 1s
+
+	leftSize = progress + 1
+	widthSize = 5
+	progress = leftSize + widthSize
+	.curtain3-building2-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 35%
+
+	leftSize = progress + 1
+	widthSize = 5
+	progress = leftSize + widthSize
+	.curtain3-building3-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 20%
+
+
+	leftSize = progress + 1
+	widthSize = 10
+	progress = leftSize + widthSize
+	.curtain3-building4-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 10%
+		> .text-be
+			animation-delay 1.25s
+
+	leftSize = progress + 1
+	widthSize = 7
+	progress = leftSize + widthSize
+	.curtain3-building5-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 30%
+		> .text-be
+			animation-delay .5s
+
+	leftSize = progress + 1
+	widthSize = 5
+	progress = leftSize + widthSize
+	.curtain3-building6-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 55%
+		> .text-be
+			animation-delay 2s
+
+
+	leftSize = progress + 1
+	widthSize = 8
+	progress = leftSize + widthSize
+	.curtain3-building7-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 60%
+		&:after
+			content ''
+			position absolute
+			display block
+			top - 100px
+			left 50%
+			margin-left - 10px
+			rect 0
+			border 10px solid rgba(#64c2c1,0)
+			border-bottom 90px solid #64c2c1
+			z-index 0
+
+
+	leftSize = progress + 1
+	widthSize = 6
+	progress = leftSize + widthSize
+	.curtain3-building8-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 50%
+		> .text-be
+			animation-delay .5s
+
+	leftSize = progress + 1
+	widthSize = 4
+	progress = leftSize + widthSize
+	.curtain3-building9-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 55%
+		> .text-be
+			animation-delay .5s
+
+
+	leftSize = progress + 1
+	widthSize = 11
+	progress = leftSize + widthSize
+	.curtain3-building10-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 35%
+		> .text-be
+			animation-delay 1.5s
+
+	leftSize = progress + 1
+	widthSize = 4
+	progress = leftSize + widthSize
+	.curtain3-building11-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 25%
+
+	leftSize = progress + 1
+	widthSize = 6
+	progress = leftSize + widthSize
+	.curtain3-building12-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 30%
+		> .text-be
+			animation-delay .5s
+
+	leftSize = progress + 1
+	widthSize = 5
+	progress = leftSize + widthSize
+	.curtain3-building13-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 35%
+		> .text-be
+			animation-delay .2s
+
+
+	.curtain3-cloud-holder-lh
+		position absolute
+		rect 100%
+		nw 0
+		animation cloud-float animationTime animationEasing infinite
+
+	.curtain3-cloud-holder2-lh, .curtain3-cloud-holder3-lh, .curtain3-cloud-holder4-lh
+		animation cloud-float-reverse animationTime animationEasing infinite
+
+	// .curtain3-cloud-holder1-lh
+	// 	animation-delay 1s
+
+	// .curtain3-cloud-holder2-lh
+	// 	animation-delay 2s
+
+	// .curtain3-cloud-holder3-lh
+	// 	animation-delay 3s
+
+	// .curtain3-cloud-holder4-lh
+	// 	animation-delay 3s
+
+	// .curtain3-cloud-holder5-lh
+	// 	animation-delay 2s
+		
 
 	.curtain3-cloud1-lh, .curtain3-cloud2-lh
 		position absolute
@@ -48,20 +232,24 @@
 		left 85%
 		top 8%
 
+
 	.curtain3-cloud3-lh
 		left 8%
 		top  34%
 		transform scale(1.5)
 
-	.curtain4-cloud1-lh
+
+	.curtain3-cloud4-lh
 		left 35%
 		top  14%
 		transform scale(.95)
 
-	.curtain5-cloud3-lh
+
+	.curtain3-cloud5-lh
 		left 65%
 		top  18%
 		transform rotateY(180deg) scale(1.45)
+
 
 	> .bg-ll
 		background #72d2d1 url('i/curtain-dots-bg3.png') repeat
@@ -71,7 +259,7 @@
 		opacity 0
 
 	> .ground-ll
-		height 145px
+		height groundHeight
 		position absolute
 		bottom 0
 		width 100%

@@ -22,7 +22,8 @@
       this.$script1 = this.$('#js-script1');
       this.$script2 = this.$('#js-script2');
       this.$scence = this.$('#js-curtain1');
-      return this.$scence2 = this.$('#js-curtain2');
+      this.$scence2 = this.$('#js-curtain2');
+      return this.$scence3 = this.$('#js-curtain3');
     };
 
     App.prototype.initController = function() {
@@ -61,7 +62,7 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $el, $images, $leftEls, $rightEls, el, i, rotateDegree, rotateElsCountLeft, start, _i, _j, _k, _len, _len1, _ref, _ref1,
+      var $buildings, $clouds, $el, $images, $leftEls, $rightEls, el, i, rotateDegree, rotateElsCountLeft, start, _i, _j, _k, _l, _len, _len1, _ref, _ref1, _ref2,
         _this = this;
 
       this.curtainTween1 = TweenMax.to(this.$('.curtain-l'), .75, {
@@ -167,15 +168,55 @@
         }
       });
       this.controller.addTween(start, this.bgTween, this.frameDurationTime);
-      this.cloudTween = TweenMax.to(this.$('.cloud-b'), .75, {
+      $clouds = this.$('.cloud-b');
+      this.cloudTween = TweenMax.to($clouds, .75, {
         onComplete: (function() {
-          return _this.$('.cloud-b').addClass('is-anima');
+          return $clouds.addClass('is-anima');
         }),
         onReverseComplete: (function() {
-          return _this.$('.cloud-b').removeClass('is-anima');
+          return $clouds.removeClass('is-anima');
         })
       });
-      return this.controller.addTween(start, this.cloudTween, 1);
+      this.controller.addTween(start, this.cloudTween, 1);
+      start = 6 * this.frameDurationTime;
+      $buildings = this.$('.building-b');
+      for (i = _l = 0, _ref2 = $buildings.length; 0 <= _ref2 ? _l <= _ref2 : _l >= _ref2; i = 0 <= _ref2 ? ++_l : --_l) {
+        $el = $($buildings.eq(i));
+        this.controller.addTween(start - (($buildings.length - i) * (this.frameDurationTime / $buildings.length)), TweenMax.to($el, .75, {
+          css: {
+            y: 0,
+            bottom: 145
+          }
+        }), this.frameDurationTime);
+      }
+      this.scriptTween3 = TweenMax.to(this.$script2, .75, {
+        css: {
+          top: '-10%'
+        },
+        onUpdate: StatSocial.helpers.bind(this.onCurtain2UpdateEnd, this)
+      });
+      this.controller.addTween(start - (this.frameDurationTime / 10), this.scriptTween3, this.frameDurationTime * 1.5);
+      start = 8 * this.frameDurationTime;
+      this.planeTween = TweenMax.to(this.$('#js-plane'), .75, {
+        css: {
+          left: '-100%'
+        },
+        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate, this)
+      });
+      return this.controller.addTween(start, this.planeTween, this.frameDurationTime * 4);
+    };
+
+    App.prototype.onPlaneUpdate = function() {
+      var progress;
+
+      progress = this.planeTween.totalProgress();
+      if (progress > 0 && progress < .85) {
+        !this.isBuildingCategories && this.$scence3.addClass('show-building-categories-gt');
+        return this.isBuildingCategories = true;
+      } else {
+        this.isBuildingCategories && this.$scence3.removeClass('show-building-categories-gt');
+        return this.isBuildingCategories = false;
+      }
     };
 
     App.prototype.$ = function(selector) {
@@ -205,6 +246,14 @@
         this.isSecondCurtainParallax = true;
         this.$left.show();
         return this.$right.show();
+      }
+    };
+
+    App.prototype.onCurtain2UpdateEnd = function() {
+      if (this.scriptTween3.totalProgress() >= 1) {
+        return this.$scence2.hide();
+      } else {
+        return this.$scence2.show();
       }
     };
 

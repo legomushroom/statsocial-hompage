@@ -1,6 +1,65 @@
 // EFFECTS
 @import '../assets/imports.styl'
 
+@keyframes flip
+	0%
+		transform rotateY(0)
+
+	0%
+		transform rotateY(360deg)
+
+
+@keyframes neon
+	0%
+		opacity .75
+
+	25%
+		opacity 1
+
+	50%
+		opacity .65
+
+	75%
+		opacity .75
+
+	100%
+		opacity .95
+
+
+translateSize = 100px
+@keyframes cloud-float
+	0%
+		transform translateX(0)
+
+	25%
+		transform translateX(- translateSize)
+
+	50%
+		transform translateX(translateSize)
+
+	75%
+		transform translateX(- translateSize)
+
+	100%
+		transform translateX(0)
+
+
+@keyframes cloud-float-reverse
+	0%
+		transform translateX(0)
+
+	25%
+		transform translateX(translateSize)
+
+	50%
+		transform translateX(- translateSize)
+
+	75%
+		transform translateX(translateSize)
+
+	100%
+		transform translateX(0)
+
 
 translateSize = 15%
 @keyframes rotate

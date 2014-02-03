@@ -1,6 +1,78 @@
 // BLOCKS
 @import '../assets/imports.styl'
 
+/* a68031dbfa095d64fc9b89f0a89b3173 */
+.ribbon-b
+	height 51px
+	width 500px
+	background #f9f0dd
+	position relative
+
+	> .text-be
+		font-size 38px
+		font-family 'reklame-script'
+		line-height 51px
+		padding-left 16px
+		color darken(#64c2c1, 30)
+
+
+	> .rope-be
+		height 2px
+		width  90px
+		position absolute
+		background #f9f0dd
+		left -88px
+		transform rotate(-16deg)
+		top 12px
+
+	> .rope2-be
+		height 2px
+		width  90px
+		position absolute
+		background #f9f0dd
+		left -88px
+		transform rotate(16deg)
+		bottom 12px
+
+	> .tale-be
+		position absolute
+		right -26px
+		top 0
+		border 26px solid transparent
+		border-top-color #f9f0dd
+
+	> .tale2-be
+		position absolute
+		right -26px
+		bottom 0
+		border 26px solid transparent
+		border-bottom-color #f9f0dd
+
+.building-b
+	background #64c2c1
+	width 5.5%
+	height 50%
+	position relative
+	> .text-be
+		font-size 30px
+		color white
+		font-family 'Open Sans', sans-serif;
+		font-weight 100
+		text-align center
+		position absolute
+		width 100%
+		top   -35px
+		z-index 1
+		// text-shadow 0 0 10px white
+		text-shadow 0 0 6px white
+		opacity 0
+		// display none
+
+		.show-building-categories-gt &
+			animation neon 5s linear infinite
+			// display block
+			
+
 /* 4cbf1f487e13aad9100b274a119b2453 */
 .cloud-b
 	position relative
@@ -11,30 +83,25 @@
 	.circle-be
 		border-radius 50%
 		background #f9f0dd
-		rect 47px
+		rect 49px
 		position absolute
 		transition all .5s ease-in
 		transform scale(0)
-
 		&.is-1
-			right 26px
+			right 25px
 			top 0
-
 		&.is-2
 			rect 35px
 			right 0
 			bottom 0
-
 		&.is-3
 			rect 26px
 			left 16px
 			bottom 8px
-
 		&.is-4
 			rect 20px
 			left 0
 			bottom 0
-
 		&.is-5
 			rect 20px
 			left 30px

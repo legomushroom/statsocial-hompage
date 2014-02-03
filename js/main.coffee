@@ -19,6 +19,7 @@ class App
 		@$script2 	= @$('#js-script2')
 		@$scence  	= @$('#js-curtain1')
 		@$scence2 	= @$('#js-curtain2')
+		@$scence3 	= @$('#js-curtain3')
 
 	initController:->
 		@controller = $.superscrollorama
@@ -108,11 +109,33 @@ class App
 		@bgTween  = TweenMax.to @$('#js-bg'), .75, { css:{ opacity: 1 } }
 		@controller.addTween start, @bgTween, @frameDurationTime
 
-		@cloudTween = TweenMax.to @$('.cloud-b'), .75, { onComplete: (=> @$('.cloud-b').addClass('is-anima')), onReverseComplete:(=> @$('.cloud-b').removeClass('is-anima')) }
+		$clouds = @$('.cloud-b')
+		@cloudTween = TweenMax.to $clouds, .75, { onComplete: (=> $clouds.addClass('is-anima')), onReverseComplete:(=> $clouds.removeClass('is-anima')) }
 		@controller.addTween start, @cloudTween, 1
-		
 
+		# -> BUILDINGS
+		start = 6*@frameDurationTime
+		$buildings  = @$('.building-b')
+		for i in [0..$buildings.length]
+			$el = $ $buildings.eq i
+			@controller.addTween start-(($buildings.length-i)*(@frameDurationTime/$buildings.length)), TweenMax.to($el, .75, { css:{ y: 0, bottom: 145 } }), @frameDurationTime
 
+		@scriptTween3  = TweenMax.to @$script2, .75, { css:{ top: '-10%' }, onUpdate: StatSocial.helpers.bind(@onCurtain2UpdateEnd,@) }
+		@controller.addTween start-(@frameDurationTime/10), @scriptTween3, @frameDurationTime*1.5
+
+		# -> PLANE
+		start = 8*@frameDurationTime
+		@planeTween  = TweenMax.to @$('#js-plane'), .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate,@) }
+		@controller.addTween start, @planeTween, @frameDurationTime*4
+
+	onPlaneUpdate:->
+		progress = @planeTween.totalProgress()
+		if progress > 0 and progress < .85
+			!@isBuildingCategories and @$scence3.addClass 'show-building-categories-gt'
+			@isBuildingCategories = true
+		else 
+			@isBuildingCategories and @$scence3.removeClass 'show-building-categories-gt'
+			@isBuildingCategories = false
 
 	$:(selector)->
 		@$main.find(selector)
@@ -138,6 +161,12 @@ class App
 			@isSecondCurtainParallax = true
 			@$left.show()
 			@$right.show()
+
+	onCurtain2UpdateEnd:->
+		if @scriptTween3.totalProgress() >= 1
+			@$scence2.hide()
+		else @$scence2.show()
+
 
 
 
