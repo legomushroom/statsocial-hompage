@@ -134,9 +134,14 @@ class App
 
 	onPlaneUpdate:->
 		progress = @planeTween.totalProgress()
+
 		if @prevPlaneProgress > progress
-			@$planeInner.addClass 'is-flip'
-		else @$planeInner.removeClass 'is-flip'
+			!@isPlaneFlip and @$planeInner.addClass 'is-flip'
+			@isPlaneFlip = true
+		else
+			@isPlaneFlip and @$planeInner.removeClass 'is-flip'
+			@isPlaneFlip = false
+
 		@prevPlaneProgress = progress
 
 		if progress > 0 and progress < .85
@@ -145,6 +150,15 @@ class App
 		else 
 			@isBuildingCategories and @$scence3.removeClass 'show-building-categories-gt'
 			@isBuildingCategories = false
+		
+		if progress >= 1
+			!@isPlaneHide and @$plane.hide()
+			@isPlaneHide = 	true
+		else 
+			@isPlaneHide and @$plane.show()
+			@isPlaneHide = 	false
+
+
 
 	$:(selector)->
 		@$main.find(selector)

@@ -215,17 +215,26 @@
 
       progress = this.planeTween.totalProgress();
       if (this.prevPlaneProgress > progress) {
-        this.$planeInner.addClass('is-flip');
+        !this.isPlaneFlip && this.$planeInner.addClass('is-flip');
+        this.isPlaneFlip = true;
       } else {
-        this.$planeInner.removeClass('is-flip');
+        this.isPlaneFlip && this.$planeInner.removeClass('is-flip');
+        this.isPlaneFlip = false;
       }
       this.prevPlaneProgress = progress;
       if (progress > 0 && progress < .85) {
         !this.isBuildingCategories && this.$scence3.addClass('show-building-categories-gt');
-        return this.isBuildingCategories = true;
+        this.isBuildingCategories = true;
       } else {
         this.isBuildingCategories && this.$scence3.removeClass('show-building-categories-gt');
-        return this.isBuildingCategories = false;
+        this.isBuildingCategories = false;
+      }
+      if (progress >= 1) {
+        !this.isPlaneHide && this.$plane.hide();
+        return this.isPlaneHide = true;
+      } else {
+        this.isPlaneHide && this.$plane.show();
+        return this.isPlaneHide = false;
       }
     };
 
