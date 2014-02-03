@@ -199,14 +199,15 @@
       });
       this.controller.addTween(start - (this.frameDurationTime / 10), this.scriptTween3, this.frameDurationTime * 1.5);
       start = 8 * this.frameDurationTime;
-      this.planeTween = TweenMax.to(this.$('#js-plane'), .75, {
+      this.$plane = this.$('#js-plane');
+      this.$planeInner = this.$plane.find('#js-plane-inner');
+      this.planeTween = TweenMax.to(this.$plane, .75, {
         css: {
           left: '-100%'
         },
         onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate, this)
       });
-      this.controller.addTween(start, this.planeTween, this.frameDurationTime * 4);
-      return this.$plane;
+      return this.controller.addTween(start, this.planeTween, this.frameDurationTime * 8);
     };
 
     App.prototype.onPlaneUpdate = function() {
@@ -214,9 +215,9 @@
 
       progress = this.planeTween.totalProgress();
       if (this.prevPlaneProgress > progress) {
-        this.$plane.addClass('is-flip');
+        this.$planeInner.addClass('is-flip');
       } else {
-        this.$plane.removeClass('is-flip');
+        this.$planeInner.removeClass('is-flip');
       }
       this.prevPlaneProgress = progress;
       if (progress > 0 && progress < .85) {

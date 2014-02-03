@@ -105,8 +105,9 @@ html
 						- el = { text: buildings[i-1], class: 'curtain3-building'+i+'-lh', id: '' }
 						include css/partials/building
 
-					- el = { class: 'curtain3-plane-lh', id: 'js-plane', text: 'detailed statistics over many fine segments' }
-					include css/partials/plane-n-text
+					.curtain3-plane-lh#js-plane
+						- el = { class: '', id: 'js-plane-inner', text: 'detailed statistics over many fine segments' }
+						include css/partials/plane-n-text
 
 		script(src="js/jquery-2.1.0.min.js")
 		script(src="js/jquery.superscrollorama.js")

@@ -45,8 +45,14 @@ groundHeight = 145px
 		position absolute
 		top 5%
 		left 100%
-		width 760px
+		width 100%
 		z-index 3
+		transform translateZ(0)
+
+		.plane-n-text-l
+			left 50%
+			position absolute
+			margin-left - 380px
 
 	.building-b
 		position absolute
@@ -484,8 +490,8 @@ coef = 10
 .plane-n-text-l
 	position relative
 	transition all .5s linear
-	transform-origin 50% 0
-
+	transform-origin 380px 0
+	width 760px
 	.ribbon-b
 		position absolute
 		top 5px
