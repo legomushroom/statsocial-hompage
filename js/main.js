@@ -207,8 +207,8 @@
         },
         onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate, this)
       });
-      this.controller.addTween(start, this.planeTween, this.frameDurationTime * 8);
-      start = 12 * this.frameDurationTime;
+      this.controller.addTween(start, this.planeTween, this.frameDurationTime * 6);
+      start = 10 * this.frameDurationTime;
       this.bushTween = TweenMax.to($clouds, .75, {
         onComplete: (function() {
           return _this.$scence3.addClass('is-show-bushes');
@@ -217,7 +217,22 @@
           return _this.$scence3.removeClass('is-show-bushes');
         })
       });
-      return this.controller.addTween(start, this.bushTween, 1);
+      this.controller.addTween(start, this.bushTween, 1);
+      start = 13 * this.frameDurationTime;
+      this.$yAxes = this.$('#js-roller-y');
+      this.$xAxes = this.$('#js-roller-x');
+      this.rollerAxesTween = TweenMax.to({}, .75, {
+        onUpdate: StatSocial.helpers.bind(this.onRollerAxesUpdate, this)
+      });
+      return this.controller.addTween(start, this.rollerAxesTween, this.frameDurationTime);
+    };
+
+    App.prototype.onRollerAxesUpdate = function() {
+      var progress;
+
+      progress = this.rollerAxesTween.totalProgress();
+      this.$yAxes.attr('transform', "translate(0," + (520 - (520 * progress)) + ")");
+      return this.$xAxes.attr('transform', "translate(" + (-1240 + (1240 * progress)) + ",0)");
     };
 
     App.prototype.onPlaneUpdate = function() {

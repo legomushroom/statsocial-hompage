@@ -130,13 +130,25 @@ class App
 		@$plane = @$('#js-plane')
 		@$planeInner = @$plane.find('#js-plane-inner')
 		@planeTween  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate,@) }
-		@controller.addTween start, @planeTween, @frameDurationTime*8
+		@controller.addTween start, @planeTween, @frameDurationTime*6
 
 
 		# -> BUSHES
-		start = 12*@frameDurationTime
+		start = 10*@frameDurationTime
 		@bushTween = TweenMax.to $clouds, .75, { onComplete: (=> @$scence3.addClass('is-show-bushes')), onReverseComplete:(=> @$scence3.removeClass('is-show-bushes')) }
 		@controller.addTween start, @bushTween, 1
+
+		# -> ROLLER-COASTER
+		start = 13*@frameDurationTime
+		@$yAxes = @$('#js-roller-y')
+		@$xAxes = @$('#js-roller-x')
+		@rollerAxesTween = TweenMax.to {}, .75, { onUpdate: StatSocial.helpers.bind(@onRollerAxesUpdate,@) }
+		@controller.addTween start, @rollerAxesTween, @frameDurationTime
+
+	onRollerAxesUpdate:()->
+		progress = @rollerAxesTween.totalProgress()
+		@$yAxes.attr('transform', "translate(0,#{520-(520*progress)})")
+		@$xAxes.attr('transform', "translate(#{-1240+(1240*progress)},0)")
 
 	onPlaneUpdate:->
 		progress = @planeTween.totalProgress()

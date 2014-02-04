@@ -2231,7 +2231,11 @@ a,
   -o-transform: rotateX(0);
   transform: rotateX(0);
 }
-.curtain3-l .roller-coaster-b,
+.curtain3-l .roller-coaster-b {
+  position: absolute;
+  bottom: 145px;
+  z-index: 3;
+}
 .curtain3-l .curtain3--bush-lh {
   position: absolute;
   bottom: 145px;
