@@ -207,7 +207,17 @@
         },
         onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate, this)
       });
-      return this.controller.addTween(start, this.planeTween, this.frameDurationTime * 8);
+      this.controller.addTween(start, this.planeTween, this.frameDurationTime * 8);
+      start = 12 * this.frameDurationTime;
+      this.bushTween = TweenMax.to($clouds, .75, {
+        onComplete: (function() {
+          return _this.$scence3.addClass('is-show-bushes');
+        }),
+        onReverseComplete: (function() {
+          return _this.$scence3.removeClass('is-show-bushes');
+        })
+      });
+      return this.controller.addTween(start, this.bushTween, 1);
     };
 
     App.prototype.onPlaneUpdate = function() {
@@ -222,7 +232,7 @@
         this.isPlaneFlip = false;
       }
       this.prevPlaneProgress = progress;
-      if (progress > 0 && progress < .85) {
+      if (progress > 0 && progress < 1) {
         !this.isBuildingCategories && this.$scence3.addClass('show-building-categories-gt');
         this.isBuildingCategories = true;
       } else {

@@ -132,6 +132,12 @@ class App
 		@planeTween  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate,@) }
 		@controller.addTween start, @planeTween, @frameDurationTime*8
 
+
+		# -> BUSHES
+		start = 12*@frameDurationTime
+		@bushTween = TweenMax.to $clouds, .75, { onComplete: (=> @$scence3.addClass('is-show-bushes')), onReverseComplete:(=> @$scence3.removeClass('is-show-bushes')) }
+		@controller.addTween start, @bushTween, 1
+
 	onPlaneUpdate:->
 		progress = @planeTween.totalProgress()
 
@@ -144,7 +150,7 @@ class App
 
 		@prevPlaneProgress = progress
 
-		if progress > 0 and progress < .85
+		if progress > 0 and progress < 1
 			!@isBuildingCategories and @$scence3.addClass 'show-building-categories-gt'
 			@isBuildingCategories = true
 		else 
