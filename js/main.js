@@ -221,6 +221,7 @@
       start = 13 * this.frameDurationTime;
       this.$yAxes = this.$('#js-roller-y');
       this.$xAxes = this.$('#js-roller-x');
+      this.$rollerLine1 = this.$('#js-roller-line1');
       this.rollerAxesTween = TweenMax.to({}, .75, {
         onUpdate: StatSocial.helpers.bind(this.onRollerAxesUpdate, this)
       });
