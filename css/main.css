@@ -1845,6 +1845,105 @@ a,
   height: 70px;
   background: url("i/plane.svg") no-repeat center center;
 }
+.roller-coaster-b line {
+  stroke-width: 5px;
+  stroke: #287e7b;
+}
+.roller-coaster-b polyline {
+  stroke-width: 3px;
+  stroke: #409f9c;
+}
+.bush-b {
+  width: 128px;
+  height: 128px;
+  position: relative;
+/* e5c0c4aae260971b6410a1216ff32039 */
+/* c365ec5c7c6143e47a739146d5111f64 */
+/* e70e31679c4cce7614c34d818c82a2af */
+}
+.bush-b.is-x2 {
+  width: 256px;
+  height: 256px;
+}
+.bush-b.is-flip > .part1-be {
+  left: 22.6%;
+  right: auto;
+}
+.bush-b.is-flip > .part2-be {
+  left: 6.25%;
+  right: auto;
+}
+.bush-b.is-flip > .part3-be {
+  left: 0;
+  right: auto;
+}
+.bush-b.is-flip > .part4-be {
+  right: 21.28%;
+  left: auto;
+}
+.bush-b.is-flip > .part5-be {
+  right: 0;
+  left: auto;
+}
+.bush-b.is-flip > .part6-be {
+  right: 16.4%;
+  left: auto;
+}
+.bush-b.is-light > .part-be {
+  background-color: #9ed355;
+  background-attachment: fixed;
+}
+.bush-b > .part-be {
+  border-radius: 50%;
+  width: 35%;
+  height: 35%;
+  position: absolute;
+  background: url("i/curtain-dots-bg3.png") repeat;
+  background-color: #98bb69;
+  background-attachment: fixed;
+}
+.bush-b > .part1-be {
+  top: 0;
+  right: 22.6%;
+}
+.bush-b > .part2-be {
+  width: 23.4%;
+  height: 23.4%;
+  top: 20.3%;
+  right: 6.25%;
+}
+.bush-b > .part3-be {
+  width: 37.5%;
+  height: 37.5%;
+  top: 37.5%;
+  right: 0;
+}
+.bush-b > .part4-be {
+  width: 30.5%;
+  height: 30.5%;
+  top: 9.3%;
+  left: 21.28%;
+}
+.bush-b > .part5-be {
+  width: 37.5%;
+  height: 37.5%;
+  left: 0;
+  top: 37.5%;
+}
+.bush-b > .part6-be {
+  width: 23.4%;
+  height: 23.4%;
+  left: 16.4%;
+  top: 23.4%;
+}
+.bush-b > .part7-be {
+  width: 60%;
+  height: 60%;
+  left: 50%;
+  top: 50%;
+  margin-left: -30%;
+  margin-top: -30%;
+}
 .ribbon-b {
   height: 51px;
   width: 500px;
@@ -2125,12 +2224,174 @@ a,
   left: 0;
   z-index: 1;
 }
+.curtain3-l.is-show-bushes .curtain3--bush-lh {
+  -webkit-transform: rotateX(0);
+  -moz-transform: rotateX(0);
+  -ms-transform: rotateX(0);
+  -o-transform: rotateX(0);
+  transform: rotateX(0);
+}
+.curtain3-l .roller-coaster-b,
+.curtain3-l .curtain3--bush-lh {
+  position: absolute;
+  bottom: 145px;
+  -webkit-transform: rotateX(90deg);
+  -moz-transform: rotateX(90deg);
+  -ms-transform: rotateX(90deg);
+  -o-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+  transition: all 0.5s cubic-bezier(0.835, -0.025, 0.265, 1.55);
+  -webkit-transform-origin: 50% bottom;
+  -moz-transform-origin: 50% bottom;
+  -ms-transform-origin: 50% bottom;
+  -o-transform-origin: 50% bottom;
+  transform-origin: 50% bottom;
+}
+.curtain3-l .curtain3--bush1-lh {
+  margin-bottom: -40px;
+  left: -10px;
+  z-index: 2;
+  -webkit-transition-delay: 0.45s;
+  -moz-transition-delay: 0.45s;
+  -ms-transition-delay: 0.45s;
+  -o-transition-delay: 0.45s;
+  transition-delay: 0.45s;
+}
+.curtain3-l .curtain3--bush2-lh {
+  margin-bottom: -52px;
+  left: 30px;
+  z-index: 1;
+  -webkit-transition-delay: 0.45s;
+  -moz-transition-delay: 0.45s;
+  -ms-transition-delay: 0.45s;
+  -o-transition-delay: 0.45s;
+  transition-delay: 0.45s;
+}
+.curtain3-l .curtain3--bush3-lh {
+  margin-bottom: -100px;
+  left: 110px;
+  z-index: 1;
+}
+.curtain3-l .curtain3--bush4-lh {
+  width: 256px;
+  height: 256px;
+  left: 50%;
+  margin-left: -128px;
+  margin-bottom: -128px;
+  z-index: 2;
+  -webkit-transition-delay: 1s;
+  -moz-transition-delay: 1s;
+  -ms-transition-delay: 1s;
+  -o-transition-delay: 1s;
+  transition-delay: 1s;
+}
+.curtain3-l .curtain3--bush5-lh {
+  width: 100px;
+  height: 100px;
+  left: 50%;
+  margin-left: -210px;
+  margin-bottom: -56px;
+  -webkit-transition-delay: 1.25s;
+  -moz-transition-delay: 1.25s;
+  -ms-transition-delay: 1.25s;
+  -o-transition-delay: 1.25s;
+  transition-delay: 1.25s;
+  z-index: 1;
+}
+.curtain3-l .curtain3--bush6-lh {
+  width: 130px;
+  height: 130px;
+  left: 50%;
+  margin-left: -40px;
+  margin-bottom: -70px;
+  z-index: 2;
+  -webkit-transition-delay: 0.35s;
+  -moz-transition-delay: 0.35s;
+  -ms-transition-delay: 0.35s;
+  -o-transition-delay: 0.35s;
+  transition-delay: 0.35s;
+}
+.curtain3-l .curtain3--bush7-lh {
+  width: 130px;
+  height: 130px;
+  left: 50%;
+  margin-left: -280px;
+  margin-bottom: -60px;
+  z-index: 2;
+  -webkit-transition-delay: 0.5s;
+  -moz-transition-delay: 0.5s;
+  -ms-transition-delay: 0.5s;
+  -o-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+}
+.curtain3-l .curtain3--bush8-lh {
+  width: 256px;
+  height: 256px;
+  left: 50%;
+  margin-bottom: -128px;
+  margin-left: -50px;
+  z-index: 1;
+  -webkit-transition-delay: 0.75s;
+  -moz-transition-delay: 0.75s;
+  -ms-transition-delay: 0.75s;
+  -o-transition-delay: 0.75s;
+  transition-delay: 0.75s;
+}
+.curtain3-l .curtain3--bush9-lh {
+  left: 50%;
+  margin-bottom: -90px;
+  margin-left: 160px;
+  z-index: 2;
+  -webkit-transition-delay: 1s;
+  -moz-transition-delay: 1s;
+  -ms-transition-delay: 1s;
+  -o-transition-delay: 1s;
+  transition-delay: 1s;
+}
+.curtain3-l .curtain3--bush10-lh {
+  width: 100px;
+  height: 100px;
+  left: 50%;
+  margin-bottom: -50px;
+  margin-left: 220px;
+  z-index: 1;
+  -webkit-transition-delay: 0.65s;
+  -moz-transition-delay: 0.65s;
+  -ms-transition-delay: 0.65s;
+  -o-transition-delay: 0.65s;
+  transition-delay: 0.65s;
+}
+.curtain3-l .curtain3--bush11-lh {
+  width: 110px;
+  height: 110px;
+  left: 50%;
+  margin-bottom: -50px;
+  margin-left: 370px;
+  z-index: 1;
+  -webkit-transition-delay: 0.75s;
+  -moz-transition-delay: 0.75s;
+  -ms-transition-delay: 0.75s;
+  -o-transition-delay: 0.75s;
+  transition-delay: 0.75s;
+}
+.curtain3-l .curtain3--bush12-lh {
+  width: 100px;
+  height: 100px;
+  right: 30px;
+  margin-bottom: -50px;
+  z-index: 1;
+  -webkit-transition-delay: 1s;
+  -moz-transition-delay: 1s;
+  -ms-transition-delay: 1s;
+  -o-transition-delay: 1s;
+  transition-delay: 1s;
+}
 .curtain3-l .curtain3-plane-lh {
   position: absolute;
   top: 5%;
   left: 100%;
   width: 100%;
-  z-index: 3;
+  z-index: 4;
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -ms-transform: translateZ(0);
@@ -2370,7 +2631,7 @@ a,
   transform: translateX(-100%);
   background: #493542 url("i/curtain-dots-bg3.png") repeat;
   background-position: 0 -200px;
-  z-index: 1;
+  z-index: 5;
 }
 .curtain2-l {
   height: 100%;

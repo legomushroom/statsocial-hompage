@@ -1,6 +1,100 @@
 // BLOCKS
 @import '../assets/imports.styl'
 
+/* 0615c5aa8e19a9ef7fd683703b0e808a */
+.roller-coaster-b
+	line
+		stroke-width 5px
+		stroke #287e7b
+
+	polyline
+		stroke-width 3px
+		stroke #409f9c
+
+
+/* 25a33a14be99e39961e243eab6dfb19b */
+.bush-b
+	rect  128px
+	position relative
+
+	/* e5c0c4aae260971b6410a1216ff32039 */
+	&.is-x2
+		rect 256px
+
+	/* c365ec5c7c6143e47a739146d5111f64 */
+	&.is-flip
+		> .part1-be
+			left 22.6%
+			right auto
+		> .part2-be
+			left 6.25%
+			right auto
+		> .part3-be
+			left  0
+			right auto
+		> .part4-be
+			right 21.28%
+			left auto
+		> .part5-be
+			right 0
+			left auto
+
+		> .part6-be
+			right 16.4%
+			left auto
+
+
+	/* e70e31679c4cce7614c34d818c82a2af */
+	&.is-light
+		> .part-be
+			background-color #9ed355
+			background-attachment fixed
+
+	> .part-be
+		border-radius 50%
+		rect 35%
+		position absolute
+		background url('i/curtain-dots-bg3.png') repeat
+		background-color #98bb69 
+		background-attachment fixed
+
+	> .part1-be
+		top 0
+		right 22.6%
+
+	> .part2-be
+		rect  23.4%
+		top   20.3%
+		right 6.25%
+
+	> .part3-be
+		rect 37.5%
+		top  37.5%
+		right  0
+
+	> .part4-be
+		rect 30.5%
+		top  9.3%
+		left 21.28%
+
+	> .part5-be
+		rect 37.5%
+		left 0
+		top 37.5%
+
+	> .part6-be
+		rect 23.4%
+		left 16.4%
+		top  23.4%
+
+	> .part7-be
+		rect 60%
+		left 50%
+		top  50%
+		margin-left -30%
+		margin-top  -30%
+		
+
 /* a68031dbfa095d64fc9b89f0a89b3173 */
 .ribbon-b
 	height 51px
