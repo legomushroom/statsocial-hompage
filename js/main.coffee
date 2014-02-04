@@ -142,8 +142,26 @@ class App
 		start = 13*@frameDurationTime
 		@$yAxes = @$('#js-roller-y')
 		@$xAxes = @$('#js-roller-x')
+		
+		@$rollerLine1 = @$('#js-roller-line1')
+		
+		# points1  		= [4.933, 520, 58.333, 520, 129, 520, 233.667, 520, 320.953, 520, 374.333, 520, 428.333, 520, 481, 520, 534.333, 520, 639.667, 520, 782.334, 520, 855.667, 520, 925.667, 520, 1031, 520, 1140.334, 520, 1223.667, 520]
+		# pointsEnd1 	= [4.933, 217.667, 58.333, 203, 129, 217.667, 233.667, 265.667, 320.953, 265.667, 374.333, 234.333, 428.333, 217, 481, 217, 534.333, 234.333, 639.667, 295, 782.334, 327, 855.667, 330.334, 925.667, 314.334, 1031, 294.334, 1140.334, 252, 1223.667, 229.667]
+		# points2 		= [5.016, 520, 38.333, 520, 147.667, 520, 252.333, 520, 339.667, 520, 428.333, 520, 515, 520, 603, 520, 711, 520, 821, 520, 925.667, 520, 1031, 520, 1140.334, 520, 1223.667, 520 ]
+		# pointsEnd2 	= [5.016, 153.667, 38.333, 145, 147.667, 153.667, 252.333, 214.333, 339.667, 279.667, 428.333, 299, 515, 286.334, 603, 248.333, 711, 225.667, 821, 271.667, 925.667, 314.334, 1031, 294.334, 1140.334, 252, 1223.667, 229.667]
+
 		@rollerAxesTween = TweenMax.to {}, .75, { onUpdate: StatSocial.helpers.bind(@onRollerAxesUpdate,@) }
 		@controller.addTween start, @rollerAxesTween, @frameDurationTime
+
+		# --> ROLLER-COASTER BUILD
+		# @rollerRailsTween = TweenMax.to { a: 10 }, .75, { a: 20, onUpdate: StatSocial.helpers.bind(@onRollerRailsUpdate,@) }
+		# @controller.addTween start, @rollerRailsTween, @frameDurationTime
+		
+		# for point in points1
+
+	# onRollerRailsUpdate:()->
+	# 	@rollerRailsTween.totalProgress()
+	# 	console.log @rollerRailsTween.target
 
 	onRollerAxesUpdate:()->
 		progress = @rollerAxesTween.totalProgress()
