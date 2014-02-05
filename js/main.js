@@ -281,7 +281,11 @@
           return _this.showSecondTrain();
         }),
         onReverseComplete: (function() {
-          _this.rollerCabinsTween.pause();
+          var _ref3;
+
+          if ((_ref3 = _this.rollerCabinsTween) != null) {
+            _ref3.pause();
+          }
           _this.rollerCabinsTween2.pause();
           return _this.hideSecondTrain();
         })

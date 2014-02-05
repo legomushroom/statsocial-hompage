@@ -186,7 +186,7 @@ class App
 		@controller.addTween start, @rollerTextTween, 4*@frameDurationTime
 
 		start = 19*@frameDurationTime
-		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween.pause();@rollerCabinsTween2.pause();@hideSecondTrain() ) }
+		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2.pause();@hideSecondTrain() ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
 
 
