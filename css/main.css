@@ -1849,9 +1849,14 @@ a,
   stroke-width: 5px;
   stroke: #287e7b;
 }
-.roller-coaster-b polyline {
+.roller-coaster-b .line {
   stroke-width: 3px;
   stroke: #409f9c;
+}
+.roller-coaster-b text {
+  font-size: 48px;
+  font-family: 'reklame-script';
+  fill: #fff;
 }
 .bush-b {
   width: 128px;
@@ -2235,6 +2240,8 @@ a,
   position: absolute;
   bottom: 145px;
   z-index: 3;
+  left: 50%;
+  margin-left: -610px;
 }
 .curtain3-l .curtain3--bush-lh {
   position: absolute;

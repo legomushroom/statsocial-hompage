@@ -144,24 +144,55 @@ class App
 		@$xAxes = @$('#js-roller-x')
 		
 		@$rollerLine1 = @$('#js-roller-line1')
-		
-		# points1  		= [4.933, 520, 58.333, 520, 129, 520, 233.667, 520, 320.953, 520, 374.333, 520, 428.333, 520, 481, 520, 534.333, 520, 639.667, 520, 782.334, 520, 855.667, 520, 925.667, 520, 1031, 520, 1140.334, 520, 1223.667, 520]
-		# pointsEnd1 	= [4.933, 217.667, 58.333, 203, 129, 217.667, 233.667, 265.667, 320.953, 265.667, 374.333, 234.333, 428.333, 217, 481, 217, 534.333, 234.333, 639.667, 295, 782.334, 327, 855.667, 330.334, 925.667, 314.334, 1031, 294.334, 1140.334, 252, 1223.667, 229.667]
-		# points2 		= [5.016, 520, 38.333, 520, 147.667, 520, 252.333, 520, 339.667, 520, 428.333, 520, 515, 520, 603, 520, 711, 520, 821, 520, 925.667, 520, 1031, 520, 1140.334, 520, 1223.667, 520 ]
-		# pointsEnd2 	= [5.016, 153.667, 38.333, 145, 147.667, 153.667, 252.333, 214.333, 339.667, 279.667, 428.333, 299, 515, 286.334, 603, 248.333, 711, 225.667, 821, 271.667, 925.667, 314.334, 1031, 294.334, 1140.334, 252, 1223.667, 229.667]
+		@$rollerLine2 = @$('#js-roller-line2')
+		@rollerLine2  = @$rollerLine2[0]
+		@$rollerLineBg2 = @$('#js-roller-line-bg2')
+		@$rollerLineBg1 = @$('#js-roller-line-bg1')
+		@$rollerCabin1 	= @$('#js-roller-cabin1') 
 
+		@$rollerText 		= @$('#js-roller-text')
+		@rollerText 		= @$rollerText[0]
+		@rollerTextOffset = parseInt @rollerText.getAttribute('startOffset'), 10
+		
 		@rollerAxesTween = TweenMax.to {}, .75, { onUpdate: StatSocial.helpers.bind(@onRollerAxesUpdate,@) }
 		@controller.addTween start, @rollerAxesTween, @frameDurationTime
 
+		start = 14*@frameDurationTime
 		# --> ROLLER-COASTER BUILD
-		# @rollerRailsTween = TweenMax.to { a: 10 }, .75, { a: 20, onUpdate: StatSocial.helpers.bind(@onRollerRailsUpdate,@) }
-		# @controller.addTween start, @rollerRailsTween, @frameDurationTime
-		
-		# for point in points1
+		@rollerRailsTween1 = TweenMax.to { y: 400 }, .75, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails1Update,@) }
+		@controller.addTween start, @rollerRailsTween1, @frameDurationTime
 
-	# onRollerRailsUpdate:()->
-	# 	@rollerRailsTween.totalProgress()
-	# 	console.log @rollerRailsTween.target
+		@rollerRailsTween2 = TweenMax.to { y: 400 }, 1, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails2Update,@) }
+		@controller.addTween start, @rollerRailsTween2, 2*@frameDurationTime
+
+		start = 16*@frameDurationTime
+		@rollerTextTween = TweenMax.to { offset: @rollerTextOffset }, 1, { offset: @rollerLine2.getTotalLength(), onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@) }
+		@controller.addTween start, @rollerTextTween, 6*@frameDurationTime
+
+	onRollerTextUpdate:->
+		progress = @rollerTextTween.totalProgress()
+		pathProgress = @rollerTextTween.target.offset-@rollerTextOffset
+		point  		= @rollerLine2.getPointAtLength pathProgress
+		prevPoint = @rollerLine2.getPointAtLength pathProgress - 25
+
+		cathetus   = Math.abs point.x-prevPoint.x
+		hypotenuse = Math.abs Math.sqrt Math.pow(point.x-prevPoint.x,2)+Math.pow(point.y-prevPoint.y,2)
+		console.log point.y-prevPoint.y
+
+		degree = Math.acos(cathetus/hypotenuse)*(180/Math.PI)
+		# console.log degree
+		@rollerText.setAttribute('startOffset', "#{@rollerTextTween.target.offset}")
+		@$rollerCabin1.parent()
+									.attr('transform', "translate(#{point.x}, #{point.y-50}) rotate(#{degree}, 21, 21)")
+
+		# for point in points1
+	onRollerRails1Update:()-> 
+		@$rollerLine1.attr( 	'transform', "translate(0,#{@rollerRailsTween1.target.y})")
+		@$rollerLineBg1.attr( 'transform', "translate(0,#{@rollerRailsTween1.target.y})")
+
+	onRollerRails2Update:()-> 
+		@$rollerLine2.attr('transform', "translate(0,#{@rollerRailsTween2.target.y})")
+		@$rollerLineBg2.attr('transform', "translate(0,#{@rollerRailsTween2.target.y})")
 
 	onRollerAxesUpdate:()->
 		progress = @rollerAxesTween.totalProgress()

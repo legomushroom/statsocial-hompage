@@ -222,10 +222,66 @@
       this.$yAxes = this.$('#js-roller-y');
       this.$xAxes = this.$('#js-roller-x');
       this.$rollerLine1 = this.$('#js-roller-line1');
+      this.$rollerLine2 = this.$('#js-roller-line2');
+      this.rollerLine2 = this.$rollerLine2[0];
+      this.$rollerLineBg2 = this.$('#js-roller-line-bg2');
+      this.$rollerLineBg1 = this.$('#js-roller-line-bg1');
+      this.$rollerCabin1 = this.$('#js-roller-cabin1');
+      this.$rollerText = this.$('#js-roller-text');
+      this.rollerText = this.$rollerText[0];
+      this.rollerTextOffset = parseInt(this.rollerText.getAttribute('startOffset'), 10);
       this.rollerAxesTween = TweenMax.to({}, .75, {
         onUpdate: StatSocial.helpers.bind(this.onRollerAxesUpdate, this)
       });
-      return this.controller.addTween(start, this.rollerAxesTween, this.frameDurationTime);
+      this.controller.addTween(start, this.rollerAxesTween, this.frameDurationTime);
+      start = 14 * this.frameDurationTime;
+      this.rollerRailsTween1 = TweenMax.to({
+        y: 400
+      }, .75, {
+        y: 0,
+        onUpdate: StatSocial.helpers.bind(this.onRollerRails1Update, this)
+      });
+      this.controller.addTween(start, this.rollerRailsTween1, this.frameDurationTime);
+      this.rollerRailsTween2 = TweenMax.to({
+        y: 400
+      }, 1, {
+        y: 0,
+        onUpdate: StatSocial.helpers.bind(this.onRollerRails2Update, this)
+      });
+      this.controller.addTween(start, this.rollerRailsTween2, 2 * this.frameDurationTime);
+      start = 16 * this.frameDurationTime;
+      this.rollerTextTween = TweenMax.to({
+        offset: this.rollerTextOffset
+      }, 1, {
+        offset: this.rollerLine2.getTotalLength(),
+        onUpdate: StatSocial.helpers.bind(this.onRollerTextUpdate, this)
+      });
+      return this.controller.addTween(start, this.rollerTextTween, 6 * this.frameDurationTime);
+    };
+
+    App.prototype.onRollerTextUpdate = function() {
+      var cathetus, degree, hypotenuse, pathProgress, point, prevPoint, progress;
+
+      progress = this.rollerTextTween.totalProgress();
+      pathProgress = this.rollerTextTween.target.offset - this.rollerTextOffset;
+      point = this.rollerLine2.getPointAtLength(pathProgress);
+      prevPoint = this.rollerLine2.getPointAtLength(pathProgress - 25);
+      cathetus = Math.abs(point.x - prevPoint.x);
+      hypotenuse = Math.abs(Math.sqrt(Math.pow(point.x - prevPoint.x, 2) + Math.pow(point.y - prevPoint.y, 2)));
+      console.log(point.y - prevPoint.y);
+      degree = Math.acos(cathetus / hypotenuse) * (180 / Math.PI);
+      this.rollerText.setAttribute('startOffset', "" + this.rollerTextTween.target.offset);
+      return this.$rollerCabin1.parent().attr('transform', "translate(" + point.x + ", " + (point.y - 50) + ") rotate(" + degree + ", 21, 21)");
+    };
+
+    App.prototype.onRollerRails1Update = function() {
+      this.$rollerLine1.attr('transform', "translate(0," + this.rollerRailsTween1.target.y + ")");
+      return this.$rollerLineBg1.attr('transform', "translate(0," + this.rollerRailsTween1.target.y + ")");
+    };
+
+    App.prototype.onRollerRails2Update = function() {
+      this.$rollerLine2.attr('transform', "translate(0," + this.rollerRailsTween2.target.y + ")");
+      return this.$rollerLineBg2.attr('transform', "translate(0," + this.rollerRailsTween2.target.y + ")");
     };
 
     App.prototype.onRollerAxesUpdate = function() {
