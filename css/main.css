@@ -2862,59 +2862,59 @@ a,
 }
 .curtain-l .image1 {
   background: url("i/curtain-dots-bg1.png") repeat;
-  -webkit-animation: rotate 700s linear infinite alternate;
-  -moz-animation: rotate 700s linear infinite alternate;
-  -ms-animation: rotate 700s linear infinite alternate;
-  -o-animation: rotate 700s linear infinite alternate;
-  animation: rotate 700s linear infinite alternate;
+  -webkit-animation: rotate 700s ease infinite alternate;
+  -moz-animation: rotate 700s ease infinite alternate;
+  -ms-animation: rotate 700s ease infinite alternate;
+  -o-animation: rotate 700s ease infinite alternate;
+  animation: rotate 700s ease infinite alternate;
 }
 .curtain-l .image2 {
   background: url("i/curtain-dots-bg2.png") repeat;
-  -webkit-animation: rotateReverse 700s linear infinite alternate;
-  -moz-animation: rotateReverse 700s linear infinite alternate;
-  -ms-animation: rotateReverse 700s linear infinite alternate;
-  -o-animation: rotateReverse 700s linear infinite alternate;
-  animation: rotateReverse 700s linear infinite alternate;
+  -webkit-animation: rotateReverse 650s ease infinite alternate;
+  -moz-animation: rotateReverse 650s ease infinite alternate;
+  -ms-animation: rotateReverse 650s ease infinite alternate;
+  -o-animation: rotateReverse 650s ease infinite alternate;
+  animation: rotateReverse 650s ease infinite alternate;
 }
 .curtain-l .image3 {
   background: url("i/curtain-dots-bg3.png") repeat;
-  -webkit-animation: rotate 600s linear infinite alternate;
-  -moz-animation: rotate 600s linear infinite alternate;
-  -ms-animation: rotate 600s linear infinite alternate;
-  -o-animation: rotate 600s linear infinite alternate;
-  animation: rotate 600s linear infinite alternate;
+  -webkit-animation: rotate 600s ease infinite alternate;
+  -moz-animation: rotate 600s ease infinite alternate;
+  -ms-animation: rotate 600s ease infinite alternate;
+  -o-animation: rotate 600s ease infinite alternate;
+  animation: rotate 600s ease infinite alternate;
 }
 .curtain-l .image4 {
   background: url("i/curtain-logos-bg1.png") repeat;
-  -webkit-animation: rotate 500s linear infinite alternate;
-  -moz-animation: rotate 500s linear infinite alternate;
-  -ms-animation: rotate 500s linear infinite alternate;
-  -o-animation: rotate 500s linear infinite alternate;
-  animation: rotate 500s linear infinite alternate;
+  -webkit-animation: rotate 500s ease infinite alternate;
+  -moz-animation: rotate 500s ease infinite alternate;
+  -ms-animation: rotate 500s ease infinite alternate;
+  -o-animation: rotate 500s ease infinite alternate;
+  animation: rotate 500s ease infinite alternate;
 }
 .curtain-l .image5 {
   background: url("i/curtain-logos-bg2.png") repeat;
-  -webkit-animation: rotateReverse 500s linear infinite alternate;
-  -moz-animation: rotateReverse 500s linear infinite alternate;
-  -ms-animation: rotateReverse 500s linear infinite alternate;
-  -o-animation: rotateReverse 500s linear infinite alternate;
-  animation: rotateReverse 500s linear infinite alternate;
+  -webkit-animation: rotateReverse 550s ease infinite alternate;
+  -moz-animation: rotateReverse 550s ease infinite alternate;
+  -ms-animation: rotateReverse 550s ease infinite alternate;
+  -o-animation: rotateReverse 550s ease infinite alternate;
+  animation: rotateReverse 550s ease infinite alternate;
 }
 .curtain-l .image6 {
   background: url("i/curtain-logos-bg3.png") repeat;
-  -webkit-animation: rotateReverse 500s linear infinite alternate;
-  -moz-animation: rotateReverse 500s linear infinite alternate;
-  -ms-animation: rotateReverse 500s linear infinite alternate;
-  -o-animation: rotateReverse 500s linear infinite alternate;
-  animation: rotateReverse 500s linear infinite alternate;
+  -webkit-animation: rotateReverse 450s ease infinite alternate;
+  -moz-animation: rotateReverse 450s ease infinite alternate;
+  -ms-animation: rotateReverse 450s ease infinite alternate;
+  -o-animation: rotateReverse 450s ease infinite alternate;
+  animation: rotateReverse 450s ease infinite alternate;
 }
 .curtain-l .image7 {
   background: url("i/curtain-logos-bg4.png") repeat;
-  -webkit-animation: rotate 400s linear infinite alternate;
-  -moz-animation: rotate 400s linear infinite alternate;
-  -ms-animation: rotate 400s linear infinite alternate;
-  -o-animation: rotate 400s linear infinite alternate;
-  animation: rotate 400s linear infinite alternate;
+  -webkit-animation: rotate 400s ease infinite alternate;
+  -moz-animation: rotate 400s ease infinite alternate;
+  -ms-animation: rotate 400s ease infinite alternate;
+  -o-animation: rotate 400s ease infinite alternate;
+  animation: rotate 400s ease infinite alternate;
 }
 .plane-n-text-l {
   position: relative;
