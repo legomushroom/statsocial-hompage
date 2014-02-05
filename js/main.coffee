@@ -13,7 +13,7 @@ class App
 		@scrollPos = 0
 		@$window = $(window)
 		@$window.height()
-		@frameDurationTime = 2500
+		@frameDurationTime = 5000
 		@$mainLogo 	= @$('#js-main-logo')
 		@$script1 	= @$('#js-script1')
 		@$script2 	= @$('#js-script2')
@@ -55,7 +55,7 @@ class App
 
 	buildAnimations:->
 		# THE FIRST CURTAIN
-		@curtainTween1 	= TweenMax.to @$('.curtain-l'), .75, { css:{ top: '-100%' }, onUpdate: StatSocial.helpers.bind(@onCurtain1Update,@) }
+		@curtainTween1 	= TweenMax.to @$('.curtain-l'), .75,  { css:{ top: '-100%' }, onUpdate: StatSocial.helpers.bind(@onCurtain1Update,@) }
 		@curtainTween2 	= TweenMax.to @$('.curtain2-l'), .75, { css:{ top: '-22px', y: 0 } }
 		@scriptTween1  	= TweenMax.to @$script1, .75, { css:	{ top: '50%', opacity: 1 } }
 		@scriptTween12  = TweenMax.to @$script1, .75, { css:	{ top: '95%' } }
@@ -64,22 +64,20 @@ class App
 		# FIX
 		@$mainLogo.css 'top': '50%'
 		
-		@controller.addTween @frameDurationTime, @curtainTween1, @frameDurationTime
-		@controller.addTween @frameDurationTime, @curtainTween2, @frameDurationTime
-		@controller.addTween 1, @scriptTween1, @frameDurationTime/1.5
-		@controller.addTween @frameDurationTime, @scriptTween12, @frameDurationTime/2
-		@controller.addTween @frameDurationTime, @logoTween, @frameDurationTime/2
+		@controller.addTween 1, @scriptTween1, @frameDurationTime
 
-		
+		start = @frameDurationTime
+		@controller.addTween start, @curtainTween1, @frameDurationTime
+		@controller.addTween start, @curtainTween2, @frameDurationTime
+		@controller.addTween start, @scriptTween12, @frameDurationTime/2
+		@controller.addTween start, @logoTween,  		@frameDurationTime/2
 		@scriptTween2  = TweenMax.to @$script2, .75, { css:{ top: '50%' } }
 		@controller.addTween @frameDurationTime, @scriptTween2, @frameDurationTime*1.5
-
 
 		$images = @$scence.find('.curtain-layer-lh')
 		for el, i in $images
 			$el = $ el
 			@controller.addTween @frameDurationTime, TweenMax.to($el, .75, { css:{ top: "#{(50+(i*5))}%" } }), @frameDurationTime
-
 
 		# THE SECOND CURTAIN
 		@$left 		= @$('#js-curtain2-left-side')
@@ -87,7 +85,7 @@ class App
 		$leftEls 	= @$left.find('.curtain2-section-lh')
 		$rightEls = @$right.find('.curtain2-section-lh')
 
-		start = 2*@frameDurationTime
+		start = 3*@frameDurationTime
 		rotateDegree = 5
 		rotateElsCountLeft = Math.min $leftEls.length, 10
 		for i in [$leftEls.length..$leftEls.length-rotateElsCountLeft]
@@ -98,13 +96,13 @@ class App
 			$el = $ el
 			@controller.addTween start-(($rightEls.length-i)*(@frameDurationTime/$rightEls.length)), TweenMax.to($el, .75, { css:{ rotation: -rotateDegree, transformOrigin: 'right top' } }), @frameDurationTime
 		
+		start = 2.5*@frameDurationTime
 		@curtain2LeftTween = TweenMax.to(@$left, .75, { css:{ left: -@$window.outerWidth()/2 }, onUpdate: StatSocial.helpers.bind(@onCurtain2Update,@)  })
-
 		@controller.addTween start, @curtain2LeftTween, @frameDurationTime
 		@controller.addTween start, TweenMax.to(@$right, .75, { css:{ left: (@$window.outerWidth()/2) + $rightEls.first().outerWidth() } }), @frameDurationTime
 
 		# THE THIRD CURTAIN
-		start = 3.5*@frameDurationTime
+		start = 4.5*@frameDurationTime
 		@groundTween  = TweenMax.to @$('#js-ground'), .75, { css:{ x: 0 } }
 		@controller.addTween start, @groundTween, @frameDurationTime
 
@@ -116,7 +114,7 @@ class App
 		@controller.addTween start, @cloudTween, 1
 
 		# -> BUILDINGS
-		start = 6*@frameDurationTime
+		start = 7*@frameDurationTime
 		$buildings  = @$('.building-b')
 		for i in [0..$buildings.length]
 			$el = $ $buildings.eq i
@@ -132,19 +130,19 @@ class App
 		@planeTween  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate,@) }
 		@controller.addTween start, @planeTween, @frameDurationTime*6
 
-
 		# -> BUSHES
 		start = 10*@frameDurationTime
 		@bushTween = TweenMax.to $clouds, .75, { onComplete: (=> @$scence3.addClass('is-show-bushes')), onReverseComplete:(=> @$scence3.removeClass('is-show-bushes')) }
 		@controller.addTween start, @bushTween, 1
 
 		# -> ROLLER-COASTER
-		start = 13*@frameDurationTime
+		start = 12*@frameDurationTime
 		@$yAxes = @$('#js-roller-y')
 		@$xAxes = @$('#js-roller-x')
 		
 		@$rollerLine1 = @$('#js-roller-line1')
 		@$rollerLine2 = @$('#js-roller-line2')
+		@rollerLine1  = @$rollerLine1[0]
 		@rollerLine2  = @$rollerLine2[0]
 		@$rollerLineBg2 = @$('#js-roller-line-bg2')
 		@$rollerLineBg1 = @$('#js-roller-line-bg1')
@@ -153,18 +151,29 @@ class App
 		@$rollerCabinParent1 = @$rollerCabin1.parent()
 		@$rollerCabin2 	= @$('#js-roller-cabin2') 
 		@$rollerCabinParent2 = @$rollerCabin2.parent()
-
 		@$rollerCabin3 	= @$('#js-roller-cabin3') 
 		@$rollerCabinParent3 = @$rollerCabin3.parent()
 
+
+		@$rollerCabin4 	= @$('#js-roller-cabin4') 
+		@$rollerCabinParent4 = @$rollerCabin4.parent()
+		@$rollerCabin5 	= @$('#js-roller-cabin5') 
+		@$rollerCabinParent5 = @$rollerCabin5.parent()
+		@$rollerCabin6 	= @$('#js-roller-cabin6') 
+		@$rollerCabinParent6 = @$rollerCabin6.parent()
+		@$rollerCabin7 	= @$('#js-roller-cabin7') 
+		@$rollerCabinParent7 = @$rollerCabin7.parent()
+
+
 		@$rollerText 		= @$('#js-roller-text')
+		@rollerLine2Length = @rollerLine2.getTotalLength()
 		@rollerText 		= @$rollerText[0]
 		@rollerTextOffset = parseInt @rollerText.getAttribute('startOffset'), 10
 		
 		@rollerAxesTween = TweenMax.to {}, .75, { onUpdate: StatSocial.helpers.bind(@onRollerAxesUpdate,@) }
 		@controller.addTween start, @rollerAxesTween, @frameDurationTime
 
-		start = 14*@frameDurationTime
+		start = 13*@frameDurationTime
 		# --> ROLLER-COASTER BUILD
 		@rollerRailsTween1 = TweenMax.to { y: 400 }, .75, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails1Update,@) }
 		@controller.addTween start, @rollerRailsTween1, @frameDurationTime
@@ -172,19 +181,56 @@ class App
 		@rollerRailsTween2 = TweenMax.to { y: 400 }, 1, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails2Update,@) }
 		@controller.addTween start, @rollerRailsTween2, 2*@frameDurationTime
 
-		start = 16*@frameDurationTime
+		start = 15*@frameDurationTime
 		@rollerTextTween = TweenMax.to { offset: @rollerTextOffset }, 1, { offset: @rollerLine2.getTotalLength(), onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@) }
-		@controller.addTween start, @rollerTextTween, 6*@frameDurationTime
+		@controller.addTween start, @rollerTextTween, 4*@frameDurationTime
 
-	onRollerTextUpdate:->
-		progress = @rollerTextTween.totalProgress()
+		start = 19*@frameDurationTime
+		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins() ), onReverseComplete:(=> @rollerCabinsTween.kill(); @rollerCabinsTween2.kill() ) }
+		@controller.addTween start, @rollerCabinsTriggerTween, 1
+
+
+	initRollerCabins:->
+		@rollerCabinsTween?.kill()
+		@rollerCabinsTween = TweenMax.to { p: -110 }, 6, { p: @rollerLine2Length, repeatDelay: 3, repeat: -1, onUpdate: StatSocial.helpers.bind(@onRollerCabinsUpdate,@) }
+
+		@rollerCabinsTween2?.kill()
+		@rollerCabinsTween2 = TweenMax.to { p: -110 }, 6, { p: @rollerLine2Length, delay: 2, repeatDelay: 3, repeat: -1, onUpdate: StatSocial.helpers.bind(@onRollerCabinsUpdate2,@) }
+
+	onRollerCabinsUpdate2:->
+		pathProgress = @rollerCabinsTween2.target.p
+		info1 = @getRollerPathInfo pathProgress + 10, true
+		info2 = @getRollerPathInfo pathProgress + 50, true
+		info3 = @getRollerPathInfo pathProgress + 90, true
+		info4 = @getRollerPathInfo pathProgress + 130, true
+		@$rollerCabinParent4
+			.attr('transform', "translate(#{info1.point.x-22}, #{info1.point.y-25}) rotate(#{info1.degree or 0}, 22, 21)")
+		@$rollerCabinParent5
+			.attr('transform', "translate(#{info2.point.x-22}, #{info2.point.y-25}) rotate(#{info2.degree or 0}, 22, 21)")
+		@$rollerCabinParent6
+			.attr('transform', "translate(#{info3.point.x-22}, #{info3.point.y-25}) rotate(#{info3.degree or 0}, 22, 21)")
+		@$rollerCabinParent7
+			.attr('transform', "translate(#{info4.point.x-22}, #{info4.point.y-25}) rotate(#{info4.degree or 0}, 22, 21)")
+
+
+	onRollerCabinsUpdate:->
+		pathProgress = @rollerCabinsTween.target.p
+		info1 = @getRollerPathInfo pathProgress + 10
+		info2 = @getRollerPathInfo pathProgress + 50
+		info3 = @getRollerPathInfo pathProgress + 90
+		@$rollerCabinParent1
+			.attr('transform', "translate(#{info1.point.x-22}, #{info1.point.y-25}) rotate(#{info1.degree or 0}, 22, 21)")
+		@$rollerCabinParent2
+			.attr('transform', "translate(#{info2.point.x-22}, #{info2.point.y-25}) rotate(#{info2.degree or 0}, 22, 21)")
+		@$rollerCabinParent3
+			.attr('transform', "translate(#{info3.point.x-22}, #{info3.point.y-25}) rotate(#{info3.degree or 0}, 22, 21)")
+
+
+	onRollerTextUpdate:()->
 		pathProgress = @rollerTextTween.target.offset-@rollerTextOffset
-		pathOffsetX1 = 10
-		pathOffsetX2 = 50
-		pathOffsetX3 = 90
-		info1 = @getRollerPathInfo pathProgress + pathOffsetX1
-		info2 = @getRollerPathInfo pathProgress + pathOffsetX2
-		info3 = @getRollerPathInfo pathProgress + pathOffsetX3
+		info1 = @getRollerPathInfo pathProgress + 10
+		info2 = @getRollerPathInfo pathProgress + 50
+		info3 = @getRollerPathInfo pathProgress + 90
 		
 		@rollerText.setAttribute('startOffset', "#{@rollerTextTween.target.offset}")
 		@$rollerCabinParent1
@@ -196,10 +242,12 @@ class App
 		@$rollerCabinParent3
 			.attr('transform', "translate(#{info3.point.x-22}, #{info3.point.y-25}) rotate(#{info3.degree or 0}, 22, 21)")
 
+	getRollerPathInfo:(progress, isSecondLine)->
+		# isDebug and debugger
+		line = if !isSecondLine then @rollerLine2 else @rollerLine1
+		point  		= line.getPointAtLength progress
+		prevPoint = line.getPointAtLength progress - 2
 
-	getRollerPathInfo:(progress)->
-		point  		= @rollerLine2.getPointAtLength progress
-		prevPoint = @rollerLine2.getPointAtLength progress - 2
 		cathetus   = point.x-prevPoint.x
 		hypotenuse = Math.sqrt Math.pow(point.x-prevPoint.x,2)+Math.pow(point.y-prevPoint.y,2)
 		degree = Math.acos(cathetus/hypotenuse)*(180/Math.PI)
@@ -236,21 +284,19 @@ class App
 
 		@prevPlaneProgress = progress
 
-		if progress > 0 and progress < 1
+		if progress > .2 and progress < 1
 			!@isBuildingCategories and @$scence3.addClass 'show-building-categories-gt'
 			@isBuildingCategories = true
 		else 
 			@isBuildingCategories and @$scence3.removeClass 'show-building-categories-gt'
 			@isBuildingCategories = false
-		
+
 		if progress >= 1
 			!@isPlaneHide and @$plane.hide()
 			@isPlaneHide = 	true
 		else 
 			@isPlaneHide and @$plane.show()
 			@isPlaneHide = 	false
-
-
 
 	$:(selector)->
 		@$main.find(selector)

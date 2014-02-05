@@ -17,7 +17,7 @@
       this.scrollPos = 0;
       this.$window = $(window);
       this.$window.height();
-      this.frameDurationTime = 2500;
+      this.frameDurationTime = 5000;
       this.$mainLogo = this.$('#js-main-logo');
       this.$script1 = this.$('#js-script1');
       this.$script2 = this.$('#js-script2');
@@ -98,11 +98,12 @@
       this.$mainLogo.css({
         'top': '50%'
       });
-      this.controller.addTween(this.frameDurationTime, this.curtainTween1, this.frameDurationTime);
-      this.controller.addTween(this.frameDurationTime, this.curtainTween2, this.frameDurationTime);
-      this.controller.addTween(1, this.scriptTween1, this.frameDurationTime / 1.5);
-      this.controller.addTween(this.frameDurationTime, this.scriptTween12, this.frameDurationTime / 2);
-      this.controller.addTween(this.frameDurationTime, this.logoTween, this.frameDurationTime / 2);
+      this.controller.addTween(1, this.scriptTween1, this.frameDurationTime);
+      start = this.frameDurationTime;
+      this.controller.addTween(start, this.curtainTween1, this.frameDurationTime);
+      this.controller.addTween(start, this.curtainTween2, this.frameDurationTime);
+      this.controller.addTween(start, this.scriptTween12, this.frameDurationTime / 2);
+      this.controller.addTween(start, this.logoTween, this.frameDurationTime / 2);
       this.scriptTween2 = TweenMax.to(this.$script2, .75, {
         css: {
           top: '50%'
@@ -123,7 +124,7 @@
       this.$right = this.$('#js-curtain2-right-side');
       $leftEls = this.$left.find('.curtain2-section-lh');
       $rightEls = this.$right.find('.curtain2-section-lh');
-      start = 2 * this.frameDurationTime;
+      start = 3 * this.frameDurationTime;
       rotateDegree = 5;
       rotateElsCountLeft = Math.min($leftEls.length, 10);
       for (i = _j = _ref = $leftEls.length, _ref1 = $leftEls.length - rotateElsCountLeft; _ref <= _ref1 ? _j <= _ref1 : _j >= _ref1; i = _ref <= _ref1 ? ++_j : --_j) {
@@ -145,6 +146,7 @@
           }
         }), this.frameDurationTime);
       }
+      start = 2.5 * this.frameDurationTime;
       this.curtain2LeftTween = TweenMax.to(this.$left, .75, {
         css: {
           left: -this.$window.outerWidth() / 2
@@ -157,7 +159,7 @@
           left: (this.$window.outerWidth() / 2) + $rightEls.first().outerWidth()
         }
       }), this.frameDurationTime);
-      start = 3.5 * this.frameDurationTime;
+      start = 4.5 * this.frameDurationTime;
       this.groundTween = TweenMax.to(this.$('#js-ground'), .75, {
         css: {
           x: 0
@@ -180,7 +182,7 @@
         })
       });
       this.controller.addTween(start, this.cloudTween, 1);
-      start = 6 * this.frameDurationTime;
+      start = 7 * this.frameDurationTime;
       $buildings = this.$('.building-b');
       for (i = _l = 0, _ref2 = $buildings.length; 0 <= _ref2 ? _l <= _ref2 : _l >= _ref2; i = 0 <= _ref2 ? ++_l : --_l) {
         $el = $($buildings.eq(i));
@@ -218,11 +220,12 @@
         })
       });
       this.controller.addTween(start, this.bushTween, 1);
-      start = 13 * this.frameDurationTime;
+      start = 12 * this.frameDurationTime;
       this.$yAxes = this.$('#js-roller-y');
       this.$xAxes = this.$('#js-roller-x');
       this.$rollerLine1 = this.$('#js-roller-line1');
       this.$rollerLine2 = this.$('#js-roller-line2');
+      this.rollerLine1 = this.$rollerLine1[0];
       this.rollerLine2 = this.$rollerLine2[0];
       this.$rollerLineBg2 = this.$('#js-roller-line-bg2');
       this.$rollerLineBg1 = this.$('#js-roller-line-bg1');
@@ -232,14 +235,23 @@
       this.$rollerCabinParent2 = this.$rollerCabin2.parent();
       this.$rollerCabin3 = this.$('#js-roller-cabin3');
       this.$rollerCabinParent3 = this.$rollerCabin3.parent();
+      this.$rollerCabin4 = this.$('#js-roller-cabin4');
+      this.$rollerCabinParent4 = this.$rollerCabin4.parent();
+      this.$rollerCabin5 = this.$('#js-roller-cabin5');
+      this.$rollerCabinParent5 = this.$rollerCabin5.parent();
+      this.$rollerCabin6 = this.$('#js-roller-cabin6');
+      this.$rollerCabinParent6 = this.$rollerCabin6.parent();
+      this.$rollerCabin7 = this.$('#js-roller-cabin7');
+      this.$rollerCabinParent7 = this.$rollerCabin7.parent();
       this.$rollerText = this.$('#js-roller-text');
+      this.rollerLine2Length = this.rollerLine2.getTotalLength();
       this.rollerText = this.$rollerText[0];
       this.rollerTextOffset = parseInt(this.rollerText.getAttribute('startOffset'), 10);
       this.rollerAxesTween = TweenMax.to({}, .75, {
         onUpdate: StatSocial.helpers.bind(this.onRollerAxesUpdate, this)
       });
       this.controller.addTween(start, this.rollerAxesTween, this.frameDurationTime);
-      start = 14 * this.frameDurationTime;
+      start = 13 * this.frameDurationTime;
       this.rollerRailsTween1 = TweenMax.to({
         y: 400
       }, .75, {
@@ -254,38 +266,100 @@
         onUpdate: StatSocial.helpers.bind(this.onRollerRails2Update, this)
       });
       this.controller.addTween(start, this.rollerRailsTween2, 2 * this.frameDurationTime);
-      start = 16 * this.frameDurationTime;
+      start = 15 * this.frameDurationTime;
       this.rollerTextTween = TweenMax.to({
         offset: this.rollerTextOffset
       }, 1, {
         offset: this.rollerLine2.getTotalLength(),
         onUpdate: StatSocial.helpers.bind(this.onRollerTextUpdate, this)
       });
-      return this.controller.addTween(start, this.rollerTextTween, 6 * this.frameDurationTime);
+      this.controller.addTween(start, this.rollerTextTween, 4 * this.frameDurationTime);
+      start = 19 * this.frameDurationTime;
+      this.rollerCabinsTriggerTween = TweenMax.to({}, 1, {
+        onComplete: (function() {
+          return _this.initRollerCabins();
+        }),
+        onReverseComplete: (function() {
+          _this.rollerCabinsTween.kill();
+          return _this.rollerCabinsTween2.kill();
+        })
+      });
+      return this.controller.addTween(start, this.rollerCabinsTriggerTween, 1);
+    };
+
+    App.prototype.initRollerCabins = function() {
+      var _ref, _ref1;
+
+      if ((_ref = this.rollerCabinsTween) != null) {
+        _ref.kill();
+      }
+      this.rollerCabinsTween = TweenMax.to({
+        p: -110
+      }, 6, {
+        p: this.rollerLine2Length,
+        repeatDelay: 3,
+        repeat: -1,
+        onUpdate: StatSocial.helpers.bind(this.onRollerCabinsUpdate, this)
+      });
+      if ((_ref1 = this.rollerCabinsTween2) != null) {
+        _ref1.kill();
+      }
+      return this.rollerCabinsTween2 = TweenMax.to({
+        p: -110
+      }, 6, {
+        p: this.rollerLine2Length,
+        delay: 2,
+        repeatDelay: 3,
+        repeat: -1,
+        onUpdate: StatSocial.helpers.bind(this.onRollerCabinsUpdate2, this)
+      });
+    };
+
+    App.prototype.onRollerCabinsUpdate2 = function() {
+      var info1, info2, info3, info4, pathProgress;
+
+      pathProgress = this.rollerCabinsTween2.target.p;
+      info1 = this.getRollerPathInfo(pathProgress + 10, true);
+      info2 = this.getRollerPathInfo(pathProgress + 50, true);
+      info3 = this.getRollerPathInfo(pathProgress + 90, true);
+      info4 = this.getRollerPathInfo(pathProgress + 130, true);
+      this.$rollerCabinParent4.attr('transform', "translate(" + (info1.point.x - 22) + ", " + (info1.point.y - 25) + ") rotate(" + (info1.degree || 0) + ", 22, 21)");
+      this.$rollerCabinParent5.attr('transform', "translate(" + (info2.point.x - 22) + ", " + (info2.point.y - 25) + ") rotate(" + (info2.degree || 0) + ", 22, 21)");
+      this.$rollerCabinParent6.attr('transform', "translate(" + (info3.point.x - 22) + ", " + (info3.point.y - 25) + ") rotate(" + (info3.degree || 0) + ", 22, 21)");
+      return this.$rollerCabinParent7.attr('transform', "translate(" + (info4.point.x - 22) + ", " + (info4.point.y - 25) + ") rotate(" + (info4.degree || 0) + ", 22, 21)");
+    };
+
+    App.prototype.onRollerCabinsUpdate = function() {
+      var info1, info2, info3, pathProgress;
+
+      pathProgress = this.rollerCabinsTween.target.p;
+      info1 = this.getRollerPathInfo(pathProgress + 10);
+      info2 = this.getRollerPathInfo(pathProgress + 50);
+      info3 = this.getRollerPathInfo(pathProgress + 90);
+      this.$rollerCabinParent1.attr('transform', "translate(" + (info1.point.x - 22) + ", " + (info1.point.y - 25) + ") rotate(" + (info1.degree || 0) + ", 22, 21)");
+      this.$rollerCabinParent2.attr('transform', "translate(" + (info2.point.x - 22) + ", " + (info2.point.y - 25) + ") rotate(" + (info2.degree || 0) + ", 22, 21)");
+      return this.$rollerCabinParent3.attr('transform', "translate(" + (info3.point.x - 22) + ", " + (info3.point.y - 25) + ") rotate(" + (info3.degree || 0) + ", 22, 21)");
     };
 
     App.prototype.onRollerTextUpdate = function() {
-      var info1, info2, info3, pathOffsetX1, pathOffsetX2, pathOffsetX3, pathProgress, progress;
+      var info1, info2, info3, pathProgress;
 
-      progress = this.rollerTextTween.totalProgress();
       pathProgress = this.rollerTextTween.target.offset - this.rollerTextOffset;
-      pathOffsetX1 = 10;
-      pathOffsetX2 = 50;
-      pathOffsetX3 = 90;
-      info1 = this.getRollerPathInfo(pathProgress + pathOffsetX1);
-      info2 = this.getRollerPathInfo(pathProgress + pathOffsetX2);
-      info3 = this.getRollerPathInfo(pathProgress + pathOffsetX3);
+      info1 = this.getRollerPathInfo(pathProgress + 10);
+      info2 = this.getRollerPathInfo(pathProgress + 50);
+      info3 = this.getRollerPathInfo(pathProgress + 90);
       this.rollerText.setAttribute('startOffset', "" + this.rollerTextTween.target.offset);
       this.$rollerCabinParent1.attr('transform', "translate(" + (info1.point.x - 22) + ", " + (info1.point.y - 25) + ") rotate(" + (info1.degree || 0) + ", 22, 21)");
       this.$rollerCabinParent2.attr('transform', "translate(" + (info2.point.x - 22) + ", " + (info2.point.y - 25) + ") rotate(" + (info2.degree || 0) + ", 22, 21)");
       return this.$rollerCabinParent3.attr('transform', "translate(" + (info3.point.x - 22) + ", " + (info3.point.y - 25) + ") rotate(" + (info3.degree || 0) + ", 22, 21)");
     };
 
-    App.prototype.getRollerPathInfo = function(progress) {
-      var cathetus, degree, hypotenuse, point, prevPoint, returnObj;
+    App.prototype.getRollerPathInfo = function(progress, isSecondLine) {
+      var cathetus, degree, hypotenuse, line, point, prevPoint, returnObj;
 
-      point = this.rollerLine2.getPointAtLength(progress);
-      prevPoint = this.rollerLine2.getPointAtLength(progress - 2);
+      line = !isSecondLine ? this.rollerLine2 : this.rollerLine1;
+      point = line.getPointAtLength(progress);
+      prevPoint = line.getPointAtLength(progress - 2);
       cathetus = point.x - prevPoint.x;
       hypotenuse = Math.sqrt(Math.pow(point.x - prevPoint.x, 2) + Math.pow(point.y - prevPoint.y, 2));
       degree = Math.acos(cathetus / hypotenuse) * (180 / Math.PI);
@@ -328,7 +402,7 @@
         this.isPlaneFlip = false;
       }
       this.prevPlaneProgress = progress;
-      if (progress > 0 && progress < 1) {
+      if (progress > .2 && progress < 1) {
         !this.isBuildingCategories && this.$scence3.addClass('show-building-categories-gt');
         this.isBuildingCategories = true;
       } else {
