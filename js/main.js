@@ -227,6 +227,11 @@
       this.$rollerLineBg2 = this.$('#js-roller-line-bg2');
       this.$rollerLineBg1 = this.$('#js-roller-line-bg1');
       this.$rollerCabin1 = this.$('#js-roller-cabin1');
+      this.$rollerCabinParent1 = this.$rollerCabin1.parent();
+      this.$rollerCabin2 = this.$('#js-roller-cabin2');
+      this.$rollerCabinParent2 = this.$rollerCabin2.parent();
+      this.$rollerCabin3 = this.$('#js-roller-cabin3');
+      this.$rollerCabinParent3 = this.$rollerCabin3.parent();
       this.$rollerText = this.$('#js-roller-text');
       this.rollerText = this.$rollerText[0];
       this.rollerTextOffset = parseInt(this.rollerText.getAttribute('startOffset'), 10);
@@ -260,18 +265,37 @@
     };
 
     App.prototype.onRollerTextUpdate = function() {
-      var cathetus, degree, hypotenuse, pathProgress, point, prevPoint, progress;
+      var info1, info2, info3, pathOffsetX1, pathOffsetX2, pathOffsetX3, pathProgress, progress;
 
       progress = this.rollerTextTween.totalProgress();
       pathProgress = this.rollerTextTween.target.offset - this.rollerTextOffset;
-      point = this.rollerLine2.getPointAtLength(pathProgress);
-      prevPoint = this.rollerLine2.getPointAtLength(pathProgress - 25);
-      cathetus = Math.abs(point.x - prevPoint.x);
-      hypotenuse = Math.abs(Math.sqrt(Math.pow(point.x - prevPoint.x, 2) + Math.pow(point.y - prevPoint.y, 2)));
-      console.log(point.y - prevPoint.y);
-      degree = Math.acos(cathetus / hypotenuse) * (180 / Math.PI);
+      pathOffsetX1 = 10;
+      pathOffsetX2 = 50;
+      pathOffsetX3 = 90;
+      info1 = this.getRollerPathInfo(pathProgress + pathOffsetX1);
+      info2 = this.getRollerPathInfo(pathProgress + pathOffsetX2);
+      info3 = this.getRollerPathInfo(pathProgress + pathOffsetX3);
       this.rollerText.setAttribute('startOffset', "" + this.rollerTextTween.target.offset);
-      return this.$rollerCabin1.parent().attr('transform', "translate(" + point.x + ", " + (point.y - 50) + ") rotate(" + degree + ", 21, 21)");
+      this.$rollerCabinParent1.attr('transform', "translate(" + (info1.point.x - 22) + ", " + (info1.point.y - 25) + ") rotate(" + (info1.degree || 0) + ", 22, 21)");
+      this.$rollerCabinParent2.attr('transform', "translate(" + (info2.point.x - 22) + ", " + (info2.point.y - 25) + ") rotate(" + (info2.degree || 0) + ", 22, 21)");
+      return this.$rollerCabinParent3.attr('transform', "translate(" + (info3.point.x - 22) + ", " + (info3.point.y - 25) + ") rotate(" + (info3.degree || 0) + ", 22, 21)");
+    };
+
+    App.prototype.getRollerPathInfo = function(progress) {
+      var cathetus, degree, hypotenuse, point, prevPoint, returnObj;
+
+      point = this.rollerLine2.getPointAtLength(progress);
+      prevPoint = this.rollerLine2.getPointAtLength(progress - 2);
+      cathetus = point.x - prevPoint.x;
+      hypotenuse = Math.sqrt(Math.pow(point.x - prevPoint.x, 2) + Math.pow(point.y - prevPoint.y, 2));
+      degree = Math.acos(cathetus / hypotenuse) * (180 / Math.PI);
+      if ((point.y - prevPoint.y) < 0) {
+        degree = -degree;
+      }
+      return returnObj = {
+        degree: degree,
+        point: point
+      };
     };
 
     App.prototype.onRollerRails1Update = function() {

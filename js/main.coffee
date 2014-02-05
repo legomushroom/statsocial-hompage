@@ -148,7 +148,14 @@ class App
 		@rollerLine2  = @$rollerLine2[0]
 		@$rollerLineBg2 = @$('#js-roller-line-bg2')
 		@$rollerLineBg1 = @$('#js-roller-line-bg1')
+		
 		@$rollerCabin1 	= @$('#js-roller-cabin1') 
+		@$rollerCabinParent1 = @$rollerCabin1.parent()
+		@$rollerCabin2 	= @$('#js-roller-cabin2') 
+		@$rollerCabinParent2 = @$rollerCabin2.parent()
+
+		@$rollerCabin3 	= @$('#js-roller-cabin3') 
+		@$rollerCabinParent3 = @$rollerCabin3.parent()
 
 		@$rollerText 		= @$('#js-roller-text')
 		@rollerText 		= @$rollerText[0]
@@ -172,18 +179,36 @@ class App
 	onRollerTextUpdate:->
 		progress = @rollerTextTween.totalProgress()
 		pathProgress = @rollerTextTween.target.offset-@rollerTextOffset
-		point  		= @rollerLine2.getPointAtLength pathProgress
-		prevPoint = @rollerLine2.getPointAtLength pathProgress - 25
-
-		cathetus   = Math.abs point.x-prevPoint.x
-		hypotenuse = Math.abs Math.sqrt Math.pow(point.x-prevPoint.x,2)+Math.pow(point.y-prevPoint.y,2)
-		console.log point.y-prevPoint.y
-
-		degree = Math.acos(cathetus/hypotenuse)*(180/Math.PI)
-		# console.log degree
+		pathOffsetX1 = 10
+		pathOffsetX2 = 50
+		pathOffsetX3 = 90
+		info1 = @getRollerPathInfo pathProgress + pathOffsetX1
+		info2 = @getRollerPathInfo pathProgress + pathOffsetX2
+		info3 = @getRollerPathInfo pathProgress + pathOffsetX3
+		
 		@rollerText.setAttribute('startOffset', "#{@rollerTextTween.target.offset}")
-		@$rollerCabin1.parent()
-									.attr('transform', "translate(#{point.x}, #{point.y-50}) rotate(#{degree}, 21, 21)")
+		@$rollerCabinParent1
+			.attr('transform', "translate(#{info1.point.x-22}, #{info1.point.y-25}) rotate(#{info1.degree or 0}, 22, 21)")
+
+		@$rollerCabinParent2
+			.attr('transform', "translate(#{info2.point.x-22}, #{info2.point.y-25}) rotate(#{info2.degree or 0}, 22, 21)")
+
+		@$rollerCabinParent3
+			.attr('transform', "translate(#{info3.point.x-22}, #{info3.point.y-25}) rotate(#{info3.degree or 0}, 22, 21)")
+
+
+	getRollerPathInfo:(progress)->
+		point  		= @rollerLine2.getPointAtLength progress
+		prevPoint = @rollerLine2.getPointAtLength progress - 2
+		cathetus   = point.x-prevPoint.x
+		hypotenuse = Math.sqrt Math.pow(point.x-prevPoint.x,2)+Math.pow(point.y-prevPoint.y,2)
+		degree = Math.acos(cathetus/hypotenuse)*(180/Math.PI)
+		if (point.y-prevPoint.y) < 0 then degree = -degree
+
+		returnObj = 
+			degree: degree
+			point: point
+
 
 		# for point in points1
 	onRollerRails1Update:()-> 
