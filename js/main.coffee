@@ -186,16 +186,18 @@ class App
 		@controller.addTween start, @rollerTextTween, 4*@frameDurationTime
 
 		start = 19*@frameDurationTime
-		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins() ), onReverseComplete:(=> @rollerCabinsTween.kill(); @rollerCabinsTween2.kill() ) }
+		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween.pause();@rollerCabinsTween2.pause();@hideSecondTrain() ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
 
 
 	initRollerCabins:->
-		@rollerCabinsTween?.kill()
-		@rollerCabinsTween = TweenMax.to { p: -110 }, 6, { p: @rollerLine2Length, repeatDelay: 3, repeat: -1, onUpdate: StatSocial.helpers.bind(@onRollerCabinsUpdate,@) }
+		if !@rollerCabinsTween
+			@rollerCabinsTween = TweenMax.to { p: -110 }, 6, { p: @rollerLine2Length, repeatDelay: 3, repeat: -1, onUpdate: StatSocial.helpers.bind(@onRollerCabinsUpdate,@) }
+		else @rollerCabinsTween.resume()
 
-		@rollerCabinsTween2?.kill()
-		@rollerCabinsTween2 = TweenMax.to { p: -110 }, 6, { p: @rollerLine2Length, delay: 2, repeatDelay: 3, repeat: -1, onUpdate: StatSocial.helpers.bind(@onRollerCabinsUpdate2,@) }
+		if !@rollerCabinsTween2
+			@rollerCabinsTween2 = TweenMax.to { p: -110 }, 6, { p: @rollerLine2Length, delay: 2, repeatDelay: 3, repeat: -1, onUpdate: StatSocial.helpers.bind(@onRollerCabinsUpdate2,@) }
+		else @rollerCabinsTween2.resume()
 
 	onRollerCabinsUpdate2:->
 		pathProgress = @rollerCabinsTween2.target.p
@@ -212,7 +214,6 @@ class App
 		@$rollerCabinParent7
 			.attr('transform', "translate(#{info4.point.x-22}, #{info4.point.y-25}) rotate(#{info4.degree or 0}, 22, 21)")
 
-
 	onRollerCabinsUpdate:->
 		pathProgress = @rollerCabinsTween.target.p
 		info1 = @getRollerPathInfo pathProgress + 10
@@ -225,6 +226,21 @@ class App
 		@$rollerCabinParent3
 			.attr('transform', "translate(#{info3.point.x-22}, #{info3.point.y-25}) rotate(#{info3.degree or 0}, 22, 21)")
 
+	hideSecondTrain:->
+		if !@isSecondTrainHide
+			@$rollerCabinParent4.fadeOut()
+			@$rollerCabinParent5.fadeOut()
+			@$rollerCabinParent6.fadeOut()
+			@$rollerCabinParent7.fadeOut()
+			@isSecondTrainHide = true
+
+	showSecondTrain:->
+		if @isSecondTrainHide
+			@$rollerCabinParent4.fadeIn()
+			@$rollerCabinParent5.fadeIn()
+			@$rollerCabinParent6.fadeIn()
+			@$rollerCabinParent7.fadeIn()
+			@isSecondTrainHide = false
 
 	onRollerTextUpdate:()->
 		pathProgress = @rollerTextTween.target.offset-@rollerTextOffset
