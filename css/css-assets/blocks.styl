@@ -3,6 +3,8 @@
 
 /* 0615c5aa8e19a9ef7fd683703b0e808a */
 .roller-coaster-b
+	height 504px
+
 	line
 		stroke-width 5px
 		stroke #287e7b
@@ -115,7 +117,6 @@
 		padding-left 16px
 		color darken(#64c2c1, 30)
 
-
 	> .rope-be
 		height 2px
 		width  90px
@@ -169,9 +170,13 @@
 		transition opacity .2s linear
 		// display none
 
-		.show-building-categories-gt &
-			animation neon 5s linear infinite
-			// display block
+	&.is-show-label
+		> .text-be
+			opacity 1
+			animation fadeOutTopRight 1s linear
+			animation-delay 1s
+			-webkit-animation-fill-mode: both;
+			animation-fill-mode: both;
 			
 
 /* 4cbf1f487e13aad9100b274a119b2453 */

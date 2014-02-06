@@ -17,14 +17,16 @@
 		margin-top -100px
 
 	&.is-1
-		top 100%
-		margin-top 40px
+		bottom 0
+		// margin-top 40px
 		opacity 0
 
 	&.is-2
 		color white
-		top 150%
+		top 50%
 		margin-top - 50px
+		z-index 0
+		transform translateX(220px)
 
 .layer
 	position absolute
@@ -51,6 +53,7 @@ groundHeight = 145px
 		z-index 3
 		left 50%
 		margin-left -610px
+		width 100%
 
 	// BUSHES
 	.curtain3--bush-lh
@@ -178,8 +181,6 @@ groundHeight = 145px
 		left (leftSize)%
 		width (widthSize)%
 		height 25%
-		> .text-be
-			animation-delay 1s
 
 	leftSize = progress + 1
 	widthSize = 5
@@ -205,8 +206,6 @@ groundHeight = 145px
 		left (leftSize)%
 		width (widthSize)%
 		height 10%
-		> .text-be
-			animation-delay 1.25s
 
 	leftSize = progress + 1
 	widthSize = 7
@@ -215,8 +214,6 @@ groundHeight = 145px
 		left (leftSize)%
 		width (widthSize)%
 		height 30%
-		> .text-be
-			animation-delay .5s
 
 	leftSize = progress + 1
 	widthSize = 5
@@ -225,8 +222,6 @@ groundHeight = 145px
 		left (leftSize)%
 		width (widthSize)%
 		height 55%
-		> .text-be
-			animation-delay 2s
 
 
 	leftSize = progress + 1
@@ -256,8 +251,6 @@ groundHeight = 145px
 		left (leftSize)%
 		width (widthSize)%
 		height 50%
-		> .text-be
-			animation-delay .5s
 
 	leftSize = progress + 1
 	widthSize = 4
@@ -266,8 +259,6 @@ groundHeight = 145px
 		left (leftSize)%
 		width (widthSize)%
 		height 55%
-		> .text-be
-			animation-delay .5s
 
 
 	leftSize = progress + 1
@@ -277,8 +268,6 @@ groundHeight = 145px
 		left (leftSize)%
 		width (widthSize)%
 		height 35%
-		> .text-be
-			animation-delay 1.5s
 
 	leftSize = progress + 1
 	widthSize = 4
@@ -295,8 +284,6 @@ groundHeight = 145px
 		left (leftSize)%
 		width (widthSize)%
 		height 30%
-		> .text-be
-			animation-delay .5s
 
 	leftSize = progress + 1
 	widthSize = 5
@@ -305,8 +292,6 @@ groundHeight = 145px
 		left (leftSize)%
 		width (widthSize)%
 		height 35%
-		> .text-be
-			animation-delay .2s
 
 
 	.curtain3-cloud-holder-lh
@@ -375,7 +360,7 @@ groundHeight = 145px
 		position absolute
 		bottom 0
 		width 100%
-		transform translateX(-100%)
+		transform translateY(100%)
 		background #493542 url('i/curtain-dots-bg3.png') repeat
 		background-position 0 -200px
 		z-index 5
@@ -555,7 +540,6 @@ animationTime = (70*coef)s
 
 		.no-amimation-g &
 			animation none
-	
 
 	.image1
 		background url('i/curtain-dots-bg1.png') repeat

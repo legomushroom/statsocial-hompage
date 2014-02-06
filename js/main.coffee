@@ -13,7 +13,6 @@ class App
 		@scrollPos = 0
 		@$window = $(window)
 		@$window.height()
-		@frameDurationTime = 5000
 		@$mainLogo 	= @$('#js-main-logo')
 		@$script1 	= @$('#js-script1')
 		@$script2 	= @$('#js-script2')
@@ -54,25 +53,27 @@ class App
 
 
 	buildAnimations:->
+		@frameDurationTime = 2000
+
+
 		# THE FIRST CURTAIN
 		@curtainTween1 	= TweenMax.to @$('.curtain-l'), .75,  { css:{ top: '-100%' }, onUpdate: StatSocial.helpers.bind(@onCurtain1Update,@) }
 		@curtainTween2 	= TweenMax.to @$('.curtain2-l'), .75, { css:{ top: '-22px', y: 0 } }
-		@scriptTween1  	= TweenMax.to @$script1, .75, { css:	{ top: '50%', opacity: 1 } }
-		@scriptTween12  = TweenMax.to @$script1, .75, { css:	{ top: '95%' } }
-		@logoTween  		= TweenMax.to @$mainLogo, .75, { css:	{ top: '100%'} }
+		@scriptTween1  	= TweenMax.to @$script1, .75, { css:	{ bottom: 40, opacity: 1 } }
+		
+		# @scriptTween12  = TweenMax.to @$script1, .75, { css:	{ top: '95%' } }
+		# @logoTween  		= TweenMax.to @$mainLogo, .75, { css:	{ top: '100%'} }
 
 		# FIX
-		@$mainLogo.css 'top': '50%'
+		# @$mainLogo.css 'top': '50%'
 		
-		@controller.addTween 1, @scriptTween1, @frameDurationTime
+		@controller.addTween 1, @scriptTween1, @frameDurationTime/2
 
 		start = @frameDurationTime
 		@controller.addTween start, @curtainTween1, @frameDurationTime
 		@controller.addTween start, @curtainTween2, @frameDurationTime
-		@controller.addTween start, @scriptTween12, @frameDurationTime/2
-		@controller.addTween start, @logoTween,  		@frameDurationTime/2
-		@scriptTween2  = TweenMax.to @$script2, .75, { css:{ top: '50%' } }
-		@controller.addTween @frameDurationTime, @scriptTween2, @frameDurationTime*1.5
+		# @controller.addTween start, @scriptTween12, @frameDurationTime/2
+		# @controller.addTween start, @logoTween,  		@frameDurationTime/2
 
 		$images = @$scence.find('.curtain-layer-lh')
 		for el, i in $images
@@ -82,28 +83,30 @@ class App
 		# THE SECOND CURTAIN
 		@$left 		= @$('#js-curtain2-left-side')
 		@$right 		= @$('#js-curtain2-right-side')
-		$leftEls 	= @$left.find('.curtain2-section-lh')
+		# $leftEls 	= @$left.find('.curtain2-section-lh')
 		$rightEls = @$right.find('.curtain2-section-lh')
 
-		start = 3*@frameDurationTime
-		rotateDegree = 5
-		rotateElsCountLeft = Math.min $leftEls.length, 10
-		for i in [$leftEls.length..$leftEls.length-rotateElsCountLeft]
-			$el = $ $leftEls.eq i
-			@controller.addTween start-(i*(@frameDurationTime/$leftEls.length)), TweenMax.to($el, .75, { css:{ rotation: rotateDegree, transformOrigin: 'left top' } }), @frameDurationTime
+		# start = 3*@frameDurationTime
+		# rotateDegree = 5
+		# rotateElsCountLeft = Math.min $leftEls.length, 10
+		# for i in [$leftEls.length..$leftEls.length-rotateElsCountLeft]
+		# 	$el = $ $leftEls.eq i
+		# 	@controller.addTween start-(i*(@frameDurationTime/$leftEls.length)), TweenMax.to($el, .75, { css:{ rotation: rotateDegree, transformOrigin: 'left top' } }), @frameDurationTime
 
-		for el, i in $rightEls
-			$el = $ el
-			@controller.addTween start-(($rightEls.length-i)*(@frameDurationTime/$rightEls.length)), TweenMax.to($el, .75, { css:{ rotation: -rotateDegree, transformOrigin: 'right top' } }), @frameDurationTime
+		# for el, i in $rightEls
+		# 	$el = $ el
+		# 	@controller.addTween start-(($rightEls.length-i)*(@frameDurationTime/$rightEls.length)), TweenMax.to($el, .75, { css:{ rotation: -rotateDegree, transformOrigin: 'right top' } }), @frameDurationTime
 		
 		start = 2.5*@frameDurationTime
 		@curtain2LeftTween = TweenMax.to(@$left, .75, { css:{ left: -@$window.outerWidth()/2 }, onUpdate: StatSocial.helpers.bind(@onCurtain2Update,@)  })
 		@controller.addTween start, @curtain2LeftTween, @frameDurationTime
 		@controller.addTween start, TweenMax.to(@$right, .75, { css:{ left: (@$window.outerWidth()/2) + $rightEls.first().outerWidth() } }), @frameDurationTime
 
+		@scriptTween2  = TweenMax.to @$script2, .75, { css:{ x: 0 } }
+		@controller.addTween start, @scriptTween2, @frameDurationTime
+
 		# THE THIRD CURTAIN
-		start = 4.5*@frameDurationTime
-		@groundTween  = TweenMax.to @$('#js-ground'), .75, { css:{ x: 0 } }
+		@groundTween  = TweenMax.to @$('#js-ground'), .75, { css:{ y: 0 } }
 		@controller.addTween start, @groundTween, @frameDurationTime
 
 		@bgTween  = TweenMax.to @$('#js-bg'), .75, { css:{ opacity: 1 } }
@@ -114,21 +117,21 @@ class App
 		@controller.addTween start, @cloudTween, 1
 
 		# -> BUILDINGS
-		start = 7*@frameDurationTime
+		start = 4*@frameDurationTime
 		$buildings  = @$('.building-b')
 		for i in [0..$buildings.length]
 			$el = $ $buildings.eq i
-			@controller.addTween start-(($buildings.length-i)*(@frameDurationTime/$buildings.length)), TweenMax.to($el, .75, { css:{ y: 0, bottom: 145 } }), @frameDurationTime
+			@controller.addTween start-(($buildings.length-i)*(@frameDurationTime/$buildings.length)), TweenMax.to($el, .75, { css:{ y: 0, bottom: 145 }, onComplete:(-> @target.addClass('is-show-label')), onReverseComplete:(-> @target.removeClass('is-show-label')) }), @frameDurationTime
 
-		@scriptTween3  = TweenMax.to @$script2, .75, { css:{ top: '-10%' }, onUpdate: StatSocial.helpers.bind(@onCurtain2UpdateEnd,@) }
-		@controller.addTween start-(@frameDurationTime/10), @scriptTween3, @frameDurationTime*1.5
+		@scriptTween3  = TweenMax.to @$script2, .75, { css:{ top: '-25%' }, onUpdate: StatSocial.helpers.bind(@onCurtain2UpdateEnd,@) }
+		@controller.addTween start-(@frameDurationTime/10), @scriptTween3, @frameDurationTime
 
 		# -> PLANE
-		start = 8*@frameDurationTime
+		start = 4*@frameDurationTime
 		@$plane = @$('#js-plane')
 		@$planeInner = @$plane.find('#js-plane-inner')
 		@planeTween  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate,@) }
-		@controller.addTween start, @planeTween, @frameDurationTime*6
+		@controller.addTween start, @planeTween, @frameDurationTime*3
 
 		# -> BUSHES
 		start = 10*@frameDurationTime
@@ -188,7 +191,6 @@ class App
 		start = 19*@frameDurationTime
 		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2.pause();@hideSecondTrain() ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
-
 
 	initRollerCabins:->
 		if !@rollerCabinsTween
@@ -299,14 +301,6 @@ class App
 			@isPlaneFlip = false
 
 		@prevPlaneProgress = progress
-
-		if progress > .2 and progress < 1
-			!@isBuildingCategories and @$scence3.addClass 'show-building-categories-gt'
-			@isBuildingCategories = true
-		else 
-			@isBuildingCategories and @$scence3.removeClass 'show-building-categories-gt'
-			@isBuildingCategories = false
-
 		if progress >= 1
 			!@isPlaneHide and @$plane.hide()
 			@isPlaneHide = 	true

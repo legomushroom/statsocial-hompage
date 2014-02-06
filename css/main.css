@@ -1845,6 +1845,9 @@ a,
   height: 70px;
   background: url("i/plane.svg") no-repeat center center;
 }
+.roller-coaster-b {
+  height: 504px;
+}
 .roller-coaster-b line {
   stroke-width: 5px;
   stroke: #287e7b;
@@ -2026,12 +2029,19 @@ a,
   opacity: 0;
   transition: opacity 0.2s linear;
 }
-.show-building-categories-gt .building-b > .text-be {
-  -webkit-animation: neon 5s linear infinite;
-  -moz-animation: neon 5s linear infinite;
-  -ms-animation: neon 5s linear infinite;
-  -o-animation: neon 5s linear infinite;
-  animation: neon 5s linear infinite;
+.building-b.is-show-label > .text-be {
+  opacity: 1;
+  -webkit-animation: fadeOutTopRight 1s linear;
+  -moz-animation: fadeOutTopRight 1s linear;
+  -ms-animation: fadeOutTopRight 1s linear;
+  -o-animation: fadeOutTopRight 1s linear;
+  animation: fadeOutTopRight 1s linear;
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  animation-delay: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
 }
 .cloud-b,
 .cloud2-b {
@@ -2204,14 +2214,19 @@ a,
   margin-top: -100px;
 }
 .script-l.is-1 {
-  top: 100%;
-  margin-top: 40px;
+  bottom: 0;
   opacity: 0;
 }
 .script-l.is-2 {
   color: #fff;
-  top: 150%;
+  top: 50%;
   margin-top: -50px;
+  z-index: 0;
+  -webkit-transform: translateX(220px);
+  -moz-transform: translateX(220px);
+  -ms-transform: translateX(220px);
+  -o-transform: translateX(220px);
+  transform: translateX(220px);
 }
 .layer {
   position: absolute;
@@ -2242,6 +2257,7 @@ a,
   z-index: 3;
   left: 50%;
   margin-left: -610px;
+  width: 100%;
 }
 .curtain3-l .curtain3--bush-lh {
   position: absolute;
@@ -2429,12 +2445,6 @@ a,
   width: 10%;
   height: 25%;
 }
-.curtain3-l .curtain3-building1-lh > .text-be {
-  -webkit-animation-delay: 1s;
-  -moz-animation-delay: 1s;
-  -o-animation-delay: 1s;
-  animation-delay: 1s;
-}
 .curtain3-l .curtain3-building2-lh {
   left: 12%;
   width: 5%;
@@ -2450,33 +2460,15 @@ a,
   width: 10%;
   height: 10%;
 }
-.curtain3-l .curtain3-building4-lh > .text-be {
-  -webkit-animation-delay: 1.25s;
-  -moz-animation-delay: 1.25s;
-  -o-animation-delay: 1.25s;
-  animation-delay: 1.25s;
-}
 .curtain3-l .curtain3-building5-lh {
   left: 35%;
   width: 7%;
   height: 30%;
 }
-.curtain3-l .curtain3-building5-lh > .text-be {
-  -webkit-animation-delay: 0.5s;
-  -moz-animation-delay: 0.5s;
-  -o-animation-delay: 0.5s;
-  animation-delay: 0.5s;
-}
 .curtain3-l .curtain3-building6-lh {
   left: 43%;
   width: 5%;
   height: 55%;
-}
-.curtain3-l .curtain3-building6-lh > .text-be {
-  -webkit-animation-delay: 2s;
-  -moz-animation-delay: 2s;
-  -o-animation-delay: 2s;
-  animation-delay: 2s;
 }
 .curtain3-l .curtain3-building7-lh {
   left: 49%;
@@ -2503,33 +2495,15 @@ a,
   width: 6%;
   height: 50%;
 }
-.curtain3-l .curtain3-building8-lh > .text-be {
-  -webkit-animation-delay: 0.5s;
-  -moz-animation-delay: 0.5s;
-  -o-animation-delay: 0.5s;
-  animation-delay: 0.5s;
-}
 .curtain3-l .curtain3-building9-lh {
   left: 65%;
   width: 4%;
   height: 55%;
 }
-.curtain3-l .curtain3-building9-lh > .text-be {
-  -webkit-animation-delay: 0.5s;
-  -moz-animation-delay: 0.5s;
-  -o-animation-delay: 0.5s;
-  animation-delay: 0.5s;
-}
 .curtain3-l .curtain3-building10-lh {
   left: 70%;
   width: 11%;
   height: 35%;
-}
-.curtain3-l .curtain3-building10-lh > .text-be {
-  -webkit-animation-delay: 1.5s;
-  -moz-animation-delay: 1.5s;
-  -o-animation-delay: 1.5s;
-  animation-delay: 1.5s;
 }
 .curtain3-l .curtain3-building11-lh {
   left: 82%;
@@ -2541,22 +2515,10 @@ a,
   width: 6%;
   height: 30%;
 }
-.curtain3-l .curtain3-building12-lh > .text-be {
-  -webkit-animation-delay: 0.5s;
-  -moz-animation-delay: 0.5s;
-  -o-animation-delay: 0.5s;
-  animation-delay: 0.5s;
-}
 .curtain3-l .curtain3-building13-lh {
   left: 94%;
   width: 5%;
   height: 35%;
-}
-.curtain3-l .curtain3-building13-lh > .text-be {
-  -webkit-animation-delay: 0.2s;
-  -moz-animation-delay: 0.2s;
-  -o-animation-delay: 0.2s;
-  animation-delay: 0.2s;
 }
 .curtain3-l .curtain3-cloud-holder-lh {
   position: absolute;
@@ -2635,11 +2597,11 @@ a,
   position: absolute;
   bottom: 0;
   width: 100%;
-  -webkit-transform: translateX(-100%);
-  -moz-transform: translateX(-100%);
-  -ms-transform: translateX(-100%);
-  -o-transform: translateX(-100%);
-  transform: translateX(-100%);
+  -webkit-transform: translateY(100%);
+  -moz-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  -o-transform: translateY(100%);
+  transform: translateY(100%);
   background: #493542 url("i/curtain-dots-bg3.png") repeat;
   background-position: 0 -200px;
   z-index: 5;
@@ -2981,6 +2943,56 @@ a,
   -ms-text-size-adjust: none;
   -o-text-size-adjust: none;
   text-size-adjust: none;
+}
+@-moz-keyframes fadeOutTopRight {
+  100% {
+    opacity: 0;
+    -webkit-transform: translate(50px, -50px);
+    -moz-transform: translate(50px, -50px);
+    -ms-transform: translate(50px, -50px);
+    -o-transform: translate(50px, -50px);
+    transform: translate(50px, -50px);
+  }
+}
+@-webkit-keyframes fadeOutTopRight {
+  100% {
+    opacity: 0;
+    -webkit-transform: translate(50px, -50px);
+    -moz-transform: translate(50px, -50px);
+    -ms-transform: translate(50px, -50px);
+    -o-transform: translate(50px, -50px);
+    transform: translate(50px, -50px);
+  }
+}
+@-o-keyframes fadeOutTopRight {
+  100% {
+    opacity: 0;
+    -webkit-transform: translate(50px, -50px);
+    -moz-transform: translate(50px, -50px);
+    -ms-transform: translate(50px, -50px);
+    -o-transform: translate(50px, -50px);
+    transform: translate(50px, -50px);
+  }
+}
+@-ms-keyframes fadeOutTopRight {
+  100% {
+    opacity: 0;
+    -webkit-transform: translate(50px, -50px);
+    -moz-transform: translate(50px, -50px);
+    -ms-transform: translate(50px, -50px);
+    -o-transform: translate(50px, -50px);
+    transform: translate(50px, -50px);
+  }
+}
+@keyframes fadeOutTopRight {
+  100% {
+    opacity: 0;
+    -webkit-transform: translate(50px, -50px);
+    -moz-transform: translate(50px, -50px);
+    -ms-transform: translate(50px, -50px);
+    -o-transform: translate(50px, -50px);
+    transform: translate(50px, -50px);
+  }
 }
 @-moz-keyframes neon {
   0% {
