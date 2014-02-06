@@ -203,7 +203,7 @@ class App
 		@controller.addTween start, @rollerRailsTween2, 2*@frameDurationTime
 
 		start = 11*@frameDurationTime
-		@rollerTextTween = TweenMax.to { offset: @rollerTextOffset }, 1, { offset: @rollerLine2.getTotalLength(), onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@) }
+		@rollerTextTween = TweenMax.to { offset: @rollerLine2.getTotalLength() }, 1, { offset: @rollerTextOffset, onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@) }
 		@controller.addTween start, @rollerTextTween, 3*@frameDurationTime
 
 		start = 14*@frameDurationTime
@@ -212,11 +212,11 @@ class App
 
 	initRollerCabins:->
 		if !@rollerCabinsTween
-			@rollerCabinsTween = TweenMax.to { p: -110 }, 6, { p: @rollerLine2Length, repeatDelay: 3, repeat: -1, onUpdate: StatSocial.helpers.bind(@onRollerCabinsUpdate,@) }
+			@rollerCabinsTween = TweenMax.to { p: @rollerLine2Length }, 6, { p: -110, delay: 2,repeatDelay: 3, repeat: -1, onUpdate: StatSocial.helpers.bind(@onRollerCabinsUpdate,@) }
 		else @rollerCabinsTween.resume()
 
 		if !@rollerCabinsTween2
-			@rollerCabinsTween2 = TweenMax.to { p: -110 }, 6, { p: @rollerLine2Length, delay: 2, repeatDelay: 3, repeat: -1, onUpdate: StatSocial.helpers.bind(@onRollerCabinsUpdate2,@) }
+			@rollerCabinsTween2 = TweenMax.to { p: @rollerLine2Length }, 6, { p: -110, repeatDelay: 3, repeat: -1, onUpdate: StatSocial.helpers.bind(@onRollerCabinsUpdate2,@) }
 		else @rollerCabinsTween2.resume()
 
 	onRollerCabinsUpdate2:->
@@ -263,7 +263,8 @@ class App
 			@isSecondTrainHide = false
 
 	onRollerTextUpdate:()->
-		pathProgress = @rollerTextTween.target.offset-@rollerTextOffset
+		rollerTextWidth = 660
+		pathProgress = @rollerTextTween.target.offset-@rollerTextOffset-rollerTextWidth
 		info1 = @getRollerPathInfo pathProgress + 10
 		info2 = @getRollerPathInfo pathProgress + 50
 		info3 = @getRollerPathInfo pathProgress + 90

@@ -246,9 +246,9 @@
       this.controller.addTween(start, this.rollerRailsTween2, 2 * this.frameDurationTime);
       start = 11 * this.frameDurationTime;
       this.rollerTextTween = TweenMax.to({
-        offset: this.rollerTextOffset
+        offset: this.rollerLine2.getTotalLength()
       }, 1, {
-        offset: this.rollerLine2.getTotalLength(),
+        offset: this.rollerTextOffset,
         onUpdate: StatSocial.helpers.bind(this.onRollerTextUpdate, this)
       });
       this.controller.addTween(start, this.rollerTextTween, 3 * this.frameDurationTime);
@@ -274,9 +274,10 @@
     App.prototype.initRollerCabins = function() {
       if (!this.rollerCabinsTween) {
         this.rollerCabinsTween = TweenMax.to({
-          p: -110
+          p: this.rollerLine2Length
         }, 6, {
-          p: this.rollerLine2Length,
+          p: -110,
+          delay: 2,
           repeatDelay: 3,
           repeat: -1,
           onUpdate: StatSocial.helpers.bind(this.onRollerCabinsUpdate, this)
@@ -286,10 +287,9 @@
       }
       if (!this.rollerCabinsTween2) {
         return this.rollerCabinsTween2 = TweenMax.to({
-          p: -110
+          p: this.rollerLine2Length
         }, 6, {
-          p: this.rollerLine2Length,
-          delay: 2,
+          p: -110,
           repeatDelay: 3,
           repeat: -1,
           onUpdate: StatSocial.helpers.bind(this.onRollerCabinsUpdate2, this)
@@ -346,9 +346,10 @@
     };
 
     App.prototype.onRollerTextUpdate = function() {
-      var info1, info2, info3, pathProgress;
+      var info1, info2, info3, pathProgress, rollerTextWidth;
 
-      pathProgress = this.rollerTextTween.target.offset - this.rollerTextOffset;
+      rollerTextWidth = 660;
+      pathProgress = this.rollerTextTween.target.offset - this.rollerTextOffset - rollerTextWidth;
       info1 = this.getRollerPathInfo(pathProgress + 10);
       info2 = this.getRollerPathInfo(pathProgress + 50);
       info3 = this.getRollerPathInfo(pathProgress + 90);
