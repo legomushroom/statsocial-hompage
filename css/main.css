@@ -2816,6 +2816,7 @@ a,
   padding-bottom: 22px;
   overflow: hidden;
   z-index: 2;
+  display: none;
 }
 .curtain-l .curtain-layer-lh {
   width: 200%;

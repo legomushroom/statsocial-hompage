@@ -12,6 +12,10 @@ class Helpers
 			if obj2[key]? then obj[key] = value
 		obj
 
+	getRand:(min,max)->
+		Math.floor((Math.random() * ((max + 1) - min)) + min)
+
+
 
 window.StatSocial ?= {}
 window.StatSocial.helpers = new Helpers

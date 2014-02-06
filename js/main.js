@@ -24,7 +24,8 @@
       this.$scence2 = this.$('#js-curtain2');
       this.$scence3 = this.$('#js-curtain3');
       this.$plane = this.$('#js-plane');
-      return this.prevPlaneProgress = -1;
+      this.prevPlaneProgress = -1;
+      return this.animate = window.StatSocial.helpers.bind(this.animate, this);
     };
 
     App.prototype.initController = function() {
@@ -63,7 +64,7 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $buildings, $clouds, $el, $images, $rightEls, el, i, start, _i, _j, _len, _ref,
+      var $buildings, $clouds, $el, $images, $rightEls, a, d, el, i, point, points, start, _i, _j, _k, _l, _len, _len1, _len2, _ref,
         _this = this;
 
       this.frameDurationTime = 2000;
@@ -205,8 +206,6 @@
       this.$rollerLine2 = this.$('#js-roller-line2');
       this.rollerLine1 = this.$rollerLine1[0];
       this.rollerLine2 = this.$rollerLine2[0];
-      this.$rollerLineBg2 = this.$('#js-roller-line-bg2');
-      this.$rollerLineBg1 = this.$('#js-roller-line-bg1');
       this.$rollerCabin1 = this.$('#js-roller-cabin1');
       this.$rollerCabinParent1 = this.$rollerCabin1.parent();
       this.$rollerCabin2 = this.$('#js-roller-cabin2');
@@ -230,20 +229,25 @@
       });
       this.controller.addTween(start, this.rollerAxesTween, this.frameDurationTime);
       start = 9 * this.frameDurationTime;
-      this.rollerRailsTween1 = TweenMax.to({
-        y: 400
-      }, .75, {
-        y: 0,
-        onUpdate: StatSocial.helpers.bind(this.onRollerRails1Update, this)
-      });
-      this.controller.addTween(start, this.rollerRailsTween1, this.frameDurationTime);
-      this.rollerRailsTween2 = TweenMax.to({
-        y: 400
-      }, 1, {
-        y: 0,
-        onUpdate: StatSocial.helpers.bind(this.onRollerRails2Update, this)
-      });
-      this.controller.addTween(start, this.rollerRailsTween2, 2 * this.frameDurationTime);
+      d = this.$rollerLine1.attr('d');
+      d = d.replace(/m/gi, '');
+      d = d.replace(/(\d)()(\-)/gi, '$1,$3');
+      a = d.split(/l|\,/gi);
+      points = [];
+      for (i = _k = 0, _len1 = a.length; _k < _len1; i = _k += 2) {
+        point = a[i];
+        points.push({
+          x: parseInt(a[i], 10),
+          y: parseInt(a[i + 1], 10),
+          i: i
+        });
+      }
+      this.livePoints = [];
+      for (_l = 0, _len2 = points.length; _l < _len2; _l++) {
+        point = points[_l];
+        this.livePoints.push(new window.StatSocial.RollerPoint(point));
+      }
+      this.animate();
       start = 11 * this.frameDurationTime;
       this.rollerTextTween = TweenMax.to({
         offset: this.rollerLine2.getTotalLength()
@@ -252,7 +256,7 @@
         onUpdate: StatSocial.helpers.bind(this.onRollerTextUpdate, this)
       });
       this.controller.addTween(start, this.rollerTextTween, 2 * this.frameDurationTime);
-      start = 13 * this.frameDurationTime;
+      start = 12 * this.frameDurationTime;
       this.rollerCabinsTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
           _this.initRollerCabins();
@@ -271,6 +275,24 @@
         })
       });
       return this.controller.addTween(start, this.rollerCabinsTriggerTween, 1);
+    };
+
+    App.prototype.updateLine = function() {
+      var char, i, point, str, _i, _len, _ref;
+
+      str = 'M';
+      _ref = this.livePoints;
+      for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+        point = _ref[i];
+        char = i !== 0 ? 'l' : '';
+        str += "" + char + point.x + "," + point.y;
+      }
+      return this.$rollerLine1.attr('d', str);
+    };
+
+    App.prototype.animate = function() {
+      this.updateLine();
+      return requestAnimationFrame(this.animate);
     };
 
     App.prototype.initRollerCabins = function() {
@@ -381,13 +403,11 @@
     };
 
     App.prototype.onRollerRails1Update = function() {
-      this.$rollerLine1.attr('transform', "translate(0," + this.rollerRailsTween1.target.y + ")");
-      return this.$rollerLineBg1.attr('transform', "translate(0," + this.rollerRailsTween1.target.y + ")");
+      return this.$rollerLine1.attr('transform', "translate(0," + this.rollerRailsTween1.target.y + ")");
     };
 
     App.prototype.onRollerRails2Update = function() {
-      this.$rollerLine2.attr('transform', "translate(0," + this.rollerRailsTween2.target.y + ")");
-      return this.$rollerLineBg2.attr('transform', "translate(0," + this.rollerRailsTween2.target.y + ")");
+      return this.$rollerLine2.attr('transform', "translate(0," + this.rollerRailsTween2.target.y + ")");
     };
 
     App.prototype.onRollerAxesUpdate = function() {
