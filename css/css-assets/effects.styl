@@ -1,13 +1,38 @@
 // EFFECTS
 @import '../assets/imports.styl'
 
+
+
+.bounce-eff
+	animation bounce .35s ease-out
+
+@keyframes bounce
+	0%
+		margin-bottom 0
+
+	25%
+		margin-bottom -15px
+
+	50%
+		margin-bottom 0
+
+	75%
+		margin-bottom -5px
+
+	100%
+		margin-bottom 0
+
 @keyframes fadeOutTopRight
-	// 0%
-	// 	opacity 1
-	// 	transorm translate(0,0)
+	0%
+		// opacity 1
+		transorm translate(0,0)
+
+	75%
+		opacity 1
+
 	100%
 		opacity 0
-		transform translate(50px, -50px)
+		transform translate(0, -60px)
 		
 
 @keyframes neon

@@ -116,15 +116,8 @@ class App
 		@cloudTween = TweenMax.to $clouds, .75, { onComplete: (=> $clouds.addClass('is-anima')), onReverseComplete:(=> $clouds.removeClass('is-anima')) }
 		@controller.addTween start, @cloudTween, 1
 
-		# -> BUILDINGS
-		start = 4*@frameDurationTime
-		$buildings  = @$('.building-b')
-		for i in [0..$buildings.length]
-			$el = $ $buildings.eq i
-			@controller.addTween start-(($buildings.length-i)*(@frameDurationTime/$buildings.length)), TweenMax.to($el, .75, { css:{ y: 0, bottom: 145 }, onComplete:(-> @target.addClass('is-show-label')), onReverseComplete:(-> @target.removeClass('is-show-label')) }), @frameDurationTime
 
-		@scriptTween3  = TweenMax.to @$script2, .75, { css:{ top: '-25%' }, onUpdate: StatSocial.helpers.bind(@onCurtain2UpdateEnd,@) }
-		@controller.addTween start-(@frameDurationTime/10), @scriptTween3, @frameDurationTime
+
 
 		# -> PLANE
 		start = 4*@frameDurationTime
@@ -133,13 +126,38 @@ class App
 		@planeTween  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate,@) }
 		@controller.addTween start, @planeTween, @frameDurationTime*3
 
+		@scriptTween21  = TweenMax.to @$script2, .75, { css:{ opacity: 0 } }
+		@controller.addTween start, @scriptTween21, @frameDurationTime
+
+		# -> BUILDINGS
+		start = 6*@frameDurationTime
+		$buildings  = @$('.building-b')
+		for i in [0..$buildings.length]
+			$el = $ $buildings.eq i
+			@controller.addTween start-(($buildings.length-i)*(@frameDurationTime/$buildings.length)), 
+														TweenMax.to($el, .1, { 
+															css:{ y: 0, bottom: 145 },
+															# ease: Bounce.easeOut,
+															onComplete:(-> 
+																	@target.addClass('is-show-label is-tip bounce-eff').removeClass('is-hide-label');
+																	setTimeout((=>
+																		@target.addClass('is-hide-label')
+																	), 3990)
+															),
+															onReverseComplete:(-> @target.removeClass('is-show-label is-tip bounce-eff'))
+														}), @frameDurationTime
+
+		@scriptTween3  = TweenMax.to @$script2, .75, { css:{ top: '-25%' }, onUpdate: StatSocial.helpers.bind(@onCurtain2UpdateEnd,@) }
+		@controller.addTween start-(@frameDurationTime/10), @scriptTween3, @frameDurationTime
+
+
 		# -> BUSHES
-		start = 10*@frameDurationTime
+		start = 8*@frameDurationTime
 		@bushTween = TweenMax.to $clouds, .75, { onComplete: (=> @$scence3.addClass('is-show-bushes')), onReverseComplete:(=> @$scence3.removeClass('is-show-bushes')) }
 		@controller.addTween start, @bushTween, 1
 
 		# -> ROLLER-COASTER
-		start = 12*@frameDurationTime
+		start = 8*@frameDurationTime
 		@$yAxes = @$('#js-roller-y')
 		@$xAxes = @$('#js-roller-x')
 		
@@ -176,7 +194,7 @@ class App
 		@rollerAxesTween = TweenMax.to {}, .75, { onUpdate: StatSocial.helpers.bind(@onRollerAxesUpdate,@) }
 		@controller.addTween start, @rollerAxesTween, @frameDurationTime
 
-		start = 13*@frameDurationTime
+		start = 9*@frameDurationTime
 		# --> ROLLER-COASTER BUILD
 		@rollerRailsTween1 = TweenMax.to { y: 400 }, .75, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails1Update,@) }
 		@controller.addTween start, @rollerRailsTween1, @frameDurationTime
@@ -184,11 +202,11 @@ class App
 		@rollerRailsTween2 = TweenMax.to { y: 400 }, 1, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails2Update,@) }
 		@controller.addTween start, @rollerRailsTween2, 2*@frameDurationTime
 
-		start = 15*@frameDurationTime
+		start = 11*@frameDurationTime
 		@rollerTextTween = TweenMax.to { offset: @rollerTextOffset }, 1, { offset: @rollerLine2.getTotalLength(), onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@) }
-		@controller.addTween start, @rollerTextTween, 4*@frameDurationTime
+		@controller.addTween start, @rollerTextTween, 3*@frameDurationTime
 
-		start = 19*@frameDurationTime
+		start = 14*@frameDurationTime
 		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2.pause();@hideSecondTrain() ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
 

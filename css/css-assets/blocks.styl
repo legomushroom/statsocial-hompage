@@ -155,7 +155,7 @@
 	height 50%
 	position relative
 	> .text-be
-		font-size 30px
+		font-size 26px
 		color white
 		font-family 'Open Sans', sans-serif;
 		font-weight 100
@@ -168,15 +168,37 @@
 		text-shadow 0 0 6px white
 		opacity 0
 		transition opacity .2s linear
-		// display none
 
+	> .tip-be
+			position absolute
+			display block
+			top 0
+			left 50%
+			margin-left - 10px
+			rect 0
+			border 10px solid rgba(#64c2c1,0)
+			border-bottom 90px solid #64c2c1
+			z-index 0
+			transition top .5s ease-out
+
+	&.is-tip.curtain3-building7-lh
+		> .tip-be
+			top - 100px
+		
 	&.is-show-label
 		> .text-be
 			opacity 1
 			animation fadeOutTopRight 1s linear
-			animation-delay 1s
-			-webkit-animation-fill-mode: both;
-			animation-fill-mode: both;
+			transition-duration 0
+			animation-delay 3s
+			-webkit-animation-fill-mode both
+			animation-fill-mode both
+
+	&.is-hide-label
+		> .text-be
+			opacity 0
+			animation none
+			transition none
 			
 
 /* 4cbf1f487e13aad9100b274a119b2453 */

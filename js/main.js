@@ -144,19 +144,40 @@
       });
       this.controller.addTween(start, this.cloudTween, 1);
       start = 4 * this.frameDurationTime;
+      this.$plane = this.$('#js-plane');
+      this.$planeInner = this.$plane.find('#js-plane-inner');
+      this.planeTween = TweenMax.to(this.$plane, .75, {
+        css: {
+          left: '-100%'
+        },
+        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate, this)
+      });
+      this.controller.addTween(start, this.planeTween, this.frameDurationTime * 3);
+      this.scriptTween21 = TweenMax.to(this.$script2, .75, {
+        css: {
+          opacity: 0
+        }
+      });
+      this.controller.addTween(start, this.scriptTween21, this.frameDurationTime);
+      start = 6 * this.frameDurationTime;
       $buildings = this.$('.building-b');
       for (i = _j = 0, _ref = $buildings.length; 0 <= _ref ? _j <= _ref : _j >= _ref; i = 0 <= _ref ? ++_j : --_j) {
         $el = $($buildings.eq(i));
-        this.controller.addTween(start - (($buildings.length - i) * (this.frameDurationTime / $buildings.length)), TweenMax.to($el, .75, {
+        this.controller.addTween(start - (($buildings.length - i) * (this.frameDurationTime / $buildings.length)), TweenMax.to($el, .1, {
           css: {
             y: 0,
             bottom: 145
           },
           onComplete: (function() {
-            return this.target.addClass('is-show-label');
+            var _this = this;
+
+            this.target.addClass('is-show-label is-tip bounce-eff').removeClass('is-hide-label');
+            return setTimeout((function() {
+              return _this.target.addClass('is-hide-label');
+            }), 3990);
           }),
           onReverseComplete: (function() {
-            return this.target.removeClass('is-show-label');
+            return this.target.removeClass('is-show-label is-tip bounce-eff');
           })
         }), this.frameDurationTime);
       }
@@ -167,17 +188,7 @@
         onUpdate: StatSocial.helpers.bind(this.onCurtain2UpdateEnd, this)
       });
       this.controller.addTween(start - (this.frameDurationTime / 10), this.scriptTween3, this.frameDurationTime);
-      start = 4 * this.frameDurationTime;
-      this.$plane = this.$('#js-plane');
-      this.$planeInner = this.$plane.find('#js-plane-inner');
-      this.planeTween = TweenMax.to(this.$plane, .75, {
-        css: {
-          left: '-100%'
-        },
-        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate, this)
-      });
-      this.controller.addTween(start, this.planeTween, this.frameDurationTime * 3);
-      start = 10 * this.frameDurationTime;
+      start = 8 * this.frameDurationTime;
       this.bushTween = TweenMax.to($clouds, .75, {
         onComplete: (function() {
           return _this.$scence3.addClass('is-show-bushes');
@@ -187,7 +198,7 @@
         })
       });
       this.controller.addTween(start, this.bushTween, 1);
-      start = 12 * this.frameDurationTime;
+      start = 8 * this.frameDurationTime;
       this.$yAxes = this.$('#js-roller-y');
       this.$xAxes = this.$('#js-roller-x');
       this.$rollerLine1 = this.$('#js-roller-line1');
@@ -218,7 +229,7 @@
         onUpdate: StatSocial.helpers.bind(this.onRollerAxesUpdate, this)
       });
       this.controller.addTween(start, this.rollerAxesTween, this.frameDurationTime);
-      start = 13 * this.frameDurationTime;
+      start = 9 * this.frameDurationTime;
       this.rollerRailsTween1 = TweenMax.to({
         y: 400
       }, .75, {
@@ -233,15 +244,15 @@
         onUpdate: StatSocial.helpers.bind(this.onRollerRails2Update, this)
       });
       this.controller.addTween(start, this.rollerRailsTween2, 2 * this.frameDurationTime);
-      start = 15 * this.frameDurationTime;
+      start = 11 * this.frameDurationTime;
       this.rollerTextTween = TweenMax.to({
         offset: this.rollerTextOffset
       }, 1, {
         offset: this.rollerLine2.getTotalLength(),
         onUpdate: StatSocial.helpers.bind(this.onRollerTextUpdate, this)
       });
-      this.controller.addTween(start, this.rollerTextTween, 4 * this.frameDurationTime);
-      start = 19 * this.frameDurationTime;
+      this.controller.addTween(start, this.rollerTextTween, 3 * this.frameDurationTime);
+      start = 14 * this.frameDurationTime;
       this.rollerCabinsTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
           _this.initRollerCabins();
