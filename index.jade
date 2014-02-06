@@ -147,7 +147,7 @@ html
 					include css/partials/bush
 
 					.roller-coaster-b
-						svg(x='0px', y='0px', width='1220px', height='504px', viewbox='0 0 1220 504', enable-background='new 0 0 1220 504', xml:space='preserve')
+						svg(viewbox='0 0 1220 504', preserveAspectRatio="xMaxYMax meet")
 							defs 
 								marker(id="marker-circle", viewBox="0 0 16 16", refX="8", refY="8", markerUnits="strokeWidth", markerWidth="7", markerHeight="7", fill="#409e9c", orient="auto")
 									circle(cx="8", cy="8", r="5", stroke="#257978", stroke-width="2")
@@ -177,8 +177,6 @@ html
 
 							path(id="js-roller-line2", class="line", fill='none', transform="translate(0, 400)", marker-mid="url(#marker-circle)", d="M-111.75,195.875c0,0,141.313-49.208,150.25-50.375 c27.055-3.532,82.874-2.367,109,5.5c28.841,8.684,77.774,46.042,103,62.5c23.002,15.007,65.073,51.469,90,63 c20.582,9.521,65.343,21.053,88,22c21.764,0.91,64.941-8.432,86-14c22.947-6.067,66.394-25.822,89-33.057 c26.884-8.604,80.875-31.832,109-29.443c29.368,2.495,80.001,37.679,107,49.5c25.772,11.284,76.023,40.021,104,43 c27.794,2.96,83.147-12.243,110-20c27.702-8.003,79.606-34.057,107-43.057c20.398-6.702,219.001-54.276,219.001-54.276")
 							path(id="js-roller-line1", class="line", fill="none", transform="translate(0, 400)", marker-mid="url(#marker-circle)", d="M-111.75,257.875c0,0,156.176-51.066,169.918-52.042 c17.803-1.265,53.964,3.085,70.832,8.917c27.412,9.477,75.553,45.342,103.835,51.75c21.513,4.875,67.15,6.491,88.232,0 c14.473-4.456,38.596-24.181,52.434-30.333c12.643-5.621,39.057-14.508,52.667-17c13.131-2.404,40.115-4.539,53.333-2.667 c14.267,2.021,41.359,12.837,54.499,18.75c27.453,12.355,76.818,48.231,104.835,59.25c33.971,13.36,105.748,29.721,142,34 c18.538,2.188,56.095,1.892,74.666,0c17.268-1.759,50.96-10.697,67.999-14c27.44-5.318,83.147-12.243,110-20 c27.702-8.003,79.606-34.057,107-43.057c20.398-6.702,219.001-54.276,219.001-54.276")
-
-							
 							
 							g(transform="translate(-50,-50)")
 								use(xlink:href="#roller-cabin", id="js-roller-cabin4")
@@ -207,6 +205,7 @@ html
 		script(src="js/tweenmax.min.js")
 		script(src="js/jquery.parallax.js")
 		script(src="js/helpers.js")
+		script(src="js/point.js")
 		script(src="js/main.js")
 
 

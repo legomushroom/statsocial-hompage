@@ -204,10 +204,10 @@ class App
 
 		start = 11*@frameDurationTime
 		@rollerTextTween = TweenMax.to { offset: @rollerLine2.getTotalLength() }, 1, { offset: @rollerTextOffset, onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@) }
-		@controller.addTween start, @rollerTextTween, 3*@frameDurationTime
+		@controller.addTween start, @rollerTextTween, 2*@frameDurationTime
 
-		start = 14*@frameDurationTime
-		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2.pause();@hideSecondTrain() ) }
+		start = 13*@frameDurationTime
+		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideSecondTrain() ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
 
 	initRollerCabins:->
@@ -263,22 +263,22 @@ class App
 			@isSecondTrainHide = false
 
 	onRollerTextUpdate:()->
-		rollerTextWidth = 660
-		pathProgress = @rollerTextTween.target.offset-@rollerTextOffset-rollerTextWidth
-		info1 = @getRollerPathInfo pathProgress + 10
-		info2 = @getRollerPathInfo pathProgress + 50
-		info3 = @getRollerPathInfo pathProgress + 90
-		
+
+		pathProgress = @rollerTextTween.target.offset
+
+		if pathProgress > 100
+			info1 = @getRollerPathInfo pathProgress - 20
+			info2 = @getRollerPathInfo pathProgress - 60
+			info3 = @getRollerPathInfo pathProgress - 100
+			@$rollerCabinParent1
+				.attr('transform', "translate(#{info1.point.x-22}, #{info1.point.y-25}) rotate(#{info1.degree or 0}, 22, 21)")
+			@$rollerCabinParent2
+				.attr('transform', "translate(#{info2.point.x-22}, #{info2.point.y-25}) rotate(#{info2.degree or 0}, 22, 21)")
+			@$rollerCabinParent3
+				.attr('transform', "translate(#{info3.point.x-22}, #{info3.point.y-25}) rotate(#{info3.degree or 0}, 22, 21)")
+
 		@rollerText.setAttribute('startOffset', "#{@rollerTextTween.target.offset}")
-		@$rollerCabinParent1
-			.attr('transform', "translate(#{info1.point.x-22}, #{info1.point.y-25}) rotate(#{info1.degree or 0}, 22, 21)")
-
-		@$rollerCabinParent2
-			.attr('transform', "translate(#{info2.point.x-22}, #{info2.point.y-25}) rotate(#{info2.degree or 0}, 22, 21)")
-
-		@$rollerCabinParent3
-			.attr('transform', "translate(#{info3.point.x-22}, #{info3.point.y-25}) rotate(#{info3.degree or 0}, 22, 21)")
-
+		
 	getRollerPathInfo:(progress, isSecondLine)->
 		# isDebug and debugger
 		line = if !isSecondLine then @rollerLine2 else @rollerLine1

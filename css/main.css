@@ -1846,7 +1846,14 @@ a,
   background: url("i/plane.svg") no-repeat center center;
 }
 .roller-coaster-b {
-  height: 504px;
+  min-height: 540px;
+}
+.roller-coaster-b svg {
+  display: block;
+  float: left;
+}
+.roller-coaster-b .svg-graphs {
+  right: -320px;
 }
 .roller-coaster-b line {
   stroke-width: 5px;
@@ -2283,8 +2290,7 @@ a,
   position: absolute;
   bottom: 145px;
   z-index: 3;
-  left: 50%;
-  margin-left: -610px;
+  right: 0;
   width: 100%;
 }
 .curtain3-l .curtain3--bush-lh {

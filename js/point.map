@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "point.js",
+  "sourceRoot": "",
+  "sources": [
+    "point.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;CAAA,IAAA,CAAA;;CAAA,CAAM;CACO,EAAA,CAAA,WAAE;CAAM,CAAA,CAAN,CAAA,EAAD;CAAb,IAAY;;CAAZ;;CADD;;CAAA,CAIA,CAAgC,EAJhC,CAIM,IAAW,CAAjB;CAJA"
+}

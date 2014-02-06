@@ -251,20 +251,22 @@
         offset: this.rollerTextOffset,
         onUpdate: StatSocial.helpers.bind(this.onRollerTextUpdate, this)
       });
-      this.controller.addTween(start, this.rollerTextTween, 3 * this.frameDurationTime);
-      start = 14 * this.frameDurationTime;
+      this.controller.addTween(start, this.rollerTextTween, 2 * this.frameDurationTime);
+      start = 13 * this.frameDurationTime;
       this.rollerCabinsTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
           _this.initRollerCabins();
           return _this.showSecondTrain();
         }),
         onReverseComplete: (function() {
-          var _ref1;
+          var _ref1, _ref2;
 
           if ((_ref1 = _this.rollerCabinsTween) != null) {
             _ref1.pause();
           }
-          _this.rollerCabinsTween2.pause();
+          if ((_ref2 = _this.rollerCabinsTween2) != null) {
+            _ref2.pause();
+          }
           return _this.hideSecondTrain();
         })
       });
@@ -346,17 +348,18 @@
     };
 
     App.prototype.onRollerTextUpdate = function() {
-      var info1, info2, info3, pathProgress, rollerTextWidth;
+      var info1, info2, info3, pathProgress;
 
-      rollerTextWidth = 660;
-      pathProgress = this.rollerTextTween.target.offset - this.rollerTextOffset - rollerTextWidth;
-      info1 = this.getRollerPathInfo(pathProgress + 10);
-      info2 = this.getRollerPathInfo(pathProgress + 50);
-      info3 = this.getRollerPathInfo(pathProgress + 90);
-      this.rollerText.setAttribute('startOffset', "" + this.rollerTextTween.target.offset);
-      this.$rollerCabinParent1.attr('transform', "translate(" + (info1.point.x - 22) + ", " + (info1.point.y - 25) + ") rotate(" + (info1.degree || 0) + ", 22, 21)");
-      this.$rollerCabinParent2.attr('transform', "translate(" + (info2.point.x - 22) + ", " + (info2.point.y - 25) + ") rotate(" + (info2.degree || 0) + ", 22, 21)");
-      return this.$rollerCabinParent3.attr('transform', "translate(" + (info3.point.x - 22) + ", " + (info3.point.y - 25) + ") rotate(" + (info3.degree || 0) + ", 22, 21)");
+      pathProgress = this.rollerTextTween.target.offset;
+      if (pathProgress > 100) {
+        info1 = this.getRollerPathInfo(pathProgress - 20);
+        info2 = this.getRollerPathInfo(pathProgress - 60);
+        info3 = this.getRollerPathInfo(pathProgress - 100);
+        this.$rollerCabinParent1.attr('transform', "translate(" + (info1.point.x - 22) + ", " + (info1.point.y - 25) + ") rotate(" + (info1.degree || 0) + ", 22, 21)");
+        this.$rollerCabinParent2.attr('transform', "translate(" + (info2.point.x - 22) + ", " + (info2.point.y - 25) + ") rotate(" + (info2.degree || 0) + ", 22, 21)");
+        this.$rollerCabinParent3.attr('transform', "translate(" + (info3.point.x - 22) + ", " + (info3.point.y - 25) + ") rotate(" + (info3.degree || 0) + ", 22, 21)");
+      }
+      return this.rollerText.setAttribute('startOffset', "" + this.rollerTextTween.target.offset);
     };
 
     App.prototype.getRollerPathInfo = function(progress, isSecondLine) {
