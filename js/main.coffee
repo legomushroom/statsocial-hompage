@@ -21,7 +21,6 @@ class App
 		@$scence3 	= @$('#js-curtain3')
 		@$plane 		= @$('#js-plane')
 		@prevPlaneProgress = -1
-		@animate = window.StatSocial.helpers.bind @animate, @
 
 	initController:->
 		@controller = $.superscrollorama
@@ -113,11 +112,10 @@ class App
 		@bgTween  = TweenMax.to @$('#js-bg'), .75, { css:{ opacity: 1 } }
 		@controller.addTween start, @bgTween, @frameDurationTime
 
+		start = 3*@frameDurationTime
 		$clouds = @$('.cloud-b')
 		@cloudTween = TweenMax.to $clouds, .75, { onComplete: (=> $clouds.addClass('is-anima')), onReverseComplete:(=> $clouds.removeClass('is-anima')) }
 		@controller.addTween start, @cloudTween, 1
-
-
 
 
 		# -> PLANE
@@ -158,7 +156,6 @@ class App
 		@controller.addTween start, @bushTween, 1
 
 		# -> ROLLER-COASTER
-		start = 8*@frameDurationTime
 		@$yAxes = @$('#js-roller-y')
 		@$xAxes = @$('#js-roller-x')
 		
@@ -166,8 +163,8 @@ class App
 		@$rollerLine2 = @$('#js-roller-line2')
 		@rollerLine1  = @$rollerLine1[0]
 		@rollerLine2  = @$rollerLine2[0]
-		# @$rollerLineBg2 = @$('#js-roller-line-bg2')
-		# @$rollerLineBg1 = @$('#js-roller-line-bg1')
+		@$rollerLineBg2 = @$('#js-roller-line-bg2')
+		@$rollerLineBg1 = @$('#js-roller-line-bg1')
 		
 		@$rollerCabin1 	= @$('#js-roller-cabin1') 
 		@$rollerCabinParent1 = @$rollerCabin1.parent()
@@ -196,14 +193,12 @@ class App
 		@controller.addTween start, @rollerAxesTween, @frameDurationTime
 
 		# --> ROLLER-COASTER BUILD
-
 		@prepareBuildingLine 1
 		@prepareBuildingLine 2
 
-		@animate()
 		start= 9*@frameDurationTime
-		@rollerRailsTween1 = TweenMax.to { y: 500 }, .75, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails1Update,@), onStart:=> @animateLines() }
-		@controller.addTween start, @rollerRailsTween1, @frameDurationTime
+		@rollerRailsTween1 = TweenMax.to { y: 500 }, .75, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails1Update,@) }
+		@controller.addTween start, @rollerRailsTween1, 2*@frameDurationTime
 
 		@rollerRailsTween2 = TweenMax.to { y: 500 }, 1, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails2Update,@) }
 		@controller.addTween start, @rollerRailsTween2, 2*@frameDurationTime
@@ -216,15 +211,23 @@ class App
 		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideSecondTrain() ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
 
+	onRollerRails1Update:()-> 
+		@$rollerLine1.attr( 	'transform', "translate(0,#{@rollerRailsTween1.target.y})")
+		@setLiveLinesProgress @rollerRailsTween1.totalProgress()
+		@$rollerLineBg1.attr( 'transform', "translate(0,#{@rollerRailsTween1.target.y})")
 
-	animateLines:->
+	onRollerRails2Update:()-> 
+		@$rollerLine2.attr('transform', "translate(0,#{@rollerRailsTween2.target.y})")
+		@$rollerLineBg2.attr('transform', "translate(0,#{@rollerRailsTween2.target.y})")
+
+	setLiveLinesProgress:(progress)->
 		for point in @livePoints1
-			point.isAnimate = true
-			point.animate()
+			point.setProgress progress
 
 		for point in @livePoints2
-			point.isAnimate = true
-			point.animate()
+			point.setProgress progress
+
+		@updateLine()
 
 	prepareBuildingLine:(num)->
 		start = 9*@frameDurationTime
@@ -238,33 +241,36 @@ class App
 					x: parseInt(a[i], 10)
 					y: parseInt(a[i+1], 10)
 					i: i
+					isFixed: i is 0 or i is a.length-2
 
 		@["livePoints#{num}"] = []
 		for point in points 
 			@["livePoints#{num}"].push new window.StatSocial.RollerPoint point
 
-
 	updateLine:->
 		str = 'M'
+
+		lastPoint = {}
 		for point, i in @livePoints1
 			char = if i isnt 0 then 'L' else ''
 			str += "#{char}#{point.x},#{point.y}"
+			lastPoint = point
+
 
 		@$rollerLine1.attr('d', str)
+		str += "L#{lastPoint.x},1200 L0,1200 z"
+		@$rollerLineBg1.attr('d', str)
 
 		str = 'M'
+		lastPoint = {}
 		for point, i in @livePoints2
 			char = if i isnt 0 then 'L' else ''
 			str += "#{char}#{point.x},#{point.y}"
+			lastPoint = point
 
 		@$rollerLine2.attr('d', str)
-		# console.log str
-
-		# console.log str
-
-	animate:->
-		@updateLine()
-		requestAnimationFrame(@animate)
+		str += "L#{lastPoint.x},1200 L0,1200 z"
+		@$rollerLineBg2.attr('d', str)
 
 	initRollerCabins:->
 		if !@rollerCabinsTween
@@ -350,15 +356,6 @@ class App
 			degree: degree
 			point: point
 
-
-		# for point in points1
-	onRollerRails1Update:()-> 
-		@$rollerLine1.attr( 	'transform', "translate(0,#{@rollerRailsTween1.target.y})")
-		# @$rollerLineBg1.attr( 'transform', "translate(0,#{@rollerRailsTween1.target.y})")
-
-	onRollerRails2Update:()-> 
-		@$rollerLine2.attr('transform', "translate(0,#{@rollerRailsTween2.target.y})")
-		# @$rollerLineBg2.attr('transform', "translate(0,#{@rollerRailsTween2.target.y})")
 
 	onRollerAxesUpdate:()->
 		progress = @rollerAxesTween.totalProgress()

@@ -6,55 +6,56 @@
     function Point(o) {
       this.o = o != null ? o : {};
       this.vars();
-      this.animate();
+      !this.o.isFixed && this.animate();
     }
 
     Point.prototype.vars = function() {
-      this.isAnimate = false;
       this.x = this.o.x || 0;
       this.y = this.o.y || 0;
       this.startY = this.y;
       this.startX = this.x;
-      return this.animationCnt = 0;
+      this.stepsCnt = 5;
+      this.animationCnt = 0;
+      return this.tweens = [];
+    };
+
+    Point.prototype.setProgress = function(progress) {
+      if (this.o.isFixed) {
+        return;
+      }
+      this.currentTween = this.tl.getChildren()[Math.floor(progress * this.stepsCnt)];
+      return this.tl.seek(progress * this.stepsCnt, false);
     };
 
     Point.prototype.animate = function() {
-      var newX, newY, randomNumber, toX, toY;
+      var i, newX, newY, randomNumber, _i, _ref, _results;
 
-      if (!this.isAnimate) {
-        return;
+      this.tl = new TimelineMax;
+      _results = [];
+      for (i = _i = 0, _ref = this.stepsCnt; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+        randomNumber = StatSocial.helpers.getRand(0, 200);
+        newY = 250 + StatSocial.helpers.getRand(-randomNumber, randomNumber);
+        newX = this.startX + StatSocial.helpers.getRand(-10, 10);
+        this.prevToX = this.toX || this.x;
+        this.prevToY = this.toY || this.y;
+        this.toX = i <= this.stepsCnt - 2 ? newX : this.startX;
+        this.toY = i <= this.stepsCnt - 2 ? newY : this.startY;
+        this.tl.add(TweenMax.to({
+          y: this.prevToY,
+          x: this.prevToX
+        }, 1, {
+          y: this.toY,
+          x: this.toX,
+          onUpdate: StatSocial.helpers.bind(this.onUpdate, this)
+        }));
+        _results.push(this.tl.pause());
       }
-      console.log('animate');
-      this.animationCnt++;
-      randomNumber = StatSocial.helpers.getRand(0, 200);
-      newY = 250 + StatSocial.helpers.getRand(-randomNumber, randomNumber);
-      newX = this.startX + StatSocial.helpers.getRand(-10, 10);
-      toX = this.animationCnt <= 4 ? newX : this.startX;
-      toY = this.animationCnt <= 4 ? newY : this.startY;
-      return this.tween = TweenMax.to({
-        y: this.y,
-        x: this.x
-      }, .5, {
-        y: toY,
-        x: toX,
-        onUpdate: StatSocial.helpers.bind(this.onUpdate, this),
-        onComplete: StatSocial.helpers.bind(this.animate, this)
-      });
+      return _results;
     };
 
     Point.prototype.onUpdate = function() {
-      this.y = this.tween.target.y;
-      return this.x = this.tween.target.x;
-    };
-
-    Point.prototype.pause = function() {
-      this.isAnimate = false;
-      return this.tween.pause();
-    };
-
-    Point.prototype.resume = function() {
-      this.isAnimate = true;
-      return this.tween.resume();
+      this.y = this.currentTween.target.y;
+      return this.x = this.currentTween.target.x;
     };
 
     return Point;
