@@ -165,6 +165,9 @@ class App
 		@rollerLine2  = @$rollerLine2[0]
 		@$rollerLineBg2 = @$('#js-roller-line-bg2')
 		@$rollerLineBg1 = @$('#js-roller-line-bg1')
+
+		@$rollerLineBg4 = @$('#js-roller-line-bg4')
+		@$rollerLineBg3 = @$('#js-roller-line-bg3')
 		
 		@$rollerCabin1 	= @$('#js-roller-cabin1') 
 		@$rollerCabinParent1 = @$rollerCabin1.parent()
@@ -198,27 +201,36 @@ class App
 
 		start= 9*@frameDurationTime
 		@rollerRailsTween1 = TweenMax.to { y: 500 }, .75, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails1Update,@) }
-		@controller.addTween start, @rollerRailsTween1, 2*@frameDurationTime
+		@controller.addTween start, @rollerRailsTween1, 3*@frameDurationTime
 
 		@rollerRailsTween2 = TweenMax.to { y: 500 }, 1, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails2Update,@) }
-		@controller.addTween start, @rollerRailsTween2, 2*@frameDurationTime
-
-		start = 11*@frameDurationTime
-		@rollerTextTween = TweenMax.to { offset: @rollerLine2.getTotalLength() }, 1, { offset: @rollerTextOffset, onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@) }
-		@controller.addTween start, @rollerTextTween, 2*@frameDurationTime
+		@controller.addTween start, @rollerRailsTween2, 3*@frameDurationTime
 
 		start = 12*@frameDurationTime
+		@gridSimplifyTween = TweenMax.to { x: 0 }, 1, { x: 1300, onUpdate: StatSocial.helpers.bind(@onGridSimplifyUpdate,@) }
+		@controller.addTween start, @gridSimplifyTween, @frameDurationTime
+
+		start = 13*@frameDurationTime
+		@rollerTextTween = TweenMax.to { offset: @rollerLine2.getTotalLength() }, 1, { offset: @rollerTextOffset, onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@) }
+		@controller.addTween start, @rollerTextTween, 2*@frameDurationTime
+		
+		start = 14*@frameDurationTime
 		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideSecondTrain() ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
+
+	onGridSimplifyUpdate:->
+		@$('#js-check-horizontal-pattern').attr 'transform', "translate(-#{@gridSimplifyTween.target.x},0)"
 
 	onRollerRails1Update:()-> 
 		@$rollerLine1.attr( 	'transform', "translate(0,#{@rollerRailsTween1.target.y})")
 		@setLiveLinesProgress @rollerRailsTween1.totalProgress()
 		@$rollerLineBg1.attr( 'transform', "translate(0,#{@rollerRailsTween1.target.y})")
+		@$rollerLineBg3.attr( 'transform', "translate(0,#{@rollerRailsTween1.target.y})")
 
 	onRollerRails2Update:()-> 
 		@$rollerLine2.attr('transform', "translate(0,#{@rollerRailsTween2.target.y})")
 		@$rollerLineBg2.attr('transform', "translate(0,#{@rollerRailsTween2.target.y})")
+		@$rollerLineBg4.attr('transform', "translate(0,#{@rollerRailsTween2.target.y})")
 
 	setLiveLinesProgress:(progress)->
 		for point in @livePoints1
@@ -258,8 +270,9 @@ class App
 
 
 		@$rollerLine1.attr('d', str)
-		str += "L#{lastPoint.x},1200 L0,1200 z"
+		str += "L#{lastPoint.x},1300 L0,1300 z"
 		@$rollerLineBg1.attr('d', str)
+		@$rollerLineBg3.attr('d', str)
 
 		str = 'M'
 		lastPoint = {}
@@ -269,8 +282,9 @@ class App
 			lastPoint = point
 
 		@$rollerLine2.attr('d', str)
-		str += "L#{lastPoint.x},1200 L0,1200 z"
+		str += "L#{lastPoint.x},1300 L0,1300 z"
 		@$rollerLineBg2.attr('d', str)
+		@$rollerLineBg4.attr('d', str)
 
 	initRollerCabins:->
 		if !@rollerCabinsTween

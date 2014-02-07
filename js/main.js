@@ -207,6 +207,8 @@
       this.rollerLine2 = this.$rollerLine2[0];
       this.$rollerLineBg2 = this.$('#js-roller-line-bg2');
       this.$rollerLineBg1 = this.$('#js-roller-line-bg1');
+      this.$rollerLineBg4 = this.$('#js-roller-line-bg4');
+      this.$rollerLineBg3 = this.$('#js-roller-line-bg3');
       this.$rollerCabin1 = this.$('#js-roller-cabin1');
       this.$rollerCabinParent1 = this.$rollerCabin1.parent();
       this.$rollerCabin2 = this.$('#js-roller-cabin2');
@@ -238,15 +240,23 @@
         y: 0,
         onUpdate: StatSocial.helpers.bind(this.onRollerRails1Update, this)
       });
-      this.controller.addTween(start, this.rollerRailsTween1, 2 * this.frameDurationTime);
+      this.controller.addTween(start, this.rollerRailsTween1, 3 * this.frameDurationTime);
       this.rollerRailsTween2 = TweenMax.to({
         y: 500
       }, 1, {
         y: 0,
         onUpdate: StatSocial.helpers.bind(this.onRollerRails2Update, this)
       });
-      this.controller.addTween(start, this.rollerRailsTween2, 2 * this.frameDurationTime);
-      start = 11 * this.frameDurationTime;
+      this.controller.addTween(start, this.rollerRailsTween2, 3 * this.frameDurationTime);
+      start = 12 * this.frameDurationTime;
+      this.gridSimplifyTween = TweenMax.to({
+        x: 0
+      }, 1, {
+        x: 1300,
+        onUpdate: StatSocial.helpers.bind(this.onGridSimplifyUpdate, this)
+      });
+      this.controller.addTween(start, this.gridSimplifyTween, this.frameDurationTime);
+      start = 13 * this.frameDurationTime;
       this.rollerTextTween = TweenMax.to({
         offset: this.rollerLine2.getTotalLength()
       }, 1, {
@@ -254,7 +264,7 @@
         onUpdate: StatSocial.helpers.bind(this.onRollerTextUpdate, this)
       });
       this.controller.addTween(start, this.rollerTextTween, 2 * this.frameDurationTime);
-      start = 12 * this.frameDurationTime;
+      start = 14 * this.frameDurationTime;
       this.rollerCabinsTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
           _this.initRollerCabins();
@@ -275,15 +285,21 @@
       return this.controller.addTween(start, this.rollerCabinsTriggerTween, 1);
     };
 
+    App.prototype.onGridSimplifyUpdate = function() {
+      return this.$('#js-check-horizontal-pattern').attr('transform', "translate(-" + this.gridSimplifyTween.target.x + ",0)");
+    };
+
     App.prototype.onRollerRails1Update = function() {
       this.$rollerLine1.attr('transform', "translate(0," + this.rollerRailsTween1.target.y + ")");
       this.setLiveLinesProgress(this.rollerRailsTween1.totalProgress());
-      return this.$rollerLineBg1.attr('transform', "translate(0," + this.rollerRailsTween1.target.y + ")");
+      this.$rollerLineBg1.attr('transform', "translate(0," + this.rollerRailsTween1.target.y + ")");
+      return this.$rollerLineBg3.attr('transform', "translate(0," + this.rollerRailsTween1.target.y + ")");
     };
 
     App.prototype.onRollerRails2Update = function() {
       this.$rollerLine2.attr('transform', "translate(0," + this.rollerRailsTween2.target.y + ")");
-      return this.$rollerLineBg2.attr('transform', "translate(0," + this.rollerRailsTween2.target.y + ")");
+      this.$rollerLineBg2.attr('transform', "translate(0," + this.rollerRailsTween2.target.y + ")");
+      return this.$rollerLineBg4.attr('transform', "translate(0," + this.rollerRailsTween2.target.y + ")");
     };
 
     App.prototype.setLiveLinesProgress = function(progress) {
@@ -342,8 +358,9 @@
         lastPoint = point;
       }
       this.$rollerLine1.attr('d', str);
-      str += "L" + lastPoint.x + ",1200 L0,1200 z";
+      str += "L" + lastPoint.x + ",1300 L0,1300 z";
       this.$rollerLineBg1.attr('d', str);
+      this.$rollerLineBg3.attr('d', str);
       str = 'M';
       lastPoint = {};
       _ref1 = this.livePoints2;
@@ -354,8 +371,9 @@
         lastPoint = point;
       }
       this.$rollerLine2.attr('d', str);
-      str += "L" + lastPoint.x + ",1200 L0,1200 z";
-      return this.$rollerLineBg2.attr('d', str);
+      str += "L" + lastPoint.x + ",1300 L0,1300 z";
+      this.$rollerLineBg2.attr('d', str);
+      return this.$rollerLineBg4.attr('d', str);
     };
 
     App.prototype.initRollerCabins = function() {
