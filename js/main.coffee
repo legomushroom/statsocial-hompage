@@ -212,17 +212,16 @@ class App
 		@gridSimplifyTween = TweenMax.to { x: 0 }, 1, { x: 1300, onUpdate: StatSocial.helpers.bind(@onGridSimplifyUpdate,@) }
 		@controller.addTween start, @gridSimplifyTween, @frameDurationTime
 
-		console.log @$markerCircle[0]
 		start = 12*@frameDurationTime
 		@lineSimplifyTween = TweenMax.to { curve: 0 }, 1, { curve: 20, onUpdate: StatSocial.helpers.bind(@onLineSimplifyUpdate,@) }
 		@controller.addTween start, @lineSimplifyTween, @frameDurationTime
 
 		start = 13*@frameDurationTime
-		@rollerTextTween = TweenMax.to { offset: @rollerLine2.getTotalLength() }, 1, { offset: @rollerTextOffset, onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@) }
+		@rollerTextTween = TweenMax.to { offset: @rollerLine2.getTotalLength() }, 1, { offset: @rollerTextOffset, onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@), onStart:=> @showTrain1() }
 		@controller.addTween start, @rollerTextTween, 2*@frameDurationTime
 		
 		start = 14*@frameDurationTime
-		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideSecondTrain() ) }
+		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showTrain2() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideTrain2(); ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
 
 	onLineSimplifyUpdate:-> 
@@ -236,6 +235,8 @@ class App
 		@$horizontalPattern.attr 'transform', "translate(-#{@gridSimplifyTween.target.x},0)"
 
 	onRollerRails1Update:()-> 
+		if @rollerRailsTween1.totalProgress() < 1 then @hideTrain1()
+
 		@$rollerLine1.attr( 	'transform', "translate(0,#{@rollerRailsTween1.target.y})")
 		@setLiveLinesProgress @rollerRailsTween1.totalProgress()
 		@$rollerLineBg1.attr( 'transform', "translate(0,#{@rollerRailsTween1.target.y})")
@@ -331,7 +332,21 @@ class App
 		@$rollerCabinParent3
 			.attr('transform', "translate(#{info3.point.x-22}, #{info3.point.y-25}) rotate(#{info3.degree or 0}, 22, 21)")
 
-	hideSecondTrain:->
+	hideTrain1:->
+		if !@isFirstTrainHide
+			@$rollerCabinParent1.fadeOut()
+			@$rollerCabinParent2.fadeOut()
+			@$rollerCabinParent3.fadeOut()
+			@isFirstTrainHide = true
+
+	showTrain1:->
+		if @isFirstTrainHide
+			@$rollerCabinParent1.fadeIn()
+			@$rollerCabinParent2.fadeIn()
+			@$rollerCabinParent3.fadeIn()
+			@isFirstTrainHide = false
+
+	hideTrain2:->
 		if !@isSecondTrainHide
 			@$rollerCabinParent4.fadeOut()
 			@$rollerCabinParent5.fadeOut()
@@ -339,7 +354,7 @@ class App
 			@$rollerCabinParent7.fadeOut()
 			@isSecondTrainHide = true
 
-	showSecondTrain:->
+	showTrain2:->
 		if @isSecondTrainHide
 			@$rollerCabinParent4.fadeIn()
 			@$rollerCabinParent5.fadeIn()
@@ -348,7 +363,6 @@ class App
 			@isSecondTrainHide = false
 
 	onRollerTextUpdate:()->
-
 		pathProgress = @rollerTextTween.target.offset
 
 		if pathProgress > 100

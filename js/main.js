@@ -258,7 +258,6 @@
         onUpdate: StatSocial.helpers.bind(this.onGridSimplifyUpdate, this)
       });
       this.controller.addTween(start, this.gridSimplifyTween, this.frameDurationTime);
-      console.log(this.$markerCircle[0]);
       start = 12 * this.frameDurationTime;
       this.lineSimplifyTween = TweenMax.to({
         curve: 0
@@ -272,14 +271,17 @@
         offset: this.rollerLine2.getTotalLength()
       }, 1, {
         offset: this.rollerTextOffset,
-        onUpdate: StatSocial.helpers.bind(this.onRollerTextUpdate, this)
+        onUpdate: StatSocial.helpers.bind(this.onRollerTextUpdate, this),
+        onStart: function() {
+          return _this.showTrain1();
+        }
       });
       this.controller.addTween(start, this.rollerTextTween, 2 * this.frameDurationTime);
       start = 14 * this.frameDurationTime;
       this.rollerCabinsTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
           _this.initRollerCabins();
-          return _this.showSecondTrain();
+          return _this.showTrain2();
         }),
         onReverseComplete: (function() {
           var _ref1, _ref2;
@@ -290,7 +292,7 @@
           if ((_ref2 = _this.rollerCabinsTween2) != null) {
             _ref2.pause();
           }
-          return _this.hideSecondTrain();
+          return _this.hideTrain2();
         })
       });
       return this.controller.addTween(start, this.rollerCabinsTriggerTween, 1);
@@ -310,6 +312,9 @@
     };
 
     App.prototype.onRollerRails1Update = function() {
+      if (this.rollerRailsTween1.totalProgress() < 1) {
+        this.hideTrain1();
+      }
       this.$rollerLine1.attr('transform', "translate(0," + this.rollerRailsTween1.target.y + ")");
       this.setLiveLinesProgress(this.rollerRailsTween1.totalProgress());
       this.$rollerLineBg1.attr('transform', "translate(0," + this.rollerRailsTween1.target.y + ")");
@@ -458,7 +463,25 @@
       return this.$rollerCabinParent3.attr('transform', "translate(" + (info3.point.x - 22) + ", " + (info3.point.y - 25) + ") rotate(" + (info3.degree || 0) + ", 22, 21)");
     };
 
-    App.prototype.hideSecondTrain = function() {
+    App.prototype.hideTrain1 = function() {
+      if (!this.isFirstTrainHide) {
+        this.$rollerCabinParent1.fadeOut();
+        this.$rollerCabinParent2.fadeOut();
+        this.$rollerCabinParent3.fadeOut();
+        return this.isFirstTrainHide = true;
+      }
+    };
+
+    App.prototype.showTrain1 = function() {
+      if (this.isFirstTrainHide) {
+        this.$rollerCabinParent1.fadeIn();
+        this.$rollerCabinParent2.fadeIn();
+        this.$rollerCabinParent3.fadeIn();
+        return this.isFirstTrainHide = false;
+      }
+    };
+
+    App.prototype.hideTrain2 = function() {
       if (!this.isSecondTrainHide) {
         this.$rollerCabinParent4.fadeOut();
         this.$rollerCabinParent5.fadeOut();
@@ -468,7 +491,7 @@
       }
     };
 
-    App.prototype.showSecondTrain = function() {
+    App.prototype.showTrain2 = function() {
       if (this.isSecondTrainHide) {
         this.$rollerCabinParent4.fadeIn();
         this.$rollerCabinParent5.fadeIn();
