@@ -177,6 +177,7 @@ class App
 		@$rollerCabin3 	= @$('#js-roller-cabin3') 
 		@$rollerCabinParent3 = @$rollerCabin3.parent()
 
+		@$markerCircle = @$('#js-marker-circle')
 
 		@$rollerCabin4 	= @$('#js-roller-cabin4') 
 		@$rollerCabinParent4 = @$rollerCabin4.parent()
@@ -211,6 +212,7 @@ class App
 		@gridSimplifyTween = TweenMax.to { x: 0 }, 1, { x: 1300, onUpdate: StatSocial.helpers.bind(@onGridSimplifyUpdate,@) }
 		@controller.addTween start, @gridSimplifyTween, @frameDurationTime
 
+		console.log @$markerCircle[0]
 		start = 12*@frameDurationTime
 		@lineSimplifyTween = TweenMax.to { curve: 0 }, 1, { curve: 20, onUpdate: StatSocial.helpers.bind(@onLineSimplifyUpdate,@) }
 		@controller.addTween start, @lineSimplifyTween, @frameDurationTime
@@ -223,7 +225,12 @@ class App
 		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideSecondTrain() ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
 
-	onLineSimplifyUpdate:-> @setLiveLinesCurve @lineSimplifyTween.target.curve
+	onLineSimplifyUpdate:-> 
+		if @lineSimplifyTween.totalProgress() > 0
+			@$markerCircle[0].setAttribute('class','marker-circle is-no-stroke')
+		else @$markerCircle[0].setAttribute('class','marker-circle')
+
+		@setLiveLinesCurve @lineSimplifyTween.target.curve
 
 	onGridSimplifyUpdate:->
 		@$horizontalPattern.attr 'transform', "translate(-#{@gridSimplifyTween.target.x},0)"

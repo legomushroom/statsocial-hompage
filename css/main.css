@@ -1855,6 +1855,13 @@ a,
 .roller-coaster-b .svg-graphs {
   right: -320px;
 }
+.roller-coaster-b .marker-circle {
+  stroke-width: 2px;
+  transition: all 0.25s linear;
+}
+.roller-coaster-b .marker-circle.is-no-stroke {
+  stroke-width: 0;
+}
 .roller-coaster-b line {
   stroke-width: 5px;
   stroke: #287e7b;

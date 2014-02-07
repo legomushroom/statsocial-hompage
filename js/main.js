@@ -216,6 +216,7 @@
       this.$rollerCabinParent2 = this.$rollerCabin2.parent();
       this.$rollerCabin3 = this.$('#js-roller-cabin3');
       this.$rollerCabinParent3 = this.$rollerCabin3.parent();
+      this.$markerCircle = this.$('#js-marker-circle');
       this.$rollerCabin4 = this.$('#js-roller-cabin4');
       this.$rollerCabinParent4 = this.$rollerCabin4.parent();
       this.$rollerCabin5 = this.$('#js-roller-cabin5');
@@ -257,6 +258,7 @@
         onUpdate: StatSocial.helpers.bind(this.onGridSimplifyUpdate, this)
       });
       this.controller.addTween(start, this.gridSimplifyTween, this.frameDurationTime);
+      console.log(this.$markerCircle[0]);
       start = 12 * this.frameDurationTime;
       this.lineSimplifyTween = TweenMax.to({
         curve: 0
@@ -295,6 +297,11 @@
     };
 
     App.prototype.onLineSimplifyUpdate = function() {
+      if (this.lineSimplifyTween.totalProgress() > 0) {
+        this.$markerCircle[0].setAttribute('class', 'marker-circle is-no-stroke');
+      } else {
+        this.$markerCircle[0].setAttribute('class', 'marker-circle');
+      }
       return this.setLiveLinesCurve(this.lineSimplifyTween.target.curve);
     };
 
