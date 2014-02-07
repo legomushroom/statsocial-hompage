@@ -64,7 +64,7 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $buildings, $clouds, $el, $images, $rightEls, a, d, el, i, point, points, start, _i, _j, _k, _l, _len, _len1, _len2, _ref,
+      var $buildings, $clouds, $el, $images, $rightEls, el, i, start, _i, _j, _len, _ref,
         _this = this;
 
       this.frameDurationTime = 2000;
@@ -228,26 +228,27 @@
         onUpdate: StatSocial.helpers.bind(this.onRollerAxesUpdate, this)
       });
       this.controller.addTween(start, this.rollerAxesTween, this.frameDurationTime);
-      start = 9 * this.frameDurationTime;
-      d = this.$rollerLine1.attr('d');
-      d = d.replace(/m/gi, '');
-      d = d.replace(/(\d)()(\-)/gi, '$1,$3');
-      a = d.split(/l|\,/gi);
-      points = [];
-      for (i = _k = 0, _len1 = a.length; _k < _len1; i = _k += 2) {
-        point = a[i];
-        points.push({
-          x: parseInt(a[i], 10),
-          y: parseInt(a[i + 1], 10),
-          i: i
-        });
-      }
-      this.livePoints = [];
-      for (_l = 0, _len2 = points.length; _l < _len2; _l++) {
-        point = points[_l];
-        this.livePoints.push(new window.StatSocial.RollerPoint(point));
-      }
+      this.prepareBuildingLine(1);
+      this.prepareBuildingLine(2);
       this.animate();
+      start = 9 * this.frameDurationTime;
+      this.rollerRailsTween1 = TweenMax.to({
+        y: 500
+      }, .75, {
+        y: 0,
+        onUpdate: StatSocial.helpers.bind(this.onRollerRails1Update, this),
+        onStart: function() {
+          return _this.animateLines();
+        }
+      });
+      this.controller.addTween(start, this.rollerRailsTween1, this.frameDurationTime);
+      this.rollerRailsTween2 = TweenMax.to({
+        y: 500
+      }, 1, {
+        y: 0,
+        onUpdate: StatSocial.helpers.bind(this.onRollerRails2Update, this)
+      });
+      this.controller.addTween(start, this.rollerRailsTween2, 2 * this.frameDurationTime);
       start = 11 * this.frameDurationTime;
       this.rollerTextTween = TweenMax.to({
         offset: this.rollerLine2.getTotalLength()
@@ -277,17 +278,70 @@
       return this.controller.addTween(start, this.rollerCabinsTriggerTween, 1);
     };
 
+    App.prototype.animateLines = function() {
+      var point, _i, _j, _len, _len1, _ref, _ref1, _results;
+
+      _ref = this.livePoints1;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        point = _ref[_i];
+        point.isAnimate = true;
+        point.animate();
+      }
+      _ref1 = this.livePoints2;
+      _results = [];
+      for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+        point = _ref1[_j];
+        point.isAnimate = true;
+        _results.push(point.animate());
+      }
+      return _results;
+    };
+
+    App.prototype.prepareBuildingLine = function(num) {
+      var a, d, i, point, points, start, _i, _j, _len, _len1, _results;
+
+      start = 9 * this.frameDurationTime;
+      d = this["$rollerLine" + num].attr('d');
+      d = d.replace(/m/gi, '');
+      d = d.replace(/(\d)()(\-)/gi, '$1,$3');
+      a = d.split(/l|\,/gi);
+      points = [];
+      for (i = _i = 0, _len = a.length; _i < _len; i = _i += 2) {
+        point = a[i];
+        points.push({
+          x: parseInt(a[i], 10),
+          y: parseInt(a[i + 1], 10),
+          i: i
+        });
+      }
+      this["livePoints" + num] = [];
+      _results = [];
+      for (_j = 0, _len1 = points.length; _j < _len1; _j++) {
+        point = points[_j];
+        _results.push(this["livePoints" + num].push(new window.StatSocial.RollerPoint(point)));
+      }
+      return _results;
+    };
+
     App.prototype.updateLine = function() {
-      var char, i, point, str, _i, _len, _ref;
+      var char, i, point, str, _i, _j, _len, _len1, _ref, _ref1;
 
       str = 'M';
-      _ref = this.livePoints;
+      _ref = this.livePoints1;
       for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
         point = _ref[i];
-        char = i !== 0 ? 'l' : '';
+        char = i !== 0 ? 'L' : '';
         str += "" + char + point.x + "," + point.y;
       }
-      return this.$rollerLine1.attr('d', str);
+      this.$rollerLine1.attr('d', str);
+      str = 'M';
+      _ref1 = this.livePoints2;
+      for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+        point = _ref1[i];
+        char = i !== 0 ? 'L' : '';
+        str += "" + char + point.x + "," + point.y;
+      }
+      return this.$rollerLine2.attr('d', str);
     };
 
     App.prototype.animate = function() {

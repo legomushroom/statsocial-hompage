@@ -197,30 +197,16 @@ class App
 
 		# --> ROLLER-COASTER BUILD
 
-		start = 9*@frameDurationTime
-
-		d = @$rollerLine1.attr('d')
-		d = d.replace(/m/gi, '')
-		d = d.replace(/(\d)()(\-)/gi, '$1,$3')
-		a = d.split(/l|\,/gi)
-		points = []
-		for point, i in a by 2
-			points.push 
-						x: parseInt(a[i], 10)
-						y: parseInt(a[i+1], 10)
-						i: i
-
-		@livePoints = []
-		for point in points 
-			@livePoints.push new window.StatSocial.RollerPoint point
+		@prepareBuildingLine 1
+		@prepareBuildingLine 2
 
 		@animate()
+		start= 9*@frameDurationTime
+		@rollerRailsTween1 = TweenMax.to { y: 500 }, .75, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails1Update,@), onStart:=> @animateLines() }
+		@controller.addTween start, @rollerRailsTween1, @frameDurationTime
 
-		# @rollerRailsTween1 = TweenMax.to { y: 400 }, .75, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails1Update,@) }
-		# @controller.addTween start, @rollerRailsTween1, @frameDurationTime
-
-		# @rollerRailsTween2 = TweenMax.to { y: 400 }, 1, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails2Update,@) }
-		# @controller.addTween start, @rollerRailsTween2, 2*@frameDurationTime
+		@rollerRailsTween2 = TweenMax.to { y: 500 }, 1, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails2Update,@) }
+		@controller.addTween start, @rollerRailsTween2, 2*@frameDurationTime
 
 		start = 11*@frameDurationTime
 		@rollerTextTween = TweenMax.to { offset: @rollerLine2.getTotalLength() }, 1, { offset: @rollerTextOffset, onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@) }
@@ -230,13 +216,50 @@ class App
 		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideSecondTrain() ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
 
+
+	animateLines:->
+		for point in @livePoints1
+			point.isAnimate = true
+			point.animate()
+
+		for point in @livePoints2
+			point.isAnimate = true
+			point.animate()
+
+	prepareBuildingLine:(num)->
+		start = 9*@frameDurationTime
+		d = @["$rollerLine#{num}"].attr('d')
+		d = d.replace(/m/gi, '')
+		d = d.replace(/(\d)()(\-)/gi, '$1,$3')
+		a = d.split(/l|\,/gi)
+		points = []
+		for point, i in a by 2
+			points.push 
+					x: parseInt(a[i], 10)
+					y: parseInt(a[i+1], 10)
+					i: i
+
+		@["livePoints#{num}"] = []
+		for point in points 
+			@["livePoints#{num}"].push new window.StatSocial.RollerPoint point
+
+
 	updateLine:->
 		str = 'M'
-		for point, i in @livePoints
-			char = if i isnt 0 then 'l' else ''
+		for point, i in @livePoints1
+			char = if i isnt 0 then 'L' else ''
 			str += "#{char}#{point.x},#{point.y}"
 
 		@$rollerLine1.attr('d', str)
+
+		str = 'M'
+		for point, i in @livePoints2
+			char = if i isnt 0 then 'L' else ''
+			str += "#{char}#{point.x},#{point.y}"
+
+		@$rollerLine2.attr('d', str)
+		# console.log str
+
 		# console.log str
 
 	animate:->

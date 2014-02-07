@@ -10,29 +10,33 @@
     }
 
     Point.prototype.vars = function() {
-      this.isAnimate = true;
+      this.isAnimate = false;
       this.x = this.o.x || 0;
       this.y = this.o.y || 0;
       this.startY = this.y;
       this.startX = this.x;
-      return this.y = 100;
+      return this.animationCnt = 0;
     };
 
     Point.prototype.animate = function() {
-      var newX, newY, randomNumber;
+      var newX, newY, randomNumber, toX, toY;
 
       if (!this.isAnimate) {
         return;
       }
-      randomNumber = StatSocial.helpers.getRand(0, 100);
-      newY = StatSocial.helpers.getRand(-(this.startY / 2), this.startY / 2);
+      console.log('animate');
+      this.animationCnt++;
+      randomNumber = StatSocial.helpers.getRand(0, 200);
+      newY = 250 + StatSocial.helpers.getRand(-randomNumber, randomNumber);
       newX = this.startX + StatSocial.helpers.getRand(-10, 10);
+      toX = this.animationCnt <= 4 ? newX : this.startX;
+      toY = this.animationCnt <= 4 ? newY : this.startY;
       return this.tween = TweenMax.to({
         y: this.y,
         x: this.x
       }, .5, {
-        y: newY,
-        x: newX,
+        y: toY,
+        x: toX,
         onUpdate: StatSocial.helpers.bind(this.onUpdate, this),
         onComplete: StatSocial.helpers.bind(this.animate, this)
       });

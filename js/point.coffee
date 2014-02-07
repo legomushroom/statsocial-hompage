@@ -4,19 +4,22 @@ class Point
 		@animate()
 
 	vars:->
-		@isAnimate = true
+		@isAnimate = false
 		@x = @o.x or 0; @y = @o.y or 0
 		@startY = @y
 		@startX = @x
-		@y = 100
-
+		@animationCnt = 0
 
 	animate:->
 		if !@isAnimate then return
-		randomNumber = StatSocial.helpers.getRand(0,100)
-		newY = StatSocial.helpers.getRand(-(@startY/2), (@startY/2))
+		console.log 'animate'
+		@animationCnt++
+		randomNumber = StatSocial.helpers.getRand(0,200)
+		newY = 250+StatSocial.helpers.getRand(-randomNumber, randomNumber)
 		newX = @startX + StatSocial.helpers.getRand(-10, 10)
-		@tween = TweenMax.to { y: @y, x: @x }, .5, { y: newY, x: newX, onUpdate: StatSocial.helpers.bind(@onUpdate,@), onComplete: StatSocial.helpers.bind(@animate,@) }
+		toX = if @animationCnt <= 4 then newX else @startX
+		toY = if @animationCnt <= 4 then newY else @startY
+		@tween = TweenMax.to { y: @y, x: @x }, .5, { y: toY, x: toX, onUpdate: StatSocial.helpers.bind(@onUpdate,@), onComplete: StatSocial.helpers.bind(@animate,@) }
 
 	onUpdate:-> 	@y = @tween.target.y; @x = @tween.target.x
 	pause:-> 			@isAnimate = false; @tween.pause()
