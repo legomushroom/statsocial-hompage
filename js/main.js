@@ -209,6 +209,7 @@
       this.$rollerLineBg1 = this.$('#js-roller-line-bg1');
       this.$rollerLineBg4 = this.$('#js-roller-line-bg4');
       this.$rollerLineBg3 = this.$('#js-roller-line-bg3');
+      this.$horizontalPattern = this.$('#js-check-horizontal-pattern');
       this.$rollerCabin1 = this.$('#js-roller-cabin1');
       this.$rollerCabinParent1 = this.$rollerCabin1.parent();
       this.$rollerCabin2 = this.$('#js-roller-cabin2');
@@ -256,6 +257,14 @@
         onUpdate: StatSocial.helpers.bind(this.onGridSimplifyUpdate, this)
       });
       this.controller.addTween(start, this.gridSimplifyTween, this.frameDurationTime);
+      start = 12 * this.frameDurationTime;
+      this.lineSimplifyTween = TweenMax.to({
+        curve: 0
+      }, 1, {
+        curve: 20,
+        onUpdate: StatSocial.helpers.bind(this.onLineSimplifyUpdate, this)
+      });
+      this.controller.addTween(start, this.lineSimplifyTween, this.frameDurationTime);
       start = 13 * this.frameDurationTime;
       this.rollerTextTween = TweenMax.to({
         offset: this.rollerLine2.getTotalLength()
@@ -285,8 +294,12 @@
       return this.controller.addTween(start, this.rollerCabinsTriggerTween, 1);
     };
 
+    App.prototype.onLineSimplifyUpdate = function() {
+      return this.setLiveLinesCurve(this.lineSimplifyTween.target.curve);
+    };
+
     App.prototype.onGridSimplifyUpdate = function() {
-      return this.$('#js-check-horizontal-pattern').attr('transform', "translate(-" + this.gridSimplifyTween.target.x + ",0)");
+      return this.$horizontalPattern.attr('transform', "translate(-" + this.gridSimplifyTween.target.x + ",0)");
     };
 
     App.prototype.onRollerRails1Update = function() {
@@ -314,6 +327,22 @@
       for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
         point = _ref1[_j];
         point.setProgress(progress);
+      }
+      return this.updateLine();
+    };
+
+    App.prototype.setLiveLinesCurve = function(curve) {
+      var point, _i, _j, _len, _len1, _ref, _ref1;
+
+      _ref = this.livePoints1;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        point = _ref[_i];
+        point.curve = curve;
+      }
+      _ref1 = this.livePoints2;
+      for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+        point = _ref1[_j];
+        point.curve = curve;
       }
       return this.updateLine();
     };
@@ -346,34 +375,26 @@
     };
 
     App.prototype.updateLine = function() {
-      var char, i, lastPoint, point, str, _i, _j, _len, _len1, _ref, _ref1;
+      this.serializeLine(1);
+      return this.serializeLine(2);
+    };
+
+    App.prototype.serializeLine = function(num) {
+      var char, i, lastPoint, point, str, _i, _len, _ref;
 
       str = 'M';
       lastPoint = {};
-      _ref = this.livePoints1;
+      _ref = this["livePoints" + num];
       for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
         point = _ref[i];
-        char = i !== 0 ? 'L' : '';
-        str += "" + char + point.x + "," + point.y;
+        char = i !== 0 ? 'S' : '';
+        str += "" + char + (point.x - point.curve) + "," + point.y + " " + (point.x + point.curve) + "," + point.y;
         lastPoint = point;
       }
-      this.$rollerLine1.attr('d', str);
+      this["$rollerLine" + num].attr('d', str);
       str += "L" + lastPoint.x + ",1300 L0,1300 z";
-      this.$rollerLineBg1.attr('d', str);
-      this.$rollerLineBg3.attr('d', str);
-      str = 'M';
-      lastPoint = {};
-      _ref1 = this.livePoints2;
-      for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
-        point = _ref1[i];
-        char = i !== 0 ? 'L' : '';
-        str += "" + char + point.x + "," + point.y;
-        lastPoint = point;
-      }
-      this.$rollerLine2.attr('d', str);
-      str += "L" + lastPoint.x + ",1300 L0,1300 z";
-      this.$rollerLineBg2.attr('d', str);
-      return this.$rollerLineBg4.attr('d', str);
+      this["$rollerLineBg" + num].attr('d', str);
+      return this["$rollerLineBg" + (num + 2)].attr('d', str);
     };
 
     App.prototype.initRollerCabins = function() {

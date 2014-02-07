@@ -15,6 +15,7 @@
       this.startY = this.y;
       this.startX = this.x;
       this.stepsCnt = 5;
+      this.curve = 0;
       this.animationCnt = 0;
       return this.tweens = [];
     };

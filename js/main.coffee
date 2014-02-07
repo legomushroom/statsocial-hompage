@@ -165,9 +165,10 @@ class App
 		@rollerLine2  = @$rollerLine2[0]
 		@$rollerLineBg2 = @$('#js-roller-line-bg2')
 		@$rollerLineBg1 = @$('#js-roller-line-bg1')
-
 		@$rollerLineBg4 = @$('#js-roller-line-bg4')
 		@$rollerLineBg3 = @$('#js-roller-line-bg3')
+
+		@$horizontalPattern = @$('#js-check-horizontal-pattern')
 		
 		@$rollerCabin1 	= @$('#js-roller-cabin1') 
 		@$rollerCabinParent1 = @$rollerCabin1.parent()
@@ -210,6 +211,10 @@ class App
 		@gridSimplifyTween = TweenMax.to { x: 0 }, 1, { x: 1300, onUpdate: StatSocial.helpers.bind(@onGridSimplifyUpdate,@) }
 		@controller.addTween start, @gridSimplifyTween, @frameDurationTime
 
+		start = 12*@frameDurationTime
+		@lineSimplifyTween = TweenMax.to { curve: 0 }, 1, { curve: 20, onUpdate: StatSocial.helpers.bind(@onLineSimplifyUpdate,@) }
+		@controller.addTween start, @lineSimplifyTween, @frameDurationTime
+
 		start = 13*@frameDurationTime
 		@rollerTextTween = TweenMax.to { offset: @rollerLine2.getTotalLength() }, 1, { offset: @rollerTextOffset, onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@) }
 		@controller.addTween start, @rollerTextTween, 2*@frameDurationTime
@@ -218,8 +223,10 @@ class App
 		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showSecondTrain() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideSecondTrain() ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
 
+	onLineSimplifyUpdate:-> @setLiveLinesCurve @lineSimplifyTween.target.curve
+
 	onGridSimplifyUpdate:->
-		@$('#js-check-horizontal-pattern').attr 'transform', "translate(-#{@gridSimplifyTween.target.x},0)"
+		@$horizontalPattern.attr 'transform', "translate(-#{@gridSimplifyTween.target.x},0)"
 
 	onRollerRails1Update:()-> 
 		@$rollerLine1.attr( 	'transform', "translate(0,#{@rollerRailsTween1.target.y})")
@@ -235,10 +242,15 @@ class App
 	setLiveLinesProgress:(progress)->
 		for point in @livePoints1
 			point.setProgress progress
-
 		for point in @livePoints2
 			point.setProgress progress
+		@updateLine()
 
+	setLiveLinesCurve:(curve)->
+		for point in @livePoints1
+			point.curve = curve
+		for point in @livePoints2
+			point.curve = curve
 		@updateLine()
 
 	prepareBuildingLine:(num)->
@@ -260,31 +272,21 @@ class App
 			@["livePoints#{num}"].push new window.StatSocial.RollerPoint point
 
 	updateLine:->
-		str = 'M'
+		@serializeLine(1)
+		@serializeLine(2)
 
-		lastPoint = {}
-		for point, i in @livePoints1
-			char = if i isnt 0 then 'L' else ''
-			str += "#{char}#{point.x},#{point.y}"
-			lastPoint = point
-
-
-		@$rollerLine1.attr('d', str)
-		str += "L#{lastPoint.x},1300 L0,1300 z"
-		@$rollerLineBg1.attr('d', str)
-		@$rollerLineBg3.attr('d', str)
-
+	serializeLine:(num)->
 		str = 'M'
 		lastPoint = {}
-		for point, i in @livePoints2
-			char = if i isnt 0 then 'L' else ''
-			str += "#{char}#{point.x},#{point.y}"
+		for point, i in @["livePoints#{num}"]
+			char = if i isnt 0 then 'S' else ''
+			str += "#{char}#{point.x-point.curve},#{point.y} #{point.x+point.curve},#{point.y}"
 			lastPoint = point
 
-		@$rollerLine2.attr('d', str)
+		@["$rollerLine#{num}"].attr('d', str)
 		str += "L#{lastPoint.x},1300 L0,1300 z"
-		@$rollerLineBg2.attr('d', str)
-		@$rollerLineBg4.attr('d', str)
+		@["$rollerLineBg#{num}"].attr('d', str)
+		@["$rollerLineBg#{num+2}"].attr('d', str)
 
 	initRollerCabins:->
 		if !@rollerCabinsTween

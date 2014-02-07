@@ -8,9 +8,9 @@ class Point
 		@startY = @y
 		@startX = @x
 		@stepsCnt = 5
+		@curve = 0
 		@animationCnt = 0
 		@tweens = []
-
 
 	setProgress:(progress)->
 		if @o.isFixed then return
