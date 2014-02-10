@@ -577,10 +577,12 @@
       var leftCurtainBorder;
 
       leftCurtainBorder = this.$left.offset().left + this.$left.outerWidth();
-      if (leftCurtainBorder >= this.$window.outerWidth() / 2 - this.$script2.outerWidth() / 2 - 20) {
-        this.$script2.css({
-          left: leftCurtainBorder
-        });
+      if (this.$left.offset().left !== 0) {
+        if (leftCurtainBorder >= this.$window.outerWidth() / 2 - this.$script2.outerWidth() / 2 - 20) {
+          this.$script2.css({
+            left: leftCurtainBorder
+          });
+        }
       }
       if (this.curtain2LeftTween.totalProgress() >= 1) {
         this.isSecondCurtainParallax && this.$scence2.parallax('disable');

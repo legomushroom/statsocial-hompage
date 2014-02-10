@@ -55,36 +55,16 @@
 translateSize = 100px
 @keyframes cloud-float
 	0%
-		transform translateX(0)
+		left 0
 
-	25%
-		transform translateX(- translateSize)
+	50% 
+		left -125%
 
-	50%
-		transform translateX(translateSize)
-
-	75%
-		transform translateX(- translateSize)
+	50.000000001%
+		left 100%
 
 	100%
-		transform translateX(0)
-
-
-@keyframes cloud-float-reverse
-	0%
-		transform translateX(0)
-
-	25%
-		transform translateX(translateSize)
-
-	50%
-		transform translateX(- translateSize)
-
-	75%
-		transform translateX(translateSize)
-
-	100%
-		transform translateX(0)
+		left 0
 
 
 translateSize = 15%

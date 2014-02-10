@@ -26,7 +26,7 @@
 		color white
 		top 50%
 		margin-top - 50px
-		z-index 10
+		z-index 0
 		left 50%
 		// margin-left -(scriptWidth/2)
 		width scriptWidth
@@ -286,31 +286,22 @@ groundHeight = 145px
 		width (widthSize)%
 		height 35%
 
-
+	
+	animationDuration = 100s
 	.curtain3-cloud-holder-lh
 		position absolute
 		rect 100%
-		nw 0
-		animation cloud-float animationTime animationEasing infinite
+		top 0
+		left 0
+		// left 100%
+		animation cloud-float animationDuration linear infinite
 
-	.curtain3-cloud-holder2-lh, .curtain3-cloud-holder3-lh, .curtain3-cloud-holder4-lh
-		animation cloud-float-reverse animationTime animationEasing infinite
+	.curtain3-cloud-holder1-lh, .curtain3-cloud-holder2-lh, .curtain3-cloud-holder4-lh
+		animation-duration 2*animationDuration
 
-	// .curtain3-cloud-holder1-lh
-	// 	animation-delay 1s
-
-	// .curtain3-cloud-holder2-lh
-	// 	animation-delay 2s
-
-	// .curtain3-cloud-holder3-lh
-	// 	animation-delay 3s
-
-	// .curtain3-cloud-holder4-lh
-	// 	animation-delay 3s
-
-	// .curtain3-cloud-holder5-lh
-	// 	animation-delay 2s
-		
+	.curtain3-cloud-holder5-lh,
+	.curtain3-cloud-holder5-1-lh, .curtain3-cloud-holder5-2-lh			
+		animation-duration 1.5*animationDuration
 
 	.curtain3-cloud1-lh, .curtain3-cloud2-lh
 		position absolute
@@ -319,26 +310,37 @@ groundHeight = 145px
 		transform scale(.9)
 
 	.curtain3-cloud2-lh
-		left 85%
+		left 95%
 		top 8%
 
-
 	.curtain3-cloud3-lh
-		left 8%
+		left 0%
 		top  34%
 		transform scale(1.5)
 
+	.curtain3-cloud3-1-lh
+		left 80%
+		top  30%
+		transform scale(1.35)
 
 	.curtain3-cloud4-lh
-		left 35%
+		left 65%
 		top  14%
 		transform scale(.95)
 
 
 	.curtain3-cloud5-lh
-		left 65%
+		left 50%
 		top  18%
 		transform rotateY(180deg) scale(1.45)
+	.curtain3-cloud5-1-lh
+		left 0%
+		top  22%
+		transform scale(1.45)
+	.curtain3-cloud5-2-lh
+		left 110%
+		top  16%
+		transform scale(1.45)
 
 
 	> .bg-ll

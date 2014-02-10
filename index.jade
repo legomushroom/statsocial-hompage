@@ -13,7 +13,7 @@ html
 		section(role="main")#js-main.main-l
 			#scroller
 				.curtain-l#js-curtain1
-					.script-l.is-1#js-script1 Behind the clutter of social data
+					.script-l.is-1#js-script1 behind the clutter of social data
 
 					.script-l.is-status-quo#js-main-logo Status Quo
 					.layer(data-depth="0.10")
@@ -32,7 +32,7 @@ html
 						.image7.curtain-layer-lh
 
 				.curtain2-l#js-curtain2
-					.script-l.is-2#js-script2 lies a world of knowledge and clarity
+					.script-l.is-2#js-script2 lies a world of meaning and clarity
 					.curtain2-wrapper-lh
 						.curtain2-body-lh
 							.curtain2-mask-lh
@@ -92,6 +92,10 @@ html
 						- el = { class: 'curtain3-cloud3-lh cloud2-b', id: '' }
 						include css/partials/cloud
 
+					.curtain3-cloud-holder-lh.curtain3-cloud-holder3-1-lh
+						- el = { class: 'curtain3-cloud3-1-lh cloud2-b', id: '' }
+						include css/partials/cloud
+
 					.curtain3-cloud-holder-lh.curtain3-cloud-holder4-lh
 						- el = { class: 'curtain3-cloud4-lh', id: '' }
 						include css/partials/cloud
@@ -100,7 +104,15 @@ html
 						- el = { class: 'curtain3-cloud5-lh cloud2-b', id: '' }
 						include css/partials/cloud
 
-					- var buildings = ['location', '23%', '44%', 'education', '12%', '6%', 'age', '14%', '6%', 'profession', '10%', '5%', 'sex']
+					.curtain3-cloud-holder-lh.curtain3-cloud-holder5-1-lh
+						- el = { class: 'curtain3-cloud5-1-lh cloud2-b', id: '' }
+						include css/partials/cloud
+
+					.curtain3-cloud-holder-lh.curtain3-cloud-holder5-2-lh
+						- el = { class: 'curtain3-cloud5-2-lh cloud2-b', id: '' }
+						include css/partials/cloud
+
+					- var buildings = ['location', '23%', '44%', 'education', '12%', '6%', 'age', '14%', '6%', 'income', '10%', '5%', 'sex']
 					- for (var i = 1; i<=buildings.length; i++)
 						- el = { text: buildings[i-1], class: 'curtain3-building'+i+'-lh', id: '' }
 						include css/partials/building

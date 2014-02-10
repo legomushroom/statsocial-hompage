@@ -430,8 +430,9 @@ class App
 
 	onCurtain2Update:->
 		leftCurtainBorder = @$left.offset().left+@$left.outerWidth()
-		if leftCurtainBorder >= @$window.outerWidth()/2 - @$script2.outerWidth()/2 - 20
-			@$script2.css left: leftCurtainBorder
+		if @$left.offset().left isnt 0
+			if leftCurtainBorder >= @$window.outerWidth()/2 - @$script2.outerWidth()/2 - 20
+				@$script2.css left: leftCurtainBorder
 
 		if @curtain2LeftTween.totalProgress() >= 1
 			@isSecondCurtainParallax and @$scence2.parallax 'disable'
