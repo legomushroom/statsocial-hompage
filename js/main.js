@@ -66,7 +66,7 @@
       var $buildings, $clouds, $el, $images, $rightEls, el, i, start, _i, _j, _len, _ref,
         _this = this;
 
-      this.frameDurationTime = 2000;
+      this.frameDurationTime = 1000;
       this.curtainTween1 = TweenMax.to(this.$('.curtain-l'), .75, {
         css: {
           top: '-100%'
@@ -115,12 +115,6 @@
           left: (this.$window.outerWidth() / 2) + $rightEls.first().outerWidth()
         }
       }), this.frameDurationTime);
-      this.scriptTween2 = TweenMax.to(this.$script2, .75, {
-        css: {
-          x: 0
-        }
-      });
-      this.controller.addTween(start, this.scriptTween2, this.frameDurationTime);
       this.groundTween = TweenMax.to(this.$('#js-ground'), .75, {
         css: {
           y: 0
@@ -580,6 +574,14 @@
     };
 
     App.prototype.onCurtain2Update = function() {
+      var leftCurtainBorder;
+
+      leftCurtainBorder = this.$left.offset().left + this.$left.outerWidth();
+      if (leftCurtainBorder >= this.$window.outerWidth() / 2 - this.$script2.outerWidth() / 2 - 20) {
+        this.$script2.css({
+          left: leftCurtainBorder
+        });
+      }
       if (this.curtain2LeftTween.totalProgress() >= 1) {
         this.isSecondCurtainParallax && this.$scence2.parallax('disable');
         this.isSecondCurtainParallax = false;

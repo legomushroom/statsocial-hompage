@@ -2263,12 +2263,14 @@ a,
   color: #fff;
   top: 50%;
   margin-top: -50px;
-  z-index: 0;
-  -webkit-transform: translateX(220px);
-  -moz-transform: translateX(220px);
-  -ms-transform: translateX(220px);
-  -o-transform: translateX(220px);
-  transform: translateX(220px);
+  z-index: 10;
+  left: 50%;
+  width: 540px;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .layer {
   position: absolute;

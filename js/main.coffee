@@ -53,7 +53,7 @@ class App
 
 
 	buildAnimations:->
-		@frameDurationTime = 2000
+		@frameDurationTime = 1000
 
 
 		# THE FIRST CURTAIN
@@ -72,8 +72,6 @@ class App
 		start = @frameDurationTime
 		@controller.addTween start, @curtainTween1, @frameDurationTime
 		@controller.addTween start, @curtainTween2, @frameDurationTime
-		# @controller.addTween start, @scriptTween12, @frameDurationTime/2
-		# @controller.addTween start, @logoTween,  		@frameDurationTime/2
 
 		$images = @$scence.find('.curtain-layer-lh')
 		for el, i in $images
@@ -102,8 +100,8 @@ class App
 		@controller.addTween start, @curtain2LeftTween, @frameDurationTime
 		@controller.addTween start, TweenMax.to(@$right, .75, { css:{ left: (@$window.outerWidth()/2) + $rightEls.first().outerWidth() } }), @frameDurationTime
 
-		@scriptTween2  = TweenMax.to @$script2, .75, { css:{ x: 0 } }
-		@controller.addTween start, @scriptTween2, @frameDurationTime
+		# @scriptTween2  = TweenMax.to @$script2, .75, { css:{ x: 0 } }
+		# @controller.addTween start, @scriptTween2, @frameDurationTime
 
 		# THE THIRD CURTAIN
 		@groundTween  = TweenMax.to @$('#js-ground'), .75, { css:{ y: 0 } }
@@ -431,6 +429,10 @@ class App
 			@$scence.show()
 
 	onCurtain2Update:->
+		leftCurtainBorder = @$left.offset().left+@$left.outerWidth()
+		if leftCurtainBorder >= @$window.outerWidth()/2 - @$script2.outerWidth()/2 - 20
+			@$script2.css left: leftCurtainBorder
+
 		if @curtain2LeftTween.totalProgress() >= 1
 			@isSecondCurtainParallax and @$scence2.parallax 'disable'
 			@isSecondCurtainParallax = false
