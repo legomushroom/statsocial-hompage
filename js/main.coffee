@@ -152,6 +152,7 @@ class App
 		@$rollerLineBg3 = @$('#js-roller-line-bg3')
 
 		@$horizontalPattern = @$('#js-check-horizontal-pattern')
+		@$horizontalPatternDouble = @$('#js-check-horizontal-pattern-double')
 		
 		@$rollerCabin1 	= @$('#js-roller-cabin1') 
 		@$rollerCabinParent1 = @$rollerCabin1.parent()
@@ -196,7 +197,7 @@ class App
 		@controller.addTween start, @gridSimplifyTween, @frameDurationTime
 
 		start = 10*@frameDurationTime
-		@lineSimplifyTween = TweenMax.to { curve: 0 }, 1, { curve: 20, onUpdate: StatSocial.helpers.bind(@onLineSimplifyUpdate,@) }
+		@lineSimplifyTween = TweenMax.to { curve: 0 }, 1, { curve: 40, onUpdate: StatSocial.helpers.bind(@onLineSimplifyUpdate,@) }
 		@controller.addTween start, @lineSimplifyTween, @frameDurationTime
 
 		start = 11*@frameDurationTime
@@ -216,7 +217,8 @@ class App
 
 	onGridSimplifyUpdate:->
 		@$horizontalPattern.attr 'transform', "translate(-#{@gridSimplifyTween.target.x},0)"
-
+		@$horizontalPatternDouble.attr 'transform', "translate(-#{@gridSimplifyTween.target.x},0)"
+		
 	onRollerRails1Update:()-> 
 		if @rollerRailsTween1.totalProgress() < 1 then @hideTrain1()
 
@@ -353,11 +355,11 @@ class App
 			info2 = @getRollerPathInfo pathProgress - 60
 			info3 = @getRollerPathInfo pathProgress - 100
 			@$rollerCabinParent1
-				.attr('transform', "translate(#{info1.point.x-500}, #{info1.point.y-500}) rotate(#{info1.degree or 0}, 22, 21)")
+				.attr('transform', "translate(#{info1.point.x-22}, #{info1.point.y-25}) rotate(#{info1.degree or 0}, 22, 21)")
 			@$rollerCabinParent2
-				.attr('transform', "translate(#{info2.point.x-500}, #{info2.point.y-500}) rotate(#{info2.degree or 0}, 22, 21)")
+				.attr('transform', "translate(#{info2.point.x-22}, #{info2.point.y-25}) rotate(#{info2.degree or 0}, 22, 21)")
 			@$rollerCabinParent3
-				.attr('transform', "translate(#{info3.point.x-500}, #{info3.point.y-500}) rotate(#{info3.degree or 0}, 22, 21)")
+				.attr('transform', "translate(#{info3.point.x-22}, #{info3.point.y-25}) rotate(#{info3.degree or 0}, 22, 21)")
 
 		@rollerText.setAttribute('startOffset', "#{@rollerTextTween.target.offset}")
 		
