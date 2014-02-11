@@ -2796,6 +2796,9 @@ a,
   border-top: 2px solid #2388b1;
   box-shadow: 0 -20px 0 #2388b1, 10px -20px 0 #2388b1, -10px -20px 0 #2388b1;
 }
+svg {
+  outline: 1px solid #ffa500;
+}
 .curtain-l {
   background-color: #ff6d6a;
   position: absolute;
@@ -2809,6 +2812,7 @@ a,
   padding-bottom: 22px;
   overflow: hidden;
   z-index: 2;
+  display: none;
 }
 .curtain-l .curtain-layer-lh {
   width: 200%;

@@ -158,7 +158,7 @@ html
 					include css/partials/bush
 
 					.roller-coaster-b
-						svg(viewbox='0 0 1220 504', preserveAspectRatio="xMaxYMax meet")
+						svg(viewbox='0 0 1240 500', preserveAspectRatio="xMaxYMax meet")
 							defs 
 								marker(id="marker-circle", viewBox="0 0 16 16", refX="8", refY="8", markerUnits="strokeWidth", markerWidth="7", markerHeight="7", fill="#409e9c", orient="auto")
 									circle.marker-circle#js-marker-circle(cx="8", cy="8", r="5", stroke="#257978")
@@ -190,8 +190,12 @@ html
 							line(id="js-roller-y", marker-end="url(#marker-arrow)", transform="translate(0,520)", fill='none', stroke-miterlimit='10', x1='7', y1='498.959', x2='7', y2='22')
 							line(id="js-roller-x", marker-end="url(#marker-arrow)", transform="translate(-1240,0)", fill='none', stroke-miterlimit='10', x1='4.933', y1='497', x2='1180', y2='497')
 
-							path(id="js-roller-line2", class="line", transform="translate(0, 500)", fill='none', marker-mid="url(#marker-circle)", d="M-111,263L147,273 L312,315 L530,220 L800,300 L880,280 L1090,150 L1200,150 L1240,160 L1500,160")
-							path(id="js-roller-line1", class="line", transform="translate(0, 500)", fill="none", marker-mid="url(#marker-circle)", d="M-111,263L147,273 L312,315 L500,400 L700,200 L800,150 L900,200 L1000,80 L1200,60 L1300,90 L1500,90")
+							path(d="M-200,200 L0,230 L388,360 L750,220 L957,270 L1136,207 L1336,257", id="js-roller-line2", class="line", transform="translate(0, 500a)", fill='none', marker-mid="url(#marker-circle)")
+							path(d="M-200,200 L0,230 L300,300 L500,230 L800,300 L1118,150 L1318,200", id="js-roller-line1", class="line", transform="translate(0, 500a)", fill="none", marker-mid="url(#marker-circle)")
+
+
+							//- path(id="js-roller-line2", class="line", transform="translate(0, 500a)", fill='none', marker-mid="url(#marker-circle)", d="M-111,263L147,273 L312,315 L530,220 L800,300 L880,280 L1090,150 L1200,150 L1240,160 L1500,160")
+							//- path(id="js-roller-line1", class="line", transform="translate(0, 500a)", fill="none", marker-mid="url(#marker-circle)", d="M-111,263L147,273 L312,315 L500,400 L700,200 L800,150 L900,200 L1000,80 L1200,60 L1300,90 L1500,90")
 							
 							g(transform="translate(-50,-50)")
 								use(xlink:href="#roller-cabin", id="js-roller-cabin4")
