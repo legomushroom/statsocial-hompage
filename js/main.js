@@ -502,9 +502,9 @@
         info1 = this.getRollerPathInfo(pathProgress - 20);
         info2 = this.getRollerPathInfo(pathProgress - 60);
         info3 = this.getRollerPathInfo(pathProgress - 100);
-        this.$rollerCabinParent1.attr('transform', "translate(" + (info1.point.x - 22) + ", " + (info1.point.y - 25) + ") rotate(" + (info1.degree || 0) + ", 22, 21)");
-        this.$rollerCabinParent2.attr('transform', "translate(" + (info2.point.x - 22) + ", " + (info2.point.y - 25) + ") rotate(" + (info2.degree || 0) + ", 22, 21)");
-        this.$rollerCabinParent3.attr('transform', "translate(" + (info3.point.x - 22) + ", " + (info3.point.y - 25) + ") rotate(" + (info3.degree || 0) + ", 22, 21)");
+        this.$rollerCabinParent1.attr('transform', "translate(" + (info1.point.x - 500) + ", " + (info1.point.y - 500) + ") rotate(" + (info1.degree || 0) + ", 22, 21)");
+        this.$rollerCabinParent2.attr('transform', "translate(" + (info2.point.x - 500) + ", " + (info2.point.y - 500) + ") rotate(" + (info2.degree || 0) + ", 22, 21)");
+        this.$rollerCabinParent3.attr('transform', "translate(" + (info3.point.x - 500) + ", " + (info3.point.y - 500) + ") rotate(" + (info3.degree || 0) + ", 22, 21)");
       }
       return this.rollerText.setAttribute('startOffset', "" + this.rollerTextTween.target.offset);
     };

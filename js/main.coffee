@@ -353,11 +353,11 @@ class App
 			info2 = @getRollerPathInfo pathProgress - 60
 			info3 = @getRollerPathInfo pathProgress - 100
 			@$rollerCabinParent1
-				.attr('transform', "translate(#{info1.point.x-22}, #{info1.point.y-25}) rotate(#{info1.degree or 0}, 22, 21)")
+				.attr('transform', "translate(#{info1.point.x-500}, #{info1.point.y-500}) rotate(#{info1.degree or 0}, 22, 21)")
 			@$rollerCabinParent2
-				.attr('transform', "translate(#{info2.point.x-22}, #{info2.point.y-25}) rotate(#{info2.degree or 0}, 22, 21)")
+				.attr('transform', "translate(#{info2.point.x-500}, #{info2.point.y-500}) rotate(#{info2.degree or 0}, 22, 21)")
 			@$rollerCabinParent3
-				.attr('transform', "translate(#{info3.point.x-22}, #{info3.point.y-25}) rotate(#{info3.degree or 0}, 22, 21)")
+				.attr('transform', "translate(#{info3.point.x-500}, #{info3.point.y-500}) rotate(#{info3.degree or 0}, 22, 21)")
 
 		@rollerText.setAttribute('startOffset', "#{@rollerTextTween.target.offset}")
 		
