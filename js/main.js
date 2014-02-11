@@ -573,15 +573,10 @@
     };
 
     App.prototype.onCurtain2Update = function() {
-      var leftCurtainBorder;
-
-      leftCurtainBorder = this.$left.offset().left + this.$left.outerWidth();
       if (this.$left.offset().left !== 0) {
-        if (leftCurtainBorder >= this.$window.outerWidth() / 2 - this.$script2.outerWidth() / 2 - 20) {
-          this.$script2.css({
-            left: leftCurtainBorder
-          });
-        }
+        this.$script2.css({
+          left: Math.max(this.$left.offset().left + this.$left.outerWidth(), this.$window.outerWidth() / 2 - this.$script2.outerWidth() / 2 - 20)
+        });
       }
       if (this.curtain2LeftTween.totalProgress() >= 1) {
         this.isSecondCurtainParallax && this.$scence2.parallax('disable');
