@@ -245,29 +245,29 @@ html
 												svg(style='width: #{width*em}em; height: #{height*em}em;')
 													polygon(points='#{width/2},0 #{width},#{height} 0,#{height}')
 
-								mixin banner(text)
-									.banner
-										.banner--text text
-										.banner--circle.banner--circle-left 
-										.banner--circle.banner--circle-right
-
-								mixin icon-banner()
-									.icon-banner
-
 								.scene
+									.carousel-middle
+
 									.shape.cylinder-1.cyl-1
 										.face.bm
+										- var captions = ['Brands', 'Interests', 'Celebrities', 'TV shows']
+										- var c = -1;
 										- for(var i=0; i<=36;i++)
 											.face.side(class="s#{i}")
 												if (i % 4 == 0)
-													+banner('Brands')
+													c = c + 1
+													text = (c < 9) ? captions[c%captions.length] : captions[3]
+													- var el = { text: text, class: 'is-'+(text.toLowerCase().replace(/\s/gi, '\-')) }
+													include css/partials/banner
+
 
 									- for(var i=2; i<=9;i++)
 										.shape.cylinder-2(class="cyl-#{i}")
 											- for(var j=0; j<=2;j++)
 												.face.side(class="s#{j}")
 													if (j == 2)
-														+icon-banner()
+														- var el = {  }
+														include css/partials/icon-banner
 
 
 		script(src="js/jquery-2.1.0.min.js")

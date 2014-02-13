@@ -12,6 +12,20 @@ PX = (1/16)em
 
 .carousel--3d
 	animation rotate 20s linear infinite
+	.carousel-middle
+		transform translateY(400*PX) translateX(-2px) translateZ(22px)
+		animation rotateCarouselMiddle 20s linear infinite
+	.icon-banner
+		animation iconBanner 2s ease infinite
+
+	
+	.cyl-2
+		.icon-banner
+			animation-delay .5s
+
+	.cylinder-2:nth-of-type(odd)
+		.icon-banner
+			animation-delay 1s
 
 .carousel--scene
 	transform perspective(200000*PX) rotateX(90deg) rotateZ(50deg) translateZ(250*PX)
@@ -20,7 +34,17 @@ PX = (1/16)em
 	margin-top  -50%
 	left 50%
 	top 50%
-	// hl 10px
+
+@keyframes iconBanner
+	0%
+		top 35%
+
+	50%
+		top 65%
+
+	100%
+		top 35%
+
 
 @keyframes rotate
 	0%
@@ -28,6 +52,13 @@ PX = (1/16)em
 	
 	100%
 		transform rotateY(-360deg)
+
+@keyframes rotateCarouselMiddle
+	0%
+		transform translateY(400*PX) translateX(-2px) translateZ(22px) rotateY(-120deg)
+	
+	100%
+		transform translateY(400*PX) translateX(-2px) translateZ(22px) rotateY(240deg)
 
 for i in 1..36
 	.s{i}
@@ -68,14 +99,31 @@ height = 5em
 	background-color #f6c855
 	position absolute
 	border-radius 50%
+	backface-visibility hidden
+	transform translateZ(2*PX)
+
+	&.is-celebrities, &.is-interests
+		fontSize = 40*PX
+		.banner--text
+			font-size fontSize
+			padding-top 8*PX
+
+	&.is-tv-shows
+		fontSize = 46*PX
+		.banner--text
+			font-size fontSize
+			padding-top 7*PX
+
+fontSize = 50*PX
 .banner--text
-	font-size 50*PX
+	font-size fontSize
+	padding-top 5*PX
 	color white
 	text-align center
-	line-height 25*PX
 	position relative
 	z-index 1
-	display none
+	font-family 'reklame-script'
+
 size = 28*PX
 .banner--circle
 	position absolute
@@ -115,6 +163,22 @@ size = 5em
 	background-color #faf4e5
 	border-radius 50%
 	backface-visibility visible
+
+	.icon
+		rect 50%
+		left 25%
+		top  25%
+		position absolute
+
+
+.carousel-middle
+	position absolute
+	width 5em
+	height 19em
+	background-color #571313
+	top 18em
+	left 50%
+	margin-left -2.5em
 
 width = 2.5em
 .carousel-top
@@ -241,13 +305,6 @@ width = 2.5em
 	width: 100%;
 	height: 100%
 
-// .photon-shader
-// 	position: absolute;
-// 	left: 0;
-// 	top: 0;
-// 	width: 100%;
-// 	height: 100%
-
 .side
 	left: 50%
 
@@ -279,20 +336,37 @@ width = 2.5em
 r = 0
 xz = -11.091666666666663em, -9.958333333333334em, 0, -14em, 10.658333333333337em, -10.250000000000002em, 15.666666666666666em, 0.08333333333333333em, 11.450000000000003em, 10.895833333333334em, -11.070833333333331em, 11.979166666666666em, -16em, 0, 0, 16.583333333333332em
 for i in 2..9
-	/* .cyl-2 styles */
+
+	if (i == 2)
+		degree = -90deg
+	if (i == 3)
+		degree = 240deg
+	if (i == 4)
+		degree = 180deg
+	if (i == 5)
+		degree = 160deg
+	if (i == 6)
+		degree = 100deg
+	if (i == 7)
+		degree = 20deg
+	if (i == 8)
+		degree = -40deg
+	if (i == 9)
+		degree = 70deg
+
 	.cyl-{i}
-		transform translate3d(xz[r], 10.249999999999998em, xz[r+1]) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+		transform translate3d(xz[r], 10.249999999999998em, xz[r+1]) rotateX(0deg) rotateY(degree) rotateZ(0deg);
 		opacity:1;
 		width:.25em;
 		height:17em;
-		margin:-7.5em 0 0 -0.125em;
+		margin:-7.5em 0 0 -0.125em
+
 		.side
 			width:0.4580127018922192em
 			height:17em
 			backface-visibility visible
-
 		.face, .side
-			background-color:#faf4e5
+			background-color: #faf4e5
 
 		start = 60
 		for j in 0..2
