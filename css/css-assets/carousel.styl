@@ -10,11 +10,14 @@ carouselTransitionTime = .25s
 	.cylinder-1
 		.side
 			height 0
-			transition height carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
+			transition height carouselTransitionTime ease-out
+			transition-delay carouselTransitionTime
+
 		.banner
 			transform scale(0) translateZ(PX)
-			transition all carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
-	
+			transition all carouselTransitionTime ease-out
+			transsition-delay 0
+
 	.carousel-middle
 		width .75em
 		margin-left - 3*PX
@@ -30,6 +33,7 @@ carouselTransitionTime = .25s
 			transition -moz-transform 4*carouselTransitionTime ease-out, opacity carouselTransitionTime linear
 			transition -o-transform 4*carouselTransitionTime ease-out, opacity carouselTransitionTime linear
 			transition transform 4*carouselTransitionTime ease-out, opacity carouselTransitionTime linear
+			transsition-delay 0
 
 		.side
 			height 0
@@ -72,6 +76,7 @@ carouselTransitionTime = .25s
 			.side
 				height 4em
 				transition-delay carouselTransitionTime
+				transition-timing-function cubic-bezier(0.545, 0.380, 0.465, 1.540)
 			
 			.banner
 				transform scale(1) translateZ(PX)

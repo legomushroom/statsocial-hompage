@@ -3967,7 +3967,12 @@ a,
 }
 .carousel .cylinder-1 .side {
   height: 0;
-  transition: height 0.25s cubic-bezier(0.545, 0.38, 0.465, 1.54);
+  transition: height 0.25s ease-out;
+  -webkit-transition-delay: 0.25s;
+  -moz-transition-delay: 0.25s;
+  -ms-transition-delay: 0.25s;
+  -o-transition-delay: 0.25s;
+  transition-delay: 0.25s;
 }
 .carousel .cylinder-1 .banner {
   -webkit-transform: scale(0) translateZ(0.0625em);
@@ -3975,7 +3980,8 @@ a,
   -ms-transform: scale(0) translateZ(0.0625em);
   -o-transform: scale(0) translateZ(0.0625em);
   transform: scale(0) translateZ(0.0625em);
-  transition: all 0.25s cubic-bezier(0.545, 0.38, 0.465, 1.54);
+  transition: all 0.25s ease-out;
+  transsition-delay: 0;
 }
 .carousel .carousel-middle {
   width: 0.75em;
@@ -4003,6 +4009,7 @@ a,
   transition: -moz-transform 1s ease-out, opacity 0.25s linear;
   transition: -o-transform 1s ease-out, opacity 0.25s linear;
   transition: transform 1s ease-out, opacity 0.25s linear;
+  transsition-delay: 0;
 }
 .carousel .cylinder-2 .side {
   height: 0;
@@ -4073,6 +4080,11 @@ a,
   -ms-transition-delay: 0.25s;
   -o-transition-delay: 0.25s;
   transition-delay: 0.25s;
+  -webkit-transition-timing-function: cubic-bezier(0.545, 0.38, 0.465, 1.54);
+  -moz-transition-timing-function: cubic-bezier(0.545, 0.38, 0.465, 1.54);
+  -ms-transition-timing-function: cubic-bezier(0.545, 0.38, 0.465, 1.54);
+  -o-transition-timing-function: cubic-bezier(0.545, 0.38, 0.465, 1.54);
+  transition-timing-function: cubic-bezier(0.545, 0.38, 0.465, 1.54);
 }
 .carousel.is-open .cylinder-1 .banner {
   -webkit-transform: scale(1) translateZ(0.0625em);
