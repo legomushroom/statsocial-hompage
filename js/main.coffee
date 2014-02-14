@@ -21,6 +21,7 @@ class App
 		@$scence  	= @$('#js-curtain1')
 		@$scence2 	= @$('#js-curtain2')
 		@$scence3 	= @$('#js-curtain3')
+		@$carousel 	= @$('#js-carousel')
 		@$plane 		= @$('#js-plane')
 		@prevPlaneProgress = -1
 
@@ -210,8 +211,8 @@ class App
 		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showTrain2() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideTrain2(); ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
 
-		start = 13*@frameDurationTime
-		@carouselTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-carousel')), onReverseComplete:=> @$scence3.removeClass('is-show-carousel')}
+		start = 12*@frameDurationTime
+		@carouselTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-carousel'); setTimeout (=> @$carousel.addClass('is-open') ), 200), onReverseComplete:=>( @$carousel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-carousel') ), 800) }
 		@controller.addTween start, @carouselTriggerTween, 1
 
 	onLineSimplifyUpdate:-> 

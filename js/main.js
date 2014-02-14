@@ -23,6 +23,7 @@
       this.$scence = this.$('#js-curtain1');
       this.$scence2 = this.$('#js-curtain2');
       this.$scence3 = this.$('#js-curtain3');
+      this.$carousel = this.$('#js-carousel');
       this.$plane = this.$('#js-plane');
       return this.prevPlaneProgress = -1;
     };
@@ -290,13 +291,19 @@
         })
       });
       this.controller.addTween(start, this.rollerCabinsTriggerTween, 1);
-      start = 13 * this.frameDurationTime;
+      start = 12 * this.frameDurationTime;
       this.carouselTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
-          return _this.$scence3.addClass('is-show-carousel');
+          _this.$scence3.addClass('is-show-carousel');
+          return setTimeout((function() {
+            return _this.$carousel.addClass('is-open');
+          }), 200);
         }),
         onReverseComplete: function() {
-          return _this.$scence3.removeClass('is-show-carousel');
+          _this.$carousel.removeClass('is-open');
+          return setTimeout((function() {
+            return _this.$scence3.removeClass('is-show-carousel');
+          }), 800);
         }
       });
       return this.controller.addTween(start, this.carouselTriggerTween, 1);

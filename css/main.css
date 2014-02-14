@@ -2299,22 +2299,22 @@ a,
   transform: scale(1);
 }
 .curtain3-l.is-show-carousel .carousel {
-  -webkit-transform: translateY(0);
-  -moz-transform: translateY(0);
-  -ms-transform: translateY(0);
-  -o-transform: translateY(0);
-  transform: translateY(0);
+  -webkit-transform: translateY(0) scale(0.6);
+  -moz-transform: translateY(0) scale(0.6);
+  -ms-transform: translateY(0) scale(0.6);
+  -o-transform: translateY(0) scale(0.6);
+  transform: translateY(0) scale(0.6);
 }
 .curtain3-l .carousel {
   position: absolute;
   right: 0;
-  bottom: 247px;
+  bottom: 106px;
   z-index: 4;
-  -webkit-transform: translateY(600px);
-  -moz-transform: translateY(600px);
-  -ms-transform: translateY(600px);
-  -o-transform: translateY(600px);
-  transform: translateY(600px);
+  -webkit-transform: translateY(600px) scale(0.6);
+  -moz-transform: translateY(600px) scale(0.6);
+  -ms-transform: translateY(600px) scale(0.6);
+  -o-transform: translateY(600px) scale(0.6);
+  transform: translateY(600px) scale(0.6);
   transition: all 0.35s ease-out;
 }
 .curtain3-l .roller-coaster-b {
