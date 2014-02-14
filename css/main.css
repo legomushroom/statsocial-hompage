@@ -3993,6 +3993,10 @@ a,
   transition-delay: 0.25s;
 }
 .carousel .cylinder-1 .banner {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
   -webkit-transform: scale(0) translateZ(0.0625em);
   -moz-transform: scale(0) translateZ(0.0625em);
   -ms-transform: scale(0) translateZ(0.0625em);
@@ -4017,17 +4021,17 @@ a,
   transition-delay: 0.5s;
 }
 .carousel .cylinder-2 .icon-banner {
-  -webkit-transform: rotateY(540deg) translateZ(0);
-  -moz-transform: rotateY(540deg) translateZ(0);
-  -ms-transform: rotateY(540deg) translateZ(0);
-  -o-transform: rotateY(540deg) translateZ(0);
-  transform: rotateY(540deg) translateZ(0);
-  opacity: 0;
-  transition: -webkit-transform 1s ease-out, opacity 0.25s linear;
-  transition: -moz-transform 1s ease-out, opacity 0.25s linear;
-  transition: -o-transform 1s ease-out, opacity 0.25s linear;
-  transition: transform 1s ease-out, opacity 0.25s linear;
-  transsition-delay: 0;
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
+  transition: all 0.25s linear;
+  -webkit-transition-delay: 0;
+  -moz-transition-delay: 0;
+  -ms-transition-delay: 0;
+  -o-transition-delay: 0;
+  transition-delay: 0;
 }
 .carousel .cylinder-2 .side {
   height: 0;
@@ -4226,17 +4230,21 @@ a,
   transition-timing-function: cubic-bezier(0.625, 1.65, 0.68, 0.775);
 }
 .carousel.is-open .cylinder-2 .icon-banner {
-  opacity: 1;
-  -webkit-transform: rotateY(0) translateZ(3px);
-  -moz-transform: rotateY(0) translateZ(3px);
-  -ms-transform: rotateY(0) translateZ(3px);
-  -o-transform: rotateY(0) translateZ(3px);
-  transform: rotateY(0) translateZ(3px);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
   -webkit-transition-delay: 1.375s;
   -moz-transition-delay: 1.375s;
   -ms-transition-delay: 1.375s;
   -o-transition-delay: 1.375s;
   transition-delay: 1.375s;
+  -webkit-transition-delay: 1.125s;
+  -moz-transition-delay: 1.125s;
+  -ms-transition-delay: 1.125s;
+  -o-transition-delay: 1.125s;
+  transition-delay: 1.125s;
 }
 .carousel-middle {
   position: absolute;
@@ -5609,6 +5617,10 @@ a,
   background-color: #dd5754;
   border-bottom-left-radius: 2.5em;
   border-bottom-right-radius: 2.5em;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 .cylinder-1 .face:nth-of-type(odd) {
   background-color: #e1d7be;
