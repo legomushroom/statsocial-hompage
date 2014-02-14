@@ -3970,22 +3970,22 @@ a,
   transition: height 0.25s cubic-bezier(0.545, 0.38, 0.465, 1.54);
 }
 .carousel .cylinder-1 .banner {
-  -webkit-transform: scale(0);
-  -moz-transform: scale(0);
-  -ms-transform: scale(0);
-  -o-transform: scale(0);
-  transform: scale(0);
+  -webkit-transform: scale(0) translateZ(0.0625em);
+  -moz-transform: scale(0) translateZ(0.0625em);
+  -ms-transform: scale(0) translateZ(0.0625em);
+  -o-transform: scale(0) translateZ(0.0625em);
+  transform: scale(0) translateZ(0.0625em);
   transition: all 0.25s cubic-bezier(0.545, 0.38, 0.465, 1.54);
 }
 .carousel .carousel-middle {
   width: 0.75em;
-  margin-left: 0.25em;
+  margin-left: -0.1875em;
   transition: all 0.25s cubic-bezier(0.545, 0.38, 0.465, 1.54);
-  -webkit-transform: translateY(25em) translateX(-1.875em) translateZ(0) rotateY(-120deg);
-  -moz-transform: translateY(25em) translateX(-1.875em) translateZ(0) rotateY(-120deg);
-  -ms-transform: translateY(25em) translateX(-1.875em) translateZ(0) rotateY(-120deg);
-  -o-transform: translateY(25em) translateX(-1.875em) translateZ(0) rotateY(-120deg);
-  transform: translateY(25em) translateX(-1.875em) translateZ(0) rotateY(-120deg);
+  -webkit-transform: translateY(25em) translateX(-0.125em) translateZ(1.375em) rotateY(-120deg);
+  -moz-transform: translateY(25em) translateX(-0.125em) translateZ(1.375em) rotateY(-120deg);
+  -ms-transform: translateY(25em) translateX(-0.125em) translateZ(1.375em) rotateY(-120deg);
+  -o-transform: translateY(25em) translateX(-0.125em) translateZ(1.375em) rotateY(-120deg);
+  transform: translateY(25em) translateX(-0.125em) translateZ(1.375em) rotateY(-120deg);
   -webkit-transition-delay: 0.5s;
   -moz-transition-delay: 0.5s;
   -ms-transition-delay: 0.5s;
@@ -4075,11 +4075,11 @@ a,
   transition-delay: 0.25s;
 }
 .carousel.is-open .cylinder-1 .banner {
-  -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  -ms-transform: scale(1);
-  -o-transform: scale(1);
-  transform: scale(1);
+  -webkit-transform: scale(1) translateZ(0.0625em);
+  -moz-transform: scale(1) translateZ(0.0625em);
+  -ms-transform: scale(1) translateZ(0.0625em);
+  -o-transform: scale(1) translateZ(0.0625em);
+  transform: scale(1) translateZ(0.0625em);
 }
 .carousel.is-open .cylinder-1 .s0 .banner {
   -webkit-transition-delay: 0.75s;

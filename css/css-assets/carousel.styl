@@ -6,19 +6,20 @@ carouselTransitionTime = .25s
 	.carousel--3d
 		transform rotateY(-180deg)
 		transition all carouselTransitionTime ease
+
 	.cylinder-1
 		.side
 			height 0
 			transition height carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
 		.banner
-			transform scale(0)
+			transform scale(0) translateZ(PX)
 			transition all carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
 	
 	.carousel-middle
 		width .75em
-		margin-left .25em
+		margin-left - 3*PX
 		transition all carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
-		transform translateY(400*PX) translateX(-30*PX) translateZ(0) rotateY(-120deg)
+		transform translateY(400*PX) translateX(-2*PX) translateZ(22*PX) rotateY(-120deg)
 		transition-delay 2*carouselTransitionTime
 
 	.cylinder-2
@@ -73,7 +74,7 @@ carouselTransitionTime = .25s
 				transition-delay carouselTransitionTime
 			
 			.banner
-				transform scale(1)
+				transform scale(1) translateZ(PX)
 
 			c = -1
 			for i in 0..36
