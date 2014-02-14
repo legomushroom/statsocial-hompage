@@ -52,6 +52,18 @@ groundHeight = 145px
 		.curtain3--bush-lh
 			transform scale(1)
 
+	&.is-show-carousel
+		.carousel
+			transform translateY(0)
+
+	.carousel
+		position absolute
+		right 0
+		bottom 247px
+		z-index 4
+		transform translateY(600px)
+		transition all .35s ease-out
+
 	.roller-coaster-b
 		position absolute
 		bottom groundHeight
@@ -521,7 +533,7 @@ animationTime = (70*coef)s
 	padding-bottom curtainMaskSize
 	overflow hidden
 	z-index 2
-	display none
+	// display none
 
 	.curtain-layer-lh
 		rect 200%

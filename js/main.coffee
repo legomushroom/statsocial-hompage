@@ -7,7 +7,7 @@ class App
 		@buildAnimations()
 		@initParallax()
 
-		$('#js-toggle-carousel').on 'click', => $('.carousel').toggleClass('is-open')
+		# $('#js-toggle-carousel').on 'click', => $('.carousel').toggleClass('is-open')
 
 	vars:->
 		@$main =  $('#js-main')
@@ -209,6 +209,10 @@ class App
 		start = 12*@frameDurationTime
 		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showTrain2() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideTrain2(); ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, 1
+
+		start = 13*@frameDurationTime
+		@carouselTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-carousel')), onReverseComplete:=> @$scence3.removeClass('is-show-carousel')}
+		@controller.addTween start, @carouselTriggerTween, 1
 
 	onLineSimplifyUpdate:-> 
 		if @lineSimplifyTween.totalProgress() > 0

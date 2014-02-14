@@ -4,16 +4,11 @@
 
   App = (function() {
     function App() {
-      var _this = this;
-
       this.vars();
       this.initScroll();
       this.initController();
       this.buildAnimations();
       this.initParallax();
-      $('#js-toggle-carousel').on('click', function() {
-        return $('.carousel').toggleClass('is-open');
-      });
     }
 
     App.prototype.vars = function() {
@@ -294,7 +289,17 @@
           return _this.hideTrain2();
         })
       });
-      return this.controller.addTween(start, this.rollerCabinsTriggerTween, 1);
+      this.controller.addTween(start, this.rollerCabinsTriggerTween, 1);
+      start = 13 * this.frameDurationTime;
+      this.carouselTriggerTween = TweenMax.to({}, 1, {
+        onComplete: (function() {
+          return _this.$scence3.addClass('is-show-carousel');
+        }),
+        onReverseComplete: function() {
+          return _this.$scence3.removeClass('is-show-carousel');
+        }
+      });
+      return this.controller.addTween(start, this.carouselTriggerTween, 1);
     };
 
     App.prototype.onLineSimplifyUpdate = function() {
