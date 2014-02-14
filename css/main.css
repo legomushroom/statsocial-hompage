@@ -3957,12 +3957,6 @@ a,
   height: 100%;
   stroke: inherit;
 }
-.carousel--3d .icon-banner {
-  top: 35%;
-}
-.carousel--3d .cylinder-2:nth-of-type(odd) .icon-banner {
-  top: 65%;
-}
 .carousel .cylinder-1 .side {
   height: 0;
   transition: height 0.25s cubic-bezier(0.545, 0.38, 0.465, 1.54);
@@ -3986,24 +3980,20 @@ a,
   transition-delay: 0.5s;
 }
 .carousel .cylinder-2 .icon-banner {
-  -webkit-transform: scale(0);
-  -moz-transform: scale(0);
-  -ms-transform: scale(0);
-  -o-transform: scale(0);
-  transform: scale(0);
-  -webkit-transform-origin: 50% 50%;
-  -moz-transform-origin: 50% 50%;
-  -ms-transform-origin: 50% 50%;
-  -o-transform-origin: 50% 50%;
-  transform-origin: 50% 50%;
+  width: 0;
+  height: 0;
+  margin-top: 0;
+  margin-left: 0;
+  transition: all 0.25s cubic-bezier(0.545, 0.38, 0.465, 1.54);
 }
 .carousel .cylinder-2 .side {
   height: 0;
-  transition: height 0.25s cubic-bezier(0.545, 0.38, 0.465, 1.54);
+  top: -2em;
+  transition: all 0.25s cubic-bezier(0.545, 0.38, 0.465, 1.54);
 }
 .carousel .carousel-bottom {
-  width: 0.625em;
-  margin-left: -0.3125em;
+  width: 1.25em;
+  margin-left: -0.625em;
   left: 50%;
   transition: all 0.25s ease-in;
   -webkit-transition-delay: 0.5s;
@@ -4011,6 +4001,41 @@ a,
   -ms-transition-delay: 0.5s;
   -o-transition-delay: 0.5s;
   transition-delay: 0.5s;
+}
+.carousel.is-open .carousel--3d {
+  -webkit-animation: rotate 20s linear infinite;
+  -moz-animation: rotate 20s linear infinite;
+  -ms-animation: rotate 20s linear infinite;
+  -o-animation: rotate 20s linear infinite;
+  animation: rotate 20s linear infinite;
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  animation-delay: 1s;
+}
+.carousel.is-open .icon-banner {
+  top: 35%;
+  -webkit-animation: iconBanner 4s ease infinite;
+  -moz-animation: iconBanner 4s ease infinite;
+  -ms-animation: iconBanner 4s ease infinite;
+  -o-animation: iconBanner 4s ease infinite;
+  animation: iconBanner 4s ease infinite;
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  animation-delay: 1s;
+}
+.carousel.is-open .cylinder-2:nth-of-type(odd) .icon-banner {
+  top: 65%;
+  -webkit-animation: iconBanner2 4s ease infinite;
+  -moz-animation: iconBanner2 4s ease infinite;
+  -ms-animation: iconBanner2 4s ease infinite;
+  -o-animation: iconBanner2 4s ease infinite;
+  animation: iconBanner2 4s ease infinite;
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  animation-delay: 1s;
 }
 .carousel.is-open .cylinder-1 .side {
   height: 4em;
@@ -4050,17 +4075,81 @@ a,
   transition-delay: 0.5s;
 }
 .carousel.is-open .cylinder-2 .side {
-  height: 16em;
+  height: 16.125em;
+  top: 0;
   -webkit-transition-delay: 1s;
   -moz-transition-delay: 1s;
   -ms-transition-delay: 1s;
   -o-transition-delay: 1s;
   transition-delay: 1s;
-  -webkit-transition-timing-function: cubic-bezier(0.88, 1.65, 0.73, 0.785);
-  -moz-transition-timing-function: cubic-bezier(0.88, 1.65, 0.73, 0.785);
-  -ms-transition-timing-function: cubic-bezier(0.88, 1.65, 0.73, 0.785);
-  -o-transition-timing-function: cubic-bezier(0.88, 1.65, 0.73, 0.785);
-  transition-timing-function: cubic-bezier(0.88, 1.65, 0.73, 0.785);
+  -webkit-transition-timing-function: cubic-bezier(0.625, 1, 0.68, 0.775);
+  -webkit-transition-timing-function: cubic-bezier(0.625, 1.65, 0.68, 0.775);
+  -moz-transition-timing-function: cubic-bezier(0.625, 1.65, 0.68, 0.775);
+  -ms-transition-timing-function: cubic-bezier(0.625, 1.65, 0.68, 0.775);
+  -o-transition-timing-function: cubic-bezier(0.625, 1.65, 0.68, 0.775);
+  transition-timing-function: cubic-bezier(0.625, 1.65, 0.68, 0.775);
+}
+.carousel.is-open .cylinder-2 .icon-banner {
+  width: 5em;
+  height: 5em;
+  margin-top: -2.5em;
+  margin-left: -2.5em;
+}
+.carousel.is-open .cyl-2 .icon-banner {
+  -webkit-transition-delay: 1.125s;
+  -moz-transition-delay: 1.125s;
+  -ms-transition-delay: 1.125s;
+  -o-transition-delay: 1.125s;
+  transition-delay: 1.125s;
+}
+.carousel.is-open .cyl-3 .icon-banner {
+  -webkit-transition-delay: 1.1875s;
+  -moz-transition-delay: 1.1875s;
+  -ms-transition-delay: 1.1875s;
+  -o-transition-delay: 1.1875s;
+  transition-delay: 1.1875s;
+}
+.carousel.is-open .cyl-4 .icon-banner {
+  -webkit-transition-delay: 1.25s;
+  -moz-transition-delay: 1.25s;
+  -ms-transition-delay: 1.25s;
+  -o-transition-delay: 1.25s;
+  transition-delay: 1.25s;
+}
+.carousel.is-open .cyl-5 .icon-banner {
+  -webkit-transition-delay: 1.3125s;
+  -moz-transition-delay: 1.3125s;
+  -ms-transition-delay: 1.3125s;
+  -o-transition-delay: 1.3125s;
+  transition-delay: 1.3125s;
+}
+.carousel.is-open .cyl-6 .icon-banner {
+  -webkit-transition-delay: 1.375s;
+  -moz-transition-delay: 1.375s;
+  -ms-transition-delay: 1.375s;
+  -o-transition-delay: 1.375s;
+  transition-delay: 1.375s;
+}
+.carousel.is-open .cyl-7 .icon-banner {
+  -webkit-transition-delay: 1.4375s;
+  -moz-transition-delay: 1.4375s;
+  -ms-transition-delay: 1.4375s;
+  -o-transition-delay: 1.4375s;
+  transition-delay: 1.4375s;
+}
+.carousel.is-open .cyl-8 .icon-banner {
+  -webkit-transition-delay: 1.5s;
+  -moz-transition-delay: 1.5s;
+  -ms-transition-delay: 1.5s;
+  -o-transition-delay: 1.5s;
+  transition-delay: 1.5s;
+}
+.carousel.is-open .cyl-9 .icon-banner {
+  -webkit-transition-delay: 1.5625s;
+  -moz-transition-delay: 1.5625s;
+  -ms-transition-delay: 1.5625s;
+  -o-transition-delay: 1.5625s;
+  transition-delay: 1.5625s;
 }
 .carousel-middle {
   position: absolute;
@@ -5351,11 +5440,11 @@ a,
 .icon-banner {
   width: 5em;
   height: 5em;
+  margin-top: -2.5em;
+  margin-left: -2.5em;
   position: absolute;
   top: 50%;
   left: 0;
-  margin-top: -2.5em;
-  margin-left: -2.5em;
   background-color: #faf4e5;
   border-radius: 50%;
   -webkit-backface-visibility: visible;

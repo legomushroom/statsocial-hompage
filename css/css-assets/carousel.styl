@@ -3,17 +3,6 @@
 PX = (1/16)em
 carouselAnimationTime  = 20s
 carouselTransitionTime = .25s
-.carousel--3d
-	// animation rotate carouselAnimationTime linear infinite
-	iconBannerAnimationTime = 4s
-	.icon-banner
-		top 35%
-		// animation iconBanner iconBannerAnimationTime ease infinite
-	.cylinder-2:nth-of-type(odd)
-		.icon-banner
-			top 65%
-			// animation iconBanner2 iconBannerAnimationTime ease infinite
-
 .carousel
 	.cylinder-1
 		.side
@@ -30,17 +19,21 @@ carouselTransitionTime = .25s
 		transition-delay 2*carouselTransitionTime
 
 	.cylinder-2
+		size = 0
 		.icon-banner
-			transform scale(0)
-			transform-origin 50% 50%
-			// 	display none
+			width  size
+			height size
+			margin-top  -(size/2)
+			margin-left -(size/2)
+			transition all carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
 
 		.side
 			height 0
-			transition height carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
+			top -2em
+			transition all carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
 			// 17em
 	
-	width = 10*PX
+	width = 20*PX
 	.carousel-bottom
 		width width
 		margin-left -(width/2)
@@ -49,6 +42,21 @@ carouselTransitionTime = .25s
 		transition-delay 2*carouselTransitionTime
 
 	&.is-open
+		.carousel--3d
+			animation rotate carouselAnimationTime linear infinite
+			animation-delay 1s
+			
+		iconBannerAnimationTime = 4s
+		.icon-banner
+			top 35%
+			animation iconBanner iconBannerAnimationTime ease infinite
+			animation-delay 1s
+		.cylinder-2:nth-of-type(odd)
+			.icon-banner
+				top 65%
+				animation iconBanner2 iconBannerAnimationTime ease infinite
+				animation-delay 1s
+
 		.cylinder-1
 			.side
 				height 4em
@@ -69,9 +77,24 @@ carouselTransitionTime = .25s
 
 		.cylinder-2
 			.side
-				height 16em
+				height 16em + 2*PX
+				top 0
 				transition-delay 4*carouselTransitionTime
-				transition-timing-function cubic-bezier(0.880, 1.650, 0.730, 0.785)
+				-webkit-transition-timing-function: cubic-bezier(0.625, 1, 0.680, 0.775)
+				transition-timing-function cubic-bezier(0.625, 1.650, 0.680, 0.775)
+
+			size = 5em
+			.icon-banner
+				width  size
+				height size
+				margin-top  -(size/2)
+				margin-left -(size/2)
+
+		for i in 2..9
+			.cyl-{i}
+				.icon-banner
+					transition-delay (4+(i/4))*carouselTransitionTime
+				
 
 .carousel-middle
 	position absolute
@@ -134,7 +157,7 @@ width = 90%
 	for i in 1..36
 		.s{i}
 			transform translate3d(-60*PX, 0, 0) rotateZ(i*10deg) scaleZ(1) rotateX(-90deg)//
-			transform-origin 50% top 0; 
+			transform-origin 50% top 0
 			width: 50*PX
 			height: 370.5*PX
 			transition-delay .5s
@@ -241,11 +264,11 @@ size = 5em
 .icon-banner
 	width  size
 	height size
+	margin-top  -(size/2)
+	margin-left -(size/2)
 	position absolute
 	top 50%
 	left 0
-	margin-top  -(size/2)
-	margin-left -(size/2)
 	background-color #faf4e5
 	border-radius 50%
 	backface-visibility visible
