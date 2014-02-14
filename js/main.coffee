@@ -7,6 +7,8 @@ class App
 		@buildAnimations()
 		@initParallax()
 
+		$('#js-toggle-carousel').on 'click', => $('.carousel').toggleClass('is-open')
+
 	vars:->
 		@$main =  $('#js-main')
 		@$body = 	$(document.body)
