@@ -55,6 +55,8 @@ groundHeight = 145px
 	&.is-show-carousel
 		.carousel
 			transform translateY(0) scale(.6)
+			.no-preserve-3d &
+				transform translateY(-38px) scale(1)
 
 	.carousel
 		position absolute
@@ -63,6 +65,9 @@ groundHeight = 145px
 		z-index 4
 		transform translateY(600px) scale(.6)
 		transition all .35s ease-out
+
+		.no-preserve-3d &
+			transform translateY(600px) scale(1)
 
 	.roller-coaster-b
 		position absolute
@@ -370,9 +375,6 @@ groundHeight = 145px
 		background-position 0 -200px
 		z-index 5
 
-// .curtain-l, .curtain2-l
-// 	display none II
-
 curtainMaskSize = 22px
 sectionWidth = 65px
 sectionsCount = 24
@@ -388,6 +390,7 @@ coef = 10
 	text-align center
 	overflow hidden
 	z-index 2
+	display none
 	cbox()
 
 	.curtain2-konfetti-lh

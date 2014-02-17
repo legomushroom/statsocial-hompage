@@ -3,6 +3,18 @@
 PX = (1/16)em
 carouselTransitionTime = .25s
 .carousel
+	
+	.no-preserve-3d &
+		background url('i/carousel-fallback.png') no-repeat center center
+		width  326*PX
+		height 387*PX
+		transform scale(1)
+		right 5%
+
+		.carousel--3d, .carousel-bottom, .carousel-middle, .carousel-top
+			display none
+
+
 	.carousel--3d
 		transform rotateY(-180deg)
 		transition all carouselTransitionTime ease
@@ -46,12 +58,12 @@ carouselTransitionTime = .25s
 		transition all carouselTransitionTime ease-in
 		transition-delay 2*carouselTransitionTime
 
-	carouselAnimationTime  = 60s
+	carouselAnimationTime  = 40s
 	rotateTime = 6*carouselTransitionTime
-	rotateEasing = ease
+	rotateEasing = linear
 	&.is-open
 		.carousel--3d
-			animation rotate carouselAnimationTime rotateEasing infinite
+			animation rotateCarousel carouselAnimationTime rotateEasing infinite
 			animation-delay rotateTime
 
 		.carousel-middle
@@ -470,7 +482,7 @@ for i in 2..9
 		top 65%
 
 
-@keyframes rotate
+@keyframes rotateCarousel
 	0%
 		transform rotateY(-180deg)
 	100%

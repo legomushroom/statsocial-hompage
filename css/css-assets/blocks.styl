@@ -1,9 +1,48 @@
 // BLOCKS
 @import '../assets/imports.styl'
 
+PX = (1/16)em
+cabinSize = 44*PX
+ferrisWheelSize = 370
+/* 4a3bad0ec6b13193efca6723a150cfba */
+.ferris-wheel
+	rect ferrisWheelSize*PX
+	position relative
+
+	.cabin
+		position absolute
+		nw 0
+	
+	cnt = 12
+	PI = 3.141598
+	step = (2*PI)/cnt
+	centerX = ferrisWheelSize/2
+	centerY = ferrisWheelSize/2
+	radius 	= ferrisWheelSize/2
+	angle = 0
+	for i in 0..(cnt - 1)
+		.n-{i}
+			x = centerX + cos(angle)*radius
+			y = centerY + sin(angle)*radius
+			transform translateX(x*PX - (cabinSize/2)) translateY(y*PX - (cabinSize/2))
+		angle = angle + step
+
+
+
+
+/* 6239f824e830fba76e14678064076891 */
+.cabin
+	border-radius 50%
+	background-color white
+	rect cabinSize
+
+
+
+
 /* 0615c5aa8e19a9ef7fd683703b0e808a */
 .roller-coaster-b
 	min-height 540px
+	height 1px
 
 	svg
 		display block
@@ -169,6 +208,8 @@
 	width 5.5%
 	height 50%
 	position relative
+	border 1px solid transparent
+
 	> .text-be
 		font-size 26px
 		color white

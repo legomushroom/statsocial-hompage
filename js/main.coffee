@@ -61,7 +61,7 @@ class App
 
 		# THE FIRST CURTAIN
 		@curtainTween1 	= TweenMax.to @$('.curtain-l'), .75,  { css:{ top: '-100%' }, onUpdate: StatSocial.helpers.bind(@onCurtain1Update,@) }
-		@curtainTween2 	= TweenMax.to @$('.curtain2-l'), .75, { css:{ top: '-22px', y: 0 } }
+		@curtainTween2 	= TweenMax.to @$scence2, .75, { css:{ top: '-22px', y: 0 }, onStart:=> @$scence2.css('display': 'block') }
 		@scriptTween1  	= TweenMax.to @$script1, .75, { css:	{ bottom: 40, opacity: 1 } }
 		
 		@controller.addTween 1, @scriptTween1, @frameDurationTime/2

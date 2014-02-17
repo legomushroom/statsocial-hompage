@@ -74,10 +74,15 @@
         },
         onUpdate: StatSocial.helpers.bind(this.onCurtain1Update, this)
       });
-      this.curtainTween2 = TweenMax.to(this.$('.curtain2-l'), .75, {
+      this.curtainTween2 = TweenMax.to(this.$scence2, .75, {
         css: {
           top: '-22px',
           y: 0
+        },
+        onStart: function() {
+          return _this.$scence2.css({
+            'display': 'block'
+          });
         }
       });
       this.scriptTween1 = TweenMax.to(this.$script1, .75, {
