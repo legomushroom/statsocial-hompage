@@ -4222,12 +4222,11 @@ a,
   -ms-transition-delay: 1s;
   -o-transition-delay: 1s;
   transition-delay: 1s;
-  -webkit-transition-timing-function: cubic-bezier(0.625, 1, 0.68, 0.775);
-  -webkit-transition-timing-function: cubic-bezier(0.625, 1.65, 0.68, 0.775);
-  -moz-transition-timing-function: cubic-bezier(0.625, 1.65, 0.68, 0.775);
-  -ms-transition-timing-function: cubic-bezier(0.625, 1.65, 0.68, 0.775);
-  -o-transition-timing-function: cubic-bezier(0.625, 1.65, 0.68, 0.775);
-  transition-timing-function: cubic-bezier(0.625, 1.65, 0.68, 0.775);
+  -webkit-transition-timing-function: ease-out;
+  -moz-transition-timing-function: ease-out;
+  -ms-transition-timing-function: ease-out;
+  -o-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
 }
 .carousel.is-open .cylinder-2 .icon-banner {
   -webkit-transform: scale(1);
