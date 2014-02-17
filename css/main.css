@@ -1945,6 +1945,14 @@ a,
   background-color: #fff;
   width: 2.75em;
   height: 2.75em;
+  position: relative;
+}
+.cabin .icon {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  left: 25%;
+  top: 25%;
 }
 .roller-coaster-b {
   min-height: 540px;
