@@ -92,11 +92,27 @@ html
 				include partials/cabin
 
 				.hash-e#4a3bad0ec6b13193efca6723a150cfba 4a3bad0ec6b13193efca6723a150cfba
+				- var icons = ['facebook', 'linkedin', 'google-plus', 'foursquare', 'quora', 'blogging', 'youtube', 'myspace' ]
 				.ferris-wheel
 					- for (var i=0; i<12; i++)
 						- el = { class: 'n-'+i, id: '' }
-						- icon = { path: 'facebook2-icon'  }
+						- icon = { path: icons[ i % icons.length ] + '-icon'  }
 						include partials/cabin
+
+					.ferris-wheel--base
+						- el = { path: 'twitter-icon'  }
+						include partials/icon
+
+					.ferris-wheel--circle1
+					.ferris-wheel--circle2
+
+					- for (var i=0; i<24; i++)
+						.ferris-wheel--spike(class="s-#{i}")
+
+						
+
+
+
 				
 				
 		script(src="../js/jquery-2.1.0.min.js")

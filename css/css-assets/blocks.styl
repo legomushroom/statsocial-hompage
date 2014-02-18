@@ -3,11 +3,46 @@
 
 PX = (1/16)em
 cabinSize = 44*PX
-ferrisWheelSize = 370
+ferrisWheelSize = 375
 /* 4a3bad0ec6b13193efca6723a150cfba */
 .ferris-wheel
 	rect ferrisWheelSize*PX
 	position relative
+
+	.ferris-wheel--spike
+		width  3*PX
+		height 34*PX
+		background-color #9a3333
+		position absolute
+
+	circle1Size = 85%
+	.ferris-wheel--circle1
+		position absolute
+		circle circle1Size
+		border 17*PX solid #c94a4a
+		left ((100% - circle1Size)/2)
+		top  ((100% - circle1Size)/2)
+
+	circle2Size = 60%
+	.ferris-wheel--circle2
+		position absolute
+		circle circle2Size
+		border 10*PX solid #c94a4a
+		left ((100% - circle2Size)/2)
+		top  ((100% - circle2Size)/2)
+
+	size = 115*PX
+	.ferris-wheel--base
+		background-color #ff6d6a
+		circle size
+		center-shift (size)
+		
+		iconSize = 67.5%
+		.icon
+			fill #fff
+			rect iconSize
+			left ((100% - iconSize)/1.65)
+			top  ((100% - iconSize)/1.65)
 
 	.cabin
 		position absolute
@@ -16,6 +51,8 @@ ferrisWheelSize = 370
 	cnt = 12
 	PI = 3.141598
 	step = (2*PI)/cnt
+	rotateStep = 360/cnt
+	rotateAngle = 0
 	centerX = ferrisWheelSize/2
 	centerY = ferrisWheelSize/2
 	radius 	= ferrisWheelSize/2
@@ -25,24 +62,44 @@ ferrisWheelSize = 370
 			x = centerX + cos(angle)*radius
 			y = centerY + sin(angle)*radius
 			transform translateX(x*PX - (cabinSize/2)) translateY(y*PX - (cabinSize/2))
+			.cabin--handle
+				transform rotate((90 + rotateAngle)deg)
+				z-index -1
+
+		rotateAngle = rotateAngle + rotateStep
 		angle = angle + step
-
-
 
 
 /* 6239f824e830fba76e14678064076891 */
 .cabin
-	border-radius 50%
-	background-color white
+	// border-radius 50%
 	rect cabinSize
 	position relative
 
 	iconSize = 60%
 	.icon
 		position absolute
+		z-index 1
 		rect iconSize
 		left ((100% - iconSize)/2)
 		top  ((100% - iconSize)/2)
+
+	cabinHandleWidth = 18*PX
+	.cabin--handle
+		background-color #9a3333
+		width  cabinHandleWidth
+		height 40*PX
+		position absolute
+		left 50%
+		top  50%
+		margin-left - (cabinHandleWidth/2)
+		z-index 0
+		transform-origin 50% top
+
+	.cabin--base
+		circle cabinSize
+		position absolute
+		background-color white
 
 
 
