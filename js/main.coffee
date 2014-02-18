@@ -103,7 +103,6 @@ class App
 		$buildings  = @$('.building-b')
 		for i in [0..$buildings.length]
 			$el = $ $buildings.eq i
-			console.log start-(($buildings.length-i)*(@frameDurationTime/$buildings.length))
 			@controller.addTween start-(($buildings.length-i)*(@frameDurationTime/$buildings.length)), 
 														TweenMax.to($el, .1, { 
 															css:{ y: 0, bottom: 145 },
