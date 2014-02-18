@@ -1,6 +1,30 @@
 @import '../assets/imports.styl'
 
 PX = (1/16)em
+
+
+// random number between min and max
+random(a,b)
+  return math(math(0, 'random')*(b - a + 1) + a, 'floor')
+
+minTest = 5
+maxTest = 10
+largeNumber = 999999999999999999
+max = 	 - largeNumber
+maxOld = - largeNumber
+min = 		largeNumber
+minOld = 	largeNumber
+for i in 0..100
+	max = random(minTest,maxTest)px
+	min = random(minTest,maxTest)px
+	if maxOld < max
+		maxOld = max
+	if minOld > min
+		minOld = min
+.text
+	max (maxOld)px
+	min (minOld)px
+
 carouselTransitionTime = .3s
 .carousel
 	.no-preserve-3d &
