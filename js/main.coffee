@@ -86,13 +86,13 @@ class App
 		@controller.addTween start, @curtain2LeftTween, @frameDurationTime
 		@controller.addTween start, TweenMax.to(@$right, .75, { css:{ left: (@$window.outerWidth()/2) + $rightEls.first().outerWidth() } }), @frameDurationTime
 
-		# THE THIRD CURTAIN
 		@groundTween  = TweenMax.to @$('#js-ground'), .75, { css:{ y: 0 } }
 		@controller.addTween start, @groundTween, @frameDurationTime
 
 		@bgTween  = TweenMax.to @$('#js-bg'), .75, { css:{ opacity: 1 } }
 		@controller.addTween start, @bgTween, @frameDurationTime
 
+		# THE THIRD CURTAIN
 		start = 3*@frameDurationTime
 		$clouds = @$('.cloud-b')
 		@cloudTween = TweenMax.to $clouds, .75, { onComplete: (=> $clouds.addClass('is-anima')), onReverseComplete:(=> $clouds.removeClass('is-anima')) }
@@ -103,6 +103,7 @@ class App
 		$buildings  = @$('.building-b')
 		for i in [0..$buildings.length]
 			$el = $ $buildings.eq i
+			console.log start-(($buildings.length-i)*(@frameDurationTime/$buildings.length))
 			@controller.addTween start-(($buildings.length-i)*(@frameDurationTime/$buildings.length)), 
 														TweenMax.to($el, .1, { 
 															css:{ y: 0, bottom: 145 },

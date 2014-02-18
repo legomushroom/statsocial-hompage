@@ -148,6 +148,7 @@
       $buildings = this.$('.building-b');
       for (i = _j = 0, _ref = $buildings.length; 0 <= _ref ? _j <= _ref : _j >= _ref; i = 0 <= _ref ? ++_j : --_j) {
         $el = $($buildings.eq(i));
+        console.log(start - (($buildings.length - i) * (this.frameDurationTime / $buildings.length)));
         this.controller.addTween(start - (($buildings.length - i) * (this.frameDurationTime / $buildings.length)), TweenMax.to($el, .1, {
           css: {
             y: 0,
