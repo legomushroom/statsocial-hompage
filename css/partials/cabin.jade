@@ -1,6 +1,9 @@
 .cabin(class="#{el.class}", id="#{el.id}")
-	- var el = icon
-	include icon
-
 	.cabin--handle
-	.cabin--base
+	.cabin--core
+		- var el = icon
+		include icon
+
+		.cabin--base
+
+		block

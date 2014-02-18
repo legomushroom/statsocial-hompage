@@ -87,27 +87,51 @@ html
 				- el = { class: 'is-flip is-x2', id: '' }
 				include partials/bush
 
+				.hash-e#cfc2e8a9d46131f750ab9ebbf41f66a2 cfc2e8a9d46131f750ab9ebbf41f66a2
+				- el = { class: '', id: '' }
+				include partials/human
+
 				.hash-e#6239f824e830fba76e14678064076891 6239f824e830fba76e14678064076891
 				- el = { class: '', id: '' }
-				include partials/cabin
+				include partials/cabin			
 
 				.hash-e#4a3bad0ec6b13193efca6723a150cfba 4a3bad0ec6b13193efca6723a150cfba
 				- var icons = ['facebook', 'linkedin', 'google-plus', 'foursquare', 'quora', 'blogging', 'youtube', 'myspace' ]
 				.ferris-wheel
-					- for (var i=0; i<12; i++)
-						- el = { class: 'n-'+i, id: '' }
-						- icon = { path: icons[ i % icons.length ] + '-icon'  }
-						include partials/cabin
+					.ferris-wheel--core
+						- for (var i=0; i<12; i++)
+							- el = { class: 'n-'+i + ' n-'+icons[ i % icons.length ], id: '' }
+							- icon = { path: icons[ i % icons.length ] + '-icon'  }
+							include partials/cabin
 
-					.ferris-wheel--base
-						- el = { path: 'twitter-icon'  }
-						include partials/icon
+								- var random = function(a, b){
+								-		return Math.floor((Math.random() * ((b + 1) - a)) + a);
+								- }
 
-					.ferris-wheel--circle1
-					.ferris-wheel--circle2
+								- for (var j=0; j<random(2,3); j++)
+									- el = { class: 'human-'+j, id: '' }
+									include partials/human
 
-					- for (var i=0; i<24; i++)
-						.ferris-wheel--spike(class="s-#{i}")
+						.ferris-wheel--base
+							- el = { path: 'twitter-icon'  }
+							include partials/icon
+
+						.ferris-wheel--circle1
+						.ferris-wheel--circle2
+
+						- var spikesCnt = 24
+						- for (var i=0; i<spikesCnt; i++)
+							.ferris-wheel--spike(class="n-#{i}")
+
+						- for (var i=0; i<spikesCnt; i++)
+							.ferris-wheel--spike(class="s-#{i}")
+
+					.ferris-base
+						.ferris-base--top
+						.ferris-base--main
+						.ferris-base--spike.is-1
+						.ferris-base--spike.is-2
+						.ferris-base--handle
 
 						
 

@@ -2,6 +2,100 @@
 @import '../assets/imports.styl'
 
 PX = (1/16)em
+
+.human
+	background-color #6e6e6e
+	border-radius 50%
+	height 26*PX
+	width 10*PX
+	position relative
+
+	&:after
+		content ''
+		position absolute
+		rect 7*PX
+		background-color inherit
+		top - 5*PX
+		border-radius 50%
+		left 50%
+		margin-left - 3*PX
+
+.ferris-base
+	margin-left 50px
+	position relative
+	width 238*PX
+	height 39*PX
+	
+	.ferris-base--main
+		background-color #ce5250
+		rect 100%
+		position relative
+		z-index 1
+
+	baseTopColor = #9b2e2e
+	topWidth = 108%
+	baseTopHeight = 12*PX
+	top-height
+	.ferris-base--top
+		position absolute
+		width topWidth
+		height baseTopHeight
+		background-color baseTopColor
+		margin-left -4%
+		z-index 2
+		
+		triangleWidth = 8*PX
+		&:before, &:after
+			content ''
+			position absolute
+			border baseTopHeight solid rgba(baseTopColor, 0)
+			border-left-width  triangleWidth
+			border-right-width triangleWidth
+			border-top-color baseTopColor
+			top 0
+
+		&:before
+			left  - triangleWidth
+
+		&:after
+			right - triangleWidth
+		
+	baseSpikeHeight = 185*PX
+	baseSpikeWidth  = 15*PX
+	.ferris-base--spike
+		height baseSpikeHeight
+		width baseSpikeWidth
+		background-color #b33333
+		position absolute
+		top - baseSpikeHeight + 23*PX
+		left 50%
+		margin-left - (baseSpikeWidth/2)
+		transform-origin 50% top
+		z-index 0
+		
+		rotateAngle = 19deg
+		&.is-1
+			transform rotate(rotateAngle)
+
+		&.is-2
+			transform rotate(- rotateAngle)
+			
+	.ferris-base--handle
+		circle 30*PX
+		background-color #ff6d6a
+		position absolute
+		left 50%
+		margin-left - 15*PX
+		top - baseSpikeHeight + 10*PX
+
+		size = 35%
+		&:after
+			content ''
+			circle size
+			center-shift size
+			background-color #b72737	
+
+
 cabinSize = 44*PX
 ferrisWheelSize = 375
 /* 4a3bad0ec6b13193efca6723a150cfba */
@@ -9,11 +103,62 @@ ferrisWheelSize = 375
 	rect ferrisWheelSize*PX
 	position relative
 
+	.ferris-wheel--core
+		rect 100%
+		position absolute
+		animation ferris-wheel-rotate 30s linear infinite
+		transform-origin 50% 50%
+
+	.cabin--core
+		animation ferris-cabin-rotate 30s linear infinite
+		transform-origin 50% 50%
+
+	.ferris-base
+		position absolute
+		z-index 2
+		left    20*PX
+		bottom  - 15*PX
+
+	spikeHeight = 38*PX
 	.ferris-wheel--spike
 		width  3*PX
-		height 34*PX
+		height spikeHeight
 		background-color #9a3333
 		position absolute
+		z-index 0
+		
+		spikeAngle = 60
+		spikesCircleSize = (ferrisWheelSize*.69)
+		cnt = 24
+		PI = 3.141598
+		step = (2*PI)/cnt
+		rotateStep = 360/cnt
+		rotateAngle = 0
+		centerX = (ferrisWheelSize/2) - 1
+		centerY = (ferrisWheelSize/2) 
+		radius 	= spikesCircleSize/2
+		angle = 0
+		for i in 0..(cnt - 1)
+			&.n-{i}
+				x = centerX + cos(angle)*radius
+				y = centerY + sin(angle)*radius
+				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle - spikeAngle)deg)
+				transform-origin 50% 50%
+			
+			rotateAngle = rotateAngle + rotateStep
+			angle = angle + step
+		
+		rotateAngle = 0
+		angle 			= .16
+		for i in 0..(cnt - 1)
+			&.s-{i}
+				x = centerX + cos(angle)*radius
+				y = centerY + sin(angle)*radius
+				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle + spikeAngle)deg)
+				transform-origin 50% 50%
+			
+			rotateAngle = rotateAngle + rotateStep
+			angle = angle + step
 
 	circle1Size = 85%
 	.ferris-wheel--circle1
@@ -22,14 +167,16 @@ ferrisWheelSize = 375
 		border 17*PX solid #c94a4a
 		left ((100% - circle1Size)/2)
 		top  ((100% - circle1Size)/2)
+		z-index 1
 
-	circle2Size = 60%
+	circle2Size = 65%
 	.ferris-wheel--circle2
 		position absolute
 		circle circle2Size
 		border 10*PX solid #c94a4a
 		left ((100% - circle2Size)/2)
 		top  ((100% - circle2Size)/2)
+		z-index 1
 
 	size = 115*PX
 	.ferris-wheel--base
@@ -47,6 +194,9 @@ ferrisWheelSize = 375
 	.cabin
 		position absolute
 		nw 0
+
+		.icon
+			fill #3f797f
 	
 	cnt = 12
 	PI = 3.141598
@@ -66,6 +216,31 @@ ferrisWheelSize = 375
 				transform rotate((90 + rotateAngle)deg)
 				z-index -1
 
+			.human
+				position absolute
+
+			.human-0
+				top  - 5*PX
+				left 20%
+
+			.human-1
+				top  - (4+((i%2)*(i%5)))*PX
+				left 40%
+
+			.human-2
+				top  - (3+((i%3)*(i%2)))*PX
+				left 60%
+
+		.n-google-plus, .n-youtube, .n-quora
+			.icon
+				fill #f46f53
+
+		.n-blogging
+			.icon
+				fill #8fa2a8
+
+				
+
 		rotateAngle = rotateAngle + rotateStep
 		angle = angle + step
 
@@ -76,10 +251,19 @@ ferrisWheelSize = 375
 	rect cabinSize
 	position relative
 
+	.cabin--core
+		rect 100%
+		position absolute
+		nw 0
+
+	.human
+		z-index 0
+		position absolute
+
 	iconSize = 60%
 	.icon
 		position absolute
-		z-index 1
+		z-index 2
 		rect iconSize
 		left ((100% - iconSize)/2)
 		top  ((100% - iconSize)/2)
@@ -100,6 +284,7 @@ ferrisWheelSize = 375
 		circle cabinSize
 		position absolute
 		background-color white
+		z-index 1
 
 
 
