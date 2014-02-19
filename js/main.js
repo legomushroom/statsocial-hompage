@@ -4,11 +4,16 @@
 
   App = (function() {
     function App() {
+      var _this = this;
+
       this.vars();
       this.initScroll();
       this.initController();
       this.buildAnimations();
       this.initParallax();
+      $('#js-toggle-carousel').on('click', function() {
+        return $('.ferris-wheel').toggleClass('is-open');
+      });
     }
 
     App.prototype.vars = function() {

@@ -8,7 +8,7 @@ html
 	
 	//- body.no-amimation-g
 	body
-		//- button#js-toggle-carousel(style="position: relative; z-index:1;")	toggle
+		button#js-toggle-carousel(style="position: relative; z-index:1;")	toggle
 		- var el = { }
 		include css/icons.svg
 		section(role="main")#js-main.main-l
@@ -223,6 +223,44 @@ html
 								use(xlink:href="#roller-cabin", id="js-roller-cabin2")
 							g(transform="translate(-50,-50)")
 								use(xlink:href="#roller-cabin", id="js-roller-cabin3")
+
+
+					- var icons = ['facebook', 'linkedin', 'google-plus', 'foursquare', 'quora', 'blogging', 'youtube', 'myspace' ]
+					.ferris-wheel
+						.ferris-wheel--core
+							- for (var i=0; i<12; i++)
+								- el = { class: 'n-'+i + ' n-'+icons[ i % icons.length ], id: '' }
+								- icon = { path: icons[ i % icons.length ] + '-icon'  }
+								include css/partials/cabin
+
+									- var random = function(a, b){
+									-		return Math.floor((Math.random() * ((b + 1) - a)) + a);
+									- }
+
+									- for (var j=0; j<random(2,3); j++)
+										- el = { class: 'human-'+j, id: '' }
+										include css/partials/human
+
+							.ferris-wheel--base
+								- el = { path: 'twitter-icon'  }
+								include css/partials/icon
+
+							.ferris-wheel--circle1
+							.ferris-wheel--circle2
+
+							- var spikesCnt = 24
+							- for (var i=0; i<spikesCnt; i++)
+								.ferris-wheel--spike(class="n-#{i}")
+
+							- for (var i=0; i<spikesCnt; i++)
+								.ferris-wheel--spike(class="s-#{i}")
+
+						.ferris-base
+							.ferris-base--top
+							.ferris-base--main
+							.ferris-base--spike.is-1
+							.ferris-base--spike.is-2
+							.ferris-base--handle
 
 					.carousel#js-carousel
 						.carousel-top
