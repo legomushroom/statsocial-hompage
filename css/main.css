@@ -2175,11 +2175,11 @@ a,
   transform-origin: 50% 50%;
 }
 .ferris-wheel.is-open .ferris-wheel--spike.n-8 {
-  -webkit-transform: translateX(7.613256290747008em) translateY(17.53386287812249em) rotate(60deg);
-  -moz-transform: translateX(7.613256290747008em) translateY(17.53386287812249em) rotate(60deg);
-  -ms-transform: translateX(7.613256290747008em) translateY(17.53386287812249em) rotate(60deg);
-  -o-transform: translateX(7.613256290747008em) translateY(17.53386287812249em) rotate(60deg);
-  transform: translateX(7.613256290747008em) translateY(17.53386287812249em) rotate(60deg);
+  -webkit-transform: translateX(7.6132562907470085em) translateY(17.53386287812249em) rotate(60deg);
+  -moz-transform: translateX(7.6132562907470085em) translateY(17.53386287812249em) rotate(60deg);
+  -ms-transform: translateX(7.6132562907470085em) translateY(17.53386287812249em) rotate(60deg);
+  -o-transform: translateX(7.6132562907470085em) translateY(17.53386287812249em) rotate(60deg);
+  transform: translateX(7.6132562907470085em) translateY(17.53386287812249em) rotate(60deg);
   -webkit-transform-origin: 50% 50%;
   -moz-transform-origin: 50% 50%;
   -ms-transform-origin: 50% 50%;
@@ -2439,11 +2439,11 @@ a,
   transform-origin: 50% 50%;
 }
 .ferris-wheel.is-open .ferris-wheel--spike.s-6 {
-  -webkit-transform: translateX(10.367991599427318em) translateY(18.5139046679197em) rotate(150deg);
-  -moz-transform: translateX(10.367991599427318em) translateY(18.5139046679197em) rotate(150deg);
-  -ms-transform: translateX(10.367991599427318em) translateY(18.5139046679197em) rotate(150deg);
-  -o-transform: translateX(10.367991599427318em) translateY(18.5139046679197em) rotate(150deg);
-  transform: translateX(10.367991599427318em) translateY(18.5139046679197em) rotate(150deg);
+  -webkit-transform: translateX(10.36799159942732em) translateY(18.5139046679197em) rotate(150deg);
+  -moz-transform: translateX(10.36799159942732em) translateY(18.5139046679197em) rotate(150deg);
+  -ms-transform: translateX(10.36799159942732em) translateY(18.5139046679197em) rotate(150deg);
+  -o-transform: translateX(10.36799159942732em) translateY(18.5139046679197em) rotate(150deg);
+  transform: translateX(10.36799159942732em) translateY(18.5139046679197em) rotate(150deg);
   -webkit-transform-origin: 50% 50%;
   -moz-transform-origin: 50% 50%;
   -ms-transform-origin: 50% 50%;
@@ -2463,11 +2463,11 @@ a,
   transform-origin: 50% 50%;
 }
 .ferris-wheel.is-open .ferris-wheel--spike.s-8 {
-  -webkit-transform: translateX(6.549252578353119em) translateY(16.800297981089184em) rotate(180deg);
-  -moz-transform: translateX(6.549252578353119em) translateY(16.800297981089184em) rotate(180deg);
-  -ms-transform: translateX(6.549252578353119em) translateY(16.800297981089184em) rotate(180deg);
-  -o-transform: translateX(6.549252578353119em) translateY(16.800297981089184em) rotate(180deg);
-  transform: translateX(6.549252578353119em) translateY(16.800297981089184em) rotate(180deg);
+  -webkit-transform: translateX(6.54925257835312em) translateY(16.800297981089184em) rotate(180deg);
+  -moz-transform: translateX(6.54925257835312em) translateY(16.800297981089184em) rotate(180deg);
+  -ms-transform: translateX(6.54925257835312em) translateY(16.800297981089184em) rotate(180deg);
+  -o-transform: translateX(6.54925257835312em) translateY(16.800297981089184em) rotate(180deg);
+  transform: translateX(6.54925257835312em) translateY(16.800297981089184em) rotate(180deg);
   -webkit-transform-origin: 50% 50%;
   -moz-transform-origin: 50% 50%;
   -ms-transform-origin: 50% 50%;
@@ -3364,7 +3364,7 @@ a,
   left: 40%;
 }
 .ferris-wheel .n-0 .human-2 {
-  top: -0.25em;
+  top: -0.1875em;
   left: 60%;
 }
 .ferris-wheel .n-google-plus .icon,
@@ -3398,11 +3398,11 @@ a,
   left: 20%;
 }
 .ferris-wheel .n-1 .human-1 {
-  top: -0.3125em;
+  top: 0em;
   left: 40%;
 }
 .ferris-wheel .n-1 .human-2 {
-  top: -0.4375em;
+  top: -0.1875em;
   left: 60%;
 }
 .ferris-wheel .n-google-plus .icon,
@@ -3436,11 +3436,11 @@ a,
   left: 20%;
 }
 .ferris-wheel .n-2 .human-1 {
-  top: -0.1875em;
+  top: 0em;
   left: 40%;
 }
 .ferris-wheel .n-2 .human-2 {
-  top: -0.375em;
+  top: -0.4375em;
   left: 60%;
 }
 .ferris-wheel .n-google-plus .icon,
@@ -3474,7 +3474,7 @@ a,
   left: 20%;
 }
 .ferris-wheel .n-3 .human-1 {
-  top: -0.0625em;
+  top: -0.1875em;
   left: 40%;
 }
 .ferris-wheel .n-3 .human-2 {
@@ -3512,11 +3512,11 @@ a,
   left: 20%;
 }
 .ferris-wheel .n-4 .human-1 {
-  top: -0.1875em;
+  top: -0.3125em;
   left: 40%;
 }
 .ferris-wheel .n-4 .human-2 {
-  top: -0.375em;
+  top: -0.1875em;
   left: 60%;
 }
 .ferris-wheel .n-google-plus .icon,
@@ -3550,11 +3550,11 @@ a,
   left: 20%;
 }
 .ferris-wheel .n-5 .human-1 {
-  top: -0.125em;
+  top: -0.1875em;
   left: 40%;
 }
 .ferris-wheel .n-5 .human-2 {
-  top: -0.1875em;
+  top: -0.3125em;
   left: 60%;
 }
 .ferris-wheel .n-google-plus .icon,
@@ -3588,11 +3588,11 @@ a,
   left: 20%;
 }
 .ferris-wheel .n-6 .human-1 {
-  top: -0.3125em;
+  top: -0.0625em;
   left: 40%;
 }
 .ferris-wheel .n-6 .human-2 {
-  top: -0.25em;
+  top: -0.1875em;
   left: 60%;
 }
 .ferris-wheel .n-google-plus .icon,
@@ -3626,11 +3626,11 @@ a,
   left: 20%;
 }
 .ferris-wheel .n-7 .human-1 {
-  top: -0.1875em;
+  top: -0.125em;
   left: 40%;
 }
 .ferris-wheel .n-7 .human-2 {
-  top: -0.25em;
+  top: -0.4375em;
   left: 60%;
 }
 .ferris-wheel .n-google-plus .icon,
@@ -3664,11 +3664,11 @@ a,
   left: 20%;
 }
 .ferris-wheel .n-8 .human-1 {
-  top: -0.25em;
+  top: -0.1875em;
   left: 40%;
 }
 .ferris-wheel .n-8 .human-2 {
-  top: -0.3125em;
+  top: -0.1875em;
   left: 60%;
 }
 .ferris-wheel .n-google-plus .icon,
@@ -3702,11 +3702,11 @@ a,
   left: 20%;
 }
 .ferris-wheel .n-9 .human-1 {
-  top: -0.125em;
+  top: -0.0625em;
   left: 40%;
 }
 .ferris-wheel .n-9 .human-2 {
-  top: -0.1875em;
+  top: -0.3125em;
   left: 60%;
 }
 .ferris-wheel .n-google-plus .icon,
@@ -3740,11 +3740,11 @@ a,
   left: 20%;
 }
 .ferris-wheel .n-10 .human-1 {
-  top: -0.3125em;
+  top: -0.25em;
   left: 40%;
 }
 .ferris-wheel .n-10 .human-2 {
-  top: -0.25em;
+  top: -0.375em;
   left: 60%;
 }
 .ferris-wheel .n-google-plus .icon,
@@ -3778,11 +3778,11 @@ a,
   left: 20%;
 }
 .ferris-wheel .n-11 .human-1 {
-  top: -0.125em;
+  top: -0.3125em;
   left: 40%;
 }
 .ferris-wheel .n-11 .human-2 {
-  top: -0.375em;
+  top: -0.1875em;
   left: 60%;
 }
 .ferris-wheel .n-google-plus .icon,
