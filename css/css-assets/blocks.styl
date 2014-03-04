@@ -1,6 +1,43 @@
 // BLOCKS
 @import '../assets/imports.styl'
 
+/* fba4ecd90d2db7a0f9b5ed45a89284b6 */
+baloonColor = #f1c74f
+.baloon
+	height 30*PX
+	width 23*PX
+	background-color baloonColor
+	border-radius 50%
+	position relative
+	&:before
+		content '#'
+		position absolute
+		color white
+		font-size 14px
+		PXX = norm(14)*PX
+		nw 4*PXX
+		font-family monospaced
+		opacity .75
+
+	svg
+		position absolute
+		top 100%
+		left 0%
+		stroke baloonColor
+		stroke-width 1*PX
+
+redColor = #ff6a6c
+.baloon__is-red
+	background redColor
+	svg
+		stroke redColor
+
+greenColor = #299d9d
+.baloon__is-green
+	background greenColor
+	svg
+		stroke greenColor
+
 PX = (1/16)em
 .human
 	background-color #6e6e6e
@@ -494,8 +531,6 @@ ferrisWheelSize = 375
 		z-index 1
 
 
-
-
 /* 0615c5aa8e19a9ef7fd683703b0e808a */
 .roller-coaster-b
 	min-height 540px
@@ -671,22 +706,20 @@ ferrisWheelSize = 375
 		border-bottom-color #f9f0dd
 
 .building-b
-	background #64c2c1 url('i/building-windows.svg') repeat 0% top
+	background #64c2c1
 	// background-size 100% auto
 	width 5.5%
 	height 50%
 	position relative
-	border 1px solid transparent
-
-	&:after
-		content ''
-		position absolute
-		width 6%
-		height 100%
-		background-color inherit
-		//hl green
-		ne 0
-		right -1px
+	border 8px solid transparent
+	// &:after
+	// 	content ''
+	// 	position absolute
+	// 	width 5%
+	// 	height 100%
+	// 	background-color inherit
+	// 	ne 0
+	// 	right -1px
 
 	// .building-b--window
 	// 	background-color transparent

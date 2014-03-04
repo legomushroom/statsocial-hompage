@@ -381,7 +381,24 @@
           return _this.$scence3.removeClass('is-night');
         }
       });
-      return this.controller.addTween(start, this.nightTriggerTween, 1);
+      this.controller.addTween(start, this.nightTriggerTween, 1);
+      start = 19.5 * this.frameDurationTime;
+      this.planeTween4 = TweenMax.to(this.$plane, .75, {
+        css: {
+          left: '100%'
+        },
+        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate4, this),
+        onStart: function() {
+          _this.$plane.show();
+          _this.isPlaneHide = false;
+          return _this.$planeText.text('unparalleled demographics', {
+            onComplete: function() {
+              return _this.isPlaneText = false;
+            }
+          });
+        }
+      });
+      return this.controller.addTween(start, this.planeTween4, this.frameDurationTime * 3);
     };
 
     App.prototype.onLineSimplifyUpdate = function() {
@@ -692,11 +709,39 @@
       }
       this.prevPlaneProgress = progress;
       if (progress >= 1) {
-        !this.isPlaneHide && this.$planeInner.removeClass('is-flip');
-        !this.isPlaneHide && this.$plane.hide();
+        if (!this.isPlaneHide) {
+          this.$planeInner.removeClass('is-flip');
+          this.$plane.hide();
+        }
         return this.isPlaneHide = true;
       } else {
         this.setPlaneText('for data this rich we harvested across 60+ social networks');
+        this.isPlaneText3 = true;
+        this.isPlaneHide && this.$plane.show();
+        return this.isPlaneHide = false;
+      }
+    };
+
+    App.prototype.onPlaneUpdate4 = function() {
+      var progress;
+
+      progress = this.planeTween4.totalProgress();
+      if (this.prevPlaneProgress > progress) {
+        !this.isPlaneFlip && this.$planeInner.removeClass('is-flip');
+        this.isPlaneFlip = true;
+      } else {
+        this.isPlaneFlip && this.$planeInner.addClass('is-flip');
+        this.isPlaneFlip = false;
+      }
+      this.prevPlaneProgress = progress;
+      if (progress >= 1) {
+        if (!this.isPlaneHide) {
+          this.$planeInner.removeClass('is-flip');
+          this.$plane.hide();
+        }
+        return this.isPlaneHide = true;
+      } else {
+        this.setPlaneText('unparalleled demographics');
         this.isPlaneText3 = true;
         this.isPlaneHide && this.$plane.show();
         return this.isPlaneHide = false;

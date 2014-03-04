@@ -233,6 +233,9 @@ class App
 		@nightTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-night')), onReverseComplete:=>(@$scence3.removeClass('is-night')) }
 		@controller.addTween start, @nightTriggerTween, 1
 
+		start = 19.5*@frameDurationTime
+		@planeTween4  = TweenMax.to @$plane, .75, { css:{ left: '100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate4,@), onStart:=> @$plane.show(); @isPlaneHide = false; @$planeText.text 'unparalleled demographics', onComplete:=> @isPlaneText = false; }
+		@controller.addTween start, @planeTween4, @frameDurationTime*3
 
 	onLineSimplifyUpdate:-> 
 		if @lineSimplifyTween.totalProgress() > 0
@@ -467,12 +470,36 @@ class App
 
 		@prevPlaneProgress = progress
 		if progress >= 1
-			!@isPlaneHide and @$planeInner.removeClass('is-flip')
-			!@isPlaneHide and @$plane.hide()
+			if !@isPlaneHide
+				@$planeInner.removeClass('is-flip')
+				@$plane.hide()
 			@isPlaneHide = true
 		else 
 			# if !@isPlaneText3 
 			@setPlaneText 'for data this rich we harvested across 60+ social networks' 
+			@isPlaneText3 = true
+			@isPlaneHide and @$plane.show()
+			@isPlaneHide = 	false
+
+	onPlaneUpdate4:->
+		progress = @planeTween4.totalProgress()
+
+		if @prevPlaneProgress > progress
+			!@isPlaneFlip and @$planeInner.removeClass 'is-flip'
+			@isPlaneFlip = true
+		else
+			@isPlaneFlip and @$planeInner.addClass 'is-flip'
+			@isPlaneFlip = false
+
+		@prevPlaneProgress = progress
+		if progress >= 1
+			if !@isPlaneHide
+				@$planeInner.removeClass('is-flip')
+				@$plane.hide()
+			@isPlaneHide = true
+		else 
+			# if !@isPlaneText3 
+			@setPlaneText 'unparalleled demographics' 
 			@isPlaneText3 = true
 			@isPlaneHide and @$plane.show()
 			@isPlaneHide = 	false

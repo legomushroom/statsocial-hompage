@@ -91,6 +91,20 @@ nightTransitionTime = .5s
 			&.is-light 
 				> .part-be
 					background-color #55d38c
+		
+		ribbonColor = #6ab4d7
+		.ribbon-b
+			background-color ribbonColor
+			transition all nightTransitionTime linear
+			> .text-be
+				color #095273
+				color white
+			> .rope-be, > .rope2-be
+				background-color ribbonColor
+			> .tale-be
+				border-top-color ribbonColor
+			> .tale2-be
+				border-bottom-color ribbonColor
 
 		.svg-cabin-wheel
 			fill #13527b
@@ -103,8 +117,13 @@ nightTransitionTime = .5s
 		.svg-cabin-human
 			fill humanColor
 			transition all nightTransitionTime linear
-		.building-b--window__is-shown
-			background-color #3c777d
+
+		.building-b
+			// border 8px solid #13688d
+			// background #13688d url('i/building-windows.svg') repeat left top
+			background #13688d 
+		// .building-b--window__is-shown
+		// 	background-color #3c777d
 		// for i in 1..250
 		// 	.building-b--window__is-r{i}
 		// 		transition-delay (random(0, 2)/10)*sec
@@ -255,16 +274,12 @@ nightTransitionTime = .5s
 		transform translateZ(0)
 
 		.plane-n-text-l
-			// left 50% 
 			position absolute
 			nw 0
-			// transition all .2s linear
+			left 0
 			&.is-flip
 				right 0
 				left auto
-			// margin-left - 380px
-
-
 
 	// BUILDINGS
 	.building-b
@@ -434,6 +449,9 @@ nightTransitionTime = .5s
 		top  16%
 		transform scale(1.45)
 
+	.baloon
+		position absolute
+
 	> .bg-ll
 		background #72d2d1 url('i/curtain-dots-bg3.png') repeat
 		position absolute
@@ -450,6 +468,26 @@ nightTransitionTime = .5s
 		background #493542 url('i/curtain-dots-bg3.png') repeat
 		background-position 0 -200px
 		z-index 5
+
+.curtain3--baloon-red1
+	nw 10%
+.curtain3--baloon-red2
+	right 25%
+	top   35%
+.curtain3--baloon-green1
+	left 30%
+	top  30%
+.curtain3--baloon-green2
+	left 60%
+	top  20%
+.curtain3--baloon-yellow1
+	left 15%
+	top  20%
+.curtain3--baloon-yellow2
+	left 85%
+	top  22%
+
+	
 
 curtainMaskSize = 22px
 sectionWidth = 65px
