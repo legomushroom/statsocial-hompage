@@ -123,7 +123,8 @@ class App
 		start = 4.15*@frameDurationTime
 		@$plane = @$('#js-plane')
 		@$planeInner = @$plane.find('#js-plane-inner')
-		@planeTween  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate,@) }
+		@$planeText  = @$plane.find('#js-plane-text')
+		@planeTween  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate,@), onComplete:=> @isPlaneText = false; }
 		@controller.addTween start, @planeTween, @frameDurationTime*3
 
 		@scriptTween21  = TweenMax.to @$script2, .75, { css:{ opacity: 0 } }
@@ -174,6 +175,7 @@ class App
 		@$rollerCabinParent6 = @$rollerCabin6.parent()
 		@$rollerCabin7 	= @$('#js-roller-cabin7') 
 		@$rollerCabinParent7 = @$rollerCabin7.parent()
+		@$ferrisWheel = @$('#js-ferris-wheel')
 
 
 		@$rollerText 		= @$('#js-roller-text')
@@ -214,6 +216,19 @@ class App
 		start = 12*@frameDurationTime
 		@carouselTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-carousel'); setTimeout (=> @$carousel.addClass('is-open') ), 200), onReverseComplete:=>( @$carousel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-carousel') ), 800) }
 		@controller.addTween start, @carouselTriggerTween, 1
+
+		start = 13*@frameDurationTime
+		@planeTween2  = TweenMax.to @$plane, .75, { css:{ left: '100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate2,@), onStart:=> @$plane.show();  @isPlaneHide = false; @$planeText.text 'learn their affinities for 25000 brands interests celebrities and TV shows', onComplete:=> @isPlaneText = false; }
+		@controller.addTween start, @planeTween2, @frameDurationTime*3
+
+		start = 14.5*@frameDurationTime
+		@carouselTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-ferris-wheel'); setTimeout (=> @$ferrisWheel.addClass('is-open') ), 200), onReverseComplete:=>( @$ferrisWheel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-ferris-wheel') ), 800) }
+		@controller.addTween start, @carouselTriggerTween, 1
+
+		start = 16*@frameDurationTime
+		@planeTween3  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate3,@), onStart:=> @$plane.show(); @isPlaneHide = false; @$planeText.text 'for data this rich we harvested across 60+ social networks', onComplete:=> @isPlaneText = false; }
+		@controller.addTween start, @planeTween3, @frameDurationTime*3
+
 
 	onLineSimplifyUpdate:-> 
 		if @lineSimplifyTween.totalProgress() > 0
@@ -402,11 +417,66 @@ class App
 
 		@prevPlaneProgress = progress
 		if progress >= 1
+			!@isPlaneHide and @$planeInner.addClass('is-flip')
 			!@isPlaneHide and @$plane.hide()
-			@isPlaneHide = 	true
+			@isPlaneHide = true
 		else 
+			# !@isPlaneText and @$planeText.text 'detailed statistics over many fine segments' 
+			@setPlaneText 'detailed statistics over many fine segments'
+			@isPlaneText = true
+			@isPlaneHide and @$planeInner.addClass('is-flip')
 			@isPlaneHide and @$plane.show()
 			@isPlaneHide = 	false
+
+	onPlaneUpdate2:->
+		progress = @planeTween2.totalProgress()
+
+		if @prevPlaneProgress > progress
+			!@isPlaneFlip and @$planeInner.removeClass 'is-flip'
+			@isPlaneFlip = true
+		else
+			@isPlaneFlip and @$planeInner.addClass 'is-flip'
+			@isPlaneFlip = false
+
+		@prevPlaneProgress = progress
+		if progress >= 1
+			!@isPlaneHide and @$planeInner.removeClass('is-flip')
+			!@isPlaneHide and @$plane.hide()
+			@isPlaneHide = true
+		else 
+			# !@isPlaneText2 and @$planeText.text 'learn their affinities for 25000 brands interests celebrities and TV shows' 
+			@setPlaneText 'learn their affinities for 25000 brands interests celebrities and TV shows' 
+			@isPlaneText2 = true
+			@isPlaneHide and @$planeInner.addClass('is-flip')
+			@isPlaneHide and @$plane.show()
+			@isPlaneHide = 	false
+
+	onPlaneUpdate3:->
+		progress = @planeTween3.totalProgress()
+
+		if @prevPlaneProgress < progress
+			!@isPlaneFlip and @$planeInner.removeClass 'is-flip'
+			@isPlaneFlip = true
+		else
+			@isPlaneFlip and @$planeInner.addClass 'is-flip'
+			@isPlaneFlip = false
+
+		@prevPlaneProgress = progress
+		if progress >= 1
+			!@isPlaneHide and @$planeInner.removeClass('is-flip')
+			!@isPlaneHide and @$plane.hide()
+			@isPlaneHide = true
+		else 
+			# if !@isPlaneText3 
+			@setPlaneText 'for data this rich we harvested across 60 social networks' 
+			@isPlaneText3 = true
+			@isPlaneHide and @$plane.show()
+			@isPlaneHide = 	false
+
+	setPlaneText:(text)->
+		if @currPlaneText isnt text
+			@$planeText.text text
+			@currPlaneText = text
 
 	$:(selector)->
 		@$main.find(selector)

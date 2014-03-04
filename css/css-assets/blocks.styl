@@ -2,7 +2,6 @@
 @import '../assets/imports.styl'
 
 PX = (1/16)em
-
 .human
 	background-color #6e6e6e
 	border-radius 50%
@@ -142,7 +141,31 @@ ferrisWheelSize = 375
 	position relative
 	z-index 20
 
+	.ferris-wheel--core
+		-webkit-animation-fill-mode both
+		-moz-animation-fill-mode both
+		-o-animation-fill-mode both
+		animation-fill-mode both
+		animation ferris-wheel-rotate 30s linear infinite
+
+	.cabin--core
+		-webkit-animation-fill-mode both
+		-moz-animation-fill-mode both
+		-o-animation-fill-mode both
+		animation-fill-mode both
+		animation ferris-cabin-rotate 30s linear infinite
+
 	&.is-open 
+		// .ferris-wheel--core
+		// 	animation ferris-wheel-rotate 30s linear infinite
+
+		// .cabin--core
+		// 	animation ferris-cabin-rotate 30s linear infinite
+
+		.ferris-base
+			transform translateY(0)
+			transition all 0 linear
+
 		.ferris-wheel--base
 			transform scale(1)
 			transition all ferrisWheelTransitionCoef cubic-bezier(0.350, 1.650, 0.375, 0.790);
@@ -160,7 +183,9 @@ ferrisWheelSize = 375
 
 		.ferris-wheel--spike
 			transition all ferrisWheelTransitionCoef linear
-			transition-delay 6.5*ferrisWheelTransitionCoef
+			transition-delay 6*ferrisWheelTransitionCoef
+			height spikeHeight
+			opacity 1
 
 			spikeAngle = 60
 			spikesCircleSize = (ferrisWheelSize*.69)
@@ -195,14 +220,52 @@ ferrisWheelSize = 375
 				rotateAngle = rotateAngle + rotateStep
 				angle = angle + step
 
+		.cabin
+			opacity 1
+			transition-duration 0
+
+			cnt = 12
+			PI = 3.141598
+			step = (2*PI)/cnt
+			rotateStep = 360/cnt
+			rotateAngle = 0
+			centerX = ferrisWheelSize/2
+			centerY = ferrisWheelSize/2
+			radius 	= ferrisWheelSize/2
+			angle = 0
+			.human
+				transition all ferrisWheelTransitionCoef linear
+			for i in 0..(cnt - 1)
+				&.n-{i}
+					.human-0
+						top  - 5*PX
+						left 20%
+						transition-delay 7*ferrisWheelTransitionCoef + (random(0,25)/100)
+					.human-1
+						top  - random(0,5)*PX
+						left 40%
+						transition-delay 7*ferrisWheelTransitionCoef + (random(0,25)/100)
+					.human-2
+						top  - random(3,7)*PX
+						left 60%
+						transition-delay 7*ferrisWheelTransitionCoef + (random(0,25)/100)
+
+		.cabin--handle
+			height 40*PX
+			transition all ferrisWheelTransitionCoef linear
+			transition-delay 6*ferrisWheelTransitionCoef
+
+		.cabin--core2
+			transform scale(1)
+			transition all ferrisWheelTransitionCoef linear
+			transition-delay 6.5*ferrisWheelTransitionCoef
+
 	.ferris-wheel--core
 		rect 100%
 		position absolute
-		animation ferris-wheel-rotate 30s linear infinite
 		transform-origin 50% 50%
 
 	.cabin--core
-		animation ferris-cabin-rotate 30s linear infinite
 		transform-origin 50% 50%
 
 	.ferris-base
@@ -210,13 +273,18 @@ ferrisWheelSize = 375
 		z-index 2
 		left    20*PX
 		bottom  - 15*PX
+		transform translateY(300px)
+		transition all ferrisWheelTransitionCoef line
 
 	.ferris-wheel--spike
 		width  3*PX
+		height 0
 		height spikeHeight
 		background-color #9a3333
 		position absolute
-		z-index 10
+		z-index 0
+		transform-origin 50% 50%
+		opacity 0
 
 		spikeAngle = 60
 		spikesCircleSize = (ferrisWheelSize*.69)
@@ -225,16 +293,15 @@ ferrisWheelSize = 375
 		step = (2*PI)/cnt
 		rotateStep = 360/cnt
 		rotateAngle = 0
-		centerX = (ferrisWheelSize/2) - 1
-		centerY = (ferrisWheelSize/2) 
-		radius 	= spikesCircleSize/2
+		centerX = (ferrisWheelSize/2) - 0
+		centerY = (ferrisWheelSize/2)
+		radius 	= (spikesCircleSize/2) - 15
 		angle = 0
 		for i in 0..(cnt - 1)
 			&.n-{i}
 				x = centerX + cos(angle)*radius
 				y = centerY + sin(angle)*radius
-				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle - spikeAngle)deg)
-				transform-origin 50% 50%
+				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle)deg)
 			
 			rotateAngle = rotateAngle + rotateStep
 			angle = angle + step
@@ -245,8 +312,7 @@ ferrisWheelSize = 375
 			&.s-{i}
 				x = centerX + cos(angle)*radius
 				y = centerY + sin(angle)*radius
-				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle + spikeAngle)deg)
-				transform-origin 50% 50%
+				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle)deg)
 			
 			rotateAngle = rotateAngle + rotateStep
 			angle = angle + step
@@ -261,6 +327,8 @@ ferrisWheelSize = 375
 		top  ((100% - circle1Size)/2)
 		z-index 1
 		transform scale(0)
+		transition all ferrisWheelTransitionCoef linear
+		transition-delay ferrisWheelTransitionCoef
 
 	circle2Size = 65%
 	.ferris-wheel--circle2
@@ -272,6 +340,8 @@ ferrisWheelSize = 375
 		top  ((100% - circle2Size)/2)
 		z-index 1
 		transform scale(0)
+		transition all ferrisWheelTransitionCoef linear
+		transition-delay 2*ferrisWheelTransitionCoef
 
 	size = 115*PX
 	.ferris-wheel--base
@@ -291,7 +361,8 @@ ferrisWheelSize = 375
 	.cabin
 		position absolute
 		nw 0
-		display none
+		opacity 1
+		// z-index 10
 
 		.icon
 			fill #3f797f
@@ -313,34 +384,70 @@ ferrisWheelSize = 375
 			.cabin--handle
 				transform rotate((90 + rotateAngle)deg)
 				z-index -1
-
 			.human
 				position absolute
+				top 12*PX
 
 			.human-0
-				top  - 5*PX
 				left 20%
-
 			.human-1
-				top  - random(0,5)*PX
 				left 40%
-
 			.human-2
-				top  - random(3,7)*PX
 				left 60%
-
 		.n-google-plus, .n-youtube, .n-quora
 			.icon
 				fill #f46f53
-
 		.n-blogging
 			.icon
 				fill #8fa2a8
+		rotateAngle = rotateAngle + rotateStep
+		angle = angle + step
+
+	// cnt = 12
+	// PI = 3.141598
+	// step = (2*PI)/cnt
+	// rotateStep = 360/cnt
+	// rotateAngle = 0
+	// centerX = ferrisWheelSize/2
+	// centerY = ferrisWheelSize/2
+	// radius 	= ferrisWheelSize/2
+	// angle = 0
+	// for i in 0..(cnt - 1)
+	// 	.n-{i}
+	// 		x = centerX + cos(angle)*radius
+	// 		y = centerY + sin(angle)*radius
+	// 		transform translateX(x*PX - (cabinSize/2)) translateY(y*PX - (cabinSize/2))
+	// 		.cabin--handle
+	// 			transform rotate((90 + rotateAngle)deg)
+	// 			z-index -1
+
+	// 		.human
+	// 			position absolute
+
+	// 		.human-0
+	// 			top  - 5*PX
+	// 			left 20%
+
+	// 		.human-1
+	// 			top  - random(0,5)*PX
+	// 			left 40%
+
+	// 		.human-2
+	// 			top  - random(3,7)*PX
+	// 			left 60%
+
+	// 	.n-google-plus, .n-youtube, .n-quora
+	// 		.icon
+	// 			fill #f46f53
+
+	// 	.n-blogging
+	// 		.icon
+	// 			fill #8fa2a8
 
 				
 
-		rotateAngle = rotateAngle + rotateStep
-		angle = angle + step
+	// 	rotateAngle = rotateAngle + rotateStep
+	// 	angle = angle + step
 
 
 /* 6239f824e830fba76e14678064076891 */
@@ -348,11 +455,14 @@ ferrisWheelSize = 375
 	// border-radius 50%
 	rect cabinSize
 	position relative
-
-	.cabin--core
+	.cabin--core, .cabin--core2
 		rect 100%
 		position absolute
 		nw 0
+	 .cabin--core2
+		transform scale(0)
+		transition all ferrisWheelTransitionCoef linear
+		transition-delay 0
 
 	.human
 		z-index 0
@@ -370,13 +480,13 @@ ferrisWheelSize = 375
 	.cabin--handle
 		background-color #9a3333
 		width  cabinHandleWidth
-		height 40*PX
 		position absolute
 		left 50%
 		top  50%
 		margin-left - (cabinHandleWidth/2)
 		z-index 0
 		transform-origin 50% top
+		height 0
 
 	.cabin--base
 		circle cabinSize
@@ -507,9 +617,10 @@ ferrisWheelSize = 375
 /* a68031dbfa095d64fc9b89f0a89b3173 */
 .ribbon-b
 	height 51px
-	width 500px
+	// width 500px
 	background #f9f0dd
 	position relative
+	display inline-block
 
 	> .text-be
 		font-size 38px
@@ -517,6 +628,10 @@ ferrisWheelSize = 375
 		line-height 51px
 		padding-left 16px
 		color darken(#64c2c1, 30)
+		z-index 2
+		position relative
+		white-space nowrap
+		padding-right 16px
 
 	> .rope-be
 		height 2px

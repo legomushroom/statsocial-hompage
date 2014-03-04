@@ -181,11 +181,15 @@
       start = 4.15 * this.frameDurationTime;
       this.$plane = this.$('#js-plane');
       this.$planeInner = this.$plane.find('#js-plane-inner');
+      this.$planeText = this.$plane.find('#js-plane-text');
       this.planeTween = TweenMax.to(this.$plane, .75, {
         css: {
           left: '-100%'
         },
-        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate, this)
+        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate, this),
+        onComplete: function() {
+          return _this.isPlaneText = false;
+        }
       });
       this.controller.addTween(start, this.planeTween, this.frameDurationTime * 3);
       this.scriptTween21 = TweenMax.to(this.$script2, .75, {
@@ -230,6 +234,7 @@
       this.$rollerCabinParent6 = this.$rollerCabin6.parent();
       this.$rollerCabin7 = this.$('#js-roller-cabin7');
       this.$rollerCabinParent7 = this.$rollerCabin7.parent();
+      this.$ferrisWheel = this.$('#js-ferris-wheel');
       this.$rollerText = this.$('#js-roller-text');
       this.rollerLine2Length = this.rollerLine2.getTotalLength();
       this.rollerText = this.$rollerText[0];
@@ -316,7 +321,57 @@
           }), 800);
         }
       });
-      return this.controller.addTween(start, this.carouselTriggerTween, 1);
+      this.controller.addTween(start, this.carouselTriggerTween, 1);
+      start = 13 * this.frameDurationTime;
+      this.planeTween2 = TweenMax.to(this.$plane, .75, {
+        css: {
+          left: '100%'
+        },
+        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate2, this),
+        onStart: function() {
+          _this.$plane.show();
+          _this.isPlaneHide = false;
+          return _this.$planeText.text('learn their affinities for 25000 brands interests celebrities and TV shows', {
+            onComplete: function() {
+              return _this.isPlaneText = false;
+            }
+          });
+        }
+      });
+      this.controller.addTween(start, this.planeTween2, this.frameDurationTime * 3);
+      start = 14.5 * this.frameDurationTime;
+      this.carouselTriggerTween = TweenMax.to({}, 1, {
+        onComplete: (function() {
+          _this.$scence3.addClass('is-show-ferris-wheel');
+          return setTimeout((function() {
+            return _this.$ferrisWheel.addClass('is-open');
+          }), 200);
+        }),
+        onReverseComplete: function() {
+          _this.$ferrisWheel.removeClass('is-open');
+          return setTimeout((function() {
+            return _this.$scence3.removeClass('is-show-ferris-wheel');
+          }), 800);
+        }
+      });
+      this.controller.addTween(start, this.carouselTriggerTween, 1);
+      start = 16 * this.frameDurationTime;
+      this.planeTween3 = TweenMax.to(this.$plane, .75, {
+        css: {
+          left: '-100%'
+        },
+        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate3, this),
+        onStart: function() {
+          _this.$plane.show();
+          _this.isPlaneHide = false;
+          return _this.$planeText.text('for data this rich we harvested across 60+ social networks', {
+            onComplete: function() {
+              return _this.isPlaneText = false;
+            }
+          });
+        }
+      });
+      return this.controller.addTween(start, this.planeTween3, this.frameDurationTime * 3);
     };
 
     App.prototype.onLineSimplifyUpdate = function() {
@@ -577,11 +632,71 @@
       }
       this.prevPlaneProgress = progress;
       if (progress >= 1) {
+        !this.isPlaneHide && this.$planeInner.addClass('is-flip');
         !this.isPlaneHide && this.$plane.hide();
         return this.isPlaneHide = true;
       } else {
+        this.setPlaneText('detailed statistics over many fine segments');
+        this.isPlaneText = true;
+        this.isPlaneHide && this.$planeInner.addClass('is-flip');
         this.isPlaneHide && this.$plane.show();
         return this.isPlaneHide = false;
+      }
+    };
+
+    App.prototype.onPlaneUpdate2 = function() {
+      var progress;
+
+      progress = this.planeTween2.totalProgress();
+      if (this.prevPlaneProgress > progress) {
+        !this.isPlaneFlip && this.$planeInner.removeClass('is-flip');
+        this.isPlaneFlip = true;
+      } else {
+        this.isPlaneFlip && this.$planeInner.addClass('is-flip');
+        this.isPlaneFlip = false;
+      }
+      this.prevPlaneProgress = progress;
+      if (progress >= 1) {
+        !this.isPlaneHide && this.$planeInner.removeClass('is-flip');
+        !this.isPlaneHide && this.$plane.hide();
+        return this.isPlaneHide = true;
+      } else {
+        this.setPlaneText('learn their affinities for 25000 brands interests celebrities and TV shows');
+        this.isPlaneText2 = true;
+        this.isPlaneHide && this.$planeInner.addClass('is-flip');
+        this.isPlaneHide && this.$plane.show();
+        return this.isPlaneHide = false;
+      }
+    };
+
+    App.prototype.onPlaneUpdate3 = function() {
+      var progress;
+
+      progress = this.planeTween3.totalProgress();
+      if (this.prevPlaneProgress < progress) {
+        !this.isPlaneFlip && this.$planeInner.removeClass('is-flip');
+        this.isPlaneFlip = true;
+      } else {
+        this.isPlaneFlip && this.$planeInner.addClass('is-flip');
+        this.isPlaneFlip = false;
+      }
+      this.prevPlaneProgress = progress;
+      if (progress >= 1) {
+        !this.isPlaneHide && this.$planeInner.removeClass('is-flip');
+        !this.isPlaneHide && this.$plane.hide();
+        return this.isPlaneHide = true;
+      } else {
+        this.setPlaneText('for data this rich we harvested across 60 social networks');
+        this.isPlaneText3 = true;
+        this.isPlaneHide && this.$plane.show();
+        return this.isPlaneHide = false;
+      }
+    };
+
+    App.prototype.setPlaneText = function(text) {
+      if (this.currPlaneText !== text) {
+        this.$planeText.text(text);
+        return this.currPlaneText = text;
       }
     };
 

@@ -58,6 +58,11 @@ groundHeight = 145px
 			.no-preserve-3d &
 				transform translateY(-38px) scale(1)
 
+	&.is-show-ferris-wheel
+		.ferris-wheel
+			transform translateY(0)
+			transition all .35s ease-out
+
 	.carousel
 		position absolute
 		right 0
@@ -68,6 +73,13 @@ groundHeight = 145px
 
 		.no-preserve-3d &
 			transform translateY(600px) scale(1)
+
+	.ferris-wheel
+		position absolute
+		bottom groundHeight + 15px
+		transform translateY(150%)
+		z-index 4
+		left 5%
 
 	.roller-coaster-b
 		position absolute
@@ -182,9 +194,14 @@ groundHeight = 145px
 		transform translateZ(0)
 
 		.plane-n-text-l
-			left 50%
+			// left 50% 
 			position absolute
-			margin-left - 380px
+			nw 0
+			// transition all .2s linear
+			&.is-flip
+				right 0
+				left auto
+			// margin-left - 380px
 
 
 
@@ -343,7 +360,6 @@ groundHeight = 145px
 		top  14%
 		transform scale(.95)
 
-
 	.curtain3-cloud5-lh
 		left 50%
 		top  18%
@@ -356,7 +372,6 @@ groundHeight = 145px
 		left 110%
 		top  16%
 		transform scale(1.45)
-
 
 	> .bg-ll
 		background #72d2d1 url('i/curtain-dots-bg3.png') repeat
@@ -538,7 +553,7 @@ animationTime = (70*coef)s
 	padding-bottom curtainMaskSize
 	overflow hidden
 	z-index 2
-	display none
+	// display none
 
 	.curtain-layer-lh
 		rect 200%
@@ -594,9 +609,11 @@ animationTime = (70*coef)s
 /* 76c1adee9e0430fc11ba2f1521e25b19 */
 .plane-n-text-l
 	position relative
-	transition all .5s linear
-	transform-origin 380px 0
-	width 760px
+	// transition all .5s linear
+	transform-origin 50% 0
+	// width 760px
+	display inline-block
+	
 	.ribbon-b
 		position absolute
 		top 5px
@@ -604,7 +621,6 @@ animationTime = (70*coef)s
 
 	&.is-flip
 		transform rotateY(180deg) translateZ(0)
-
 		.plane-n-text--text-bh
 			transform rotateY(-180deg) translateZ(0)
 
