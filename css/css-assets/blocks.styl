@@ -8,7 +8,6 @@ PX = (1/16)em
 	height 26*PX
 	width 10*PX
 	position relative
-
 	&:after
 		content ''
 		position absolute
@@ -234,7 +233,7 @@ ferrisWheelSize = 375
 			radius 	= ferrisWheelSize/2
 			angle = 0
 			.human
-				transition all ferrisWheelTransitionCoef linear
+				transition top ferrisWheelTransitionCoef linear
 			for i in 0..(cnt - 1)
 				&.n-{i}
 					.human-0
@@ -500,36 +499,43 @@ ferrisWheelSize = 375
 /* 0615c5aa8e19a9ef7fd683703b0e808a */
 .roller-coaster-b
 	min-height 540px
-
 	svg
 		display block
 		float left
-
 	.svg-graphs
 		right -320px
-
 	.marker-circle
 		stroke-width 2px
 		transition all .25s linear
-
 		&.is-no-stroke
 			stroke-width 0
-
 	.axe-line
 		stroke-width 5px
 		stroke #287e7b
-
 	.line
 		stroke-width 4px
 		stroke #54abaa
-
 	.line1
 		stroke #3da09f
-
+	.check-pattern
+		stroke #54abaa
+	.check-pattern1
+		stroke #3da09f
 	text
 		font-size 48px
 		font-family 'reklame-script'
 		fill white
+
+	.svg-cabin-wheel
+		fill #277877
+	.svg-cabin-base
+		fill #4CBBBB
+	.svg-cabin-base2
+		fill #79C8D1
+	.svg-cabin-base3
+		fill #399695
+	.svg-cabin-human
+		fill #43A4A3
 
 /* 25a33a14be99e39961e243eab6dfb19b */
 .bush-b
@@ -539,7 +545,6 @@ ferrisWheelSize = 375
 	/* e5c0c4aae260971b6410a1216ff32039 */
 	&.is-x2
 		rect 256px
-
 	/* c365ec5c7c6143e47a739146d5111f64 */
 	&.is-flip
 		> .part1-be
@@ -557,7 +562,6 @@ ferrisWheelSize = 375
 		> .part5-be
 			right 0
 			left auto
-
 		> .part6-be
 			right 16.4%
 			left auto
@@ -623,8 +627,9 @@ ferrisWheelSize = 375
 	display inline-block
 
 	> .text-be
-		font-size 38px
-		font-family 'reklame-script'
+		font-size 22px
+		font-family sans-serif
+		// openSans()
 		line-height 51px
 		padding-left 16px
 		color darken(#64c2c1, 30)
@@ -666,11 +671,31 @@ ferrisWheelSize = 375
 		border-bottom-color #f9f0dd
 
 .building-b
-	background #64c2c1
+	background #64c2c1 url('i/building-windows.svg') repeat 0% top
+	// background-size 100% auto
 	width 5.5%
 	height 50%
 	position relative
 	border 1px solid transparent
+
+	&:after
+		content ''
+		position absolute
+		width 6%
+		height 100%
+		background-color inherit
+		//hl green
+		ne 0
+		right -1px
+
+	// .building-b--window
+	// 	background-color transparent
+	// 	float left 
+	// 	rect 8px
+	// 	margin-left 5%
+	// 	margin-top 5px
+	// 	position relative
+	// 	z-index 2
 
 	> .text-be
 		font-size 26px
@@ -698,10 +723,12 @@ ferrisWheelSize = 375
 			border-bottom 90px solid #64c2c1
 			z-index 0
 			transition top .5s ease-out
+			display none
 
 	&.is-tip.curtain3-building7-lh
 		> .tip-be
 			top - 100px
+			display block
 		
 	&.is-show-label
 		> .text-be

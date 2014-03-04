@@ -41,12 +41,73 @@
 animationTime   = 200s
 animationEasing = ease
 groundHeight = 145px
+nightTransitionTime = .5s
 .curtain3-l
 	background #72d2d1
 	rect 100%
 	position absolute
 	nw 0
 	z-index 1
+	&.is-night
+		.cabin--base, .icon-banner
+			background-color #f2d577
+			transition all nightTransitionTime linear
+			transition-delay 0
+		> .bg-ll
+			background-color #095273
+			transition all nightTransitionTime linear
+		.cloud-b
+			// 4!
+			> .circle-be, > .base-be
+				background-color #4b99bd
+				transition all nightTransitionTime linear
+		cuildingColor = #18688d
+		.building-b
+			background-color cuildingColor
+			transition all nightTransitionTime linear
+			>	.tip-be
+				border-bottom-color cuildingColor
+				transition all nightTransitionTime linear
+		.line, .check-pattern
+			stroke #1b7daa
+		color = #2590be
+		.line1, .check-pattern1
+			stroke color
+			transition all nightTransitionTime linear
+		.marker-circle
+			fill color
+			transition all nightTransitionTime linear
+		humanColor = #153750
+		.human
+			background-color humanColor
+			transition all nightTransitionTime linear
+			transition-delay 0 II
+
+		.bush-b
+			> .part-be
+				background-color #70bb69
+				transition all nightTransitionTime linear
+				transition-delay 0
+			&.is-light 
+				> .part-be
+					background-color #55d38c
+
+		.svg-cabin-wheel
+			fill #13527b
+		.svg-cabin-base
+			fill #237ca6
+		.svg-cabin-base2
+			fill #3f98c2
+		.svg-cabin-base3
+			fill #1c7691
+		.svg-cabin-human
+			fill humanColor
+			transition all nightTransitionTime linear
+		.building-b--window__is-shown
+			background-color #3c777d
+		// for i in 1..250
+		// 	.building-b--window__is-r{i}
+		// 		transition-delay (random(0, 2)/10)*sec
 
 	&.is-show-bushes
 		.curtain3--bush-lh
@@ -644,7 +705,7 @@ animationTime = (70*coef)s
 		-webkit-tap-highlight-color: rgba(0,0,0,0);
 		rect 100%
 		width 100%
-		transform: translateZ(0) II
+		// transform: translateZ(0) II
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
 		-moz-user-select: none;

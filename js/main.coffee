@@ -7,7 +7,7 @@ class App
 		@buildAnimations()
 		@initParallax()
 
-		$('#js-toggle-carousel').on 'click', => $('.ferris-wheel').toggleClass('is-open')
+		$('#js-toggle-btn').on 'click', => $('#js-curtain3').toggleClass('is-night')
 
 	vars:->
 		@$main =  $('#js-main')
@@ -229,6 +229,10 @@ class App
 		@planeTween3  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate3,@), onStart:=> @$plane.show(); @isPlaneHide = false; @$planeText.text 'for data this rich we harvested across 60+ social networks', onComplete:=> @isPlaneText = false; }
 		@controller.addTween start, @planeTween3, @frameDurationTime*3
 
+		start = 18*@frameDurationTime
+		@nightTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-night')), onReverseComplete:=>(@$scence3.removeClass('is-night')) }
+		@controller.addTween start, @nightTriggerTween, 1
+
 
 	onLineSimplifyUpdate:-> 
 		if @lineSimplifyTween.totalProgress() > 0
@@ -445,7 +449,7 @@ class App
 			@isPlaneHide = true
 		else 
 			# !@isPlaneText2 and @$planeText.text 'learn their affinities for 25000 brands interests celebrities and TV shows' 
-			@setPlaneText 'learn their affinities for 25000 brands interests celebrities and TV shows' 
+			@setPlaneText 'learn their affinities for 25,000+ brands, interests, celebrities and TV shows' 
 			@isPlaneText2 = true
 			@isPlaneHide and @$planeInner.addClass('is-flip')
 			@isPlaneHide and @$plane.show()
@@ -468,7 +472,7 @@ class App
 			@isPlaneHide = true
 		else 
 			# if !@isPlaneText3 
-			@setPlaneText 'for data this rich we harvested across 60 social networks' 
+			@setPlaneText 'for data this rich we harvested across 60+ social networks' 
 			@isPlaneText3 = true
 			@isPlaneHide and @$plane.show()
 			@isPlaneHide = 	false
