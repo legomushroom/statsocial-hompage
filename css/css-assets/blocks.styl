@@ -22,6 +22,22 @@ craterShadowColor = #b99a6b
 	background-color #fad296
 	position relative
 	overflow hidden
+	&:before
+		content ''
+		position absolute
+		circle 100%
+		nw 0
+		background-color rgba(#f6c855, .58)
+		z-index 1
+	// .moon--chart
+	.moon--chart__1
+		width 50%
+		height 100%
+		position absolute
+		z-index 2
+		nw 0
+		background-color rgba(#4b99bd, .78)
+
 	.moon--crater
 		position absolute
 		circle 20%
