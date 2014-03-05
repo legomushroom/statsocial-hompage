@@ -15,13 +15,13 @@
 	.moon-n-text--side__right
 		color #f6c855
 		right 0
-	// .moon
-	// 	transform translateZ(0)
+	.moon
+		transform translateZ(0)
 
 craterShadowColor = #b99a6b
 .moon
 	circle 102px
-	background-color #fad296
+	retina 'i/moon' 100% #fad296
 	position relative
 	overflow hidden
 	&:before
@@ -31,72 +31,19 @@ craterShadowColor = #b99a6b
 		nw 0
 		background-color rgba(#f6c855, .58)
 		z-index 1
+		border-radius 50%
 	// .moon--chart
 	.moon--chart__1
-		width 50%
-		height 100%
+		width 51%
+		height 102%
 		position absolute
 		z-index 2
-		nw 0
+		nw -1px
 		background-color rgba(#4b99bd, .78)
+		border-top-left-radius  	100px
+		border-bottom-left-radius 100px
 
-	// .moon--crater
-	// 	position absolute
-	// 	circle 20%
-	// 	background-color #cfac78
-	// 	box-shadow inset 3px -2px 0 craterShadowColor
-	// .moon--crater__is-1
-	// 	top 7%
-	// 	left 41%
-	// .moon--crater__is-2
-	// 	circle 16%
-	// 	top 18%
-	// 	right 2.5%
-	// .moon--crater__is-3
-	// 	bottom 16%
-	// 	left 29%
-	// .moon--crater__is-4
-	// 	circle 30%
-	// 	bottom 20%
-	// 	right -7%
-	// 	box-shadow inset 5px -1px 0 craterShadowColor
-	// .moon--crater__is-5
-	// 	circle 25%
-	// 	top  0
-	// 	left 0
-	// .moon--crater__is-6
-	// 	circle 25%
-	// 	top  42%
-	// 	left -16%
-	// 	box-shadow none
-	// .moon--crater__is-7
-	// 	circle  15%
-	// 	bottom  13%
-	// 	left 		4%
-	// .moon--crater__is-8
-	// 	circle  10%
-	// 	bottom  -3%
-	// 	left 		26%
-	// .moon--crater__is-9
-	// 	circle  9%
-	// 	bottom  11%
-	// 	left 		59%
-	// 	box-shadow inset 2px -2px 0 craterShadowColor
-	// .moon--crater__is-10
-	// 	circle  14%
-	// 	bottom  1%
-	// 	left 		63%
-	// 	box-shadow inset 3px -2px 0 craterShadowColor
-	// .moon--crater__is-11
-	// 	circle  14%
-	// 	top  		31%
-	// 	left 		10%
-	// 	box-shadow none
-	// .moon--crater__is-12
-	// 	circle  12%
-	// 	top  		42%
-	// 	left 		14%
-	// 	box-shadow none
+	
 
 
 /* fba4ecd90d2db7a0f9b5ed45a89284b6 */
