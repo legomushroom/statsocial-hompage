@@ -124,6 +124,8 @@ class App
 		@$plane = @$('#js-plane')
 		@$planeInner = @$plane.find('#js-plane-inner')
 		@$planeText  = @$plane.find('#js-plane-text')
+		@$moon = @$('#js-moon')
+
 		@planeTween  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate,@), onComplete:=> @isPlaneText = false; }
 		@controller.addTween start, @planeTween, @frameDurationTime*3
 
@@ -234,8 +236,23 @@ class App
 		@controller.addTween start, @nightTriggerTween, 1
 
 		start = 19.5*@frameDurationTime
+		@moonTween  = TweenMax.to @$moon, .75, { x: 0, y: 0 }
+		@controller.addTween start, @moonTween, @frameDurationTime
+
+		start = 20.5*@frameDurationTime
 		@planeTween4  = TweenMax.to @$plane, .75, { css:{ left: '100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate4,@), onStart:=> @$plane.show(); @isPlaneHide = false; @$planeText.text 'unparalleled demographics', onComplete:=> @isPlaneText = false; }
 		@controller.addTween start, @planeTween4, @frameDurationTime*3
+
+		start = 21.5*@frameDurationTime
+		@moonTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$moon.addClass('is-moon-only')), onReverseComplete:=>(@$moon.removeClass('is-moon-only')) }
+		@controller.addTween start, @moonTriggerTween, 1
+
+		start = 22*@frameDurationTime
+		@entranceTween  = TweenMax.to @$('#js-entrance'), .75, { y: 0 }
+		@controller.addTween start, @entranceTween, @frameDurationTime
+
+
+		
 
 	onLineSimplifyUpdate:-> 
 		if @lineSimplifyTween.totalProgress() > 0

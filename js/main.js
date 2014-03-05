@@ -182,6 +182,7 @@
       this.$plane = this.$('#js-plane');
       this.$planeInner = this.$plane.find('#js-plane-inner');
       this.$planeText = this.$plane.find('#js-plane-text');
+      this.$moon = this.$('#js-moon');
       this.planeTween = TweenMax.to(this.$plane, .75, {
         css: {
           left: '-100%'
@@ -383,6 +384,12 @@
       });
       this.controller.addTween(start, this.nightTriggerTween, 1);
       start = 19.5 * this.frameDurationTime;
+      this.moonTween = TweenMax.to(this.$moon, .75, {
+        x: 0,
+        y: 0
+      });
+      this.controller.addTween(start, this.moonTween, this.frameDurationTime);
+      start = 20.5 * this.frameDurationTime;
       this.planeTween4 = TweenMax.to(this.$plane, .75, {
         css: {
           left: '100%'
@@ -398,7 +405,22 @@
           });
         }
       });
-      return this.controller.addTween(start, this.planeTween4, this.frameDurationTime * 3);
+      this.controller.addTween(start, this.planeTween4, this.frameDurationTime * 3);
+      start = 21.5 * this.frameDurationTime;
+      this.moonTriggerTween = TweenMax.to({}, 1, {
+        onComplete: (function() {
+          return _this.$moon.addClass('is-moon-only');
+        }),
+        onReverseComplete: function() {
+          return _this.$moon.removeClass('is-moon-only');
+        }
+      });
+      this.controller.addTween(start, this.moonTriggerTween, 1);
+      start = 22 * this.frameDurationTime;
+      this.entranceTween = TweenMax.to(this.$('#js-entrance'), .75, {
+        y: 0
+      });
+      return this.controller.addTween(start, this.entranceTween, this.frameDurationTime);
     };
 
     App.prototype.onLineSimplifyUpdate = function() {
