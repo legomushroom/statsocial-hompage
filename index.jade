@@ -81,8 +81,6 @@ html
 									.curtain2-section-lh.is-even
 										.curtain2-section-inner-lh
 
-
-
 				.curtain3-l#js-curtain3
 					.bg-ll#js-bg
 					.ground-ll#js-ground
@@ -240,8 +238,6 @@ html
 					- el = { tale: '#baloon-tale1', class: 'baloon__is-red curtain3--baloon-red2', id: ''} 
 					include css/partials/baloon
 
-				
-
 					- var icons = ['facebook', 'linkedin', 'google-plus', 'foursquare', 'quora', 'blogging', 'youtube', 'myspace' ]
 					.ferris-wheel#js-ferris-wheel
 						.ferris-wheel--core
@@ -273,6 +269,14 @@ html
 							.ferris-base--spike.is-1
 							.ferris-base--spike.is-2
 							.ferris-base--handle
+
+					.moon-n-text
+						.moon-n-text--side.moon-n-text--side__left Male
+							div 50%
+						.moon-n-text--side.moon-n-text--side__right Female
+							div 50%
+						- el = { class: '', id: ''} 
+						include css/partials/moon
 
 					.carousel#js-carousel
 						.carousel-top
@@ -323,7 +327,6 @@ html
 														- el = { }
 														- icon = { path: icons[r]+'-icon' }
 														include css/partials/icon-banner
-
 
 		script(src="js/modernizr.js")
 		script(src="js/jquery-2.1.0.min.js")
