@@ -2,17 +2,17 @@
 @import '../assets/imports.styl'
 
 .script-l
-	font-family 'reklame-script'
+	outage()
 	color white
 	position absolute
 	z-index 5
 	text-align center
 	width 100%
-	font-size 50px
+	font-size 40px
 	transform translateZ(0)
 
 	&.is-status-quo
-		font-size 130px
+		font-size 90px
 		top 50%
 		margin-top -100px
 
@@ -20,9 +20,11 @@
 		bottom 0
 		// margin-top 40px
 		opacity 0
+		openSans()
 
-	scriptWidth = 540px
+	scriptWidth = 640px
 	&.is-2
+		openSans()
 		color white
 		top 50%
 		margin-top - 50px
@@ -41,92 +43,88 @@
 animationTime   = 200s
 animationEasing = ease
 groundHeight = 145px
-nightTransitionTime = .5s
+nightTransitionTime = 1.5s
 .curtain3-l
 	background #72d2d1
 	rect 100%
 	position absolute
 	nw 0
 	z-index 1
-	&.is-night
-		.cabin--base, .icon-banner
-			background-color #f2d577
-			transition all nightTransitionTime linear
-			transition-delay 0
-		> .bg-ll
-			background-color #095273
-			transition all nightTransitionTime linear
-		.cloud-b
-			// 4!
-			> .circle-be, > .base-be
-				background-color #4b99bd
-				transition all nightTransitionTime linear
-		cuildingColor = #18688d
-		.building-b
-			background-color cuildingColor
-			transition all nightTransitionTime linear
-			>	.tip-be
-				border-bottom-color cuildingColor
-				transition all nightTransitionTime linear
-		.line, .check-pattern
-			stroke #1b7daa
-		color = #2590be
-		.line1, .check-pattern1
-			stroke color
-			transition all nightTransitionTime linear
-		.marker-circle
-			fill color
-			transition all nightTransitionTime linear
-		humanColor = #153750
-		.human
-			background-color humanColor
-			transition all nightTransitionTime linear
-			transition-delay 0 II
-
-		.bush-b
-			> .part-be
-				background-color #70bb69
-				transition all nightTransitionTime linear
-				transition-delay 0
-			&.is-light 
-				> .part-be
-					background-color #55d38c
+	// .moon-n-text, .cabin--base, .icon-banner, > .bg-ll,
+	// .line1, .check-pattern1, .marker-circle, .human, .svg-cabin-human
+	// 	transition all nightTransitionTime linear
+	// &.is-night
+	// 	.moon-n-text
+	// 		transform translateX(0) translateY(0)
+	// 	.cabin--base, .icon-banner
+	// 		background-color #f2d577
+	// 		transition-delay 0
+	// 	> .bg-ll
+	// 		background-color #095273
+	// 	.cloud-b
+	// 		// 4!
+	// 		> .circle-be, > .base-be
+	// 			background-color #4b99bd
+	// 			transition all nightTransitionTime linear
+	// 	cuildingColor = #18688d
+	// 	.building-b
+	// 		background-color cuildingColor
+	// 		transition all nightTransitionTime linear
+	// 		>	.tip-be
+	// 			border-bottom-color cuildingColor
+	// 			transition all nightTransitionTime linear
+	// 	.line, .check-pattern
+	// 		stroke #1b7daa
+	// 	color = #2590be
+	// 	.line1, .check-pattern1
+	// 		stroke color
+	// 	.marker-circle
+	// 		fill color
+	// 	humanColor = #153750
+	// 	.human
+	// 		background-color humanColor
+	// 		transition-delay 0 II
+	// 	.bush-b
+	// 		> .part-be
+	// 			background-color #70bb69
+	// 			transition all nightTransitionTime linear
+	// 			transition-delay 0
+	// 		&.is-light 
+	// 			> .part-be
+	// 				background-color #55d38c
 		
-		ribbonColor = #6ab4d7
-		.ribbon-b
-			background-color ribbonColor
-			transition all nightTransitionTime linear
-			> .text-be
-				color #095273
-				color white
-			> .rope-be, > .rope2-be
-				background-color ribbonColor
-			> .tale-be
-				border-top-color ribbonColor
-			> .tale2-be
-				border-bottom-color ribbonColor
+	// 	ribbonColor = #6ab4d7
+	// 	.ribbon-b
+	// 		background-color ribbonColor
+	// 		transition all nightTransitionTime linear
+	// 		> .text-be
+	// 			color #095273
+	// 			color white
+	// 		> .rope-be, > .rope2-be
+	// 			background-color ribbonColor
+	// 		> .tale-be
+	// 			border-top-color ribbonColor
+	// 		> .tale2-be
+	// 			border-bottom-color ribbonColor
 
-		.svg-cabin-wheel
-			fill #13527b
-		.svg-cabin-base
-			fill #237ca6
-		.svg-cabin-base2
-			fill #3f98c2
-		.svg-cabin-base3
-			fill #1c7691
-		.svg-cabin-human
-			fill humanColor
-			transition all nightTransitionTime linear
+	// 	.svg-cabin-wheel
+	// 		fill #13527b
+	// 	.svg-cabin-base
+	// 		fill #237ca6
+	// 	.svg-cabin-base2
+	// 		fill #3f98c2
+	// 	.svg-cabin-base3
+	// 		fill #1c7691
+	// 	.svg-cabin-human
+	// 		fill humanColor
 
-		.building-b
-			// border 8px solid #13688d
-			// background #13688d url('i/building-windows.svg') repeat left top
-			background #13688d 
-		// .building-b--window__is-shown
-		// 	background-color #3c777d
-		// for i in 1..250
-		// 	.building-b--window__is-r{i}
-		// 		transition-delay (random(0, 2)/10)*sec
+	// .building-b
+	// 	background #13688d 
+	// .building-b--window__is-shown
+	// 	background-color #3c777d
+	// for i in 1..250
+	// 	.building-b--window__is-r{i}
+	// 		transition-delay (random(0, 2)/10)*sec
 
 	&.is-show-bushes
 		.curtain3--bush-lh
@@ -148,7 +146,7 @@ nightTransitionTime = .5s
 		bottom groundHeight - 4px
 		left 50%
 		margin-left -224px
-		z-index 4
+		z-index 5
 		transform translateY(292px + groundHeight)
 	
 	.moon-n-text
@@ -483,7 +481,7 @@ nightTransitionTime = .5s
 		transform translateY(100%)
 		background #493542 url('i/curtain-dots-bg3.png') repeat
 		background-position 0 -200px
-		z-index 5
+		z-index 9
 
 .curtain3--baloon-red1
 	nw 10%

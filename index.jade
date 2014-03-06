@@ -11,6 +11,7 @@ html
 		-		return Math.floor((Math.random() * ((b + 1) - a)) + a);
 		-	}
 
+
 		button#js-toggle-btn(style="position: relative; z-index:1;")	toggle
 		- var el = { }
 		include css/icons.svg
@@ -210,7 +211,7 @@ html
 							g(transform="translate(-50,-50)")
 								use(xlink:href="#roller-cabin", id="js-roller-cabin7")
 
-							text(transform="translate(0, -20)")
+							text(transform="translate(5, -10)")
 								textPath(id="js-roller-text", xlink:href="#js-roller-line2", startOffset="-540") your social audience tracked over time
 
 							g(transform="translate(-50,-50)")
@@ -249,10 +250,6 @@ html
 										- el = { class: 'human-'+j, id: '' }
 										include css/partials/human
 
-							.ferris-wheel--base
-								- el = { path: 'twitter-icon'  }
-								include css/partials/icon
-
 							.ferris-wheel--circle1
 							.ferris-wheel--circle2
 
@@ -264,11 +261,17 @@ html
 								.ferris-wheel--spike(class="s-#{i}")
 
 						.ferris-base
+							.ferris-base--center
+								- el = { path: 'twitter-icon'  }
+								include css/partials/icon
+								
 							.ferris-base--top
 							.ferris-base--main
 							.ferris-base--spike.is-1
 							.ferris-base--spike.is-2
 							.ferris-base--handle
+
+
 
 					.moon-n-text#js-moon
 						.moon-n-text--side.moon-n-text--side__left Male

@@ -172,7 +172,6 @@ width = 90%
 	bottom -1.5em - 2*PX
 	background-color #571313
 
-
 .dome
 	position absolute
 	display inline-block
@@ -227,32 +226,25 @@ width = 90%
 	opacity:1
 
 
-width = 8.3em
-height = 5em
+width = 134*PX
+height = 80*PX
 .banner
 	width width
 	height height
 	top -(height/2)
 	left -(width/2) + (3.1581877625221533/2)em
-	background-color #f6c855
+	retina 'i/brands', 100%, transparent
 	position absolute
-	border-radius 50%
 	backface-visibility hidden
 	transform translateZ(2*PX)
-
-	&.is-celebrities, &.is-interests
-		fontSize = 40*PX
-		.banner--text
-			font-size fontSize
-			padding-top 8*PX
-
+	&.is-celebrities
+		retina 'i/celebrities', 100%, transparent
+	&.is-interests
+		retina 'i/interests', 100%, transparent
 	&.is-tv-shows
-		fontSize = 46*PX
-		.banner--text
-			font-size fontSize
-			padding-top 7*PX
+		retina 'i/tv-shows', 100%, transparent
 
-fontSize = 50*PX
+fontSize = 32*PX
 .banner--text
 	font-size fontSize
 	padding-top 5*PX
@@ -260,7 +252,7 @@ fontSize = 50*PX
 	text-align center
 	position relative
 	z-index 1
-	font-family 'reklame-script'
+	// outage()
 
 size = 28*PX
 .banner--circle

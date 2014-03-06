@@ -1,6 +1,7 @@
 // BLOCKS
 @import '../assets/imports.styl'
 
+
 .entrance
 	width  455px
 	height 292px
@@ -238,16 +239,10 @@ ferrisWheelSize = 375
 	z-index 20
 
 	.ferris-wheel--core
-		-webkit-animation-fill-mode both
-		-moz-animation-fill-mode both
-		-o-animation-fill-mode both
 		animation-fill-mode both
 		animation ferris-wheel-rotate 30s linear infinite
 
 	.cabin--core
-		-webkit-animation-fill-mode both
-		-moz-animation-fill-mode both
-		-o-animation-fill-mode both
 		animation-fill-mode both
 		animation ferris-cabin-rotate 30s linear infinite
 
@@ -262,7 +257,7 @@ ferrisWheelSize = 375
 			transform translateY(0)
 			transition all 0 linear
 
-		.ferris-wheel--base
+		.ferris-base--center
 			transform scale(1)
 			transition all ferrisWheelTransitionCoef cubic-bezier(0.350, 1.650, 0.375, 0.790);
 			transition-delay 4.5*ferrisWheelTransitionCoef
@@ -372,6 +367,24 @@ ferrisWheelSize = 375
 		transform translateY(300px)
 		transition all ferrisWheelTransitionCoef line
 
+	size = 115*PX
+	.ferris-base--center
+		background-color #ff6d6a
+		circle size
+		transform scale(0)
+		z-index 0
+		top - 222*PX
+		position absolute
+		left 50%
+		margin-left - (size/2)
+		
+		iconSize = 67.5%
+		.icon
+			fill #fff
+			rect iconSize
+			left ((100% - iconSize)/1.65)
+			top  ((100% - iconSize)/1.65)
+
 	.ferris-wheel--spike
 		width  3*PX
 		height 0
@@ -438,21 +451,6 @@ ferrisWheelSize = 375
 		transform scale(0)
 		transition all ferrisWheelTransitionCoef linear
 		transition-delay 2*ferrisWheelTransitionCoef
-
-	size = 115*PX
-	.ferris-wheel--base
-		background-color #ff6d6a
-		circle size
-		center-shift (size)
-		transform scale(0)
-		z-index 2
-		
-		iconSize = 67.5%
-		.icon
-			fill #fff
-			rect iconSize
-			left ((100% - iconSize)/1.65)
-			top  ((100% - iconSize)/1.65)
 
 	.cabin
 		position absolute
@@ -617,9 +615,9 @@ ferrisWheelSize = 375
 	.check-pattern1
 		stroke #3da09f
 	text
-		font-size 48px
-		font-family 'reklame-script'
+		font-size 40px
 		fill white
+		openSans()
 
 	.svg-cabin-wheel
 		fill #277877

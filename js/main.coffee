@@ -58,7 +58,6 @@ class App
 	buildAnimations:->
 		@frameDurationTime = 1000
 
-
 		# THE FIRST CURTAIN
 		@curtainTween1 	= TweenMax.to @$('.curtain-l'), .75,  { css:{ top: '-100%' }, onUpdate: StatSocial.helpers.bind(@onCurtain1Update,@) }
 		@curtainTween2 	= TweenMax.to @$scence2, .75, { css:{ top: '-22px', y: 0 }, onStart:=> @$scence2.css('display': 'block') }
@@ -220,7 +219,7 @@ class App
 		@controller.addTween start, @carouselTriggerTween, 1
 
 		start = 13*@frameDurationTime
-		@planeTween2  = TweenMax.to @$plane, .75, { css:{ left: '100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate2,@), onStart:=> @$plane.show();  @isPlaneHide = false; @$planeText.text 'learn their affinities for 25000 brands interests celebrities and TV shows', onComplete:=> @isPlaneText = false; }
+		@planeTween2  = TweenMax.to @$plane, .75, { css:{ left: '100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate2,@), onStart:=> @$plane.show();  @isPlaneHide = false; @$planeText.text 'learn their affinities for 25,000+ brands, interests, celebrities, and TV shows', onComplete:=> @isPlaneText = false; }
 		@controller.addTween start, @planeTween2, @frameDurationTime*3
 
 		start = 14.5*@frameDurationTime
@@ -239,20 +238,61 @@ class App
 		@moonTween  = TweenMax.to @$moon, .75, { x: 0, y: 0 }
 		@controller.addTween start, @moonTween, @frameDurationTime
 
+		start = 19.5*@frameDurationTime
+		@nightDuration = 1*@frameDurationTime
+		@controller.addTween start, TweenMax.to(@$('.cabin--base, .icon-banner'), 1, { backgroundColor: '#f2d577' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('#js-bg'), 1, { backgroundColor: '#095273' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.cloud-b > *'), 1, { backgroundColor: '#4b99bd' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.building-b'), 1, { backgroundColor: '#13688d' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.human'), 1, { backgroundColor: '#153750' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.bush-b > .part-be'), 1, { backgroundColor: '#70bb69' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.bush-b.is-light > .part-be'), 1, { backgroundColor: '#55d38c' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.ribbon-b, .ribbon-b > .rope-be, .ribbon-b > .rope2-be'), 1, { backgroundColor: '#6ab4d7' }), @nightDuration
+		
+		# .building-b
+		# 	>	.tip-be
+		# 		border-bottom-color #18688d
+		# .line, .check-pattern
+		# 	stroke #1b7daa
+		# color = #2590be
+		# .line1, .check-pattern1
+		# 	stroke color
+		# .marker-circle
+		# 	fill color
+		# ribbonColor = #6ab4d7
+		# .ribbon-b
+		# 	> .text-be
+		# 		color #095273
+		# 		color white
+		# 	> .tale-be
+		# 		border-top-color ribbonColor
+		# 	> .tale2-be
+		# 		border-bottom-color ribbonColor
+
+		# .svg-cabin-wheel
+		# 	fill #13527b
+		# .svg-cabin-base
+		# 	fill #237ca6
+		# .svg-cabin-base2
+		# 	fill #3f98c2
+		# .svg-cabin-base3
+		# 	fill #1c7691
+		# .svg-cabin-human
+		# 	fill humanColor
+
+
 		start = 20.5*@frameDurationTime
 		@planeTween4  = TweenMax.to @$plane, .75, { css:{ left: '100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate4,@), onStart:=> @$plane.show(); @isPlaneHide = false; @$planeText.text 'unparalleled demographics', onComplete:=> @isPlaneText = false; }
 		@controller.addTween start, @planeTween4, @frameDurationTime*3
 
 		start = 21.5*@frameDurationTime
-		@moonTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$moon.addClass('is-moon-only')), onReverseComplete:=>(@$moon.removeClass('is-moon-only')) }
-		@controller.addTween start, @moonTriggerTween, 1
-
-		start = 22*@frameDurationTime
 		@entranceTween  = TweenMax.to @$('#js-entrance'), .75, { y: 0 }
 		@controller.addTween start, @entranceTween, @frameDurationTime
 
+		start = 23.5*@frameDurationTime
+		@moonTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$moon.addClass('is-moon-only')), onReverseComplete:=>(@$moon.removeClass('is-moon-only')) }
+		@controller.addTween start, @moonTriggerTween, 1
 
-		
 
 	onLineSimplifyUpdate:-> 
 		if @lineSimplifyTween.totalProgress() > 0
@@ -469,7 +509,7 @@ class App
 			@isPlaneHide = true
 		else 
 			# !@isPlaneText2 and @$planeText.text 'learn their affinities for 25000 brands interests celebrities and TV shows' 
-			@setPlaneText 'learn their affinities for 25,000+ brands, interests, celebrities and TV shows' 
+			@setPlaneText 'learn their affinities for 25,000+ brands, interests, celebrities, and TV shows' 
 			@isPlaneText2 = true
 			@isPlaneHide and @$planeInner.addClass('is-flip')
 			@isPlaneHide and @$plane.show()

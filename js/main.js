@@ -332,7 +332,7 @@
         onStart: function() {
           _this.$plane.show();
           _this.isPlaneHide = false;
-          return _this.$planeText.text('learn their affinities for 25000 brands interests celebrities and TV shows', {
+          return _this.$planeText.text('learn their affinities for 25,000+ brands, interests, celebrities, and TV shows', {
             onComplete: function() {
               return _this.isPlaneText = false;
             }
@@ -389,6 +389,32 @@
         y: 0
       });
       this.controller.addTween(start, this.moonTween, this.frameDurationTime);
+      start = 19.5 * this.frameDurationTime;
+      this.nightDuration = 1 * this.frameDurationTime;
+      this.controller.addTween(start, TweenMax.to(this.$('.cabin--base, .icon-banner'), 1, {
+        backgroundColor: '#f2d577'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('#js-bg'), 1, {
+        backgroundColor: '#095273'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.cloud-b > *'), 1, {
+        backgroundColor: '#4b99bd'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.building-b'), 1, {
+        backgroundColor: '#13688d'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.human'), 1, {
+        backgroundColor: '#153750'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.bush-b > .part-be'), 1, {
+        backgroundColor: '#70bb69'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.bush-b.is-light > .part-be'), 1, {
+        backgroundColor: '#55d38c'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.ribbon-b, .ribbon-b > .rope-be, .ribbon-b > .rope2-be'), 1, {
+        backgroundColor: '#6ab4d7'
+      }), this.nightDuration);
       start = 20.5 * this.frameDurationTime;
       this.planeTween4 = TweenMax.to(this.$plane, .75, {
         css: {
@@ -407,6 +433,11 @@
       });
       this.controller.addTween(start, this.planeTween4, this.frameDurationTime * 3);
       start = 21.5 * this.frameDurationTime;
+      this.entranceTween = TweenMax.to(this.$('#js-entrance'), .75, {
+        y: 0
+      });
+      this.controller.addTween(start, this.entranceTween, this.frameDurationTime);
+      start = 23.5 * this.frameDurationTime;
       this.moonTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
           return _this.$moon.addClass('is-moon-only');
@@ -415,12 +446,7 @@
           return _this.$moon.removeClass('is-moon-only');
         }
       });
-      this.controller.addTween(start, this.moonTriggerTween, 1);
-      start = 22 * this.frameDurationTime;
-      this.entranceTween = TweenMax.to(this.$('#js-entrance'), .75, {
-        y: 0
-      });
-      return this.controller.addTween(start, this.entranceTween, this.frameDurationTime);
+      return this.controller.addTween(start, this.moonTriggerTween, 1);
     };
 
     App.prototype.onLineSimplifyUpdate = function() {
@@ -710,7 +736,7 @@
         !this.isPlaneHide && this.$plane.hide();
         return this.isPlaneHide = true;
       } else {
-        this.setPlaneText('learn their affinities for 25,000+ brands, interests, celebrities and TV shows');
+        this.setPlaneText('learn their affinities for 25,000+ brands, interests, celebrities, and TV shows');
         this.isPlaneText2 = true;
         this.isPlaneHide && this.$planeInner.addClass('is-flip');
         this.isPlaneHide && this.$plane.show();

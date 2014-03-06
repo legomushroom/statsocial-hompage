@@ -3,9 +3,15 @@ br = 3px
 PX = (1/16)em
 sec = 1s
 
+outage()
+	font-family 'outageregular'
+
+openSans()
+	font-family 'Open Sans', sans-serif
+
 // random number between min and max
 random(a,b)
-  return math(math(0, 'random')*(b - a + 1) + a, 'floor')
+	return math(math(0, 'random')*(b - a + 1) + a, 'floor')
 
 center-shift(size)
 	margin-top:  -(size/2)
@@ -96,6 +102,11 @@ transition-timing-function()
 	-o-transition-timing-function arguments
 	transition-timing-function arguments
 
+animation-fill-mode()
+	-webkit-animation-fill-mode arguments
+	-moz-animation-fill-mode arguments
+	-o-animation-fill-mode arguments
+	animation-fill-mode arguments
 
 transform()
 	-webkit-transform arguments
