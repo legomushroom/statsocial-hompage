@@ -7,7 +7,7 @@ class App
 		@buildAnimations()
 		@initParallax()
 
-		$('#js-toggle-btn').on 'click', => $('#js-curtain3').toggleClass('is-night')
+		# $('#js-toggle-btn').on 'click', => $('#js-curtain3').toggleClass('is-night')
 
 	vars:->
 		@$main =  $('#js-main')

@@ -4,16 +4,11 @@
 
   App = (function() {
     function App() {
-      var _this = this;
-
       this.vars();
       this.initScroll();
       this.initController();
       this.buildAnimations();
       this.initParallax();
-      $('#js-toggle-btn').on('click', function() {
-        return $('#js-curtain3').toggleClass('is-night');
-      });
     }
 
     App.prototype.vars = function() {
