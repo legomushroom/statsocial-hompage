@@ -240,46 +240,27 @@ class App
 
 		start = 19.5*@frameDurationTime
 		@nightDuration = 1*@frameDurationTime
+		$cloudParts = @$('.cloud-b > *')
 		@controller.addTween start, TweenMax.to(@$('.cabin--base, .icon-banner'), 1, { backgroundColor: '#f2d577' }), @nightDuration
 		@controller.addTween start, TweenMax.to(@$('#js-bg'), 1, { backgroundColor: '#095273' }), @nightDuration
-		@controller.addTween start, TweenMax.to(@$('.cloud-b > *'), 1, { backgroundColor: '#4b99bd' }), @nightDuration
+		@controller.addTween start, TweenMax.to($cloudParts, 1, { backgroundColor: '#4b99bd', onStart:(=> $cloudParts.addClass 'no-transition-g-i'), onReverseComplete:(=>$cloudParts.removeClass 'no-transition-g-i') }), @nightDuration
 		@controller.addTween start, TweenMax.to(@$('.building-b'), 1, { backgroundColor: '#13688d' }), @nightDuration
 		@controller.addTween start, TweenMax.to(@$('.human'), 1, { backgroundColor: '#153750' }), @nightDuration
 		@controller.addTween start, TweenMax.to(@$('.bush-b > .part-be'), 1, { backgroundColor: '#70bb69' }), @nightDuration
 		@controller.addTween start, TweenMax.to(@$('.bush-b.is-light > .part-be'), 1, { backgroundColor: '#55d38c' }), @nightDuration
 		@controller.addTween start, TweenMax.to(@$('.ribbon-b, .ribbon-b > .rope-be, .ribbon-b > .rope2-be'), 1, { backgroundColor: '#6ab4d7' }), @nightDuration
-		
-		# .building-b
-		# 	>	.tip-be
-		# 		border-bottom-color #18688d
-		# .line, .check-pattern
-		# 	stroke #1b7daa
-		# color = #2590be
-		# .line1, .check-pattern1
-		# 	stroke color
-		# .marker-circle
-		# 	fill color
-		# ribbonColor = #6ab4d7
-		# .ribbon-b
-		# 	> .text-be
-		# 		color #095273
-		# 		color white
-		# 	> .tale-be
-		# 		border-top-color ribbonColor
-		# 	> .tale2-be
-		# 		border-bottom-color ribbonColor
-
-		# .svg-cabin-wheel
-		# 	fill #13527b
-		# .svg-cabin-base
-		# 	fill #237ca6
-		# .svg-cabin-base2
-		# 	fill #3f98c2
-		# .svg-cabin-base3
-		# 	fill #1c7691
-		# .svg-cabin-human
-		# 	fill humanColor
-
+		@controller.addTween start, TweenMax.to(@$('.ribbon-b > .text-be'), 1, { color: '#ffffff' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.ribbon-b > .tale-be'), 1, { borderTopColor: '#6ab4d7' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.ribbon-b > .tale2-be'), 1, { borderBottomColor: '#6ab4d7' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.building-b > .tip-be'), 1, { borderBottomColor: '#18688d' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.line, .check-pattern'), 1, { stroke: '#1b7daa' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.line1, .check-pattern1'), 1, { stroke: '#2590be' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.marker-circle'), 1, { fill: '#2590be' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.svg-cabin-wheel'), 1, { fill: '#13527b' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.svg-cabin-base'), 1, { fill: '#237ca6' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.svg-cabin-base2'), 1, { fill: '#3f98c2' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.svg-cabin-base3'), 1, { fill: '#1c7691' }), @nightDuration
+		@controller.addTween start, TweenMax.to(@$('.svg-cabin-human'), 1, { fill: '#153750' }), @nightDuration
 
 		start = 20.5*@frameDurationTime
 		@planeTween4  = TweenMax.to @$plane, .75, { css:{ left: '100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate4,@), onStart:=> @$plane.show(); @isPlaneHide = false; @$planeText.text 'unparalleled demographics', onComplete:=> @isPlaneText = false; }
@@ -289,7 +270,7 @@ class App
 		@entranceTween  = TweenMax.to @$('#js-entrance'), .75, { y: 0 }
 		@controller.addTween start, @entranceTween, @frameDurationTime
 
-		start = 23.5*@frameDurationTime
+		start = 22*@frameDurationTime
 		@moonTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$moon.addClass('is-moon-only')), onReverseComplete:=>(@$moon.removeClass('is-moon-only')) }
 		@controller.addTween start, @moonTriggerTween, 1
 

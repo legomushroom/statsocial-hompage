@@ -177,6 +177,8 @@ html
 									rect(width="1300", height="5", fill="#54adaa")#js-check-horizontal-pattern
 								pattern#check-pattern-horizontal-double(width="1300", height="39", patternUnits="userSpaceOnUse")
 									rect(width="1300", height="5", fill="#3da09f")#js-check-horizontal-pattern-double
+								
+							mixin cabin()
 								g(id="roller-cabin")
 									path(class="svg-cabin-wheel", d='M11.358,17.651c1.51,0.961,1.963,2.965,1.012,4.477 s-2.947,1.959-4.458,1c-1.51-0.961-1.963-2.964-1.012-4.477C7.853,17.14,9.848,16.692,11.358,17.651z')
 									path(class="svg-cabin-wheel", d='M28.287,17.887c1.51,0.96,1.963,2.964,1.012,4.476 s-2.947,1.959-4.457,1c-1.512-0.96-1.963-2.964-1.012-4.476S26.777,16.927,28.287,17.887z')
@@ -203,23 +205,30 @@ html
 							//- path(id="js-roller-line1", class="line", transform="translate(0, 500a)", fill="none", marker-mid="url(#marker-circle)", d="M-111,263L147,273 L312,315 L500,400 L700,200 L800,150 L900,200 L1000,80 L1200,60 L1300,90 L1500,90")
 							
 							g(transform="translate(-50,-50)")
-								use(xlink:href="#roller-cabin", id="js-roller-cabin4")
+								g#js-roller-cabin4
+									+cabin()
 							g(transform="translate(-50,-50)")
-								use(xlink:href="#roller-cabin", id="js-roller-cabin5")
+								g#js-roller-cabin5
+									+cabin()
 							g(transform="translate(-50,-50)")
-								use(xlink:href="#roller-cabin", id="js-roller-cabin6")
+								g#js-roller-cabin6
+									+cabin()
 							g(transform="translate(-50,-50)")
-								use(xlink:href="#roller-cabin", id="js-roller-cabin7")
+								g#js-roller-cabin7
+									+cabin()
 
 							text(transform="translate(5, -10)")
 								textPath(id="js-roller-text", xlink:href="#js-roller-line2", startOffset="-540") your social audience tracked over time
 
 							g(transform="translate(-50,-50)")
-								use(xlink:href="#roller-cabin", id="js-roller-cabin1")
+								g#js-roller-cabin1
+									+cabin()
 							g(transform="translate(-50,-50)")
-								use(xlink:href="#roller-cabin", id="js-roller-cabin2")
+								g#js-roller-cabin2
+									+cabin()
 							g(transform="translate(-50,-50)")
-								use(xlink:href="#roller-cabin", id="js-roller-cabin3")
+								g#js-roller-cabin3
+									+cabin()
 
 					- el = { tale: '#baloon-tale1', class: 'curtain3--baloon-yellow1', id: ''} 
 					include css/partials/baloon

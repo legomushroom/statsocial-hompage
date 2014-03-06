@@ -69,7 +69,7 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $buildings, $bush, $bushes, $clouds, $el, $images, $rightEls, bush, el, i, start, _i, _j, _k, _len, _len1, _ref,
+      var $buildings, $bush, $bushes, $cloudParts, $clouds, $el, $images, $rightEls, bush, el, i, start, _i, _j, _k, _len, _len1, _ref,
         _this = this;
 
       this.frameDurationTime = 1000;
@@ -391,14 +391,21 @@
       this.controller.addTween(start, this.moonTween, this.frameDurationTime);
       start = 19.5 * this.frameDurationTime;
       this.nightDuration = 1 * this.frameDurationTime;
+      $cloudParts = this.$('.cloud-b > *');
       this.controller.addTween(start, TweenMax.to(this.$('.cabin--base, .icon-banner'), 1, {
         backgroundColor: '#f2d577'
       }), this.nightDuration);
       this.controller.addTween(start, TweenMax.to(this.$('#js-bg'), 1, {
         backgroundColor: '#095273'
       }), this.nightDuration);
-      this.controller.addTween(start, TweenMax.to(this.$('.cloud-b > *'), 1, {
-        backgroundColor: '#4b99bd'
+      this.controller.addTween(start, TweenMax.to($cloudParts, 1, {
+        backgroundColor: '#4b99bd',
+        onStart: (function() {
+          return $cloudParts.addClass('no-transition-g-i');
+        }),
+        onReverseComplete: (function() {
+          return $cloudParts.removeClass('no-transition-g-i');
+        })
       }), this.nightDuration);
       this.controller.addTween(start, TweenMax.to(this.$('.building-b'), 1, {
         backgroundColor: '#13688d'
@@ -414,6 +421,42 @@
       }), this.nightDuration);
       this.controller.addTween(start, TweenMax.to(this.$('.ribbon-b, .ribbon-b > .rope-be, .ribbon-b > .rope2-be'), 1, {
         backgroundColor: '#6ab4d7'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.ribbon-b > .text-be'), 1, {
+        color: '#ffffff'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.ribbon-b > .tale-be'), 1, {
+        borderTopColor: '#6ab4d7'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.ribbon-b > .tale2-be'), 1, {
+        borderBottomColor: '#6ab4d7'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.building-b > .tip-be'), 1, {
+        borderBottomColor: '#18688d'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.line, .check-pattern'), 1, {
+        stroke: '#1b7daa'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.line1, .check-pattern1'), 1, {
+        stroke: '#2590be'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.marker-circle'), 1, {
+        fill: '#2590be'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.svg-cabin-wheel'), 1, {
+        fill: '#13527b'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.svg-cabin-base'), 1, {
+        fill: '#237ca6'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.svg-cabin-base2'), 1, {
+        fill: '#3f98c2'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.svg-cabin-base3'), 1, {
+        fill: '#1c7691'
+      }), this.nightDuration);
+      this.controller.addTween(start, TweenMax.to(this.$('.svg-cabin-human'), 1, {
+        fill: '#153750'
       }), this.nightDuration);
       start = 20.5 * this.frameDurationTime;
       this.planeTween4 = TweenMax.to(this.$plane, .75, {
@@ -437,7 +480,7 @@
         y: 0
       });
       this.controller.addTween(start, this.entranceTween, this.frameDurationTime);
-      start = 23.5 * this.frameDurationTime;
+      start = 22 * this.frameDurationTime;
       this.moonTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
           return _this.$moon.addClass('is-moon-only');
