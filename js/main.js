@@ -69,7 +69,7 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $buildings, $bush, $bushes, $cloudParts, $clouds, $el, $images, $rightEls, bush, el, i, start, _i, _j, _k, _len, _len1, _ref,
+      var $buildings, $bush, $bushes, $cloudParts, $clouds, $el, $iconBanner, $images, $rightEls, bush, el, i, start, _i, _j, _k, _len, _len1, _ref,
         _this = this;
 
       this.frameDurationTime = 1000;
@@ -392,6 +392,7 @@
       start = 19.5 * this.frameDurationTime;
       this.nightDuration = 1 * this.frameDurationTime;
       $cloudParts = this.$('.cloud-b > *');
+      $iconBanner = $('.icon-banner');
       this.controller.addTween(start, TweenMax.to(this.$('.cabin--base, .icon-banner'), 1, {
         backgroundColor: '#f2d577'
       }), this.nightDuration);
@@ -401,10 +402,12 @@
       this.controller.addTween(start, TweenMax.to($cloudParts, 1, {
         backgroundColor: '#4b99bd',
         onStart: (function() {
-          return $cloudParts.addClass('no-transition-g-i');
+          $cloudParts.addClass('no-transition-g-i');
+          return $iconBanner.addClass('no-transition-g-i');
         }),
         onReverseComplete: (function() {
-          return $cloudParts.removeClass('no-transition-g-i');
+          $cloudParts.removeClass('no-transition-g-i');
+          return $iconBanner.removeClass('no-transition-g-i');
         })
       }), this.nightDuration);
       this.controller.addTween(start, TweenMax.to(this.$('.building-b'), 1, {
