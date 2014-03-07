@@ -351,33 +351,16 @@
         }
       });
       this.controller.addTween(start, this.carouselTriggerTween, 1);
-      start = 16 * this.frameDurationTime;
-      this.planeTween3 = TweenMax.to(this.$plane, .75, {
-        css: {
-          left: '-100%'
-        },
-        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate3, this),
-        onStart: function() {
-          _this.$plane.show();
-          _this.isPlaneHide = false;
-          return _this.$planeText.text('for data this rich we harvested across 60+ social networks', {
-            onComplete: function() {
-              return _this.isPlaneText = false;
-            }
-          });
-        }
+      start = 17 * this.frameDurationTime;
+      this.ferrisText = this.$('#js-ferris-text')[0];
+      this.ferrisTextPath = this.$('#ferris-script')[0];
+      this.ferrisTextTween = TweenMax.to({
+        offset: 2300
+      }, 1, {
+        offset: 200,
+        onUpdate: StatSocial.helpers.bind(this.onFerrisTextUpdate, this)
       });
-      this.controller.addTween(start, this.planeTween3, this.frameDurationTime * 3);
-      start = 18 * this.frameDurationTime;
-      this.nightTriggerTween = TweenMax.to({}, 1, {
-        onComplete: (function() {
-          return _this.$scence3.addClass('is-night');
-        }),
-        onReverseComplete: function() {
-          return _this.$scence3.removeClass('is-night');
-        }
-      });
-      this.controller.addTween(start, this.nightTriggerTween, 1);
+      this.controller.addTween(start, this.ferrisTextTween, 3 * this.frameDurationTime);
       start = 19.5 * this.frameDurationTime;
       this.moonTween = TweenMax.to(this.$moon, .75, {
         x: 0,
@@ -457,11 +440,17 @@
         fill: '#153750'
       }), this.nightDuration);
       start = 20.5 * this.frameDurationTime;
-      this.planeTween4 = TweenMax.to(this.$plane, .75, {
+      this.moonTween = TweenMax.to($('.moon-n-text--side'), 1, {
+        y: -100,
+        opacity: 0
+      });
+      this.controller.addTween(start, this.moonTween, this.frameDurationTime);
+      start = 21.5 * this.frameDurationTime;
+      this.planeTween3 = TweenMax.to(this.$plane, .75, {
         css: {
-          left: '100%'
+          left: '-100%'
         },
-        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate4, this),
+        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate3, this),
         onStart: function() {
           _this.$plane.show();
           _this.isPlaneHide = false;
@@ -472,22 +461,19 @@
           });
         }
       });
-      this.controller.addTween(start, this.planeTween4, this.frameDurationTime * 3);
-      start = 21.5 * this.frameDurationTime;
+      this.controller.addTween(start, this.planeTween3, this.frameDurationTime * 3);
+      start = 22.5 * this.frameDurationTime;
       this.entranceTween = TweenMax.to(this.$('#js-entrance'), .75, {
         y: 0
       });
-      this.controller.addTween(start, this.entranceTween, this.frameDurationTime);
-      start = 22 * this.frameDurationTime;
-      this.moonTriggerTween = TweenMax.to({}, 1, {
-        onComplete: (function() {
-          return _this.$moon.addClass('is-moon-only');
-        }),
-        onReverseComplete: function() {
-          return _this.$moon.removeClass('is-moon-only');
-        }
-      });
-      return this.controller.addTween(start, this.moonTriggerTween, 1);
+      return this.controller.addTween(start, this.entranceTween, this.frameDurationTime);
+    };
+
+    App.prototype.onFerrisTextUpdate = function() {
+      var pathProgress;
+
+      pathProgress = this.ferrisTextTween.target.offset;
+      return this.ferrisText.setAttribute('startOffset', "" + this.ferrisTextTween.target.offset);
     };
 
     App.prototype.onLineSimplifyUpdate = function() {
@@ -790,32 +776,6 @@
 
       progress = this.planeTween3.totalProgress();
       if (this.prevPlaneProgress < progress) {
-        !this.isPlaneFlip && this.$planeInner.removeClass('is-flip');
-        this.isPlaneFlip = true;
-      } else {
-        this.isPlaneFlip && this.$planeInner.addClass('is-flip');
-        this.isPlaneFlip = false;
-      }
-      this.prevPlaneProgress = progress;
-      if (progress >= 1) {
-        if (!this.isPlaneHide) {
-          this.$planeInner.removeClass('is-flip');
-          this.$plane.hide();
-        }
-        return this.isPlaneHide = true;
-      } else {
-        this.setPlaneText('for data this rich we harvested across 60+ social networks');
-        this.isPlaneText3 = true;
-        this.isPlaneHide && this.$plane.show();
-        return this.isPlaneHide = false;
-      }
-    };
-
-    App.prototype.onPlaneUpdate4 = function() {
-      var progress;
-
-      progress = this.planeTween4.totalProgress();
-      if (this.prevPlaneProgress > progress) {
         !this.isPlaneFlip && this.$planeInner.removeClass('is-flip');
         this.isPlaneFlip = true;
       } else {

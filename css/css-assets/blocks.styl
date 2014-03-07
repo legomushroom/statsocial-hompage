@@ -11,16 +11,6 @@
 	position relative
 	display inline-block
 	padding 0 88px 0 70px
-	&.is-moon-only
-		.moon-n-text--side
-			transform translateY(-100px)
-			opacity 0
-		.moon--chart__1
-			opacity 0
-		&:before
-			opacity 0
-	.moon-n-text--side, .moon--chart__1, .moon:before
-		transition all .5s linear
 	.moon-n-text--side
 		text-align center
 		padding 35px 16px
@@ -237,6 +227,13 @@ ferrisWheelSize = 375
 	rect ferrisWheelSize*PX
 	position relative
 	z-index 20
+	.ferris-wheel--script-path
+		position absolute
+		top  - 16*gs
+		left - 20*gs
+		text 
+			fill white
+			font-size 5*gs
 
 	.ferris-wheel--core
 		animation-fill-mode both

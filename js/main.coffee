@@ -43,15 +43,6 @@ class App
 		@$scence2.parallax()
 
 	updateScrollPos:(that, it)->
-		# STOP ANIMATION ON SCROLL
-
-		# clearTimeout it.timer
-		# it.timer = setTimeout (-> it.$body.removeClass('stop-animation'); it.isStopAnimationClass = false ), 200
-		
-		# if !it.isStopAnimationClass 
-		# 	it.$body.addClass 'stop-animation'
-		# 	it.isStopAnimationClass = true
-		# console.log that.y>>0
 		it.controller.setScrollContainerOffset(0, -(that.y>>0)).triggerCheckAnim(true)
 
 
@@ -226,13 +217,20 @@ class App
 		@carouselTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-ferris-wheel'); setTimeout (=> @$ferrisWheel.addClass('is-open') ), 200), onReverseComplete:=>( @$ferrisWheel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-ferris-wheel') ), 800) }
 		@controller.addTween start, @carouselTriggerTween, 1
 
-		start = 16*@frameDurationTime
-		@planeTween3  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate3,@), onStart:=> @$plane.show(); @isPlaneHide = false; @$planeText.text 'for data this rich we harvested across 60+ social networks', onComplete:=> @isPlaneText = false; }
-		@controller.addTween start, @planeTween3, @frameDurationTime*3
+		start = 17*@frameDurationTime
+		@ferrisText 		= @$('#js-ferris-text')[0]
+		@ferrisTextPath = @$('#ferris-script')[0]
+		
+		@ferrisTextTween = TweenMax.to { offset: 2300 }, 1, { offset: 200, onUpdate: StatSocial.helpers.bind(@onFerrisTextUpdate,@) }
+		@controller.addTween start, @ferrisTextTween, 3*@frameDurationTime
 
-		start = 18*@frameDurationTime
-		@nightTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-night')), onReverseComplete:=>(@$scence3.removeClass('is-night')) }
-		@controller.addTween start, @nightTriggerTween, 1
+		# start = 18*@frameDurationTime
+		# @planeTween3  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate3,@), onStart:=> @$plane.show(); @isPlaneHide = false; @$planeText.text 'for data this rich we harvested across 60+ social networks', onComplete:=> @isPlaneText = false; }
+		# @controller.addTween start, @planeTween3, @frameDurationTime*3
+
+		# start = 18*@frameDurationTime
+		# @nightTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-night')), onReverseComplete:=>(@$scence3.removeClass('is-night')) }
+		# @controller.addTween start, @nightTriggerTween, 1
 
 		start = 19.5*@frameDurationTime
 		@moonTween  = TweenMax.to @$moon, .75, { x: 0, y: 0 }
@@ -264,17 +262,20 @@ class App
 		@controller.addTween start, TweenMax.to(@$('.svg-cabin-human'), 1, { fill: '#153750' }), @nightDuration
 
 		start = 20.5*@frameDurationTime
-		@planeTween4  = TweenMax.to @$plane, .75, { css:{ left: '100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate4,@), onStart:=> @$plane.show(); @isPlaneHide = false; @$planeText.text 'unparalleled demographics', onComplete:=> @isPlaneText = false; }
-		@controller.addTween start, @planeTween4, @frameDurationTime*3
+		@moonTween = TweenMax.to $('.moon-n-text--side'), 1, { y: -100, opacity: 0 }
+		@controller.addTween start, @moonTween, @frameDurationTime
 
 		start = 21.5*@frameDurationTime
+		@planeTween3  = TweenMax.to @$plane, .75, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate3,@), onStart:=> @$plane.show(); @isPlaneHide = false; @$planeText.text 'unparalleled demographics', onComplete:=> @isPlaneText = false; }
+		@controller.addTween start, @planeTween3, @frameDurationTime*3
+
+		start = 22.5*@frameDurationTime
 		@entranceTween  = TweenMax.to @$('#js-entrance'), .75, { y: 0 }
 		@controller.addTween start, @entranceTween, @frameDurationTime
 
-		start = 22*@frameDurationTime
-		@moonTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$moon.addClass('is-moon-only')), onReverseComplete:=>(@$moon.removeClass('is-moon-only')) }
-		@controller.addTween start, @moonTriggerTween, 1
-
+	onFerrisTextUpdate:->
+		pathProgress = @ferrisTextTween.target.offset
+		@ferrisText.setAttribute('startOffset', "#{@ferrisTextTween.target.offset}")
 
 	onLineSimplifyUpdate:-> 
 		if @lineSimplifyTween.totalProgress() > 0
@@ -515,33 +516,33 @@ class App
 			@isPlaneHide = true
 		else 
 			# if !@isPlaneText3 
-			@setPlaneText 'for data this rich we harvested across 60+ social networks' 
-			@isPlaneText3 = true
-			@isPlaneHide and @$plane.show()
-			@isPlaneHide = 	false
-
-	onPlaneUpdate4:->
-		progress = @planeTween4.totalProgress()
-
-		if @prevPlaneProgress > progress
-			!@isPlaneFlip and @$planeInner.removeClass 'is-flip'
-			@isPlaneFlip = true
-		else
-			@isPlaneFlip and @$planeInner.addClass 'is-flip'
-			@isPlaneFlip = false
-
-		@prevPlaneProgress = progress
-		if progress >= 1
-			if !@isPlaneHide
-				@$planeInner.removeClass('is-flip')
-				@$plane.hide()
-			@isPlaneHide = true
-		else 
-			# if !@isPlaneText3 
 			@setPlaneText 'unparalleled demographics' 
 			@isPlaneText3 = true
 			@isPlaneHide and @$plane.show()
 			@isPlaneHide = 	false
+
+	# onPlaneUpdate4:->
+	# 	progress = @planeTween4.totalProgress()
+
+	# 	if @prevPlaneProgress > progress
+	# 		!@isPlaneFlip and @$planeInner.removeClass 'is-flip'
+	# 		@isPlaneFlip = true
+	# 	else
+	# 		@isPlaneFlip and @$planeInner.addClass 'is-flip'
+	# 		@isPlaneFlip = false
+
+	# 	@prevPlaneProgress = progress
+	# 	if progress >= 1
+	# 		if !@isPlaneHide
+	# 			@$planeInner.removeClass('is-flip')
+	# 			@$plane.hide()
+	# 		@isPlaneHide = true
+	# 	else 
+	# 		# if !@isPlaneText3 
+	# 		@setPlaneText 'unparalleled demographics' 
+	# 		@isPlaneText3 = true
+	# 		@isPlaneHide and @$plane.show()
+	# 		@isPlaneHide = 	false
 
 	setPlaneText:(text)->
 		if @currPlaneText isnt text

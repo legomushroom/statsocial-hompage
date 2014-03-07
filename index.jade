@@ -19,7 +19,6 @@ html
 			#scroller
 				.curtain-l#js-curtain1
 					.script-l.is-1#js-script1 behind the clutter of social media
-
 					.script-l.is-status-quo#js-main-logo Status Quo
 					.layer(data-depth="0.10")
 						.image1.curtain-layer-lh
@@ -56,7 +55,6 @@ html
 										.image5.curtain-layer-lh
 									.layer(data-depth="0.5")
 										.image6.curtain-layer-lh
-
 								- for (var i=0; i< forkSize; i++)
 									.curtain2-section-lh.is-even
 										.curtain2-section-inner-lh
@@ -200,7 +198,6 @@ html
 							path(d="M-200,200 L0,230 L388,360 L750,220 L957,270 L1136,207 L1336,257", id="js-roller-line2", class="line line2", transform="translate(0, 500)", fill='none', marker-mid="url(#marker-circle2)")
 							path(d="M-200,200 L0,230 L300,300 L500,230 L800,300 L1118,150 L1318,200", id="js-roller-line1", class="line line1", transform="translate(0, 500)", fill="none", marker-mid="url(#marker-circle)")
 
-
 							//- path(id="js-roller-line2", class="line", transform="translate(0, 500a)", fill='none', marker-mid="url(#marker-circle)", d="M-111,263L147,273 L312,315 L530,220 L800,300 L880,280 L1090,150 L1200,150 L1240,160 L1500,160")
 							//- path(id="js-roller-line1", class="line", transform="translate(0, 500a)", fill="none", marker-mid="url(#marker-circle)", d="M-111,263L147,273 L312,315 L500,400 L700,200 L800,150 L900,200 L1000,80 L1200,60 L1300,90 L1500,90")
 							
@@ -250,6 +247,12 @@ html
 
 					- var icons = ['facebook', 'linkedin', 'google-plus', 'foursquare', 'quora', 'blogging', 'youtube', 'myspace' ]
 					.ferris-wheel#js-ferris-wheel
+						svg.ferris-wheel--script-path(width='731px', height='560px', viewbox='0 0 731 560')
+							defs
+								path(id="ferris-script", fill='none', stroke='#E30613', stroke-width='2', stroke-miterlimit='10', d='M-522.865,1384.396L57.03,347.583c0,0,67.789-114.568,90.385-152.757l0,0C187.87,123.386,264.57,75.175,352.53,75.175c130.094,0,235.555,105.461,235.555,235.556c0,105.606-69.498,194.983-165.256,224.886L-721.942,922.059')
+							text
+								textPath(id="js-ferris-text", xlink:href="#ferris-script", startOffset="0") for data this rich we harvested across 60+ social networks
+						
 						.ferris-wheel--core
 							- for (var i=0; i<12; i++)
 								- el = { class: 'n-'+i + ' n-'+icons[ i % icons.length ], id: '' }
