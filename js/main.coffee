@@ -1,14 +1,11 @@
 class App 
 	constructor:->
 		@vars()
-
 		@initScroll()
 		@initController()
 		@buildAnimations()
 		@initParallax()
-
 		# $('#js-toggle-btn').on 'click', => $('#js-curtain3').toggleClass('is-night')
-
 	vars:->
 		@$main =  $('#js-main')
 		@$body = 	$(document.body)
