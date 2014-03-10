@@ -118,7 +118,6 @@ class App
 		@scriptTween21  = TweenMax.to @$script2, .75, { css:{ opacity: 0 } }
 		@controller.addTween start, @scriptTween21, @frameDurationTime
 
-
 		# -> BUSHES
 		start = 6*@frameDurationTime
 		$bushes = $('.curtain3--bush-lh')
