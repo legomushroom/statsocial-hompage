@@ -1,40 +1,112 @@
 // LAYOUTS
 @import '../assets/imports.styl'
 
-.script-l
+coef = 10
+easingName = ease
+animationTime = (70*coef)s
+leftSize = 45.25
+/* 076c46b86ca2be8ed15c0aa79a53c76a */
+firstCurtainText()
+	position absolute
+	color white
 	outage()
 	color white
 	position absolute
-	z-index 5
 	text-align center
 	width 100%
-	font-size 40px
-	transform translateZ(0)
+	font-size 90px
+	top 50%
+	margin-top -32px
+.curtain-l
+	// background-color #ff6d6a
+	position absolute
+	rect 100%
+	nw 0
+	cbox()
+	padding-bottom curtainMaskSize
+	overflow hidden
+	z-index 4
+	&--left, &--right
+		width (leftSize)%
+		height 100%
+		position absolute
+		background #ff6d6a url(i/bg-seamless.png) repeat left -50px
+		background-attachment fixed
+		&--text
+			firstCurtainText()
+	&--left--text
+		right 0
+		text-align right
+	&--right--text, &--underline-text
+		left 0
+		text-align left
+	&--right
+		left (leftSize)%
+		width (100 - leftSize)%
+		&--peel
+			position absolute
+			z-index 1
+			bottom 0
+			left 0
+			background white
+			width 100%
+			box-shadow 2px 2px gs rgba(0,0,0,.1), gs (- gs) 3*gs rgba(0,0,0,.1)
+			&--gradient
+				position absolute
+				width 100%
+				max-height 10*gs
+			color2 = 230
+			percent = 71
+			&--gradient
+				bottom 0
+				background: rgb(255,255,255); /* Old browsers */
+				background: -moz-linear-gradient(top,  rgba(255,255,255,1) 2%, rgba(color2,color2,color2,1) (percent)%, rgba(238,238,238,1) 100%); /* FF3.6+ */
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,rgba(255,255,255,1)), color-stop((percent)%,rgba(color2,color2,color2,1)), color-stop(100%,rgba(238,238,238,1))); /* Chrome,Safari4+ */
+				background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 2%,rgba(color2,color2,color2,1) (percent)%,rgba(238,238,238,1) 100%); /* Chrome10+,Safari5.1+ */
+				background: -o-linear-gradient(top,  rgba(255,255,255,1) 2%,rgba(color2,color2,color2,1) (percent)%,rgba(238,238,238,1) 100%); /* Opera 11.10+ */
+				background: -ms-linear-gradient(top,  rgba(255,255,255,1) 2%,rgba(color2,color2,color2,1) (percent)%,rgba(238,238,238,1) 100%); /* IE10+ */
+				background: linear-gradient(to bottom,  rgba(255,255,255,1) 2%,rgba(color2,color2,color2,1) (percent)%,rgba(238,238,238,1) 100%); /* W3C */
 
-	&.is-status-quo
-		font-size 90px
-		top 50%
-		margin-top -100px
+	&--left
+		&--peel
+			position absolute
+			z-index 1
+			top 0
+			right 0
+			background white
+			height 100%
+			box-shadow 2px 2px gs rgba(0,0,0,.1), gs (- gs) 3*gs rgba(0,0,0,.1)
+			&--gradient
+				position absolute
+				height 100%
+				max-width 10*gs
+				right 0
+				left auto
+			color2 = 230
+			percent = 71
+			&--gradient
+				bottom 0
+				background: rgb(255,255,255); /* Old browsers */
+				background: -moz-linear-gradient(left,  rgba(255,255,255,1) 2%, rgba(230,230,230,1) 71%, rgba(238,238,238,1) 100%); /* FF3.6+ */
+				background: -webkit-gradient(linear, left top, right top, color-stop(2%,rgba(255,255,255,1)), color-stop(71%,rgba(230,230,230,1)), color-stop(100%,rgba(238,238,238,1))); /* Chrome,Safari4+ */
+				background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 2%,rgba(230,230,230,1) 71%,rgba(238,238,238,1) 100%); /* Chrome10+,Safari5.1+ */
+				background: -o-linear-gradient(left,  rgba(255,255,255,1) 2%,rgba(230,230,230,1) 71%,rgba(238,238,238,1) 100%); /* Opera 11.10+ */
+				background: -ms-linear-gradient(left,  rgba(255,255,255,1) 2%,rgba(230,230,230,1) 71%,rgba(238,238,238,1) 100%); /* IE10+ */
+				background: linear-gradient(to right,  rgba(255,255,255,1) 2%,rgba(230,230,230,1) 71%,rgba(238,238,238,1) 100%); /* W3C */
 
-	&.is-1
-		bottom 0
-		// margin-top 40px
-		opacity 0
-		openSans()
+.underline-text
+	firstCurtainText()
+	z-index 3
+.underline-text__left
+	left 0
+	text-align right
+	width (leftSize)%
+	z-index 6
+.underline-text__right
+	left (leftSize)%
+	text-align left
 
-	scriptWidth = 640px
-	&.is-2
-		openSans()
-		color white
-		top 50%
-		margin-top - 50px
-		z-index 0
-		left 50%
-		// margin-left -(scriptWidth/2)
-		width scriptWidth
-		transform translateZ(0)
-
-
+		
 .layer
 	position absolute
 	nw 0
@@ -49,7 +121,7 @@ nightTransitionTime = 1.5s
 	rect 100%
 	position absolute
 	nw 0
-	z-index 1
+	z-index 2
 	// .moon-n-text, .cabin--base, .icon-banner, > .bg-ll,
 	// .line1, .check-pattern1, .marker-circle, .human, .svg-cabin-human
 	// 	transition all nightTransitionTime linear
@@ -651,73 +723,7 @@ coef = 10
 			border-top 2px solid darkBlue
 			box-shadow 0 -20px 0 darkBlue, 10px -20px 0 darkBlue, -10px -20px 0 darkBlue
 
-coef = 10
-easingName = ease
-animationTime = (70*coef)s
-/* 076c46b86ca2be8ed15c0aa79a53c76a */
-.curtain-l
-	background-color #ff6d6a
-	// background-color #e2443b
-	
-	position absolute
-	rect 100%
-	nw 0
-	cbox()
-	padding-bottom curtainMaskSize
-	overflow hidden
-	z-index 2
-	// display none
 
-	.curtain-layer-lh
-		rect 200%
-		position absolute
-		nw -50%
-		transform translateZ(0)
-		transform-origin 50% 50%
-
-		.no-amimation-g &
-			animation none
-
-	.image1
-		background url('i/curtain-dots-bg1.png') repeat
-		animation rotate animationTime easingName infinite alternate
-
-	animationTime = (65*coef)s
-	.image2
-		background url('i/curtain-dots-bg2.png') repeat
-		animation rotateReverse animationTime easingName infinite alternate
-
-	
-	animatinTime = (60*coef)s
-	.image3
-		background url('i/curtain-dots-bg3.png') repeat
-		animation rotate animatinTime easingName infinite alternate
- 
-	animatinTime = (50*coef)s
-	.image4
-		background url('i/curtain-logos-bg1.png') repeat
-		animation rotate animatinTime easingName infinite	 alternate
-		
-
-	animatinTime = (55*coef)s
-	.image5
-		background url('i/curtain-logos-bg2.png') repeat
-		animation rotateReverse animatinTime easingName infinite	 alternate
-		
-
-	animatinTime = (45*coef)s
-	.image6
-		background url('i/curtain-logos-bg3.png') repeat
-		animation rotateReverse animatinTime easingName infinite	 alternate
-
-	animatinTime = (40*coef)s
-	.image7
-		background url('i/curtain-logos-bg4.png') repeat
-		animation rotate animatinTime easingName infinite	 alternate
-
-	
-	// svg
-	// 	rect 100%
 
 /* 76c1adee9e0430fc11ba2f1521e25b19 */
 .plane-n-text-l

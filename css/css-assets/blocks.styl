@@ -232,24 +232,15 @@ ferrisWheelSize = 375
 		top  - 16*gs
 		left - 20*gs
 		text 
-			fill white
-			font-size 5*gs
-
+			fill #493542
+			font-size 5*gs 
 	.ferris-wheel--core
 		animation-fill-mode both
 		animation ferris-wheel-rotate 30s linear infinite
-
 	.cabin--core
 		animation-fill-mode both
 		animation ferris-cabin-rotate 30s linear infinite
-
 	&.is-open 
-		// .ferris-wheel--core
-		// 	animation ferris-wheel-rotate 30s linear infinite
-
-		// .cabin--core
-		// 	animation ferris-cabin-rotate 30s linear infinite
-
 		.ferris-base
 			transform translateY(0)
 			transition all 0 linear

@@ -13,7 +13,7 @@ class App
 		@scrollPos = 0
 		@$window = $(window)
 		@$window.height()
-		@$mainLogo 	= @$('#js-main-logo')
+		# @$mainLogo 	= @$('#js-main-logo')
 		@$script1 	= @$('#js-script1')
 		@$script2 	= @$('#js-script2')
 		@$scence  	= @$('#js-curtain1')
@@ -45,49 +45,47 @@ class App
 
 
 	buildAnimations:->
+		$quoCurtain = @$('#js-quo-curtain')
+
 		@frameDurationTime = 1000
 
 		# THE FIRST CURTAIN
-		@curtainTween1 	= TweenMax.to @$('.curtain-l'), .75,  { css:{ top: '-100%' }, onUpdate: StatSocial.helpers.bind(@onCurtain1Update,@) }
-		@curtainTween2 	= TweenMax.to @$scence2, .75, { css:{ top: '-22px', y: 0 }, onStart:=> @$scence2.css('display': 'block') }
-		@scriptTween1  	= TweenMax.to @$script1, .75, { css:	{ bottom: 40, opacity: 1 } }
+		@curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { left: '-50%' }
+		# @curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { rotation: 90, transformOrigin: 'center top' }
+		# @curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { rotation: 90, transformOrigin: 'center top', top: '100%' }
+		@curtainTween2 	= TweenMax.to @$('#js-right-curtain'), 	1, 	{ css:{ top: '-100%' }}
 		
-		@controller.addTween 1, @scriptTween1, @frameDurationTime/2
+		start = 1
+		@controller.addTween start, @curtainTween2, @frameDurationTime/2
+
+
+		@rightPeelTween 	= TweenMax.to @$('#js-right-peel, #js-right-peel-gradient'), 	1, 	{ css:{ height: '100%' }}
+		@controller.addTween start, @rightPeelTween, @frameDurationTime/2
+		@curtainTextTween2	= TweenMax.to @$('#js-quo-curtain'), 1, { css:{ top: '150%' }, onUpdate:=> if @curtainTween2.totalProgress() >= .25 then $quoCurtain .hide() else $quoCurtain.show() }
+		@controller.addTween start, @curtainTextTween2, @frameDurationTime/2
 
 		start = @frameDurationTime
 		@controller.addTween start, @curtainTween1, @frameDurationTime/2
-		@controller.addTween start, @curtainTween2, @frameDurationTime/2
+		# @curtainTextTween	= TweenMax.to @$('#js-stat-curtain'), 1, { css:{ top: '150%' }}
+		# @controller.addTween start, @curtainTextTween, @frameDurationTime/2
+		
+		@leftPeelTween 	= TweenMax.to @$('#js-left-peel, #js-left-peel-gradient'), 	1, 	{ css:{ width: '100%' }}
+		@controller.addTween start, @leftPeelTween, @frameDurationTime/2
 
-		$images = @$scence.find('.curtain-layer-lh')
-		for el, i in $images
-			$el = $ el
-			@controller.addTween @frameDurationTime, TweenMax.to($el, .75, { css:{ top: "#{(50+(i*5))}%" } }), @frameDurationTime
-
-		# THE SECOND CURTAIN
-		@$left 		= @$('#js-curtain2-left-side')
-		@$right 		= @$('#js-curtain2-right-side')
-		# $leftEls 	= @$left.find('.curtain2-section-lh')
-		$rightEls = @$right.find('.curtain2-section-lh')
-
-		start = 2*@frameDurationTime
-		@curtain2LeftTween = TweenMax.to(@$left, .75, { css:{ left: -@$window.outerWidth()/2 }, onUpdate: StatSocial.helpers.bind(@onCurtain2Update,@)  })
-		@controller.addTween start, @curtain2LeftTween, @frameDurationTime
-		@controller.addTween start, TweenMax.to(@$right, .75, { css:{ left: (@$window.outerWidth()/2) + $rightEls.first().outerWidth() } }), @frameDurationTime
-
-		@groundTween  = TweenMax.to @$('#js-ground'), .75, { css:{ y: 0 } }
+		start = 1.5*@frameDurationTime
+		@groundTween  = TweenMax.to @$('#js-ground'), 1, { css:{ y: 0 } }
 		@controller.addTween start, @groundTween, @frameDurationTime
 
-		@bgTween  = TweenMax.to @$('#js-bg'), .75, { css:{ opacity: 1 } }
+		@bgTween  = TweenMax.to @$('#js-bg'), 1, { css:{ opacity: 1 } }
 		@controller.addTween start, @bgTween, @frameDurationTime
 
-		# THE THIRD CURTAIN
-		start = 3*@frameDurationTime
+		start = 2.5*@frameDurationTime
 		$clouds = @$('.cloud-b')
-		@cloudTween = TweenMax.to $clouds, .75, { onComplete: (=> $clouds.addClass('is-anima')), onReverseComplete:(=> $clouds.removeClass('is-anima')) }
+		@cloudTween = TweenMax.to $clouds, 1, { onComplete: (=> $clouds.addClass('is-anima')), onReverseComplete:(=> $clouds.removeClass('is-anima')) }
 		@controller.addTween start, @cloudTween, 1
 		
 		# -> BUILDINGS
-		start = 4*@frameDurationTime
+		start = 3.5*@frameDurationTime
 		$buildings  = @$('.building-b')
 		for i in [0..$buildings.length]
 			$el = $ $buildings.eq i
@@ -104,9 +102,9 @@ class App
 															onReverseComplete:(-> @target.removeClass('is-show-label is-tip bounce-eff'))
 														}), @frameDurationTime
 
-		@scriptTween3  = TweenMax.to @$script2, .75, { css:{ top: '-25%' }, onUpdate: StatSocial.helpers.bind(@onCurtain2UpdateEnd,@) }
-		@controller.addTween start-(@frameDurationTime/10), @scriptTween3, @frameDurationTime
-
+		@curtainTextTween2  = TweenMax.to @$('.underline-text'), 1, { css:{ top: '-25%' }, onReverseComplete:=> @$('.underline-text').css 'top': '50%' }
+		@controller.addTween start-(@frameDurationTime/10), @curtainTextTween2, @frameDurationTime
+		
 		# -> PLANE
 		start = 4.15*@frameDurationTime
 		@$plane = @$('#js-plane')

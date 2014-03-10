@@ -11,74 +11,23 @@ html
 		-		return Math.floor((Math.random() * ((b + 1) - a)) + a);
 		-	}
 
-
 		//- button#js-toggle-btn(style="position: relative; z-index:1;")	toggle
 		- var el = { }
 		include css/icons.svg
 		section(role="main")#js-main.main-l
 			#scroller
 				.curtain-l#js-curtain1
-					.script-l.is-1#js-script1 behind the clutter of social media
-					.script-l.is-status-quo#js-main-logo Status Quo
-					.layer(data-depth="0.10")
-						.image1.curtain-layer-lh
-					.layer(data-depth="0.15")
-						.image2.curtain-layer-lh
-					.layer(data-depth="0.20")
-						.image3.curtain-layer-lh
-					.layer(data-depth="0.50")
-						.image4.curtain-layer-lh
-					.layer(data-depth="0.60")
-						.image5.curtain-layer-lh
-					.layer(data-depth="0.85")
-						.image6.curtain-layer-lh
-					.layer(data-depth="1.00")
-						.image7.curtain-layer-lh
+					.curtain-l--left#js-left-curtain
+						.curtain-l--left--peel#js-left-peel
+							.curtain-l--left--peel--gradient#js-left-peel-gradient
 
-				.curtain2-l#js-curtain2
-					.script-l.is-2#js-script2 lies a world of meaning and clarity
-					.curtain2-wrapper-lh
-						.curtain2-body-lh
-							.curtain2-mask-lh
-							- var forkSize = 12
-							.curtain2-left-lh#js-curtain2-left-side
-								.curtain2-konfetti-lh
-									.layer(data-depth="0.1")
-										.image1.curtain-layer-lh
-									.layer(data-depth="0.1")
-										.image2.curtain-layer-lh
-									.layer(data-depth="0.4")
-										.image3.curtain-layer-lh
-									.layer(data-depth="0.5")
-										.image4.curtain-layer-lh
-									.layer(data-depth="0.4")
-										.image5.curtain-layer-lh
-									.layer(data-depth="0.5")
-										.image6.curtain-layer-lh
-								- for (var i=0; i< forkSize; i++)
-									.curtain2-section-lh.is-even
-										.curtain2-section-inner-lh
-									.curtain2-section-lh
+					.curtain-l--right#js-right-curtain
+						.curtain-l--right--text#js-quo-curtain us Quo
+						.curtain-l--right--peel#js-right-peel
+							.curtain-l--right--peel--gradient#js-right-peel-gradient
 
-							.curtain2-right-lh#js-curtain2-right-side
-								.curtain2-konfetti-lh
-									.layer(data-depth="0.1")
-										.image1.curtain-layer-lh
-									.layer(data-depth="0.1")
-										.image2.curtain-layer-lh
-									.layer(data-depth="0.4")
-										.image3.curtain-layer-lh
-									.layer(data-depth="0.5")
-										.image4.curtain-layer-lh
-									.layer(data-depth="0.4")
-										.image5.curtain-layer-lh
-									.layer(data-depth="0.5")
-										.image6.curtain-layer-lh
-
-								- for (var i=0; i< forkSize; i++)
-									.curtain2-section-lh
-									.curtain2-section-lh.is-even
-										.curtain2-section-inner-lh
+				.underline-text.underline-text__right#js-curtain-text1 social
+				.underline-text.underline-text__left#js-curtain-text2 stat
 
 				.curtain3-l#js-curtain3
 					.bg-ll#js-bg

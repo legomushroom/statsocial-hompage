@@ -17,7 +17,6 @@
       this.scrollPos = 0;
       this.$window = $(window);
       this.$window.height();
-      this.$mainLogo = this.$('#js-main-logo');
       this.$script1 = this.$('#js-script1');
       this.$script2 = this.$('#js-script2');
       this.$scence = this.$('#js-curtain1');
@@ -64,78 +63,64 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $buildings, $bush, $bushes, $cloudParts, $clouds, $el, $iconBanner, $images, $rightEls, bush, el, i, start, _i, _j, _k, _len, _len1, _ref,
+      var $buildings, $bush, $bushes, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, bush, i, start, _i, _j, _len, _ref,
         _this = this;
 
+      $quoCurtain = this.$('#js-quo-curtain');
       this.frameDurationTime = 1000;
-      this.curtainTween1 = TweenMax.to(this.$('.curtain-l'), .75, {
+      this.curtainTween1 = TweenMax.to(this.$('#js-left-curtain'), 1, {
+        left: '-50%'
+      });
+      this.curtainTween2 = TweenMax.to(this.$('#js-right-curtain'), 1, {
         css: {
           top: '-100%'
-        },
-        onUpdate: StatSocial.helpers.bind(this.onCurtain1Update, this)
-      });
-      this.curtainTween2 = TweenMax.to(this.$scence2, .75, {
-        css: {
-          top: '-22px',
-          y: 0
-        },
-        onStart: function() {
-          return _this.$scence2.css({
-            'display': 'block'
-          });
         }
       });
-      this.scriptTween1 = TweenMax.to(this.$script1, .75, {
+      start = 1;
+      this.controller.addTween(start, this.curtainTween2, this.frameDurationTime / 2);
+      this.rightPeelTween = TweenMax.to(this.$('#js-right-peel, #js-right-peel-gradient'), 1, {
         css: {
-          bottom: 40,
-          opacity: 1
+          height: '100%'
         }
       });
-      this.controller.addTween(1, this.scriptTween1, this.frameDurationTime / 2);
+      this.controller.addTween(start, this.rightPeelTween, this.frameDurationTime / 2);
+      this.curtainTextTween2 = TweenMax.to(this.$('#js-quo-curtain'), 1, {
+        css: {
+          top: '150%'
+        },
+        onUpdate: function() {
+          if (_this.curtainTween2.totalProgress() >= .25) {
+            return $quoCurtain.hide();
+          } else {
+            return $quoCurtain.show();
+          }
+        }
+      });
+      this.controller.addTween(start, this.curtainTextTween2, this.frameDurationTime / 2);
       start = this.frameDurationTime;
       this.controller.addTween(start, this.curtainTween1, this.frameDurationTime / 2);
-      this.controller.addTween(start, this.curtainTween2, this.frameDurationTime / 2);
-      $images = this.$scence.find('.curtain-layer-lh');
-      for (i = _i = 0, _len = $images.length; _i < _len; i = ++_i) {
-        el = $images[i];
-        $el = $(el);
-        this.controller.addTween(this.frameDurationTime, TweenMax.to($el, .75, {
-          css: {
-            top: "" + (50 + (i * 5)) + "%"
-          }
-        }), this.frameDurationTime);
-      }
-      this.$left = this.$('#js-curtain2-left-side');
-      this.$right = this.$('#js-curtain2-right-side');
-      $rightEls = this.$right.find('.curtain2-section-lh');
-      start = 2 * this.frameDurationTime;
-      this.curtain2LeftTween = TweenMax.to(this.$left, .75, {
+      this.leftPeelTween = TweenMax.to(this.$('#js-left-peel, #js-left-peel-gradient'), 1, {
         css: {
-          left: -this.$window.outerWidth() / 2
-        },
-        onUpdate: StatSocial.helpers.bind(this.onCurtain2Update, this)
-      });
-      this.controller.addTween(start, this.curtain2LeftTween, this.frameDurationTime);
-      this.controller.addTween(start, TweenMax.to(this.$right, .75, {
-        css: {
-          left: (this.$window.outerWidth() / 2) + $rightEls.first().outerWidth()
+          width: '100%'
         }
-      }), this.frameDurationTime);
-      this.groundTween = TweenMax.to(this.$('#js-ground'), .75, {
+      });
+      this.controller.addTween(start, this.leftPeelTween, this.frameDurationTime / 2);
+      start = 1.5 * this.frameDurationTime;
+      this.groundTween = TweenMax.to(this.$('#js-ground'), 1, {
         css: {
           y: 0
         }
       });
       this.controller.addTween(start, this.groundTween, this.frameDurationTime);
-      this.bgTween = TweenMax.to(this.$('#js-bg'), .75, {
+      this.bgTween = TweenMax.to(this.$('#js-bg'), 1, {
         css: {
           opacity: 1
         }
       });
       this.controller.addTween(start, this.bgTween, this.frameDurationTime);
-      start = 3 * this.frameDurationTime;
+      start = 2.5 * this.frameDurationTime;
       $clouds = this.$('.cloud-b');
-      this.cloudTween = TweenMax.to($clouds, .75, {
+      this.cloudTween = TweenMax.to($clouds, 1, {
         onComplete: (function() {
           return $clouds.addClass('is-anima');
         }),
@@ -144,9 +129,9 @@
         })
       });
       this.controller.addTween(start, this.cloudTween, 1);
-      start = 4 * this.frameDurationTime;
+      start = 3.5 * this.frameDurationTime;
       $buildings = this.$('.building-b');
-      for (i = _j = 0, _ref = $buildings.length; 0 <= _ref ? _j <= _ref : _j >= _ref; i = 0 <= _ref ? ++_j : --_j) {
+      for (i = _i = 0, _ref = $buildings.length; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
         $el = $($buildings.eq(i));
         this.controller.addTween(start - (($buildings.length - i) * (this.frameDurationTime / $buildings.length)), TweenMax.to($el, .1, {
           css: {
@@ -166,13 +151,17 @@
           })
         }), this.frameDurationTime);
       }
-      this.scriptTween3 = TweenMax.to(this.$script2, .75, {
+      this.curtainTextTween2 = TweenMax.to(this.$('.underline-text'), 1, {
         css: {
           top: '-25%'
         },
-        onUpdate: StatSocial.helpers.bind(this.onCurtain2UpdateEnd, this)
+        onReverseComplete: function() {
+          return _this.$('.underline-text').css({
+            'top': '50%'
+          });
+        }
       });
-      this.controller.addTween(start - (this.frameDurationTime / 10), this.scriptTween3, this.frameDurationTime);
+      this.controller.addTween(start - (this.frameDurationTime / 10), this.curtainTextTween2, this.frameDurationTime);
       start = 4.15 * this.frameDurationTime;
       this.$plane = this.$('#js-plane');
       this.$planeInner = this.$plane.find('#js-plane-inner');
@@ -196,7 +185,7 @@
       this.controller.addTween(start, this.scriptTween21, this.frameDurationTime);
       start = 6 * this.frameDurationTime;
       $bushes = $('.curtain3--bush-lh');
-      for (i = _k = 0, _len1 = $bushes.length; _k < _len1; i = ++_k) {
+      for (i = _j = 0, _len = $bushes.length; _j < _len; i = ++_j) {
         bush = $bushes[i];
         $bush = $(bush);
         this.controller.addTween(start, TweenMax.to($bush, .75, {
