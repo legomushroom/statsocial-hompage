@@ -63,7 +63,7 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $buildings, $bush, $bushes, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, bush, i, start, _i, _j, _len, _ref,
+      var $buildings, $bush, $bushes, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, bush, dur, i, start, _i, _j, _len, _ref,
         _this = this;
 
       $quoCurtain = this.$('#js-quo-curtain');
@@ -72,53 +72,48 @@
         left: '-50%'
       });
       this.curtainTween2 = TweenMax.to(this.$('#js-right-curtain'), 1, {
-        css: {
-          top: '-100%'
-        }
+        left: '100%'
       });
       start = 1;
-      this.controller.addTween(start, this.curtainTween2, this.frameDurationTime / 2);
+      dur = this.frameDurationTime;
+      this.controller.addTween(start, this.curtainTween2, dur);
       this.rightPeelTween = TweenMax.to(this.$('#js-right-peel, #js-right-peel-gradient'), 1, {
         css: {
-          height: '100%'
+          width: '100%'
         }
       });
-      this.controller.addTween(start, this.rightPeelTween, this.frameDurationTime / 2);
+      this.controller.addTween(start, this.rightPeelTween, dur);
       this.curtainTextTween2 = TweenMax.to(this.$('#js-quo-curtain'), 1, {
         css: {
-          top: '150%'
-        },
-        onUpdate: function() {
-          if (_this.curtainTween2.totalProgress() >= .25) {
-            return $quoCurtain.hide();
-          } else {
-            return $quoCurtain.show();
-          }
+          left: '-100%'
         }
       });
-      this.controller.addTween(start, this.curtainTextTween2, this.frameDurationTime / 2);
-      start = this.frameDurationTime;
-      this.controller.addTween(start, this.curtainTween1, this.frameDurationTime / 2);
+      this.controller.addTween(start, this.curtainTextTween2, dur);
+      start = start + dur;
+      dur = this.frameDurationTime;
+      this.controller.addTween(start, this.curtainTween1, dur);
       this.leftPeelTween = TweenMax.to(this.$('#js-left-peel, #js-left-peel-gradient'), 1, {
         css: {
           width: '100%'
         }
       });
-      this.controller.addTween(start, this.leftPeelTween, this.frameDurationTime / 2);
-      start = 1.5 * this.frameDurationTime;
+      this.controller.addTween(start, this.leftPeelTween, this.frameDurationTime);
+      start = start + dur;
+      dur = this.frameDurationTime;
       this.groundTween = TweenMax.to(this.$('#js-ground'), 1, {
         css: {
           y: 0
         }
       });
-      this.controller.addTween(start, this.groundTween, this.frameDurationTime);
+      this.controller.addTween(start, this.groundTween, dur);
       this.bgTween = TweenMax.to(this.$('#js-bg'), 1, {
         css: {
           opacity: 1
         }
       });
-      this.controller.addTween(start, this.bgTween, this.frameDurationTime);
-      start = 2.5 * this.frameDurationTime;
+      this.controller.addTween(start, this.bgTween, dur);
+      start = start + dur;
+      dur = 1;
       $clouds = this.$('.cloud-b');
       this.cloudTween = TweenMax.to($clouds, 1, {
         onComplete: (function() {
@@ -128,8 +123,9 @@
           return $clouds.removeClass('is-anima');
         })
       });
-      this.controller.addTween(start, this.cloudTween, 1);
-      start = 3.5 * this.frameDurationTime;
+      this.controller.addTween(start, this.cloudTween, dur);
+      start = start + dur + (this.frameDurationTime / 2);
+      dur = this.frameDurationTime;
       $buildings = this.$('.building-b');
       for (i = _i = 0, _ref = $buildings.length; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
         $el = $($buildings.eq(i));
@@ -149,7 +145,7 @@
           onReverseComplete: (function() {
             return this.target.removeClass('is-show-label is-tip bounce-eff');
           })
-        }), this.frameDurationTime);
+        }), dur);
       }
       this.curtainTextTween2 = TweenMax.to(this.$('.underline-text'), 1, {
         css: {
@@ -161,8 +157,9 @@
           });
         }
       });
-      this.controller.addTween(start - (this.frameDurationTime / 10), this.curtainTextTween2, this.frameDurationTime);
-      start = 4.15 * this.frameDurationTime;
+      this.controller.addTween(start - (this.frameDurationTime / 10), this.curtainTextTween2, dur);
+      start = start + dur - (this.frameDurationTime / 1.5);
+      dur = 3 * this.frameDurationTime;
       this.$plane = this.$('#js-plane');
       this.$planeInner = this.$plane.find('#js-plane-inner');
       this.$planeText = this.$plane.find('#js-plane-text');
@@ -176,21 +173,16 @@
           return _this.isPlaneText = false;
         }
       });
-      this.controller.addTween(start, this.planeTween, this.frameDurationTime * 3);
-      this.scriptTween21 = TweenMax.to(this.$script2, .75, {
-        css: {
-          opacity: 0
-        }
-      });
-      this.controller.addTween(start, this.scriptTween21, this.frameDurationTime);
-      start = 6 * this.frameDurationTime;
+      this.controller.addTween(start, this.planeTween, dur);
+      start = start + dur - 2 * this.frameDurationTime;
+      dur = this.frameDurationTime;
       $bushes = $('.curtain3--bush-lh');
       for (i = _j = 0, _len = $bushes.length; _j < _len; i = ++_j) {
         bush = $bushes[i];
         $bush = $(bush);
         this.controller.addTween(start, TweenMax.to($bush, .75, {
           scale: 1
-        }), this.frameDurationTime);
+        }), dur);
       }
       this.$yAxes = this.$('#js-roller-y');
       this.$xAxes = this.$('#js-roller-x');
@@ -227,41 +219,47 @@
       this.rollerAxesTween = TweenMax.to({}, .75, {
         onUpdate: StatSocial.helpers.bind(this.onRollerAxesUpdate, this)
       });
-      this.controller.addTween(start, this.rollerAxesTween, this.frameDurationTime);
+      this.controller.addTween(start, this.rollerAxesTween, dur);
       this.prepareBuildingLine(1);
       this.prepareBuildingLine(2);
-      start = 7 * this.frameDurationTime;
+      start = start + dur;
+      dur = 3 * this.frameDurationTime;
       this.rollerRailsTween1 = TweenMax.to({
         y: 500
       }, .75, {
         y: 0,
         onUpdate: StatSocial.helpers.bind(this.onRollerRails1Update, this)
       });
-      this.controller.addTween(start, this.rollerRailsTween1, 3 * this.frameDurationTime);
+      this.controller.addTween(start, this.rollerRailsTween1, dur);
       this.rollerRailsTween2 = TweenMax.to({
         y: 500
       }, 1, {
         y: 0,
         onUpdate: StatSocial.helpers.bind(this.onRollerRails2Update, this)
       });
-      this.controller.addTween(start, this.rollerRailsTween2, 3 * this.frameDurationTime);
-      start = 10 * this.frameDurationTime;
+      this.controller.addTween(start, this.rollerRailsTween2, dur);
+      start = start + dur;
+      dur = this.frameDurationTime;
       this.gridSimplifyTween = TweenMax.to({
         x: 0
       }, 1, {
         x: 1300,
         onUpdate: StatSocial.helpers.bind(this.onGridSimplifyUpdate, this)
       });
-      this.controller.addTween(start, this.gridSimplifyTween, this.frameDurationTime);
-      start = 10 * this.frameDurationTime;
+      this.controller.addTween(start, this.gridSimplifyTween, dur);
       this.lineSimplifyTween = TweenMax.to({
         curve: 0
       }, 1, {
         curve: 40,
         onUpdate: StatSocial.helpers.bind(this.onLineSimplifyUpdate, this)
       });
-      this.controller.addTween(start, this.lineSimplifyTween, this.frameDurationTime);
-      start = 11 * this.frameDurationTime;
+      this.controller.addTween(start, this.lineSimplifyTween, dur);
+      this.axesSimplifyTween = TweenMax.to(this.$('#js-roller-x, #js-roller-y'), 1, {
+        opacity: 0
+      });
+      this.controller.addTween(start, this.axesSimplifyTween, dur);
+      start = start + dur;
+      dur = 3 * this.frameDurationTime;
       this.rollerTextTween = TweenMax.to({
         offset: this.rollerLine2.getTotalLength()
       }, 1, {
@@ -271,8 +269,9 @@
           return _this.showTrain1();
         }
       });
-      this.controller.addTween(start, this.rollerTextTween, 2 * this.frameDurationTime);
-      start = 12 * this.frameDurationTime;
+      this.controller.addTween(start, this.rollerTextTween, dur);
+      start = start + dur - (this.frameDurationTime / 2);
+      dur = 1;
       this.rollerCabinsTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
           _this.initRollerCabins();
@@ -290,8 +289,9 @@
           return _this.hideTrain2();
         })
       });
-      this.controller.addTween(start, this.rollerCabinsTriggerTween, 1);
-      start = 12 * this.frameDurationTime;
+      this.controller.addTween(start, this.rollerCabinsTriggerTween, dur);
+      start = start + dur - (this.frameDurationTime / 2);
+      dur = 1;
       this.carouselTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
           _this.$scence3.addClass('is-show-carousel');
@@ -306,8 +306,9 @@
           }), 800);
         }
       });
-      this.controller.addTween(start, this.carouselTriggerTween, 1);
-      start = 13 * this.frameDurationTime;
+      this.controller.addTween(start, this.carouselTriggerTween, dur);
+      start = start + dur;
+      dur = 3 * this.frameDurationTime;
       this.planeTween2 = TweenMax.to(this.$plane, .75, {
         css: {
           left: '100%'
@@ -316,16 +317,17 @@
         onStart: function() {
           _this.$plane.show();
           _this.isPlaneHide = false;
-          return _this.$planeText.text('learn their affinities for 25,000+ brands, interests, celebrities, and TV shows', {
+          return _this.$planeText.text('stats on 25,000+ brands, interests, celebrities, and TV shows', {
             onComplete: function() {
               return _this.isPlaneText = false;
             }
           });
         }
       });
-      this.controller.addTween(start, this.planeTween2, this.frameDurationTime * 3);
-      start = 14.5 * this.frameDurationTime;
-      this.carouselTriggerTween = TweenMax.to({}, 1, {
+      this.controller.addTween(start, this.planeTween2, dur);
+      start = start + dur - (2 * this.frameDurationTime);
+      dur = 1;
+      this.ferrisWheelTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
           _this.$scence3.addClass('is-show-ferris-wheel');
           return setTimeout((function() {
@@ -339,33 +341,33 @@
           }), 800);
         }
       });
-      this.controller.addTween(start, this.carouselTriggerTween, 1);
-      start = 17 * this.frameDurationTime;
+      this.controller.addTween(start, this.ferrisWheelTriggerTween, dur);
+      start = start + dur + (2 * this.frameDurationTime);
+      dur = 3 * this.frameDurationTime;
       this.ferrisText = this.$('#js-ferris-text')[0];
       this.ferrisTextPath = this.$('#ferris-script')[0];
       this.ferrisTextTween = TweenMax.to({
         offset: 2300
       }, 1, {
-        offset: 200,
+        offset: 100,
         onUpdate: StatSocial.helpers.bind(this.onFerrisTextUpdate, this)
       });
-      this.controller.addTween(start, this.ferrisTextTween, 3 * this.frameDurationTime);
-      start = 19.5 * this.frameDurationTime;
+      this.controller.addTween(start, this.ferrisTextTween, dur);
+      start = start + dur - (1.5 * this.frameDurationTime);
+      dur = this.frameDurationTime;
       this.moonTween = TweenMax.to(this.$moon, .75, {
         x: 0,
         y: 0
       });
-      this.controller.addTween(start, this.moonTween, this.frameDurationTime);
-      start = 19.5 * this.frameDurationTime;
-      this.nightDuration = 1 * this.frameDurationTime;
+      this.controller.addTween(start, this.moonTween, dur);
       $cloudParts = this.$('.cloud-b > *');
       $iconBanner = $('.icon-banner');
       this.controller.addTween(start, TweenMax.to(this.$('.cabin--base, .icon-banner'), 1, {
         backgroundColor: '#f2d577'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('#js-bg'), 1, {
         backgroundColor: '#095273'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to($cloudParts, 1, {
         backgroundColor: '#4b99bd',
         onStart: (function() {
@@ -376,66 +378,68 @@
           $cloudParts.removeClass('no-transition-g-i');
           return $iconBanner.removeClass('no-transition-g-i');
         })
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.building-b'), 1, {
         backgroundColor: '#13688d'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.human'), 1, {
         backgroundColor: '#153750'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.bush-b > .part-be'), 1, {
         backgroundColor: '#70bb69'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.bush-b.is-light > .part-be'), 1, {
         backgroundColor: '#55d38c'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.ribbon-b, .ribbon-b > .rope-be, .ribbon-b > .rope2-be'), 1, {
         backgroundColor: '#6ab4d7'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.ribbon-b > .text-be'), 1, {
         color: '#ffffff'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.ribbon-b > .tale-be'), 1, {
         borderTopColor: '#6ab4d7'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.ribbon-b > .tale2-be'), 1, {
         borderBottomColor: '#6ab4d7'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.building-b > .tip-be'), 1, {
         borderBottomColor: '#18688d'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.line, .check-pattern'), 1, {
         stroke: '#1b7daa'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.line1, .check-pattern1'), 1, {
         stroke: '#2590be'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.marker-circle'), 1, {
         fill: '#2590be'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.svg-cabin-wheel'), 1, {
         fill: '#13527b'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.svg-cabin-base'), 1, {
         fill: '#237ca6'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.svg-cabin-base2'), 1, {
         fill: '#3f98c2'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.svg-cabin-base3'), 1, {
         fill: '#1c7691'
-      }), this.nightDuration);
+      }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.svg-cabin-human'), 1, {
         fill: '#153750'
-      }), this.nightDuration);
-      start = 20.5 * this.frameDurationTime;
+      }), dur);
+      start = start + dur;
+      dur = this.frameDurationTime;
       this.moonTween = TweenMax.to($('.moon-n-text--side'), 1, {
         y: -100,
         opacity: 0
       });
-      this.controller.addTween(start, this.moonTween, this.frameDurationTime);
-      start = 21.5 * this.frameDurationTime;
-      this.planeTween3 = TweenMax.to(this.$plane, .75, {
+      this.controller.addTween(start, this.moonTween, dur);
+      start = start + dur;
+      dur = 3 * this.frameDurationTime;
+      this.planeTween3 = TweenMax.to(this.$plane, 1, {
         css: {
           left: '-100%'
         },
@@ -450,12 +454,79 @@
           });
         }
       });
-      this.controller.addTween(start, this.planeTween3, this.frameDurationTime * 3);
-      start = 22.5 * this.frameDurationTime;
-      this.entranceTween = TweenMax.to(this.$('#js-entrance'), .75, {
+      this.controller.addTween(start, this.planeTween3, dur);
+      start = start + dur - (2 * this.frameDurationTime);
+      dur = this.frameDurationTime;
+      this.entranceTween = TweenMax.to(this.$('#js-entrance'), 1, {
         y: 0
       });
-      return this.controller.addTween(start, this.entranceTween, this.frameDurationTime);
+      this.controller.addTween(start, this.entranceTween, dur);
+      start = start + dur - (this.frameDurationTime / 2);
+      dur = this.frameDurationTime;
+      this.$baloonsLayer1 = this.$('.js-baloon__layer1');
+      this.$baloonsLayer2 = this.$('.js-baloon__layer2');
+      this.$baloonsLayer3 = this.$('.js-baloon__layer3');
+      this.baloonsTween1 = TweenMax.to(this.$baloonsLayer1, 1, {
+        marginTop: 0,
+        onUpdate: StatSocial.helpers.bind(this.onBaloonsUpdate1, this)
+      });
+      this.controller.addTween(start, this.baloonsTween1, dur);
+      this.baloonsTween2 = TweenMax.to(this.$baloonsLayer2, 1, {
+        marginTop: 0,
+        onUpdate: StatSocial.helpers.bind(this.onBaloonsUpdate2, this)
+      });
+      this.controller.addTween(start + (this.frameDurationTime / 6), this.baloonsTween2, dur);
+      this.baloonsTween3 = TweenMax.to(this.$baloonsLayer3, 1, {
+        marginTop: 0,
+        onUpdate: StatSocial.helpers.bind(this.onBaloonsUpdate3, this)
+      });
+      this.controller.addTween(start + (this.frameDurationTime / 8), this.baloonsTween3, dur);
+      this.groundKonfettiTween = TweenMax.to(this.$('#js-ground-confetti'), 1, {
+        opacity: 1
+      });
+      this.controller.addTween(start, this.groundKonfettiTween, dur);
+      start = start + dur + (this.frameDurationTime / 2);
+      dur = 3 * this.frameDurationTime;
+      this.planeTween4 = TweenMax.to(this.$plane, 1, {
+        css: {
+          left: '100%'
+        },
+        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate4, this),
+        onStart: function() {
+          _this.$plane.show();
+          _this.isPlaneHide = false;
+          return _this.$planeText.text('customer service you can rely on', {
+            onComplete: function() {
+              return _this.isPlaneText = false;
+            }
+          });
+        }
+      });
+      return this.controller.addTween(start, this.planeTween4, dur);
+    };
+
+    App.prototype.onBaloonsUpdate1 = function() {
+      if (this.baloonsTween1.totalProgress() >= 1) {
+        return this.$baloonsLayer1.addClass('oscillate-eff');
+      } else {
+        return this.$baloonsLayer1.removeClass('oscillate-eff');
+      }
+    };
+
+    App.prototype.onBaloonsUpdate2 = function() {
+      if (this.baloonsTween2.totalProgress() >= 1) {
+        return this.$baloonsLayer2.addClass('oscillate2-eff');
+      } else {
+        return this.$baloonsLayer2.removeClass('oscillate2-eff');
+      }
+    };
+
+    App.prototype.onBaloonsUpdate3 = function() {
+      if (this.baloonsTween3.totalProgress() >= 1) {
+        return this.$baloonsLayer3.addClass('oscillate3-eff');
+      } else {
+        return this.$baloonsLayer3.removeClass('oscillate3-eff');
+      }
     };
 
     App.prototype.onFerrisTextUpdate = function() {
@@ -752,7 +823,7 @@
         !this.isPlaneHide && this.$plane.hide();
         return this.isPlaneHide = true;
       } else {
-        this.setPlaneText('learn their affinities for 25,000+ brands, interests, celebrities, and TV shows');
+        this.setPlaneText('stats on 25,000+ brands, interests, celebrities, and TV shows');
         this.isPlaneText2 = true;
         this.isPlaneHide && this.$planeInner.addClass('is-flip');
         this.isPlaneHide && this.$plane.show();
@@ -781,6 +852,32 @@
       } else {
         this.setPlaneText('unparalleled demographics');
         this.isPlaneText3 = true;
+        this.isPlaneHide && this.$plane.show();
+        return this.isPlaneHide = false;
+      }
+    };
+
+    App.prototype.onPlaneUpdate4 = function() {
+      var progress;
+
+      progress = this.planeTween4.totalProgress();
+      if (this.prevPlaneProgress > progress) {
+        !this.isPlaneFlip && this.$planeInner.removeClass('is-flip');
+        this.isPlaneFlip = true;
+      } else {
+        this.isPlaneFlip && this.$planeInner.addClass('is-flip');
+        this.isPlaneFlip = false;
+      }
+      this.prevPlaneProgress = progress;
+      if (progress >= 1) {
+        if (!this.isPlaneHide) {
+          this.$planeInner.addClass('is-flip');
+          this.$plane.hide();
+        }
+        return this.isPlaneHide = true;
+      } else {
+        this.setPlaneText('customer service you can rely on');
+        this.isPlaneText4 = true;
         this.isPlaneHide && this.$plane.show();
         return this.isPlaneHide = false;
       }

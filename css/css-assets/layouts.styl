@@ -43,29 +43,34 @@ firstCurtainText()
 	&--right
 		left (leftSize)%
 		width (100 - leftSize)%
+		&--text-wrapper
+			rect 100%
+			position absolute
+			nw 0
+			overflow hidden
 		&--peel
 			position absolute
 			z-index 1
 			bottom 0
 			left 0
 			background white
-			width 100%
+			height 100%
 			box-shadow 2px 2px gs rgba(0,0,0,.1), gs (- gs) 3*gs rgba(0,0,0,.1)
 			&--gradient
 				position absolute
-				width 100%
-				max-height 10*gs
+				height 100%
+				max-width 10*gs
 			color2 = 230
 			percent = 71
 			&--gradient
 				bottom 0
-				background: rgb(255,255,255); /* Old browsers */
-				background: -moz-linear-gradient(top,  rgba(255,255,255,1) 2%, rgba(color2,color2,color2,1) (percent)%, rgba(238,238,238,1) 100%); /* FF3.6+ */
-				background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,rgba(255,255,255,1)), color-stop((percent)%,rgba(color2,color2,color2,1)), color-stop(100%,rgba(238,238,238,1))); /* Chrome,Safari4+ */
-				background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 2%,rgba(color2,color2,color2,1) (percent)%,rgba(238,238,238,1) 100%); /* Chrome10+,Safari5.1+ */
-				background: -o-linear-gradient(top,  rgba(255,255,255,1) 2%,rgba(color2,color2,color2,1) (percent)%,rgba(238,238,238,1) 100%); /* Opera 11.10+ */
-				background: -ms-linear-gradient(top,  rgba(255,255,255,1) 2%,rgba(color2,color2,color2,1) (percent)%,rgba(238,238,238,1) 100%); /* IE10+ */
-				background: linear-gradient(to bottom,  rgba(255,255,255,1) 2%,rgba(color2,color2,color2,1) (percent)%,rgba(238,238,238,1) 100%); /* W3C */
+				background: rgb(238,238,238); /* Old browsers */
+				background: -moz-linear-gradient(left,  rgba(238,238,238,1) 0%, rgba(230,230,230,1) 29%, rgba(255,255,255,1) 98%); /* FF3.6+ */
+				background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(238,238,238,1)), color-stop(29%,rgba(230,230,230,1)), color-stop(98%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+				background: -webkit-linear-gradient(left,  rgba(238,238,238,1) 0%,rgba(230,230,230,1) 29%,rgba(255,255,255,1) 98%); /* Chrome10+,Safari5.1+ */
+				background: -o-linear-gradient(left,  rgba(238,238,238,1) 0%,rgba(230,230,230,1) 29%,rgba(255,255,255,1) 98%); /* Opera 11.10+ */
+				background: -ms-linear-gradient(left,  rgba(238,238,238,1) 0%,rgba(230,230,230,1) 29%,rgba(255,255,255,1) 98%); /* IE10+ */
+				background: linear-gradient(to right,  rgba(238,238,238,1) 0%,rgba(230,230,230,1) 29%,rgba(255,255,255,1) 98%); /* W3C */
 	&--left
 		&--peel
 			position absolute
@@ -196,22 +201,18 @@ nightTransitionTime = 1.5s
 	// for i in 1..250
 	// 	.building-b--window__is-r{i}
 	// 		transition-delay (random(0, 2)/10)*sec
-
 	&.is-show-bushes
 		.curtain3--bush-lh
 			transform scale(1)
-
 	&.is-show-carousel
 		.carousel
 			transform translateY(0) scale(.6)
 			.no-preserve-3d &
 				transform translateY(-38px) scale(1)
-
 	&.is-show-ferris-wheel
 		.ferris-wheel
 			transform translateY(0)
 			transition all .35s ease-out
-
 	.entrance
 		position absolute
 		bottom groundHeight - 4px
@@ -219,13 +220,12 @@ nightTransitionTime = 1.5s
 		margin-left -224px
 		z-index 5
 		transform translateY(292px + groundHeight)
-	
 	.moon-n-text
 		right 1.5%
 		top 	2.5%
 		position absolute
 		transform translateX(400px) translateY(200px)
-
+		z-index 0
 	.carousel
 		position absolute
 		right 0
@@ -233,17 +233,14 @@ nightTransitionTime = 1.5s
 		z-index 4
 		transform translateY(600px) scale(.6)
 		transition all .35s ease-out
-
 		.no-preserve-3d &
 			transform translateY(600px) scale(1)
-
 	.ferris-wheel
 		position absolute
 		bottom groundHeight + 15px
 		transform translateY(150%)
 		z-index 4
 		left 5%
-
 	.roller-coaster-b
 		position absolute
 		bottom groundHeight
@@ -254,6 +251,7 @@ nightTransitionTime = 1.5s
 	// BUSHES
 	.curtain3--bush-lh
 		position 	absolute
+		z-index 3
 		bottom 		groundHeight
 		transform scale(0) translateZ(0)
 		// transition all .25s cubic-bezier(0.835, -0.025, 0.265, 1.550)
@@ -263,26 +261,26 @@ nightTransitionTime = 1.5s
 	.curtain3--bush1-lh
 		margin-bottom -40px
 		left  -10px
-		z-index 2
+		z-index 3
 		// transition-delay .45s
 
 	.curtain3--bush2-lh
 		margin-bottom -52px
 		left  30px
-		z-index 1
+		z-index 2
 		// transition-delay .45s
 
 	.curtain3--bush3-lh
 		margin-bottom -100px
 		left  110px
-		z-index 1
+		z-index 2
 
 	.curtain3--bush4-lh
 		rect 256px
 		left 50%
 		margin-left   -128px
 		margin-bottom -128px
-		z-index 2
+		z-index 3
 		// transition-delay 1s
 
 	.curtain3--bush5-lh
@@ -290,7 +288,7 @@ nightTransitionTime = 1.5s
 		left 50%
 		margin-left -210px
 		margin-bottom -56px
-		z-index 1
+		z-index 2
 		// transition-delay 1.25s
 
 	.curtain3--bush6-lh
@@ -298,7 +296,7 @@ nightTransitionTime = 1.5s
 		left 50%
 		margin-left -40px
 		margin-bottom -70px
-		z-index 2
+		z-index 3
 		// transition-delay .35s
 
 	.curtain3--bush7-lh
@@ -306,7 +304,7 @@ nightTransitionTime = 1.5s
 		left 50%
 		margin-left -280px
 		margin-bottom -60px
-		z-index 2
+		z-index 3
 		// transition-delay .5s
 
 	.curtain3--bush8-lh
@@ -314,14 +312,14 @@ nightTransitionTime = 1.5s
 		left 50%
 		margin-bottom -128px
 		margin-left   -50px
-		z-index 1
+		z-index 2
 		// transition-delay .75s
 
 	.curtain3--bush9-lh
 		left 50%
 		margin-bottom -90px
 		margin-left   160px
-		z-index 2
+		z-index 3
 		// transition-delay 1s
 
 	.curtain3--bush10-lh
@@ -329,7 +327,7 @@ nightTransitionTime = 1.5s
 		left 50%
 		margin-bottom -50px
 		margin-left   220px
-		z-index 1
+		z-index 2
 		// transition-delay .65s
 
 	.curtain3--bush11-lh
@@ -337,14 +335,14 @@ nightTransitionTime = 1.5s
 		left 50%
 		margin-bottom -50px
 		margin-left   370px
-		z-index 1
+		z-index 2
 		// transition-delay .75s
 
 	.curtain3--bush12-lh
 		rect 100px
 		right 30px
 		margin-bottom -50px
-		z-index 1
+		z-index 2
 		// transition-delay 1s
 
 	// PLANE
@@ -370,6 +368,7 @@ nightTransitionTime = 1.5s
 		bottom groundHeight
 		transform translateY(150%)
 		bottom 0
+		z-index 2
 
 	leftSize  = 1
 	widthSize = 10
@@ -482,6 +481,7 @@ nightTransitionTime = 1.5s
 	animationDuration = 100s
 	.curtain3-cloud-holder-lh
 		position absolute
+		z-index 1
 		rect 100%
 		top 0
 		left 0
@@ -535,7 +535,7 @@ nightTransitionTime = 1.5s
 	.baloon
 		position absolute
 		margin-top 100%
-		z-index 4
+		z-index 2
 
 	> .bg-ll
 		background #72d2d1 url('i/curtain-dots-bg3.png') repeat
@@ -553,6 +553,12 @@ nightTransitionTime = 1.5s
 		background #493542 url('i/curtain-dots-bg3.png') repeat
 		background-position 0 -200px
 		z-index 9
+
+	.curtain3--ground-confetti
+		background url('i/konfetti.png') repeat 0 -80px
+		position absolute
+		rect 100%
+		opacity 0
 
 .curtain3--baloon-red1
 	nw 10%

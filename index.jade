@@ -22,7 +22,8 @@ html
 							.curtain-l--left--peel--gradient#js-left-peel-gradient
 
 					.curtain-l--right#js-right-curtain
-						.curtain-l--right--text#js-quo-curtain us Quo
+						.curtain-l--right--text-wrapper
+							.curtain-l--right--text#js-quo-curtain us Quo
 						.curtain-l--right--peel#js-right-peel
 							.curtain-l--right--peel--gradient#js-right-peel-gradient
 
@@ -32,6 +33,7 @@ html
 				.curtain3-l#js-curtain3
 					.bg-ll#js-bg
 					.ground-ll#js-ground
+						.curtain3--ground-confetti#js-ground-confetti
 					.curtain3-cloud-holder-lh.curtain3-cloud-holder1-lh
 						- el = { class: 'curtain3-cloud1-lh', id: '' }
 						include css/partials/cloud
@@ -176,22 +178,22 @@ html
 								g#js-roller-cabin3
 									+cabin()
 
-					- el = { tale: '#baloon-tale1', class: 'curtain3--baloon-yellow1', id: ''} 
+					- el = { tale: '#baloon-tale1', class: 'js-baloon__layer1 curtain3--baloon-yellow1', id: ''} 
 					include css/partials/baloon
 
-					- el = { tale: '#baloon-tale1', class: 'curtain3--baloon-yellow2', id: ''} 
+					- el = { tale: '#baloon-tale1', class: 'js-baloon__layer1 curtain3--baloon-yellow2', id: ''} 
 					include css/partials/baloon
 
-					- el = { tale: '#baloon-tale1', class: 'baloon__is-green curtain3--baloon-green1', id: ''} 
+					- el = { tale: '#baloon-tale1', class: 'js-baloon__layer2 baloon__is-green curtain3--baloon-green1', id: ''} 
 					include css/partials/baloon
 
-					- el = { tale: '#baloon-tale2', class: 'baloon__is-green curtain3--baloon-green2', id: ''} 
+					- el = { tale: '#baloon-tale2', class: 'js-baloon__layer2 baloon__is-green curtain3--baloon-green2', id: ''} 
 					include css/partials/baloon
 
-					- el = { tale: '#baloon-tale2', class: 'baloon__is-red curtain3--baloon-red1', id: ''} 
+					- el = { tale: '#baloon-tale2', class: 'js-baloon__layer3 baloon__is-red curtain3--baloon-red1', id: ''} 
 					include css/partials/baloon
 
-					- el = { tale: '#baloon-tale1', class: 'baloon__is-red curtain3--baloon-red2', id: ''} 
+					- el = { tale: '#baloon-tale1', class: 'js-baloon__layer3 baloon__is-red curtain3--baloon-red2', id: ''} 
 					include css/partials/baloon
 
 					- var icons = ['facebook', 'linkedin', 'google-plus', 'foursquare', 'quora', 'blogging', 'youtube', 'myspace' ]
@@ -200,7 +202,7 @@ html
 							defs
 								path(id="ferris-script", fill='none', stroke='#E30613', stroke-width='2', stroke-miterlimit='10', d='M-522.865,1384.396L57.03,347.583c0,0,67.789-114.568,90.385-152.757l0,0C187.87,123.386,264.57,75.175,352.53,75.175c130.094,0,235.555,105.461,235.555,235.556c0,105.606-69.498,194.983-165.256,224.886L-721.942,922.059')
 							text
-								textPath(id="js-ferris-text", xlink:href="#ferris-script", startOffset="0") for data this rich we harvested across 60+ social networks
+								textPath(id="js-ferris-text", xlink:href="#ferris-script", startOffset="0") data harvested from 60+ social networks
 						
 						.ferris-wheel--core
 							- for (var i=0; i<12; i++)
