@@ -1,6 +1,89 @@
 // BLOCKS
 @import '../assets/imports.styl'
 
+buildingLogoAnimTime = 5s
+.anima-fork
+	width 100%
+	overflow hidden
+	position relative
+	&:after
+		content ''
+		padding-bottom 42.592592593%
+		display block
+	.anima-banner
+		position absolute
+		top 0
+		left 0
+		animation change1 (3*buildingLogoAnimTime) linear infinite
+	.anima-banner:nth-of-type(2)
+		animation change2 (3*buildingLogoAnimTime) linear infinite
+		opacity 0
+	.anima-banner:nth-of-type(3)
+		animation change3 (3*buildingLogoAnimTime) linear infinite
+		opacity 0
+
+.anima-banner
+	width 100%
+	overflow hidden
+	position relative
+	&:after
+		content ''
+		padding-bottom 42.592592593%
+		display block
+
+.rotate-banner
+	.building-logo
+		animation rotateScale buildingLogoAnimTime linear infinite
+		transform scale(1.5)
+
+.shadow-banner
+	.building-logo
+		animation scale buildingLogoAnimTime linear infinite
+		transform scale(0)
+.wavy-banner
+	&__hider
+		position absolute
+		width 100%
+		height 10%
+		background #296785
+		animation wavy buildingLogoAnimTime linear infinite
+.shift-n-flash-banner
+	.building-logo
+		position absolute
+		animation shiftFlash buildingLogoAnimTime linear infinite
+		left -100%
+			
+.building-logo
+	background-size 100% auto
+	width 100%
+	&:after
+		content ''
+		padding-bottom 42.592592593%
+		display block
+	&--wells-fargo-icon
+		background url('i/icons/wells-fargo.svg') no-repeat center center
+		background-size 100% auto
+	&--nbcu-icon
+		background url('i/icons/nbcu.svg') no-repeat center center
+		background-size 100% auto
+	&--ibm-icon
+		background url('i/icons/ibm.svg') no-repeat center center
+		background-size 100% auto
+	&--cision-icon
+		background url('i/icons/cision.svg') no-repeat center center
+		background-size 100% auto
+	&--fox-icon
+		background url('i/icons/fox.svg') no-repeat center center
+		background-size 100% auto
+	&--mashable-icon
+		background url('i/icons/mashable.svg') no-repeat center center
+		background-size 100% auto
+	&--espn-icon
+		background url('i/icons/espn.svg') no-repeat center center
+		background-size 100% auto
+	&--burson-icon
+		background url('i/icons/burson-marsteller.svg') no-repeat center center
+		background-size 100% auto
 
 .entrance
 	width  455px
@@ -49,44 +132,23 @@ craterShadowColor = #b99a6b
 		border-top-left-radius  	100px
 		border-bottom-left-radius 100px
 
-	
-
-
 /* fba4ecd90d2db7a0f9b5ed45a89284b6 */
-baloonColor = #f1c74f
 .baloon
-	height 30*PX
+	height 63*PX
 	width 23*PX
-	background-color baloonColor
-	border-radius 50%
-	position relative
-	&:before
-		content '#'
-		position absolute
-		color white
-		font-size 14px
-		PXX = norm(14)*PX
-		nw 4*PXX
-		font-family monospaced
-		opacity .75
-	svg
-		position absolute
-		top 100%
-		left 0%
-		stroke baloonColor
-		stroke-width 1*PX
+	&__red1
+		retina 'i/balloon1-red' 100% transparent
+	&__red2
+		retina 'i/balloon2-red' 100% transparent
+	&__yellow1
+		retina 'i/balloon1-yellow' 100% transparent
+	&__yellow2
+		retina 'i/balloon2-yellow' 100% transparent
+	&__green1
+		retina 'i/balloon1-green' 100% transparent
+	&__green2
+		retina 'i/balloon2-green' 100% transparent
 
-redColor = #ff6a6c
-.baloon__is-red
-	background redColor
-	svg
-		stroke redColor
-
-greenColor = #299d9d
-.baloon__is-green
-	background greenColor
-	svg
-		stroke greenColor
 
 PX = (1/16)em
 .human
@@ -216,7 +278,6 @@ ferrisWheelTransitionCoef = .3s
 			circle size
 			center-shift size
 			background-color #b72737	
-
 
 spikeHeight = 38*PX
 cabinSize = 44*PX
@@ -757,23 +818,12 @@ ferrisWheelSize = 375
 	height 50%
 	position relative
 	border 8px solid transparent
-	// &:after
-	// 	content ''
-	// 	position absolute
-	// 	width 5%
-	// 	height 100%
-	// 	background-color inherit
-	// 	ne 0
-	// 	right -1px
 
-	// .building-b--window
-	// 	background-color transparent
-	// 	float left 
-	// 	rect 8px
-	// 	margin-left 5%
-	// 	margin-top 5px
-	// 	position relative
-	// 	z-index 2
+	&__icons
+		position absolute
+		top 0
+		width  100%
+		height 4*gs
 
 	> .text-be
 		font-size 26px

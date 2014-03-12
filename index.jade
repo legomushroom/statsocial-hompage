@@ -70,6 +70,48 @@ html
 					- for (var i = 1; i<=buildings.length; i++)
 						- el = { text: buildings[i-1], class: 'curtain3-building'+i+'-lh', id: '' }
 						include css/partials/building
+							- if (i == 6) {
+								.anima-fork
+									.anima-banner.shadow-banner
+										.building-logo.building-logo--cision-icon
+									.anima-banner.shift-n-flash-banner
+										.building-logo.building-logo--mashable-icon
+									.anima-banner.wavy-banner
+										.building-logo.building-logo--ibm-icon
+										.wavy-banner__hider
+							- }
+							- if (i == 7) {
+								.anima-fork
+									.anima-banner.shift-n-flash-banner
+										.building-logo.building-logo--nbcu-icon
+									.anima-banner.shadow-banner
+										.building-logo.building-logo--burson-icon
+									.anima-banner.wavy-banner
+										.building-logo.building-logo--cision-icon
+										.wavy-banner__hider
+							- }
+
+							- if (i == 8) {
+								.anima-fork
+									.anima-banner.wavy-banner
+										.building-logo.building-logo--fox-icon
+										.wavy-banner__hider
+									.anima-banner.rotate-banner
+										.building-logo.building-logo--espn-icon
+									.anima-banner.shift-n-flash-banner
+										.building-logo.building-logo--wells-fargo-icon
+							- }
+
+							- if (i == 9) {
+								.anima-fork
+									.anima-banner.shadow-banner
+										.building-logo.building-logo--ibm-icon
+									.anima-banner.shift-n-flash-banner
+										.building-logo.building-logo--nbcu-icon
+									.anima-banner.wavy-banner
+										.building-logo.building-logo--espn-icon
+										.wavy-banner__hider
+							- }
 
 					.curtain3-plane-lh#js-plane
 						- el = { class: '', id: 'js-plane-inner', text: 'detailed statistics over many fine segments' }
@@ -178,23 +220,15 @@ html
 								g#js-roller-cabin3
 									+cabin()
 
-					- el = { tale: '#baloon-tale1', class: 'js-baloon__layer1 curtain3--baloon-yellow1', id: ''} 
-					include css/partials/baloon
 
-					- el = { tale: '#baloon-tale1', class: 'js-baloon__layer1 curtain3--baloon-yellow2', id: ''} 
-					include css/partials/baloon
+					.baloon.baloon__yellow1.js-baloon__layer1.curtain3--baloon-yellow1
+					.baloon.baloon__yellow2.js-baloon__layer1.curtain3--baloon-yellow2
 
-					- el = { tale: '#baloon-tale1', class: 'js-baloon__layer2 baloon__is-green curtain3--baloon-green1', id: ''} 
-					include css/partials/baloon
+					.baloon.baloon__green1.js-baloon__layer2.curtain3--baloon-green1
+					.baloon.baloon__green2.js-baloon__layer2.curtain3--baloon-green2
 
-					- el = { tale: '#baloon-tale2', class: 'js-baloon__layer2 baloon__is-green curtain3--baloon-green2', id: ''} 
-					include css/partials/baloon
-
-					- el = { tale: '#baloon-tale2', class: 'js-baloon__layer3 baloon__is-red curtain3--baloon-red1', id: ''} 
-					include css/partials/baloon
-
-					- el = { tale: '#baloon-tale1', class: 'js-baloon__layer3 baloon__is-red curtain3--baloon-red2', id: ''} 
-					include css/partials/baloon
+					.baloon.baloon__red1.js-baloon__layer3.curtain3--baloon-red1
+					.baloon.baloon__red2.js-baloon__layer3.curtain3--baloon-red2
 
 					- var icons = ['facebook', 'linkedin', 'google-plus', 'foursquare', 'quora', 'blogging', 'youtube', 'myspace' ]
 					.ferris-wheel#js-ferris-wheel

@@ -63,7 +63,7 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $buildings, $bush, $bushes, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, bush, dur, i, start, _i, _j, _len, _ref,
+      var $animas, $buildings, $bush, $bushes, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, bush, dur, i, start, _i, _j, _len, _ref,
         _this = this;
 
       $quoCurtain = this.$('#js-quo-curtain');
@@ -222,7 +222,7 @@
       this.controller.addTween(start, this.rollerAxesTween, dur);
       this.prepareBuildingLine(1);
       this.prepareBuildingLine(2);
-      start = start + dur;
+      start = start + dur - (this.frameDurationTime / 2);
       dur = 3 * this.frameDurationTime;
       this.rollerRailsTween1 = TweenMax.to({
         y: 500
@@ -290,7 +290,7 @@
         })
       });
       this.controller.addTween(start, this.rollerCabinsTriggerTween, dur);
-      start = start + dur - (this.frameDurationTime / 2);
+      start = start + dur - this.frameDurationTime;
       dur = 1;
       this.carouselTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
@@ -502,7 +502,37 @@
           });
         }
       });
-      return this.controller.addTween(start, this.planeTween4, dur);
+      this.controller.addTween(start, this.planeTween4, dur);
+      start = start + dur - (1.5 * this.frameDurationTime);
+      dur = 1;
+      $animas = this.$('.anima-fork');
+      this.logosTriggerTween = TweenMax.to({}, 1, {
+        onComplete: (function() {
+          return $animas.show();
+        }),
+        onReverseComplete: (function() {
+          return $animas.hide();
+        })
+      });
+      this.controller.addTween(start, this.logosTriggerTween, dur);
+      start = start + dur + (2 * this.frameDurationTime);
+      dur = 3 * this.frameDurationTime;
+      this.planeTween5 = TweenMax.to(this.$plane, 1, {
+        css: {
+          left: '-100%'
+        },
+        onUpdate: StatSocial.helpers.bind(this.onPlaneUpdate5, this),
+        onStart: function() {
+          _this.$plane.show();
+          _this.isPlaneHide = false;
+          return _this.$planeText.text('just ask our clients how much they love us ', {
+            onComplete: function() {
+              return _this.isPlaneText = false;
+            }
+          });
+        }
+      });
+      return this.controller.addTween(start, this.planeTween5, dur);
     };
 
     App.prototype.onBaloonsUpdate1 = function() {
@@ -878,6 +908,32 @@
       } else {
         this.setPlaneText('customer service you can rely on');
         this.isPlaneText4 = true;
+        this.isPlaneHide && this.$plane.show();
+        return this.isPlaneHide = false;
+      }
+    };
+
+    App.prototype.onPlaneUpdate5 = function() {
+      var progress;
+
+      progress = this.planeTween5.totalProgress();
+      if (this.prevPlaneProgress > progress) {
+        !this.isPlaneFlip && this.$planeInner.addClass('is-flip');
+        this.isPlaneFlip = true;
+      } else {
+        this.isPlaneFlip && this.$planeInner.removeClass('is-flip');
+        this.isPlaneFlip = false;
+      }
+      this.prevPlaneProgress = progress;
+      if (progress >= 1) {
+        if (!this.isPlaneHide) {
+          this.$planeInner.removeClass('is-flip');
+          this.$plane.hide();
+        }
+        return this.isPlaneHide = true;
+      } else {
+        this.setPlaneText('just ask our clients how much they love us');
+        this.isPlaneText5 = true;
         this.isPlaneHide && this.$plane.show();
         return this.isPlaneHide = false;
       }

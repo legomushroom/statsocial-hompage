@@ -109,8 +109,6 @@ firstCurtainText()
 .underline-text__right
 	left (leftSize)%
 	text-align left
-
-		
 .layer
 	position absolute
 	nw 0
@@ -126,81 +124,10 @@ nightTransitionTime = 1.5s
 	position absolute
 	nw 0
 	z-index 2
-	// .moon-n-text, .cabin--base, .icon-banner, > .bg-ll,
-	// .line1, .check-pattern1, .marker-circle, .human, .svg-cabin-human
-	// 	transition all nightTransitionTime linear
-	// &.is-night
-	// 	.moon-n-text
-	// 		transform translateX(0) translateY(0)
-	// 	.cabin--base, .icon-banner
-	// 		background-color #f2d577
-	// 		transition-delay 0
-	// 	> .bg-ll
-	// 		background-color #095273
-	// 	.cloud-b
-	// 		// 4!
-	// 		> .circle-be, > .base-be
-	// 			background-color #4b99bd
-	// 			transition all nightTransitionTime linear
-	// 	cuildingColor = #18688d
-	// 	.building-b
-	// 		background-color cuildingColor
-	// 		transition all nightTransitionTime linear
-	// 		>	.tip-be
-	// 			border-bottom-color cuildingColor
-	// 			transition all nightTransitionTime linear
-	// 	.line, .check-pattern
-	// 		stroke #1b7daa
-	// 	color = #2590be
-	// 	.line1, .check-pattern1
-	// 		stroke color
-	// 	.marker-circle
-	// 		fill color
-	// 	humanColor = #153750
-	// 	.human
-	// 		background-color humanColor
-	// 		transition-delay 0 II
-	// 	.bush-b
-	// 		> .part-be
-	// 			background-color #70bb69
-	// 			transition all nightTransitionTime linear
-	// 			transition-delay 0
-	// 		&.is-light 
-	// 			> .part-be
-	// 				background-color #55d38c
+
+	.anima-fork
+		display none
 		
-	// 	ribbonColor = #6ab4d7
-	// 	.ribbon-b
-	// 		background-color ribbonColor
-	// 		transition all nightTransitionTime linear
-	// 		> .text-be
-	// 			color #095273
-	// 			color white
-	// 		> .rope-be, > .rope2-be
-	// 			background-color ribbonColor
-	// 		> .tale-be
-	// 			border-top-color ribbonColor
-	// 		> .tale2-be
-	// 			border-bottom-color ribbonColor
-
-	// 	.svg-cabin-wheel
-	// 		fill #13527b
-	// 	.svg-cabin-base
-	// 		fill #237ca6
-	// 	.svg-cabin-base2
-	// 		fill #3f98c2
-	// 	.svg-cabin-base3
-	// 		fill #1c7691
-	// 	.svg-cabin-human
-	// 		fill humanColor
-
-	// .building-b
-	// 	background #13688d 
-	// .building-b--window__is-shown
-	// 	background-color #3c777d
-	// for i in 1..250
-	// 	.building-b--window__is-r{i}
-	// 		transition-delay (random(0, 2)/10)*sec
 	&.is-show-bushes
 		.curtain3--bush-lh
 			transform scale(1)
@@ -412,22 +339,20 @@ nightTransitionTime = 1.5s
 		height 30%
 
 	leftSize = progress + 1
-	widthSize = 5
+	widthSize = 8
 	progress = leftSize + widthSize
 	.curtain3-building6-lh
 		left (leftSize)%
 		width (widthSize)%
 		height 55%
 
-
 	leftSize = progress + 1
-	widthSize = 8
+	widthSize = 7
 	progress = leftSize + widthSize
 	.curtain3-building7-lh
 		left (leftSize)%
 		width (widthSize)%
 		height 60%
-
 
 	leftSize = progress + 1
 	widthSize = 6
@@ -438,16 +363,15 @@ nightTransitionTime = 1.5s
 		height 50%
 
 	leftSize = progress + 1
-	widthSize = 4
+	widthSize = 7
 	progress = leftSize + widthSize
 	.curtain3-building9-lh
 		left (leftSize)%
 		width (widthSize)%
 		height 55%
 
-
 	leftSize = progress + 1
-	widthSize = 11
+	widthSize = 6
 	progress = leftSize + widthSize
 	.curtain3-building10-lh
 		left (leftSize)%

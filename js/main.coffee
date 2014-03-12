@@ -174,7 +174,7 @@ class App
 		@prepareBuildingLine 1
 		@prepareBuildingLine 2
 
-		start = start + dur
+		start = start + dur - (@frameDurationTime/2)
 		dur = 3*@frameDurationTime
 		@rollerRailsTween1 = TweenMax.to { y: 500 }, .75, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails1Update,@) }
 		@controller.addTween start, @rollerRailsTween1, dur
@@ -203,7 +203,7 @@ class App
 		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showTrain2() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideTrain2(); ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, dur
 
-		start = start + dur - (@frameDurationTime/2)
+		start = start + dur - (@frameDurationTime)
 		dur = 1
 		@carouselTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-carousel'); setTimeout (=> @$carousel.addClass('is-open') ), 200), onReverseComplete:=>( @$carousel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-carousel') ), 800) }
 		@controller.addTween start, @carouselTriggerTween, dur
@@ -293,9 +293,16 @@ class App
 		@planeTween4  = TweenMax.to @$plane, 1, { css:{ left: '100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate4,@), onStart:=> @$plane.show();  @isPlaneHide = false; @$planeText.text 'customer service you can rely on', onComplete:=> @isPlaneText = false; }
 		@controller.addTween start, @planeTween4, dur
 
-		
-		
+		start = start + dur - (1.5*@frameDurationTime)
+		dur = 1
+		$animas = @$('.anima-fork')
+		@logosTriggerTween = TweenMax.to {}, 1, { onComplete: (=> $animas.show()  ), onReverseComplete:(=> $animas.hide() ) }
+		@controller.addTween start, @logosTriggerTween, dur
 
+		start = start + dur + (2*@frameDurationTime)
+		dur = 3*@frameDurationTime
+		@planeTween5  = TweenMax.to @$plane, 1, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate5,@), onStart:=> @$plane.show();  @isPlaneHide = false; @$planeText.text 'just ask our clients how much they love us ', onComplete:=> @isPlaneText = false; }
+		@controller.addTween start, @planeTween5, dur
 
 	onBaloonsUpdate1:->
 		if @baloonsTween1.totalProgress() >= 1
@@ -586,6 +593,28 @@ class App
 			@isPlaneHide and @$plane.show()
 			@isPlaneHide = 	false
 
+	onPlaneUpdate5:->
+		progress = @planeTween5.totalProgress()
+
+		if @prevPlaneProgress > progress
+			!@isPlaneFlip and @$planeInner.addClass 'is-flip'
+			@isPlaneFlip = true
+		else
+			@isPlaneFlip and @$planeInner.removeClass 'is-flip'
+			@isPlaneFlip = false
+
+		@prevPlaneProgress = progress
+		if progress >= 1
+			if !@isPlaneHide
+				@$planeInner.removeClass('is-flip')
+				@$plane.hide()
+			@isPlaneHide = true
+		else 
+			# if !@isPlaneText3 
+			@setPlaneText 'just ask our clients how much they love us' 
+			@isPlaneText5 = true
+			@isPlaneHide and @$plane.show()
+			@isPlaneHide = 	false
 	
 
 	setPlaneText:(text)->

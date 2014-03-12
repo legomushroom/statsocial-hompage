@@ -1,6 +1,109 @@
 // EFFECTS
 @import '../assets/imports.styl'
 
+@keyframes rotateScale
+	0%
+		transform translateY(-100px)
+	20%
+		transform translateY(0)
+	90%
+		transform translateY(0)
+	100% 
+		transform translateX(150%)
+
+@keyframes change1
+	0%
+		opacity 1
+	33.3333333%
+		opacity 1
+	33.3333334%
+		opacity 0
+	100% 
+		opacity 0
+
+@keyframes change2
+	0%
+		opacity 0
+	33.3333333%
+		opacity 0
+	33.3333334%
+		opacity 1
+	66.6666666%
+		opacity 1
+	66.6666667%
+		opacity 0
+	100% 
+		opacity 0
+
+@keyframes change3
+	0%
+		opacity 0
+	66.6666666%
+		opacity 0
+	66.6666667%
+		opacity 1
+	100% 
+		opacity 1
+
+@keyframes scale
+	0%
+		transform scale(0)
+	10%
+		transform scale(1)
+	100%
+		transform scale(1)
+
+@keyframes wavy
+	0%
+		top -10%
+	10%
+		top 100%
+	19.99%
+		top 100%
+	20%
+		top -10%
+	29.99%
+		top 100%
+	30%
+		top -10%
+	39.99%
+		top 100%
+	40%
+		top -10%
+	49.99%
+		top 100%
+	99.99%
+		top 100%
+	100%
+		top 100%
+
+@keyframes shiftFlash
+	0% 
+		left -100%
+	12.5%
+		left 0
+	25%
+		opacity 1
+	26%
+		opacity 0
+	27%
+		opacity 1
+	28%
+		opacity 0
+	29%
+		opacity 1
+	30%
+		opacity 0
+	31%
+		opacity 1
+	35%
+		opacity 1
+	99.9%
+		opacity 1
+		left 0
+	100%
+		opacity 1
+		left -100%
 
 .oscillate-eff
 	animation oscillate 10s ease infinite

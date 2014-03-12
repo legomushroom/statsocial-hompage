@@ -1,9 +1,5 @@
 .building-b(class="#{el.class || ''}", id="#{el.id || ''}")
 	.text-be #{el.text}
 	.tip-be
-	//- - for (var j=0; j<500; j++)
-	//- 	- if (random(0, 10) > 5){
-	//- 			.building-b--window.building-b--window__is-shown
-	//- 		- } else{
-	//- 			.building-b--window.building-b--window__is-hidden
-	//- 		- }
+	.building-b__icons
+		block
