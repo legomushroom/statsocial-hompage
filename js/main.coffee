@@ -318,8 +318,11 @@ class App
 
 		start = start + dur - (@frameDurationTime/2)
 		dur = @frameDurationTime
-		@ticket1  = TweenMax.to $ticket1, 1, { rotation: -20, y: -20 }
+		@ticket1  = TweenMax.to $ticket1, 1, { rotation: -20, y: -20, x: -50 }
 		@controller.addTween start, @ticket1, dur
+
+		@clip  = TweenMax.to $clip, 1, { rotation: -3, y: 56, x: -70 }
+		@controller.addTween start, @clip, dur
 
 		@ticket2  = TweenMax.to $ticket2, 1, { rotation: -10 }
 		@controller.addTween start, @ticket2, dur

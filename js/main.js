@@ -555,9 +555,16 @@
       dur = this.frameDurationTime;
       this.ticket1 = TweenMax.to($ticket1, 1, {
         rotation: -20,
-        y: -20
+        y: -20,
+        x: -50
       });
       this.controller.addTween(start, this.ticket1, dur);
+      this.clip = TweenMax.to($clip, 1, {
+        rotation: -3,
+        y: 56,
+        x: -70
+      });
+      this.controller.addTween(start, this.clip, dur);
       this.ticket2 = TweenMax.to($ticket2, 1, {
         rotation: -10
       });
