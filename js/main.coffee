@@ -52,6 +52,7 @@ class App
 		$tickets = @$('#js-tickets')
 		$ticket1 = @$('#js-ticket1')
 		$ticket2 = @$('#js-ticket2')
+		$clip 	 = @$('#js-clip')
 
 		@frameDurationTime = 1000
 

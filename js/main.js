@@ -70,13 +70,14 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $animas, $buildings, $bush, $bushes, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, dur, i, start, _i, _j, _len, _ref,
+      var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, dur, i, start, _i, _j, _len, _ref,
         _this = this;
 
       $quoCurtain = this.$('#js-quo-curtain');
       $tickets = this.$('#js-tickets');
       $ticket1 = this.$('#js-ticket1');
       $ticket2 = this.$('#js-ticket2');
+      $clip = this.$('#js-clip');
       this.frameDurationTime = 1000;
       this.curtainTween1 = TweenMax.to(this.$('#js-left-curtain'), 1, {
         left: '-50%'
