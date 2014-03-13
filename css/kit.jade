@@ -33,10 +33,41 @@ html
 			.section-kl
 				.header-ke Icons
 				.cf 
-					.icon-sample-kl
-						.hash-e 7a570084fcf17dfd19f27128300c8648
-						- var el = { class: 'is-stroke', path: 'twitter-bird-icon' }
-						include partials/icon
+					.hash-e#28077abcc30427763898caec4f63f32c 28077abcc30427763898caec4f63f32c
+					.ticket.ticket1
+
+					.hash-e#84eb4506343b72fe313de7ebc5cfde74 84eb4506343b72fe313de7ebc5cfde74
+					mixin ticket2()
+						.ticket.ticket2
+							.ticket2__header Request demo
+							.ticket2__content
+								.ticket2__line
+									input.ticket2__line__input(placeholder="first name")
+								.ticket2__line
+									input.ticket2__line__input(placeholder="last name")
+								.ticket2__line
+									input.ticket2__line__input(placeholder="email")
+								.ticket2__line
+									input.ticket2__line__input(placeholder="phone number")
+								.ticket2__line
+									input.ticket2__line__input(placeholder="company")
+								.ticket2__line
+									input.ticket2__line__input(placeholder="username")
+								.ticket2__line.cf
+									input.ticket2__line__input(placeholder="project timeline")
+
+							.ticket2__btn admit one
+					+ticket2()
+
+					.hash-e#8a6afb9beac6d8383d2e26d836d2fc54 8a6afb9beac6d8383d2e26d836d2fc54
+					.tickets
+						.ticket.ticket1
+						+ticket2()
+
+					style
+						.building-logo, .anima-banner, .anima-fork{
+							max-width: 100px;
+						}
 
 					.hash-e#105273743e49a0105ab0ddefe5f37976 105273743e49a0105ab0ddefe5f37976
 					.building-logo.building-logo--wells-fargo-icon

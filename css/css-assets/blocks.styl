@@ -1,6 +1,86 @@
 // BLOCKS
 @import '../assets/imports.styl'
 
+.tickets
+	position relative
+	.ticket
+		position absolute
+		nw 0
+
+.ticket1, .ticket2, .tickets
+	width  236px
+	height 411px
+
+.ticket1
+	retina 'i/ticket1' 100% transparent
+
+color = #c94a4a
+bottomColor = #e5d6b5
+.ticket2
+	width  236px
+	height 411px
+	retina 'i/ticket2' 100% transparent
+	color color
+	outage()
+	position relative
+	contentWidth = 80
+	text-align center
+	&__header
+		position absolute
+		top 21.5%
+		width 100%
+		font-size 22px
+	&__content
+		position absolute
+		width (contentWidth)%
+		left ((100 - contentWidth)/2)%
+		top 30%
+	&__line
+		// hl orange
+		text-align left
+		white-space nowrap
+		border-bottom 2px solid bottomColor
+		& + .ticket2__line
+			margin-top gs - 2px
+		&__input
+			background transparent
+			border 0
+			outline 0
+			display inline-block
+			outage()
+			rect 100%
+			font-size 16px
+			margin-top -3px
+			padding-left 5px
+			placeholder-mixin(#5f5c5c)
+	width = 40
+	&__btn
+		width (width)%
+		margin-left -(width/2)%
+		text-align center
+		position absolute
+		left 50%
+		bottom 10%
+		display inline-block
+		font-size 20px
+		border-radius 3px
+		padding gs
+		border 1px solid transparent
+		&:hover
+			cursor pointer
+			box-shadow 0 2px 0 darken(bottomColor, 5)
+			border 1px solid bottomColor
+		&:active
+			box-shadow none
+			transform translateY(2px)
+			&:after
+				transform translateY(-2px)
+		&:after
+			content ''
+			position absolute
+			nw 0
+			rect 100%
+
 buildingLogoAnimTime = 5s
 .anima-fork
 	width 100%

@@ -34,6 +34,30 @@ html
 					.bg-ll#js-bg
 					.ground-ll#js-ground
 						.curtain3--ground-confetti#js-ground-confetti
+
+					.tickets#js-tickets
+						.ticket.ticket1#js-ticket1
+						.ticket.ticket2#js-ticket2
+							.ticket2__header Request demo
+							.ticket2__content
+								.ticket2__line
+									input.ticket2__line__input(placeholder="first name")
+								.ticket2__line
+									input.ticket2__line__input(placeholder="last name")
+								.ticket2__line
+									input.ticket2__line__input(placeholder="email")
+								.ticket2__line
+									input.ticket2__line__input(placeholder="phone number")
+								.ticket2__line
+									input.ticket2__line__input(placeholder="company")
+								.ticket2__line
+									input.ticket2__line__input(placeholder="username")
+								.ticket2__line.cf
+									input.ticket2__line__input(placeholder="project timeline")
+
+							.ticket2__btn admit one
+
+
 					.curtain3-cloud-holder-lh.curtain3-cloud-holder1-lh
 						- el = { class: 'curtain3-cloud1-lh', id: '' }
 						include css/partials/cloud

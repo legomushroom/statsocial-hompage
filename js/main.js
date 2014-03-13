@@ -62,11 +62,22 @@
       return it.controller.setScrollContainerOffset(0, -(that.y >> 0)).triggerCheckAnim(true);
     };
 
+    App.prototype.onBuildingsUpdate = function() {
+      var method;
+
+      method = this.curtainTextTween2.totalProgress() >= 1 ? 'hide' : 'show';
+      console.log(method);
+      return this.$scence[method]();
+    };
+
     App.prototype.buildAnimations = function() {
-      var $animas, $buildings, $bush, $bushes, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, bush, dur, i, start, _i, _j, _len, _ref,
+      var $animas, $buildings, $bush, $bushes, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, dur, i, start, _i, _j, _len, _ref,
         _this = this;
 
       $quoCurtain = this.$('#js-quo-curtain');
+      $tickets = this.$('#js-tickets');
+      $ticket1 = this.$('#js-ticket1');
+      $ticket2 = this.$('#js-ticket2');
       this.frameDurationTime = 1000;
       this.curtainTween1 = TweenMax.to(this.$('#js-left-curtain'), 1, {
         left: '-50%'
@@ -153,7 +164,8 @@
         },
         onReverseComplete: function() {
           return _this.$('.underline-text').css({
-            'top': '50%'
+            'top': '50%',
+            onUpdate: StatSocial.helpers.bind(_this.onBuildingsUpdate, _this)
           });
         }
       });
@@ -532,7 +544,24 @@
           });
         }
       });
-      return this.controller.addTween(start, this.planeTween5, dur);
+      this.controller.addTween(start, this.planeTween5, dur);
+      start = start + dur - (2 * this.frameDurationTime);
+      dur = this.frameDurationTime;
+      this.ticketsTween = TweenMax.to($tickets, 1, {
+        y: 0
+      });
+      this.controller.addTween(start, this.ticketsTween, dur);
+      start = start + dur - (this.frameDurationTime / 2);
+      dur = this.frameDurationTime;
+      this.ticket1 = TweenMax.to($ticket1, 1, {
+        rotation: -20,
+        y: -20
+      });
+      this.controller.addTween(start, this.ticket1, dur);
+      this.ticket2 = TweenMax.to($ticket2, 1, {
+        rotation: -10
+      });
+      return this.controller.addTween(start, this.ticket2, dur);
     };
 
     App.prototype.onBaloonsUpdate1 = function() {

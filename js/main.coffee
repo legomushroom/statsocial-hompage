@@ -43,9 +43,16 @@ class App
 	updateScrollPos:(that, it)->
 		it.controller.setScrollContainerOffset(0, -(that.y>>0)).triggerCheckAnim(true)
 
+	onBuildingsUpdate:->
+		method = if @curtainTextTween2.totalProgress() >= 1 then 'hide' else 'show'
+		console.log method
+		@$scence[method]()
 
 	buildAnimations:->
 		$quoCurtain = @$('#js-quo-curtain')
+		$tickets = @$('#js-tickets')
+		$ticket1 = @$('#js-ticket1')
+		$ticket2 = @$('#js-ticket2')
 
 		@frameDurationTime = 1000
 
@@ -105,7 +112,7 @@ class App
 															onReverseComplete:(-> @target.removeClass('is-show-label is-tip bounce-eff'))
 														}), dur
 
-		@curtainTextTween2  = TweenMax.to @$('.underline-text'), 1, { css:{ top: '-25%' }, onReverseComplete:=> @$('.underline-text').css 'top': '50%' }
+		@curtainTextTween2  = TweenMax.to @$('.underline-text'), 1, { css:{ top: '-25%' }, onReverseComplete:=> @$('.underline-text').css 'top': '50%', onUpdate: StatSocial.helpers.bind(@onBuildingsUpdate,@) }
 		@controller.addTween start-(@frameDurationTime/10), @curtainTextTween2, dur
 		
 		# -> PLANE
@@ -303,6 +310,19 @@ class App
 		dur = 3*@frameDurationTime
 		@planeTween5  = TweenMax.to @$plane, 1, { css:{ left: '-100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate5,@), onStart:=> @$plane.show();  @isPlaneHide = false; @$planeText.text 'just ask our clients how much they love us ', onComplete:=> @isPlaneText = false; }
 		@controller.addTween start, @planeTween5, dur
+
+		start = start + dur - (2*@frameDurationTime)
+		dur = @frameDurationTime
+		@ticketsTween  = TweenMax.to $tickets, 1, { y: 0 }
+		@controller.addTween start, @ticketsTween, dur
+
+		start = start + dur - (@frameDurationTime/2)
+		dur = @frameDurationTime
+		@ticket1  = TweenMax.to $ticket1, 1, { rotation: -20, y: -20 }
+		@controller.addTween start, @ticket1, dur
+
+		@ticket2  = TweenMax.to $ticket2, 1, { rotation: -10 }
+		@controller.addTween start, @ticket2, dur
 
 	onBaloonsUpdate1:->
 		if @baloonsTween1.totalProgress() >= 1
