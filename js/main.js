@@ -66,7 +66,6 @@
       var method;
 
       method = this.curtainTextTween2.totalProgress() >= 1 ? 'hide' : 'show';
-      console.log(method);
       return this.$scence[method]();
     };
 
@@ -162,12 +161,12 @@
         css: {
           top: '-25%'
         },
-        onReverseComplete: function() {
+        onReverseComplete: (function() {
           return _this.$('.underline-text').css({
-            'top': '50%',
-            onUpdate: StatSocial.helpers.bind(_this.onBuildingsUpdate, _this)
+            'top': '50%'
           });
-        }
+        }),
+        onUpdate: StatSocial.helpers.bind(this.onBuildingsUpdate, this)
       });
       this.controller.addTween(start - (this.frameDurationTime / 10), this.curtainTextTween2, dur);
       start = start + dur - (this.frameDurationTime / 1.5);

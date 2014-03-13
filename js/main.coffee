@@ -45,7 +45,6 @@ class App
 
 	onBuildingsUpdate:->
 		method = if @curtainTextTween2.totalProgress() >= 1 then 'hide' else 'show'
-		console.log method
 		@$scence[method]()
 
 	buildAnimations:->
@@ -112,7 +111,7 @@ class App
 															onReverseComplete:(-> @target.removeClass('is-show-label is-tip bounce-eff'))
 														}), dur
 
-		@curtainTextTween2  = TweenMax.to @$('.underline-text'), 1, { css:{ top: '-25%' }, onReverseComplete:=> @$('.underline-text').css 'top': '50%', onUpdate: StatSocial.helpers.bind(@onBuildingsUpdate,@) }
+		@curtainTextTween2  = TweenMax.to @$('.underline-text'), 1, { css:{ top: '-25%' }, onReverseComplete:(=> @$('.underline-text').css 'top': '50%'), onUpdate: StatSocial.helpers.bind(@onBuildingsUpdate,@) }
 		@controller.addTween start-(@frameDurationTime/10), @curtainTextTween2, dur
 		
 		# -> PLANE
