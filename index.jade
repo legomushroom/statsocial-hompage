@@ -31,7 +31,7 @@ html
 				.underline-text.underline-text__left#js-curtain-text2 stat
 
 				.curtain3-l#js-curtain3
-					.layer(data-depth="0.1").layer--bg
+					.layer(data-depth="0.0").layer--bg
 						.curtain3-l__bg#js-bg
 					
 					.layer(data-depth="0.95").layer--ground
@@ -96,7 +96,7 @@ html
 							include css/partials/cloud
 
 					.layer(data-depth="0.5").layer--buildings
-						- var buildings = ['location', '23%', '44%', 'education', '12%', '6%', 'age', '14%', '6%', 'income', '10%', '5%', 'sex']
+						- var buildings = ['location', '23%', '44%', 'education', '12%', '6%', 'age', '14%', '6%', 'income', '10%', '5%', 'sex', '10%', '12%']
 						- for (var i = 1; i<=buildings.length; i++)
 							- el = { text: buildings[i-1], class: 'curtain3-building'+i+'-lh', id: '' }
 							include css/partials/building
@@ -143,12 +143,12 @@ html
 											.wavy-banner__hider
 								- }
 
-					.curtain3-plane-lh#js-plane
-						- el = { class: '', id: 'js-plane-inner', text: 'detailed statistics over many fine segments' }
-						include css/partials/plane-n-text
+					.layer(data-depth="0.8").layer--plane
+						.curtain3-plane-lh#js-plane
+							- el = { class: '', id: 'js-plane-inner', text: 'detailed statistics over many fine segments' }
+							include css/partials/plane-n-text
 
-					.layer(data-depth="0.6").layer--bushes
-
+					.layer(data-depth="0.9").layer--bushes
 						- el = { class: 'curtain3--bush-lh curtain3--bush1-lh ', id: '' }
 						include css/partials/bush
 
@@ -185,7 +185,7 @@ html
 						- el = { class: 'curtain3--bush-lh curtain3--bush12-lh is-flip', id: '' }
 						include css/partials/bush
 
-					.layer(data-depth="0.7").layer--coaster
+					.layer(data-depth="0.9").layer--coaster
 						.roller-coaster-b
 							svg(viewbox='0 0 1240 500', preserveAspectRatio="xMaxYMax meet")
 								defs 
@@ -265,7 +265,7 @@ html
 
 					- var icons = ['facebook', 'linkedin', 'google-plus', 'foursquare', 'quora', 'blogging', 'youtube', 'myspace' ]
 					
-					.layer(data-depth="0.8").layer--carousel
+					.layer(data-depth="0.9").layer--carousel
 						.ferris-wheel#js-ferris-wheel
 							svg.ferris-wheel--script-path(width='731px', height='560px', viewbox='0 0 731 560')
 								defs
@@ -313,10 +313,10 @@ html
 							- el = { class: '', id: ''} 
 							include css/partials/moon
 
-					.layer(data-depth="0.9").layer--entrance
+					.layer(data-depth="0.95").layer--entrance
 						.entrance#js-entrance
 
-					.layer(data-depth="0.8").layer--carousel
+					.layer(data-depth="0.9").layer--carousel
 						.carousel#js-carousel
 							.carousel-top
 								.carousel-top--circle-large

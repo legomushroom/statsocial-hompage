@@ -145,7 +145,7 @@
         this.controller.addTween(start - (($buildings.length - i) * (this.frameDurationTime / $buildings.length)), TweenMax.to($el, .1, {
           css: {
             y: 0,
-            bottom: 145
+            bottom: 0
           },
           onComplete: (function() {
             var _this = this;

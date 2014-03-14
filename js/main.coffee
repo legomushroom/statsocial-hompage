@@ -102,7 +102,7 @@ class App
 			$el = $ $buildings.eq i
 			@controller.addTween start-(($buildings.length-i)*(@frameDurationTime/$buildings.length)), 
 														TweenMax.to($el, .1, { 
-															css:{ y: 0, bottom: 145 },
+															css:{ y: 0, bottom: 0 },
 															# ease: Bounce.easeOut,
 															onComplete:(-> 
 																	@target.addClass('is-show-label is-tip bounce-eff').removeClass('is-hide-label');
