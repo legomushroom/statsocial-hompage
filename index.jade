@@ -30,7 +30,8 @@ html
 				.underline-text.underline-text__right#js-curtain-text1 social
 				.underline-text.underline-text__left#js-curtain-text2 stat
 
-				.curtain3-l#js-curtain3
+				- var scalar = 5
+				.curtain3-l#js-curtain3(data-scalar-x="#{scalar}", data-scalar-y="#{scalar}")
 					.layer(data-depth="0.0").layer--bg
 						.curtain3-l__bg#js-bg
 					
@@ -143,7 +144,7 @@ html
 											.wavy-banner__hider
 								- }
 
-					.layer(data-depth="0.8").layer--plane
+					.layer(data-depth="0.75").layer--plane
 						.curtain3-plane-lh#js-plane
 							- el = { class: '', id: 'js-plane-inner', text: 'detailed statistics over many fine segments' }
 							include css/partials/plane-n-text
@@ -317,55 +318,55 @@ html
 						.entrance#js-entrance
 
 					.layer(data-depth="0.9").layer--carousel
-						.carousel#js-carousel
-							.carousel-top
-								.carousel-top--circle-large
-								.carousel-top--circle-small
+					.carousel#js-carousel
+						.carousel-top
+							.carousel-top--circle-large
+							.carousel-top--circle-small
 
-							.carousel-bottom
-								.carousel-bottom--top
-								.carousel-bottom--bottom
-								.carousel-bottom--bottom2
-								.carousel-bottom--bottom3
+						.carousel-bottom
+							.carousel-bottom--top
+							.carousel-bottom--bottom
+							.carousel-bottom--bottom2
+							.carousel-bottom--bottom3
 
-							.carousel--3d
-								.carousel--scene
-									.carousel--stage
-										.model
-											- var width = 50, height = 370.5, amount = 36;
-											- var em = 1/16;
-											- for (var i=1; i<=amount;i++)  
-												.dome(class="s#{i}")
-													svg(style='width: #{width*em}em; height: #{height*em}em;')
-														polygon(points='#{width/2},0 #{width},#{height} 0,#{height}')
+						.carousel--3d
+							.carousel--scene
+								.carousel--stage
+									.model
+										- var width = 50, height = 370.5, amount = 36;
+										- var em = 1/16;
+										- for (var i=1; i<=amount;i++)  
+											.dome(class="s#{i}")
+												svg(style='width: #{width*em}em; height: #{height*em}em;')
+													polygon(points='#{width/2},0 #{width},#{height} 0,#{height}')
 
-									.scene
-										.carousel-middle
+								.scene
+									.carousel-middle
 
-										.shape.cylinder-1.cyl-1
-											- var captions = ['Brands', 'Interests', 'Celebrities', 'TV shows']
-											- var c = -1;
-											- for(var i=0; i<=36;i++)
-												.face.side(class="s#{i}")
-													if (i % 4 == 0)
-														c = c + 1
-														text = (c < 9) ? captions[c%captions.length] : captions[3]
-														- el = { text: text, class: 'is-'+(text.toLowerCase().replace(/\s/gi, '\-')) }
-														include css/partials/banner
+									.shape.cylinder-1.cyl-1
+										- var captions = ['Brands', 'Interests', 'Celebrities', 'TV shows']
+										- var c = -1;
+										- for(var i=0; i<=36;i++)
+											.face.side(class="s#{i}")
+												if (i % 4 == 0)
+													c = c + 1
+													text = (c < 9) ? captions[c%captions.length] : captions[3]
+													- el = { text: text, class: 'is-'+(text.toLowerCase().replace(/\s/gi, '\-')) }
+													include css/partials/banner
 
 
 
-									- icons = ['fashion', 'education', 'plant', 'book', 'bowling', 'tv', 'celebrities', 'joystick2']
-									- r = -1
-									- for(var i=2; i<=9;i++)
-										.shape.cylinder-2(class="cyl-#{i}")
-											- for(var j=0; j<=2;j++)
-												.face.side(class="s#{j}")
-													if (j == 2)
-														r = r+1
-														- el = { }
-														- icon = { path: icons[r]+'-icon' }
-														include css/partials/icon-banner
+								- icons = ['fashion', 'education', 'plant', 'book', 'bowling', 'tv', 'celebrities', 'joystick2']
+								- r = -1
+								- for(var i=2; i<=9;i++)
+									.shape.cylinder-2(class="cyl-#{i}")
+										- for(var j=0; j<=2;j++)
+											.face.side(class="s#{j}")
+												if (j == 2)
+													r = r+1
+													- el = { }
+													- icon = { path: icons[r]+'-icon' }
+													include css/partials/icon-banner
 
 		script(src="js/modernizr.js")
 		script(src="js/jquery-2.1.0.min.js")
