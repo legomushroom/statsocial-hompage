@@ -24,7 +24,9 @@
       this.$scence3 = this.$('#js-curtain3');
       this.$carousel = this.$('#js-carousel');
       this.$plane = this.$('#js-plane');
-      return this.prevPlaneProgress = -1;
+      this.$ground = this.$('#js-ground');
+      this.prevPlaneProgress = -1;
+      return this.maxScroll = -26350;
     };
 
     App.prototype.initController = function() {
@@ -59,6 +61,7 @@
     };
 
     App.prototype.updateScrollPos = function(that, it) {
+      (that.y < it.maxScroll) && (that.y = it.maxScroll);
       return it.controller.setScrollContainerOffset(0, -(that.y >> 0)).triggerCheckAnim(true);
     };
 
@@ -111,7 +114,7 @@
       this.controller.addTween(start, this.leftPeelTween, this.frameDurationTime);
       start = start + dur;
       dur = this.frameDurationTime;
-      this.groundTween = TweenMax.to(this.$('#js-ground'), 1, {
+      this.groundTween = TweenMax.to(this.$ground, 1, {
         css: {
           y: 0
         }
@@ -442,6 +445,9 @@
       this.controller.addTween(start, TweenMax.to(this.$('.svg-cabin-human'), 1, {
         fill: '#153750'
       }), dur);
+      this.controller.addTween(start, TweenMax.to(this.$ground, 1, {
+        backgroundColor: '#333040'
+      }), dur);
       start = start + dur;
       dur = this.frameDurationTime;
       this.moonTween = TweenMax.to($('.moon-n-text--side'), 1, {
@@ -449,7 +455,7 @@
         opacity: 0
       });
       this.controller.addTween(start, this.moonTween, dur);
-      start = start + dur;
+      start = start + dur - (this.frameDurationTime / 1.5);
       dur = 3 * this.frameDurationTime;
       this.planeTween3 = TweenMax.to(this.$plane, 1, {
         css: {
@@ -497,7 +503,7 @@
         opacity: 1
       });
       this.controller.addTween(start, this.groundKonfettiTween, dur);
-      start = start + dur + (this.frameDurationTime / 2);
+      start = start + dur;
       dur = 3 * this.frameDurationTime;
       this.planeTween4 = TweenMax.to(this.$plane, 1, {
         css: {
@@ -527,7 +533,7 @@
         })
       });
       this.controller.addTween(start, this.logosTriggerTween, dur);
-      start = start + dur + (2 * this.frameDurationTime);
+      start = start + dur + (this.frameDurationTime / 4);
       dur = 3 * this.frameDurationTime;
       this.planeTween5 = TweenMax.to(this.$plane, 1, {
         css: {
@@ -901,6 +907,9 @@
       var progress;
 
       progress = this.planeTween3.totalProgress();
+      if (progress >= 0.75) {
+        return;
+      }
       if (this.prevPlaneProgress < progress) {
         !this.isPlaneFlip && this.$planeInner.removeClass('is-flip');
         this.isPlaneFlip = true;
@@ -909,7 +918,7 @@
         this.isPlaneFlip = false;
       }
       this.prevPlaneProgress = progress;
-      if (progress >= 1) {
+      if (progress >= .7) {
         if (!this.isPlaneHide) {
           this.$planeInner.removeClass('is-flip');
           this.$plane.hide();
@@ -927,6 +936,9 @@
       var progress;
 
       progress = this.planeTween4.totalProgress();
+      if (progress >= 0.5) {
+        return;
+      }
       if (this.prevPlaneProgress > progress) {
         !this.isPlaneFlip && this.$planeInner.removeClass('is-flip');
         this.isPlaneFlip = true;
@@ -935,7 +947,7 @@
         this.isPlaneFlip = false;
       }
       this.prevPlaneProgress = progress;
-      if (progress >= 1) {
+      if (progress >= 0.48) {
         if (!this.isPlaneHide) {
           this.$planeInner.addClass('is-flip');
           this.$plane.hide();
