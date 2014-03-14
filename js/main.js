@@ -56,8 +56,7 @@
     };
 
     App.prototype.initParallax = function() {
-      this.$scence.parallax();
-      return this.$scence2.parallax();
+      return this.$scence3.parallax();
     };
 
     App.prototype.updateScrollPos = function(that, it) {
@@ -381,6 +380,9 @@
         backgroundColor: '#f2d577'
       }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('#js-bg'), 1, {
+        backgroundColor: '#095273'
+      }), dur);
+      this.controller.addTween(start, TweenMax.to($(document.body), 1, {
         backgroundColor: '#095273'
       }), dur);
       this.controller.addTween(start, TweenMax.to($cloudParts, 1, {

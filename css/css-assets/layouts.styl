@@ -113,6 +113,25 @@ firstCurtainText()
 	position absolute
 	nw 0
 	rect 100%
+	startZIndex = 10
+	&--tickets
+		z-index startZIndex
+	&--ground
+		z-index startZIndex - 1
+	&--entrance
+		z-index startZIndex - 2
+	&--carousel
+		z-index startZIndex - 3
+	&--coaster, &--baloons
+		z-index startZIndex - 4
+	&--bushes
+		z-index startZIndex - 5
+	&--buildings
+		z-index startZIndex - 6
+	&--clouds
+		z-index startZIndex - 7
+	&--moon
+		z-index startZIndex - 8
 
 animationTime   = 200s
 animationEasing = ease
@@ -468,14 +487,14 @@ nightTransitionTime = 1.5s
 		margin-top 100%
 		z-index 2
 
-	> .bg-ll
+	&__bg
 		background #72d2d1 url('i/curtain-dots-bg3.png') repeat
 		position absolute
 		nw 0
 		rect 100%
 		opacity 0
 
-	> .ground-ll
+	&__ground
 		height groundHeight
 		position absolute
 		bottom 0
