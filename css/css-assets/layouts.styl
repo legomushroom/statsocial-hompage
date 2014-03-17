@@ -113,6 +113,27 @@ firstCurtainText()
 	position absolute
 	nw 0
 	rect 100%
+	startZIndex = 10
+	&--tickets
+		z-index startZIndex
+	&--ground
+		z-index startZIndex - 1
+	&--entrance
+		z-index startZIndex - 2
+	&--carousel
+		z-index startZIndex - 3
+	&--coaster, &--baloons
+		z-index startZIndex - 4
+	&--bushes
+		z-index startZIndex - 5
+	&--plane
+		z-index startZIndex - 6
+	&--buildings
+		z-index startZIndex - 7
+	&--clouds
+		z-index startZIndex - 8
+	&--moon
+		z-index startZIndex - 9
 
 animationTime   = 200s
 animationEasing = ease
@@ -163,7 +184,7 @@ nightTransitionTime = 1.5s
 	.carousel
 		position absolute
 		right 0
-		bottom 106px
+		bottom 102px
 		z-index 4
 		transform translateY(600px) scale(.6)
 		transition all .35s ease-out
@@ -171,7 +192,7 @@ nightTransitionTime = 1.5s
 			transform translateY(600px) scale(1)
 	.ferris-wheel
 		position absolute
-		bottom groundHeight + 15px
+		bottom groundHeight + 11px
 		transform translateY(150%)
 		z-index 4
 		left 5%
@@ -179,8 +200,9 @@ nightTransitionTime = 1.5s
 		position absolute
 		bottom groundHeight
 		z-index 3
-		right 0
-		width 100%
+		left -4.5%
+		width 109%
+
 
 	// BUSHES
 	.curtain3--bush-lh
@@ -301,7 +323,7 @@ nightTransitionTime = 1.5s
 		position absolute
 		bottom groundHeight
 		transform translateY(150%)
-		bottom 0
+		bottom -15%
 		z-index 2
 
 	leftSize  = 1
@@ -310,7 +332,7 @@ nightTransitionTime = 1.5s
 	.curtain3-building1-lh
 		left (leftSize)%
 		width (widthSize)%
-		height 25%
+		height 40%
 
 	leftSize = progress + 1
 	widthSize = 5
@@ -318,7 +340,7 @@ nightTransitionTime = 1.5s
 	.curtain3-building2-lh
 		left (leftSize)%
 		width (widthSize)%
-		height 35%
+		height 50%
 
 	leftSize = progress + 1
 	widthSize = 5
@@ -326,7 +348,7 @@ nightTransitionTime = 1.5s
 	.curtain3-building3-lh
 		left (leftSize)%
 		width (widthSize)%
-		height 20%
+		height 35%
 
 
 	leftSize = progress + 1
@@ -335,7 +357,7 @@ nightTransitionTime = 1.5s
 	.curtain3-building4-lh
 		left (leftSize)%
 		width (widthSize)%
-		height 10%
+		height 40%
 
 	leftSize = progress + 1
 	widthSize = 7
@@ -343,7 +365,7 @@ nightTransitionTime = 1.5s
 	.curtain3-building5-lh
 		left (leftSize)%
 		width (widthSize)%
-		height 30%
+		height 45%
 
 	leftSize = progress + 1
 	widthSize = 8
@@ -351,7 +373,7 @@ nightTransitionTime = 1.5s
 	.curtain3-building6-lh
 		left (leftSize)%
 		width (widthSize)%
-		height 55%
+		height 70%
 
 	leftSize = progress + 1
 	widthSize = 7
@@ -359,7 +381,7 @@ nightTransitionTime = 1.5s
 	.curtain3-building7-lh
 		left (leftSize)%
 		width (widthSize)%
-		height 60%
+		height 75%
 
 	leftSize = progress + 1
 	widthSize = 6
@@ -367,7 +389,7 @@ nightTransitionTime = 1.5s
 	.curtain3-building8-lh
 		left (leftSize)%
 		width (widthSize)%
-		height 50%
+		height 65%
 
 	leftSize = progress + 1
 	widthSize = 7
@@ -375,7 +397,7 @@ nightTransitionTime = 1.5s
 	.curtain3-building9-lh
 		left (leftSize)%
 		width (widthSize)%
-		height 55%
+		height 70%
 
 	leftSize = progress + 1
 	widthSize = 6
@@ -383,7 +405,7 @@ nightTransitionTime = 1.5s
 	.curtain3-building10-lh
 		left (leftSize)%
 		width (widthSize)%
-		height 35%
+		height 50%
 
 	leftSize = progress + 1
 	widthSize = 4
@@ -391,7 +413,7 @@ nightTransitionTime = 1.5s
 	.curtain3-building11-lh
 		left (leftSize)%
 		width (widthSize)%
-		height 25%
+		height 40%
 
 	leftSize = progress + 1
 	widthSize = 6
@@ -399,13 +421,29 @@ nightTransitionTime = 1.5s
 	.curtain3-building12-lh
 		left (leftSize)%
 		width (widthSize)%
-		height 30%
+		height 45%
 
 	leftSize = progress + 1
 	widthSize = 5
 	progress = leftSize + widthSize
 	.curtain3-building13-lh
 		left (leftSize)%
+		width (widthSize)%
+		height 50%
+
+	leftSize = progress + 1
+	widthSize = 6
+	progress = leftSize + widthSize
+	.curtain3-building14-lh
+		left (leftSize)%
+		width (widthSize)%
+		height 45%
+
+	leftSize = progress + 1
+	widthSize = 6
+	progress = leftSize + widthSize
+	.curtain3-building15-lh
+		left -(widthSize)%
 		width (widthSize)%
 		height 35%
 
@@ -468,18 +506,19 @@ nightTransitionTime = 1.5s
 		margin-top 100%
 		z-index 2
 
-	> .bg-ll
+	&__bg
 		background #72d2d1 url('i/curtain-dots-bg3.png') repeat
 		position absolute
 		nw 0
 		rect 100%
 		opacity 0
 
-	> .ground-ll
-		height groundHeight
+	&__ground
+		height 2*groundHeight
 		position absolute
-		bottom 0
-		width 100%
+		bottom - groundHeight
+		width 150%
+		left - 25%
 		transform translateY(100%)
 		background #493542 url('i/curtain-dots-bg3.png') repeat
 		background-position 0 -200px

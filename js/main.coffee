@@ -38,8 +38,7 @@ class App
 		@scroller.on 'scrollEnd', -> it.updateScrollPos this, it
 
 	initParallax:->
-		@$scence.parallax()
-		@$scence2.parallax()
+		@$scence3.parallax()
 
 	updateScrollPos:(that, it)->
 		(that.y < it.maxScroll) and (that.y = it.maxScroll)
@@ -103,7 +102,7 @@ class App
 			$el = $ $buildings.eq i
 			@controller.addTween start-(($buildings.length-i)*(@frameDurationTime/$buildings.length)), 
 														TweenMax.to($el, .1, { 
-															css:{ y: 0, bottom: 145 },
+															css:{ y: 0, bottom: 0 },
 															# ease: Bounce.easeOut,
 															onComplete:(-> 
 																	@target.addClass('is-show-label is-tip bounce-eff').removeClass('is-hide-label');
@@ -244,6 +243,7 @@ class App
 		$iconBanner = $('.icon-banner')
 		@controller.addTween start, TweenMax.to(@$('.cabin--base, .icon-banner'), 1, { backgroundColor: '#f2d577' }), dur
 		@controller.addTween start, TweenMax.to(@$('#js-bg'), 1, { backgroundColor: '#095273' }), dur
+		@controller.addTween start, TweenMax.to($(document.body), 1, { backgroundColor: '#095273' }), dur
 		@controller.addTween start, TweenMax.to($cloudParts, 1, { backgroundColor: '#4b99bd', onStart:(=> $cloudParts.addClass('no-transition-g-i'); $iconBanner.addClass('no-transition-g-i')), onReverseComplete:(=>$cloudParts.removeClass('no-transition-g-i'); $iconBanner.removeClass('no-transition-g-i')) }), dur
 		@controller.addTween start, TweenMax.to(@$('.building-b'), 1, { backgroundColor: '#13688d' }), dur
 		@controller.addTween start, TweenMax.to(@$('.human'), 1, { backgroundColor: '#153750' }), dur
