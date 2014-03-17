@@ -41,19 +41,19 @@ html
 							.ticket2__header Request demo
 							.ticket2__content
 								.ticket2__line
-									input.ticket2__line__input(placeholder="first name")
+									input.ticket2__line__input(placeholder="First name")
 								.ticket2__line
-									input.ticket2__line__input(placeholder="last name")
+									input.ticket2__line__input(placeholder="Last name")
 								.ticket2__line
-									input.ticket2__line__input(placeholder="email")
+									input.ticket2__line__input(placeholder="Email")
 								.ticket2__line
-									input.ticket2__line__input(placeholder="phone number")
+									input.ticket2__line__input(placeholder="Phone number")
 								.ticket2__line
-									input.ticket2__line__input(placeholder="company")
+									input.ticket2__line__input(placeholder="Company")
 								.ticket2__line
-									input.ticket2__line__input(placeholder="username")
+									input.ticket2__line__input(placeholder="Username")
 								.ticket2__line.cf
-									input.ticket2__line__input(placeholder="project timeline")
+									input.ticket2__line__input(placeholder="Project timeline")
 							.ticket2__btn admit one
 
 						.tickets__clip#js-clip
@@ -179,12 +179,11 @@ html
 					include css/partials/bush
 
 					.roller-coaster-b
-						svg(viewbox='0 0 1240 500', preserveAspectRatio="xMaxYMax meet")
+						svg(viewbox='0 0 1240 500', enable-background="new 0 0 1240 500", xml:space="preserve", version="1.1", id="Layer_1", xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", x="0px", y="0px")
 							defs 
 								marker(id="marker-circle", viewBox="0 0 16 16", refX="8", refY="8", markerUnits="strokeWidth", markerWidth="7", markerHeight="7", fill="#409e9c", orient="auto")
 									circle.marker-circle#js-marker-circle(cx="8", cy="8", r="5", stroke="#257978")
-								marker(id="marker-arrow", viewBox="0 0 22 42", refX="-22", refY="5", markerUnits="strokeWidth", markerWidth="42", markerHeight="12", fill="#409e9c", orient="auto")
-									polygon(transform="rotate(90)", x="4", fill="#287E7C", points="3.833,0 0,41 9.833,41")
+								//- marker(id="marker-arrow", viewBox="0 0 22 42", refX="-22", refY="5", markerUnits="strokeWidth", markerWidth="22", markerHeight="42", fill="#409e9c", orient="auto")
 								pattern#check-pattern.check-pattern(width="17", height="20", patternUnits="userSpaceOnUse")
 									line(x1="5", y1="0", x2="5", y2="20", stroke-width="5", vector-effect="non-scaling-stroke")
 								pattern#check-pattern-double.check-pattern.check-pattern1(width="34", height="20", patternUnits="userSpaceOnUse")
@@ -193,7 +192,7 @@ html
 									rect(width="1300", height="5", fill="#54adaa")#js-check-horizontal-pattern
 								pattern#check-pattern-horizontal-double(width="1300", height="39", patternUnits="userSpaceOnUse")
 									rect(width="1300", height="5", fill="#3da09f")#js-check-horizontal-pattern-double
-								
+						
 							mixin cabin()
 								g(id="roller-cabin")
 									path(class="svg-cabin-wheel", d='M11.358,17.651c1.51,0.961,1.963,2.965,1.012,4.477 s-2.947,1.959-4.458,1c-1.51-0.961-1.963-2.964-1.012-4.477C7.853,17.14,9.848,16.692,11.358,17.651z')
@@ -210,8 +209,10 @@ html
 							path(id="js-roller-line-bg2", fill='url(#check-pattern)', transform="translate(0, #{initialTranslateSize})", d="M1220,497.251L1223.666,230c0,0-62.768,14.741-83.166,21.443 c-27.394,9-79.298,35.054-107,43.057c-26.853,7.757-82.206,22.96-110,20c-27.977-2.979-78.228-31.716-104-43 c-26.999-11.821-77.632-47.005-107-49.5c-28.125-2.389-82.116,20.839-109,29.443c-22.606,7.235-66.053,26.99-89,33.057 c-21.059,5.568-64.236,14.91-86,14c-22.657-0.947-67.418-12.479-88-22c-24.927-11.531-66.998-47.993-90-63 c-25.226-16.458-74.159-53.816-103-62.5c-26.126-7.867-81.945-9.032-109-5.5c-8.937,1.167-34.333,11-34.333,11l2.771,339.906 L1220,497.251z")
 							path(id="js-roller-line-bg4", fill='url(#check-pattern-horizontal)', transform="translate(0, #{initialTranslateSize})", d="M1220,497.251L1223.666,230c0,0-62.768,14.741-83.166,21.443 c-27.394,9-79.298,35.054-107,43.057c-26.853,7.757-82.206,22.96-110,20c-27.977-2.979-78.228-31.716-104-43 c-26.999-11.821-77.632-47.005-107-49.5c-28.125-2.389-82.116,20.839-109,29.443c-22.606,7.235-66.053,26.99-89,33.057 c-21.059,5.568-64.236,14.91-86,14c-22.657-0.947-67.418-12.479-88-22c-24.927-11.531-66.998-47.993-90-63 c-25.226-16.458-74.159-53.816-103-62.5c-26.126-7.867-81.945-9.032-109-5.5c-8.937,1.167-34.333,11-34.333,11l2.771,339.906 L1220,497.251z")
 
-							line(id="js-roller-y", class="axe-line", marker-end="url(#marker-arrow)", transform="translate(0,505)", fill='none', stroke-miterlimit='10', x1='7', y1='498.959', x2='7', y2='22')
-							line(id="js-roller-x", class="axe-line", marker-end="url(#marker-arrow)", transform="translate(-1240,0)", fill='none', stroke-miterlimit='10', x1='4.933', y1='497', x2='1200', y2='497')
+							polygon(id="js-axes-arrow-y", transform="translate(2.5, 505)", fill="#287E7C", points="3.833,0 0,41 9.833,41")
+							line(id="js-roller-y", class="axe-line", transform="translate(0,505)", fill='none', stroke-miterlimit='10', x1='7', y1='498.959', x2='7', y2='22')
+							polygon(id="js-axes-arrow-x", transform="translate(-1200, -18) rotate(90, 11, 21)", fill="#287E7C", points="3.833,0 0,41 9.833,41")
+							line(id="js-roller-x", class="axe-line", transform="translate(-1240,0)", fill='none', stroke-miterlimit='10', x1='4.933', y1='497', x2='1200', y2='497')
 
 							path(d="M-200,200 L0,230 L388,360 L750,220 L957,270 L1136,207 L1336,257", id="js-roller-line2", class="line line2", transform="translate(0, 500)", fill='none', marker-mid="url(#marker-circle2)")
 							path(d="M-200,200 L0,230 L300,300 L500,230 L800,300 L1118,150 L1318,200", id="js-roller-line1", class="line line1", transform="translate(0, 500)", fill="none", marker-mid="url(#marker-circle)")

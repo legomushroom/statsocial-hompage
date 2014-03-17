@@ -8,7 +8,6 @@
       this.initScroll();
       this.initController();
       this.buildAnimations();
-      this.initParallax();
     }
 
     App.prototype.vars = function() {
@@ -200,11 +199,16 @@
         }), dur);
       }
       this.$yAxes = this.$('#js-roller-y');
+      this.$yAxesArrow = this.$('#js-axes-arrow-y');
       this.$xAxes = this.$('#js-roller-x');
+      this.$xAxesArrow = this.$('#js-axes-arrow-x');
       this.$rollerLine1 = this.$('#js-roller-line1');
       this.$rollerLine2 = this.$('#js-roller-line2');
       this.rollerLine1 = this.$rollerLine1[0];
       this.rollerLine2 = this.$rollerLine2[0];
+      if (StatSocial.helpers.isIE()) {
+        this.rollerLine1.setAttribute('marker-mid', 'none');
+      }
       this.$rollerLineBg2 = this.$('#js-roller-line-bg2');
       this.$rollerLineBg1 = this.$('#js-roller-line-bg1');
       this.$rollerLineBg4 = this.$('#js-roller-line-bg4');
@@ -231,10 +235,14 @@
       this.rollerLine2Length = this.rollerLine2.getTotalLength();
       this.rollerText = this.$rollerText[0];
       this.rollerTextOffset = parseInt(this.rollerText.getAttribute('startOffset'), 10);
-      this.rollerAxesTween = TweenMax.to({}, .75, {
+      this.rollerAxesTween = TweenMax.to({}, 1, {
         onUpdate: StatSocial.helpers.bind(this.onRollerAxesUpdate, this)
       });
       this.controller.addTween(start, this.rollerAxesTween, dur);
+      this.rollerAxesArrowTween = TweenMax.to({}, 1, {
+        onUpdate: StatSocial.helpers.bind(this.onRollerAxesArrowsUpdate, this)
+      });
+      this.controller.addTween(start, this.rollerAxesArrowTween, dur);
       this.prepareBuildingLine(1);
       this.prepareBuildingLine(2);
       start = start + dur - (this.frameDurationTime / 2);
@@ -269,7 +277,7 @@
         onUpdate: StatSocial.helpers.bind(this.onLineSimplifyUpdate, this)
       });
       this.controller.addTween(start, this.lineSimplifyTween, dur);
-      this.axesSimplifyTween = TweenMax.to(this.$('#js-roller-x, #js-roller-y'), 1, {
+      this.axesSimplifyTween = TweenMax.to(this.$('#js-roller-x, #js-roller-y, #js-axes-arrow-x, #js-axes-arrow-y'), 1, {
         opacity: 0
       });
       this.controller.addTween(start, this.axesSimplifyTween, dur);
@@ -671,27 +679,32 @@
     };
 
     App.prototype.prepareBuildingLine = function(num) {
-      var a, d, i, point, points, start, _i, _j, _len, _len1, _results;
+      var a, b, d, i, point, points, start, _i, _j, _k, _len, _len1, _len2, _results;
 
       start = 9 * this.frameDurationTime;
       d = this["$rollerLine" + num].attr('d');
       d = d.replace(/m/gi, '');
       d = d.replace(/(\d)()(\-)/gi, '$1,$3');
-      a = d.split(/l|\,/gi);
-      points = [];
-      for (i = _i = 0, _len = a.length; _i < _len; i = _i += 2) {
+      a = d.split(/l|\,|\s/gi);
+      b = [];
+      for (i = _i = 0, _len = a.length; _i < _len; i = ++_i) {
         point = a[i];
+        (point !== '') && b.push(point);
+      }
+      points = [];
+      for (i = _j = 0, _len1 = b.length; _j < _len1; i = _j += 2) {
+        point = b[i];
         points.push({
-          x: parseInt(a[i], 10),
-          y: parseInt(a[i + 1], 10),
+          x: parseInt(b[i], 10),
+          y: parseInt(b[i + 1], 10),
           i: i,
-          isFixed: i === 0 || i === a.length - 2
+          isFixed: i === 0 || i === b.length - 2
         });
       }
       this["livePoints" + num] = [];
       _results = [];
-      for (_j = 0, _len1 = points.length; _j < _len1; _j++) {
-        point = points[_j];
+      for (_k = 0, _len2 = points.length; _k < _len2; _k++) {
+        point = points[_k];
         _results.push(this["livePoints" + num].push(new window.StatSocial.RollerPoint(point)));
       }
       return _results;
@@ -849,8 +862,16 @@
       var progress;
 
       progress = this.rollerAxesTween.totalProgress();
-      this.$yAxes.attr('transform', "translate(0," + (520 - (520 * progress)) + ")");
+      this.$yAxes.attr('transform', "translate(0," + (570 - (550 * progress)) + ")");
       return this.$xAxes.attr('transform', "translate(" + (-1240 + (1240 * progress)) + ",0)");
+    };
+
+    App.prototype.onRollerAxesArrowsUpdate = function() {
+      var progress;
+
+      progress = this.rollerAxesTween.totalProgress();
+      this.$yAxesArrow.attr('transform', "translate(2.5," + (552 - (550 * progress)) + ")");
+      return this.$xAxesArrow.attr('transform', "translate(" + (-32 + (1240 * progress)) + ",482) rotate(90,11,21)");
     };
 
     App.prototype.onPlaneUpdate = function() {

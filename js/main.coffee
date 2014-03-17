@@ -4,7 +4,7 @@ class App
 		@initScroll()
 		@initController()
 		@buildAnimations()
-		@initParallax()
+		# @initParallax()
 		# $('#js-toggle-btn').on 'click', => $('#js-curtain3').toggleClass('is-night')
 	
 	vars:->
@@ -137,12 +137,18 @@ class App
 			@controller.addTween start, TweenMax.to($bush, .75, { scale: 1 }), dur
 		# -> ROLLER-COASTER
 		@$yAxes = @$('#js-roller-y')
+		@$yAxesArrow = @$('#js-axes-arrow-y')
 		@$xAxes = @$('#js-roller-x')
-		
+		@$xAxesArrow = @$('#js-axes-arrow-x')
+
 		@$rollerLine1 = @$('#js-roller-line1')
 		@$rollerLine2 = @$('#js-roller-line2')
 		@rollerLine1  = @$rollerLine1[0]
 		@rollerLine2  = @$rollerLine2[0]
+
+		if StatSocial.helpers.isIE()
+			@rollerLine1.setAttribute 'marker-mid', 'none'
+
 		@$rollerLineBg2 = @$('#js-roller-line-bg2')
 		@$rollerLineBg1 = @$('#js-roller-line-bg1')
 		@$rollerLineBg4 = @$('#js-roller-line-bg4')
@@ -176,8 +182,11 @@ class App
 		@rollerText 		= @$rollerText[0]
 		@rollerTextOffset = parseInt @rollerText.getAttribute('startOffset'), 10
 		
-		@rollerAxesTween = TweenMax.to {}, .75, { onUpdate: StatSocial.helpers.bind(@onRollerAxesUpdate,@) }
+		@rollerAxesTween = TweenMax.to {}, 1, { onUpdate: StatSocial.helpers.bind(@onRollerAxesUpdate,@) }
 		@controller.addTween start, @rollerAxesTween, dur
+
+		@rollerAxesArrowTween = TweenMax.to {}, 1, { onUpdate: StatSocial.helpers.bind(@onRollerAxesArrowsUpdate,@) }
+		@controller.addTween start, @rollerAxesArrowTween, dur
 
 		# --> ROLLER-COASTER BUILD
 		@prepareBuildingLine 1
@@ -199,7 +208,7 @@ class App
 		@lineSimplifyTween = TweenMax.to { curve: 0 }, 1, { curve: 40, onUpdate: StatSocial.helpers.bind(@onLineSimplifyUpdate,@) }
 		@controller.addTween start, @lineSimplifyTween, dur
 
-		@axesSimplifyTween = TweenMax.to @$('#js-roller-x, #js-roller-y'), 1, { opacity: 0 }
+		@axesSimplifyTween = TweenMax.to @$('#js-roller-x, #js-roller-y, #js-axes-arrow-x, #js-axes-arrow-y'), 1, { opacity: 0 }
 		@controller.addTween start, @axesSimplifyTween, dur
 
 		start = start + dur
@@ -224,7 +233,7 @@ class App
 
 		start = start + dur - (2*@frameDurationTime)
 		dur = 1
-		@ferrisWheelTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-ferris-wheel'); setTimeout (=> @$ferrisWheel.addClass('is-open') ), 200), onReverseComplete:=>( @$ferrisWheel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-ferris-wheel') ), 800) }
+		@ferrisWheelTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-ferris-wheel'); setTimeout( (=> @$ferrisWheel.addClass('is-open') ), 200)), onReverseComplete:=>( @$ferrisWheel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-ferris-wheel') ), 800) }
 		@controller.addTween start, @ferrisWheelTriggerTween, dur
 
 		start = start + dur + (2*@frameDurationTime)
@@ -395,14 +404,17 @@ class App
 		d = @["$rollerLine#{num}"].attr('d')
 		d = d.replace(/m/gi, '')
 		d = d.replace(/(\d)()(\-)/gi, '$1,$3')
-		a = d.split(/l|\,/gi)
+		a = d.split(/l|\,|\s/gi)
+		b = []
+		for point, i in a
+			(point isnt '') and b.push point
 		points = []
-		for point, i in a by 2
+		for point, i in b by 2
 			points.push 
-					x: parseInt(a[i], 10)
-					y: parseInt(a[i+1], 10)
+					x: parseInt(b[i], 10)
+					y: parseInt(b[i+1], 10)
 					i: i
-					isFixed: i is 0 or i is a.length-2
+					isFixed: i is 0 or i is b.length-2
 
 		@["livePoints#{num}"] = []
 		for point in points 
@@ -424,6 +436,12 @@ class App
 		str += "L#{lastPoint.x},1300 L0,1300 z"
 		@["$rollerLineBg#{num}"].attr('d', str)
 		@["$rollerLineBg#{num+2}"].attr('d', str)
+		# if num is 1 and StatSocial.helpers.isIE()
+		# 	buff = @rollerLine1.getAttribute 'marker-mid'
+		# 	@rollerLine1.setAttribute 'marker-mid', 'none'
+		# 	setTimeout =>
+		# 		@rollerLine1.setAttribute 'marker-mid', buff
+		# 	, 1
 
 	initRollerCabins:->
 		if !@rollerCabinsTween
@@ -524,8 +542,13 @@ class App
 
 	onRollerAxesUpdate:()->
 		progress = @rollerAxesTween.totalProgress()
-		@$yAxes.attr('transform', "translate(0,#{520-(520*progress)})")
+		@$yAxes.attr('transform', "translate(0,#{570-(550*progress)})")
 		@$xAxes.attr('transform', "translate(#{-1240+(1240*progress)},0)")
+
+	onRollerAxesArrowsUpdate:->
+		progress = @rollerAxesTween.totalProgress()
+		@$yAxesArrow.attr('transform', "translate(2.5,#{552-(550*progress)})")
+		@$xAxesArrow.attr('transform', "translate(#{-32+(1240*progress)},482) rotate(90,11,21)")
 
 	onPlaneUpdate:->
 		progress = @planeTween.totalProgress()

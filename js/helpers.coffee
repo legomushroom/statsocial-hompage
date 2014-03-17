@@ -15,6 +15,25 @@ class Helpers
 	getRand:(min,max)->
 		Math.floor((Math.random() * ((max + 1) - min)) + min)
 
+	isIE:->
+		if @isIECache then return @isIECache
+		undef = undefined # Return value assumes failure.
+		rv = -1
+		ua = window.navigator.userAgent
+		msie = ua.indexOf("MSIE ")
+		trident = ua.indexOf("Trident/")
+		if msie > 0
+		  
+		  # IE 10 or older => return version number
+		  rv = parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)), 10)
+		else if trident > 0
+		  
+		  # IE 11 (or newer) => return version number
+		  rvNum = ua.indexOf("rv:")
+		  rv = parseInt(ua.substring(rvNum + 3, ua.indexOf(".", rvNum)), 10)
+		@isIECache = (if (rv > -1) then rv else undef)
+		@isIECache
+
 
 
 window.StatSocial ?= {}
