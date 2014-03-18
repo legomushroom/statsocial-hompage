@@ -189,7 +189,7 @@
             this.oldP = -999;
           }
           p = planeTween1.progress();
-          method = this.oldP > p ? 'add' : 'remove';
+          method = this.oldP > p ? 'addClass' : 'removeClass';
           it.$plane1Inner[method]('is-flip');
           return this.oldP = p;
         }
@@ -484,7 +484,7 @@
             this.oldP = -999;
           }
           p = planeTween3.progress();
-          method = this.oldP > p ? 'add' : 'remove';
+          method = this.oldP > p ? 'addClass' : 'removeClass';
           it.$plane3Inner[method]('is-flip');
           return this.oldP = p;
         }

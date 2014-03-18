@@ -130,7 +130,7 @@ class App
 				left: '-100%',
 				onUpdate:-> 
 					@oldP ?= -999; p = planeTween1.progress()
-					method = if @oldP > p then 'add' else 'remove'
+					method = if @oldP > p then 'addClass' else 'removeClass'
 					it.$plane1Inner[method]('is-flip')
 					@oldP = p
 			}
@@ -305,7 +305,7 @@ class App
 				left: '-100%',
 				onUpdate:-> 
 					@oldP ?= -999; p = planeTween3.progress()
-					method = if @oldP > p then 'add' else 'remove'
+					method = if @oldP > p then 'addClass' else 'removeClass'
 					it.$plane3Inner[method]('is-flip')
 					@oldP = p
 			}
