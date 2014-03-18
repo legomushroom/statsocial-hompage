@@ -138,8 +138,20 @@ html
 										.wavy-banner__hider
 							- }
 
-					.curtain3-plane-lh#js-plane
+					.curtain3-plane-lh#js-plane1(style="left: 100%")
 						- el = { class: '', id: 'js-plane-inner', text: 'detailed statistics over many fine segments' }
+						include css/partials/plane-n-text
+
+					.curtain3-plane-lh#js-plane2(style="left: -100%")
+						- el = { class: 'is-flip', id: 'js-plane-inner', text: 'stats on 25,000+ brands, interests, celebrities, and TV shows' }
+						include css/partials/plane-n-text
+
+					.curtain3-plane-lh#js-plane3(style="left: 100%")
+						- el = { class: '', id: 'js-plane-inner', text: 'unparalleled demographics' }
+						include css/partials/plane-n-text
+
+					.curtain3-plane-lh#js-plane4(style="left: -100%")
+						- el = { class: 'is-flip', id: 'js-plane-inner', text: 'just ask our clients how much they love us' }
 						include css/partials/plane-n-text
 
 					- el = { class: 'curtain3--bush-lh curtain3--bush1-lh ', id: '' }

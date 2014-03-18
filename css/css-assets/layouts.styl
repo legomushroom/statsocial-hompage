@@ -277,7 +277,6 @@ nightTransitionTime = 1.5s
 		margin-bottom -50px
 		z-index 2
 		// transition-delay 1s
-
 	// PLANE
 	.curtain3-plane-lh
 		position absolute
@@ -286,11 +285,9 @@ nightTransitionTime = 1.5s
 		width 100%
 		z-index 4
 		transform translateZ(0)
-
+		text-align center
+		// hl green
 		.plane-n-text-l
-			position absolute
-			nw 0
-			left 0
 			&.is-flip
 				right 0
 				left auto
@@ -508,6 +505,27 @@ nightTransitionTime = 1.5s
 	left 85%
 	top  22%
 
+/* 76c1adee9e0430fc11ba2f1521e25b19 */
+.plane-n-text-l
+	position relative
+	// transition all .5s linear
+	transform-origin 50% 0
+	// width 760px
+	display inline-block
+
+	.ribbon-b
+		top -31px
+		margin-left 82px
+
+	.plane-e
+		display inline-block
+
+	&.is-flip
+		transform rotateY(180deg) translateZ(0)
+		.plane-n-text--text-bh
+			transform rotateY(-180deg) translateZ(0)
+
+
 	
 
 curtainMaskSize = 22px
@@ -659,24 +677,6 @@ coef = 10
 			box-shadow 0 -20px 0 darkBlue, 10px -20px 0 darkBlue, -10px -20px 0 darkBlue
 
 
-
-/* 76c1adee9e0430fc11ba2f1521e25b19 */
-.plane-n-text-l
-	position relative
-	// transition all .5s linear
-	transform-origin 50% 0
-	// width 760px
-	display inline-block
-	
-	.ribbon-b
-		position absolute
-		top 5px
-		left 234px
-
-	&.is-flip
-		transform rotateY(180deg) translateZ(0)
-		.plane-n-text--text-bh
-			transform rotateY(-180deg) translateZ(0)
 
 
 .main-l
