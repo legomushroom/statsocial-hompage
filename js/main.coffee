@@ -34,7 +34,7 @@ class App
 											playoutAnimations: true
 
 	initScroll:->
-		@scroller = new IScroll '#js-main', { probeType: 3, mouseWheel: true }
+		@scroller = new IScroll '#js-main', { probeType: 3, mouseWheel: true, deceleration: 0.001 }
 		document.addEventListener 'touchmove', ((e)-> e.preventDefault()), false
 		it = @
 		@scroller.on 'scroll',  	-> it.updateScrollPos this, it
@@ -254,7 +254,7 @@ class App
 		@ferrisWheelTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-ferris-wheel'); setTimeout( (=> @$ferrisWheel.addClass('is-open') ), 200)), onReverseComplete:=>( @$ferrisWheel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-ferris-wheel') ), 800) }
 		@controller.addTween start, @ferrisWheelTriggerTween, dur
 
-		start = start + dur + (2*@frameDurationTime)
+		start = start + dur + @frameDurationTime
 		dur = 3*@frameDurationTime
 		@ferrisText 		= @$('#js-ferris-text')[0]
 		@ferrisTextPath = @$('#ferris-script')[0]

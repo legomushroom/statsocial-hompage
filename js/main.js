@@ -43,7 +43,8 @@
 
       this.scroller = new IScroll('#js-main', {
         probeType: 3,
-        mouseWheel: true
+        mouseWheel: true,
+        deceleration: 0.001
       });
       document.addEventListener('touchmove', (function(e) {
         return e.preventDefault();
@@ -373,7 +374,7 @@
         }
       });
       this.controller.addTween(start, this.ferrisWheelTriggerTween, dur);
-      start = start + dur + (2 * this.frameDurationTime);
+      start = start + dur + this.frameDurationTime;
       dur = 3 * this.frameDurationTime;
       this.ferrisText = this.$('#js-ferris-text')[0];
       this.ferrisTextPath = this.$('#ferris-script')[0];
