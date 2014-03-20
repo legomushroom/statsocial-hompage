@@ -4,6 +4,8 @@ class App
 		@initScroll()
 		@initController()
 		@buildAnimations()
+		@listenKeys()
+		@loopSequence = StatSocial.helpers.bind @loopSequence, @
 		# @initParallax()
 		# $('#js-toggle-btn').on 'click', => $('#js-curtain3').toggleClass('is-night')
 	
@@ -26,12 +28,63 @@ class App
 		@$plane4 		= @$('#js-plane4')
 		@$ground 		= @$('#js-ground')
 		@prevPlaneProgress = -1
-		@maxScroll = -20000
+		@maxScroll = -18000
+		@readDelay = 3000
+		@startPoints = []
+		@readDelayItems = [3,4,5,6,8,10]
 
 	initController:->
 		@controller = $.superscrollorama
 											triggerAtCenter: false
 											playoutAnimations: true
+
+
+	loopSequence:->
+		@currSequenceTweenNum = if @currSequenceTweenNum < @startPoints.length-1 then @currSequenceTweenNum+1 else @currSequenceTweenNum
+		@currSequenceTween = TweenMax.to @scroller, @startPoints[@currSequenceTweenNum].dur, 	{ 
+			y: -@startPoints[@currSequenceTweenNum].start
+			onUpdate:   (=> @controller.setScrollContainerOffset(0, -(@scroller.y)).triggerCheckAnim(true))
+			onComplete:=>
+				@sequenceLoopTimer = setTimeout @loopSequence, @startPoints[@currSequenceTweenNum-1].delay or 0
+		}
+
+
+
+	listenKeys:->
+		scrollStep = @frameDurationTime/4
+		@play = false
+		@currSequenceTweenNum = 0
+		$(document).on 'keyup', (e)=>
+			switch e.keyCode
+				when 32
+					@play = !@play
+					if @play
+						@loopSequence()
+					else @stopLoopSequence()
+
+		currTweenKeydown = null
+		stepSize = @frameDurationTime
+		$(document).on 'keydown', (e)=>
+			switch e.keyCode
+				when 39, 40
+					@currSequenceTweenNum = if @currSequenceTweenNum < @startPoints.length-1 then @currSequenceTweenNum+1 else @currSequenceTweenNum
+					@stopLoopSequence()
+					@currSequenceTween = TweenMax.to @scroller, @startPoints[@currSequenceTweenNum].dur, 	{ 
+						y: -@startPoints[@currSequenceTweenNum].start
+						onUpdate:(=> @controller.setScrollContainerOffset(0, -(@scroller.y)).triggerCheckAnim(true) ) 
+					}
+				when 37, 38
+					@currSequenceTweenNum = if @currSequenceTweenNum > 0 then @currSequenceTweenNum-1 else @currSequenceTweenNum
+					@stopLoopSequence()
+					@currSequenceTween = TweenMax.to @scroller, @startPoints[@currSequenceTweenNum+1].dur, 	{ 
+						y: -@startPoints[@currSequenceTweenNum].start
+						onUpdate:(=> @controller.setScrollContainerOffset(0, -(@scroller.y)).triggerCheckAnim(true) ) 
+					}
+
+	stopLoopSequence:->
+		clearTimeout @sequenceLoopTimer
+		@currSequenceTween?.kill()
+		@play = false
 
 	initScroll:->
 		@scroller = new IScroll '#js-main', { probeType: 3, mouseWheel: true, deceleration: 0.001 }
@@ -45,8 +98,17 @@ class App
 		@$scence2.parallax()
 
 	updateScrollPos:(that, it)->
+		@stopLoopSequence()
 		(that.y < it.maxScroll) and (that.y = it.maxScroll)
 		it.controller.setScrollContainerOffset(0, -(that.y>>0)).triggerCheckAnim(true)
+		it.setCurrentScenseNum(that)
+
+	setCurrentScenseNum:(that)->
+		num = 0
+		for point, i in @startPoints
+			if -that.y > point.start
+				num = i
+		@currSequenceTweenNum = num
 
 	onBuildingsUpdate:->
 		method = if @curtainTextTween2.totalProgress() >= 1 then 'hide' else 'show'
@@ -69,6 +131,11 @@ class App
 		
 		start = 1
 		dur = @frameDurationTime
+		@startPoints.push 
+			start: start
+			delay: 0
+			dur: 1
+
 		@controller.addTween start, @curtainTween2, dur
 
 		@rightPeelTween 	= TweenMax.to @$('#js-right-peel, #js-right-peel-gradient'), 	1, 	{ css:{ width: '100%' }}
@@ -78,6 +145,7 @@ class App
 
 		start = start + dur
 		dur = @frameDurationTime
+		
 
 		@controller.addTween start, @curtainTween1, dur
 		@leftPeelTween 	= TweenMax.to @$('#js-left-peel, #js-left-peel-gradient'), 	1, 	{ css:{ width: '100%' }}
@@ -85,6 +153,7 @@ class App
 
 		start = start + dur - @frameDurationTime
 		dur = @frameDurationTime
+
 		@groundTween  = TweenMax.to @$ground, 1, { css:{ y: 0 } }
 		@controller.addTween start, @groundTween, dur
 
@@ -100,6 +169,7 @@ class App
 		# -> BUILDINGS
 		start = start + dur + (@frameDurationTime/2)
 		dur = @frameDurationTime
+
 		$buildings  = @$('.building-b')
 		for i in [0..$buildings.length]
 			$el = $ $buildings.eq i
@@ -122,6 +192,11 @@ class App
 		# -> PLANE
 		start = start + dur - (@frameDurationTime/1.5)
 		dur = 3*@frameDurationTime
+		@startPoints.push 
+			start: start + (@frameDurationTime)
+			delay: 3000
+			dur: 3
+
 		@$moon = @$('#js-moon')
 
 		it = @
@@ -139,6 +214,7 @@ class App
 		# -> BUSHES
 		start = start + dur - 2*@frameDurationTime
 		dur = @frameDurationTime
+
 		$bushes = $('.curtain3--bush-lh')
 		for bush, i in $bushes
 			$bush = $ bush
@@ -202,6 +278,7 @@ class App
 
 		start = start + dur - (@frameDurationTime)
 		dur = 3*@frameDurationTime
+
 		@rollerRailsTween1 = TweenMax.to { y: 500 }, .75, { y: 0, onUpdate: StatSocial.helpers.bind(@onRollerRails1Update,@) }
 		@controller.addTween start, @rollerRailsTween1, dur
 
@@ -210,6 +287,8 @@ class App
 
 		start = start + dur
 		dur = @frameDurationTime
+		# @startPoints.push start
+
 		@gridSimplifyTween = TweenMax.to { x: 0 }, 1, { x: 1300, onUpdate: StatSocial.helpers.bind(@onGridSimplifyUpdate,@) }
 		@controller.addTween start, @gridSimplifyTween, dur
 
@@ -219,8 +298,13 @@ class App
 		@axesSimplifyTween = TweenMax.to @$('#js-roller-x, #js-roller-y, #js-axes-arrow-x, #js-axes-arrow-y'), 1, { opacity: 0 }
 		@controller.addTween start, @axesSimplifyTween, dur
 
-		start = start + dur
+		start = start + dur 
 		dur = 3*@frameDurationTime
+		@startPoints.push 
+			start: start+@frameDurationTime
+			delay: 3000
+			dur: 3
+
 		@rollerTextTween = TweenMax.to { offset: @rollerLine2.getTotalLength() }, 1, { offset: @rollerTextOffset, onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@), onStart:=> @showTrain1() }
 		@controller.addTween start, @rollerTextTween, dur
 		
@@ -236,6 +320,10 @@ class App
 
 		start = start + dur
 		dur = 3*@frameDurationTime
+		@startPoints.push 
+			start: start+(0.75*@frameDurationTime)
+			delay: 3000
+			dur: 1
 
 		it = @
 		@$plane2Inner = @$plane2.find('#js-plane-inner')
@@ -256,6 +344,11 @@ class App
 
 		start = start + dur + @frameDurationTime
 		dur = 3*@frameDurationTime
+		@startPoints.push 
+			start: start+(@frameDurationTime/1.5)
+			delay: 3000
+			dur: 1
+
 		@ferrisText 		= @$('#js-ferris-text')[0]
 		@ferrisTextPath = @$('#ferris-script')[0]
 
@@ -264,6 +357,7 @@ class App
 
 		start = start + dur - (1.5*@frameDurationTime)
 		dur = @frameDurationTime
+
 		@moonTween  = TweenMax.to @$moon, 1, { x: 0, y: 0 }
 		@controller.addTween start, @moonTween, dur
 
@@ -293,6 +387,11 @@ class App
 
 		start = start + dur
 		dur = @frameDurationTime
+		@startPoints.push 
+			start: start
+			delay: 0
+			dur: 2
+
 		@moonTween = TweenMax.to $('.moon-n-text--side'), 1, { y: -100, opacity: 0 }
 		@controller.addTween start, @moonTween, dur
 
@@ -313,6 +412,11 @@ class App
 		
 		start = start + dur - (2*@frameDurationTime)
 		dur = @frameDurationTime
+		@startPoints.push 
+			start: start
+			delay: 0
+			dur: 1
+
 		@entranceTween  = TweenMax.to @$('#js-entrance'), 1, { y: 0 }
 		@controller.addTween start, @entranceTween, dur
 
@@ -348,7 +452,6 @@ class App
 
 		start = start - (@frameDurationTime/5)
 		dur = 3*@frameDurationTime
-
 		it = @
 		@$plane4Inner = @$plane4.find('#js-plane-inner')
 		planeTween4  = TweenMax.to @$plane4, 1, { 
@@ -363,11 +466,21 @@ class App
 
 		start = start + dur - (2*@frameDurationTime)
 		dur = @frameDurationTime
+		@startPoints.push 
+			start: start
+			delay: 0
+			dur: 3
+
 		@ticketsTween  = TweenMax.to $tickets, 1, { y: 0 }
 		@controller.addTween start, @ticketsTween, dur
 
 		start = start + dur - (@frameDurationTime/2)
 		dur = @frameDurationTime
+		@startPoints.push 
+			start: start + @frameDurationTime
+			delay: 0
+			dur: 1
+
 		@ticket1  = TweenMax.to $ticket1, 1, { rotation: -20, y: -20, x: -50 }
 		@controller.addTween start, @ticket1, dur
 

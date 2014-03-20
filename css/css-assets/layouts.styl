@@ -140,10 +140,12 @@ nightTransitionTime = 1.5s
 	&.is-show-carousel
 		.carousel
 			transform translateY(0) scale(.6)
+			transition-delay 0
 			.no-preserve-3d &
 				transform translateY(-38px) scale(1)
 	&.is-show-ferris-wheel
 		.ferris-wheel
+			transition-delay 0
 			transform translateY(0)
 			transition all .35s ease-out
 	.entrance

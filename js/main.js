@@ -8,6 +8,8 @@
       this.initScroll();
       this.initController();
       this.buildAnimations();
+      this.listenKeys();
+      this.loopSequence = StatSocial.helpers.bind(this.loopSequence, this);
     }
 
     App.prototype.vars = function() {
@@ -28,7 +30,10 @@
       this.$plane4 = this.$('#js-plane4');
       this.$ground = this.$('#js-ground');
       this.prevPlaneProgress = -1;
-      return this.maxScroll = -20000;
+      this.maxScroll = -18000;
+      this.readDelay = 3000;
+      this.startPoints = [];
+      return this.readDelayItems = [3, 4, 5, 6, 8, 10];
     };
 
     App.prototype.initController = function() {
@@ -36,6 +41,77 @@
         triggerAtCenter: false,
         playoutAnimations: true
       });
+    };
+
+    App.prototype.loopSequence = function() {
+      var _this = this;
+
+      this.currSequenceTweenNum = this.currSequenceTweenNum < this.startPoints.length - 1 ? this.currSequenceTweenNum + 1 : this.currSequenceTweenNum;
+      return this.currSequenceTween = TweenMax.to(this.scroller, this.startPoints[this.currSequenceTweenNum].dur, {
+        y: -this.startPoints[this.currSequenceTweenNum].start,
+        onUpdate: (function() {
+          return _this.controller.setScrollContainerOffset(0, -_this.scroller.y).triggerCheckAnim(true);
+        }),
+        onComplete: function() {
+          return _this.sequenceLoopTimer = setTimeout(_this.loopSequence, _this.startPoints[_this.currSequenceTweenNum - 1].delay || 0);
+        }
+      });
+    };
+
+    App.prototype.listenKeys = function() {
+      var currTweenKeydown, scrollStep, stepSize,
+        _this = this;
+
+      scrollStep = this.frameDurationTime / 4;
+      this.play = false;
+      this.currSequenceTweenNum = 0;
+      $(document).on('keyup', function(e) {
+        switch (e.keyCode) {
+          case 32:
+            _this.play = !_this.play;
+            if (_this.play) {
+              return _this.loopSequence();
+            } else {
+              return _this.stopLoopSequence();
+            }
+        }
+      });
+      currTweenKeydown = null;
+      stepSize = this.frameDurationTime;
+      return $(document).on('keydown', function(e) {
+        switch (e.keyCode) {
+          case 39:
+          case 40:
+            _this.currSequenceTweenNum = _this.currSequenceTweenNum < _this.startPoints.length - 1 ? _this.currSequenceTweenNum + 1 : _this.currSequenceTweenNum;
+            _this.stopLoopSequence();
+            return _this.currSequenceTween = TweenMax.to(_this.scroller, _this.startPoints[_this.currSequenceTweenNum].dur, {
+              y: -_this.startPoints[_this.currSequenceTweenNum].start,
+              onUpdate: (function() {
+                return _this.controller.setScrollContainerOffset(0, -_this.scroller.y).triggerCheckAnim(true);
+              })
+            });
+          case 37:
+          case 38:
+            _this.currSequenceTweenNum = _this.currSequenceTweenNum > 0 ? _this.currSequenceTweenNum - 1 : _this.currSequenceTweenNum;
+            _this.stopLoopSequence();
+            return _this.currSequenceTween = TweenMax.to(_this.scroller, _this.startPoints[_this.currSequenceTweenNum + 1].dur, {
+              y: -_this.startPoints[_this.currSequenceTweenNum].start,
+              onUpdate: (function() {
+                return _this.controller.setScrollContainerOffset(0, -_this.scroller.y).triggerCheckAnim(true);
+              })
+            });
+        }
+      });
+    };
+
+    App.prototype.stopLoopSequence = function() {
+      var _ref;
+
+      clearTimeout(this.sequenceLoopTimer);
+      if ((_ref = this.currSequenceTween) != null) {
+        _ref.kill();
+      }
+      return this.play = false;
     };
 
     App.prototype.initScroll = function() {
@@ -64,8 +140,24 @@
     };
 
     App.prototype.updateScrollPos = function(that, it) {
+      this.stopLoopSequence();
       (that.y < it.maxScroll) && (that.y = it.maxScroll);
-      return it.controller.setScrollContainerOffset(0, -(that.y >> 0)).triggerCheckAnim(true);
+      it.controller.setScrollContainerOffset(0, -(that.y >> 0)).triggerCheckAnim(true);
+      return it.setCurrentScenseNum(that);
+    };
+
+    App.prototype.setCurrentScenseNum = function(that) {
+      var i, num, point, _i, _len, _ref;
+
+      num = 0;
+      _ref = this.startPoints;
+      for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+        point = _ref[i];
+        if (-that.y > point.start) {
+          num = i;
+        }
+      }
+      return this.currSequenceTweenNum = num;
     };
 
     App.prototype.onBuildingsUpdate = function() {
@@ -93,6 +185,11 @@
       });
       start = 1;
       dur = this.frameDurationTime;
+      this.startPoints.push({
+        start: start,
+        delay: 0,
+        dur: 1
+      });
       this.controller.addTween(start, this.curtainTween2, dur);
       this.rightPeelTween = TweenMax.to(this.$('#js-right-peel, #js-right-peel-gradient'), 1, {
         css: {
@@ -178,6 +275,11 @@
       this.controller.addTween(start - (this.frameDurationTime / 10), this.curtainTextTween2, dur);
       start = start + dur - (this.frameDurationTime / 1.5);
       dur = 3 * this.frameDurationTime;
+      this.startPoints.push({
+        start: start + this.frameDurationTime,
+        delay: 3000,
+        dur: 3
+      });
       this.$moon = this.$('#js-moon');
       it = this;
       this.$plane1Inner = this.$plane1.find('#js-plane-inner');
@@ -291,6 +393,11 @@
       this.controller.addTween(start, this.axesSimplifyTween, dur);
       start = start + dur;
       dur = 3 * this.frameDurationTime;
+      this.startPoints.push({
+        start: start + this.frameDurationTime,
+        delay: 3000,
+        dur: 3
+      });
       this.rollerTextTween = TweenMax.to({
         offset: this.rollerLine2.getTotalLength()
       }, 1, {
@@ -340,6 +447,11 @@
       this.controller.addTween(start, this.carouselTriggerTween, dur);
       start = start + dur;
       dur = 3 * this.frameDurationTime;
+      this.startPoints.push({
+        start: start + (0.75 * this.frameDurationTime),
+        delay: 3000,
+        dur: 1
+      });
       it = this;
       this.$plane2Inner = this.$plane2.find('#js-plane-inner');
       planeTween2 = TweenMax.to(this.$plane2, 1, {
@@ -376,6 +488,11 @@
       this.controller.addTween(start, this.ferrisWheelTriggerTween, dur);
       start = start + dur + this.frameDurationTime;
       dur = 3 * this.frameDurationTime;
+      this.startPoints.push({
+        start: start + (this.frameDurationTime / 1.5),
+        delay: 3000,
+        dur: 1
+      });
       this.ferrisText = this.$('#js-ferris-text')[0];
       this.ferrisTextPath = this.$('#ferris-script')[0];
       this.ferrisTextTween = TweenMax.to({
@@ -467,6 +584,11 @@
       }), dur);
       start = start + dur;
       dur = this.frameDurationTime;
+      this.startPoints.push({
+        start: start,
+        delay: 0,
+        dur: 2
+      });
       this.moonTween = TweenMax.to($('.moon-n-text--side'), 1, {
         y: -100,
         opacity: 0
@@ -493,6 +615,11 @@
       this.controller.addTween(start, planeTween3, dur);
       start = start + dur - (2 * this.frameDurationTime);
       dur = this.frameDurationTime;
+      this.startPoints.push({
+        start: start,
+        delay: 0,
+        dur: 1
+      });
       this.entranceTween = TweenMax.to(this.$('#js-entrance'), 1, {
         y: 0
       });
@@ -554,12 +681,22 @@
       this.controller.addTween(start, planeTween4, dur);
       start = start + dur - (2 * this.frameDurationTime);
       dur = this.frameDurationTime;
+      this.startPoints.push({
+        start: start,
+        delay: 0,
+        dur: 3
+      });
       this.ticketsTween = TweenMax.to($tickets, 1, {
         y: 0
       });
       this.controller.addTween(start, this.ticketsTween, dur);
       start = start + dur - (this.frameDurationTime / 2);
       dur = this.frameDurationTime;
+      this.startPoints.push({
+        start: start + this.frameDurationTime,
+        delay: 0,
+        dur: 1
+      });
       this.ticket1 = TweenMax.to($ticket1, 1, {
         rotation: -20,
         y: -20,
