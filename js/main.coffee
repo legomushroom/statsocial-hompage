@@ -537,15 +537,20 @@ class App
 		@groundKonfettiTween  = TweenMax.to @$('#js-ground-confetti'), 1, { opacity: 1 }
 		@controller.addTween start, @groundKonfettiTween, dur
 
-		# start = start + dur 
-		# dur = 3*@frameDurationTime
-		# @planeTween4  = TweenMax.to @$plane, 1, { css:{ left: '100%' }, onUpdate: StatSocial.helpers.bind(@onPlaneUpdate4,@), onStart:=> @$plane.show();  @isPlaneHide = false; @$planeText.text 'customer service you can rely on', onComplete:=> @isPlaneText = false; }
-		# @controller.addTween start, @planeTween4, dur
-
 		start = start + dur 
 		dur = 1
 		$animas = @$('.anima-fork')
-		@logosTriggerTween = TweenMax.to {}, 1, { onComplete: (=> $animas.show()  ), onReverseComplete:(=> $animas.hide() ) }
+		@logosTriggerTween = TweenMax.to {}, 1, { 
+			onComplete: (=> 
+				for anima, i in $animas
+					if i is 0 then $(anima).show()
+					else do (anima)=>
+						setTimeout =>
+							$(anima).show()
+						, (StatSocial.helpers.getRand(0,150))*10
+			),
+			onReverseComplete:(=> $animas.hide() ) 
+		}
 		@controller.addTween start, @logosTriggerTween, dur
 
 		start = start - (@frameDurationTime/5)

@@ -779,7 +779,22 @@
       $animas = this.$('.anima-fork');
       this.logosTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
-          return $animas.show();
+          var anima, _k, _len1, _results;
+
+          _results = [];
+          for (i = _k = 0, _len1 = $animas.length; _k < _len1; i = ++_k) {
+            anima = $animas[i];
+            if (i === 0) {
+              _results.push($(anima).show());
+            } else {
+              _results.push((function(anima) {
+                return setTimeout(function() {
+                  return $(anima).show();
+                }, (StatSocial.helpers.getRand(0, 150)) * 10);
+              })(anima));
+            }
+          }
+          return _results;
         }),
         onReverseComplete: (function() {
           return $animas.hide();
