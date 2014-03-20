@@ -5,6 +5,9 @@ class App
 		@initController()
 		@buildAnimations()
 		@listenKeys()
+		@initMap()
+		@playSuggest()
+		@addCssClasses()
 		@loopSequence = StatSocial.helpers.bind @loopSequence, @
 		# @initParallax()
 		# $('#js-toggle-btn').on 'click', => $('#js-curtain3').toggleClass('is-night')
@@ -27,11 +30,27 @@ class App
 		@$plane3 		= @$('#js-plane3')
 		@$plane4 		= @$('#js-plane4')
 		@$ground 		= @$('#js-ground')
+		@$scrollSuggest = $('#js-scroll-suggest')
+		@$mouseSuggest 	= $('#js-scroll-suggest-mouse')
+		@$keysSuggest 	= $('#js-scroll-suggest-keys')
+		@$touchSuggest 	= $('#js-scroll-suggest-touch')
+		@$pagesBtns 		= $('#js-pages-btns')
+		@$playBtn 			= $('#js-pages-btns-play')
+		@$mainMenu 			= $('#js-main-menu')
 		@prevPlaneProgress = -1
-		@maxScroll = -18000
+		@maxScroll = -19000
 		@readDelay = 3000
 		@startPoints = []
 		@readDelayItems = [3,4,5,6,8,10]
+
+
+	hideMenu:-> 
+		@$mainMenu.addClass 'is-hidden'
+		@isMenuShow = false
+
+	showMenu:-> 
+		@$mainMenu.removeClass 'is-hidden'
+		@isMenuShow = true
 
 	initController:->
 		@controller = $.superscrollorama
@@ -40,51 +59,130 @@ class App
 
 
 	loopSequence:->
-		@currSequenceTweenNum = if @currSequenceTweenNum < @startPoints.length-1 then @currSequenceTweenNum+1 else @currSequenceTweenNum
+		num = @setCurrentScenseNum @currSequenceTweenNum+1
+
 		@currSequenceTween = TweenMax.to @scroller, @startPoints[@currSequenceTweenNum].dur, 	{ 
 			y: -@startPoints[@currSequenceTweenNum].start
 			onUpdate:   (=> @controller.setScrollContainerOffset(0, -(@scroller.y)).triggerCheckAnim(true))
 			onComplete:=>
-				@sequenceLoopTimer = setTimeout @loopSequence, @startPoints[@currSequenceTweenNum-1].delay or 0
+				if @currSequenceTweenNum < @startPoints.length
+					@sequenceLoopTimer = setTimeout @loopSequence, @startPoints[@currSequenceTweenNum].delay or 0
+					if @currSequenceTweenNum is @startPoints.length-1
+						@stopLoopSequence()
 		}
 
+		@$playBtn.addClass 'is-playing'
 
+	addCssClasses:->
+		@$mainMenu.addClass 'is-allow-transition'
+		if StatSocial.helpers.isMobile()
+			$(document.body).addClass 'at-mobiles'
+
+	stopLoopSequence:->
+		clearTimeout @sequenceLoopTimer
+		@currSequenceTween?.kill()
+		@play = false
+		@$playBtn.removeClass 'is-playing'
+
+	setCurrentScenseNum:(num)->
+		if (@currSequenceTweenNum is num) or (num >= @startPoints.length) then return num
+		@currSequenceTweenNum = num
+		@$pagesBtnsChildren.filter('.is-check').removeClass 'is-check'
+		@$pagesBtnsChildren.eq(num+1).addClass 'is-check'
+		num
+
+	initMap:->
+		for point, i in @startPoints
+			@$pagesBtns.append $ "<div class='pages-btns__btn #{if i is 0 then 'is-check' else null }' />"
+		@$pagesBtnsChildren =  @$pagesBtns.children()
+		
+		@$pagesBtns.on 'click', '.pages-btns__btn', (e)=>
+			@stopLoopSequence()
+			num = $(e.target).index()-1
+			@currSequenceTween = TweenMax.to @scroller, @startPoints[num].dur, 	{ 
+				y: -@startPoints[num].start
+				onUpdate:(=> @controller.setScrollContainerOffset(0, -(@scroller.y)).triggerCheckAnim(true) ) 
+			}
+			@setCurrentScenseNum num
+
+		it = @
+		@$pagesBtns.on 'click', '#js-pages-btns-play', (e)->
+			$it = $(this)
+			it.play = !@play
+			$it.toggleClass 'is-playing', it.play
+			if it.play and (it.currSequenceTweenNum < it.startPoints.length-1)
+				it.loopSequence()
+			else it.stopLoopSequence()
+
+	playSuggest:->
+		@$scrollSuggest.show()
+
+		if !StatSocial.helpers.isMobile()
+			@$keysSuggest.hide()
+			@$mouseSuggest.show()
+			currBlock = @$mouseSuggest
+			@suggestInterval = setInterval =>
+				if currBlock is @$mouseSuggest
+					@$mouseSuggest.hide()
+					@$keysSuggest.fadeIn()
+					currBlock = @$keysSuggest
+				else
+					@$keysSuggest.hide()
+					@$mouseSuggest.fadeIn()
+					currBlock = @$mouseSuggest
+			, 5000
+		else 
+			@$touchSuggest.show()
+			@$mouseSuggest.hide()
+			@$keysSuggest.hide()
+
+	stopSuggest:->
+		clearInterval @suggestInterval
+		@$keysSuggest.hide()
+		@$mouseSuggest.hide()
+		@$touchSuggest.hide()
+		@$scrollSuggest.hide()
 
 	listenKeys:->
 		scrollStep = @frameDurationTime/4
 		@play = false
 		@currSequenceTweenNum = 0
-		$(document).on 'keyup', (e)=>
+		$document = $(document)
+		$document.on 'keyup', (e)=>
 			switch e.keyCode
 				when 32
 					@play = !@play
-					if @play
+					if @play and (@currSequenceTweenNum < @startPoints.length-1)
 						@loopSequence()
 					else @stopLoopSequence()
 
 		currTweenKeydown = null
 		stepSize = @frameDurationTime
-		$(document).on 'keydown', (e)=>
+		$document.on 'keydown', (e)=>
 			switch e.keyCode
 				when 39, 40
-					@currSequenceTweenNum = if @currSequenceTweenNum < @startPoints.length-1 then @currSequenceTweenNum+1 else @currSequenceTweenNum
+					@setCurrentScenseNum if @currSequenceTweenNum < @startPoints.length-1 then @currSequenceTweenNum+1 else @currSequenceTweenNum
 					@stopLoopSequence()
 					@currSequenceTween = TweenMax.to @scroller, @startPoints[@currSequenceTweenNum].dur, 	{ 
 						y: -@startPoints[@currSequenceTweenNum].start
 						onUpdate:(=> @controller.setScrollContainerOffset(0, -(@scroller.y)).triggerCheckAnim(true) ) 
 					}
 				when 37, 38
-					@currSequenceTweenNum = if @currSequenceTweenNum > 0 then @currSequenceTweenNum-1 else @currSequenceTweenNum
+					@setCurrentScenseNum if @currSequenceTweenNum > 0 then @currSequenceTweenNum-1 else @currSequenceTweenNum
 					@stopLoopSequence()
 					@currSequenceTween = TweenMax.to @scroller, @startPoints[@currSequenceTweenNum+1].dur, 	{ 
 						y: -@startPoints[@currSequenceTweenNum].start
 						onUpdate:(=> @controller.setScrollContainerOffset(0, -(@scroller.y)).triggerCheckAnim(true) ) 
 					}
 
-	stopLoopSequence:->
-		clearTimeout @sequenceLoopTimer
-		@currSequenceTween?.kill()
-		@play = false
+		$('#js-menu-btn').on 'click', (e)=> 
+			@$mainMenu.toggleClass 'is-hidden', !(@isMenuShow = !@isMenuShow)
+			e.stopPropagation()
+
+		$(document.body).on 'click', =>
+			@hideMenu()
+			e.stopPropagation()
+
 
 	initScroll:->
 		@scroller = new IScroll '#js-main', { probeType: 3, mouseWheel: true, deceleration: 0.001 }
@@ -93,22 +191,23 @@ class App
 		@scroller.on 'scroll',  	-> it.updateScrollPos this, it
 		@scroller.on 'scrollEnd', -> it.updateScrollPos this, it
 
-	initParallax:->
-		@$scence.parallax()
-		@$scence2.parallax()
+	# initParallax:->
+	# 	@$scence.parallax()
+	# 	@$scence2.parallax()
 
 	updateScrollPos:(that, it)->
 		@stopLoopSequence()
 		(that.y < it.maxScroll) and (that.y = it.maxScroll)
 		it.controller.setScrollContainerOffset(0, -(that.y>>0)).triggerCheckAnim(true)
-		it.setCurrentScenseNum(that)
+		it.calcCurrentScenseNum(that)
+		it.isMenuShow and it.hideMenu()
 
-	setCurrentScenseNum:(that)->
+	calcCurrentScenseNum:(that)->
 		num = 0
 		for point, i in @startPoints
 			if -that.y > point.start
 				num = i
-		@currSequenceTweenNum = num
+		@setCurrentScenseNum num
 
 	onBuildingsUpdate:->
 		method = if @curtainTextTween2.totalProgress() >= 1 then 'hide' else 'show'
@@ -124,10 +223,10 @@ class App
 		@frameDurationTime = 1000
 
 		# THE FIRST CURTAIN
-		@curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { left: '-50%' }
+		@curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { left: '-50%'}
 		# @curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { rotation: 90, transformOrigin: 'center top' }
 		# @curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { rotation: 90, transformOrigin: 'center top', top: '100%' }
-		@curtainTween2 	= TweenMax.to @$('#js-right-curtain'), 	1, 	{	left: '100%' }
+		@curtainTween2 	= TweenMax.to @$('#js-right-curtain'), 	1, 	{	left: '100%', onStart:=> @stopSuggest()  }
 		
 		start = 1
 		dur = @frameDurationTime
@@ -287,7 +386,6 @@ class App
 
 		start = start + dur
 		dur = @frameDurationTime
-		# @startPoints.push start
 
 		@gridSimplifyTween = TweenMax.to { x: 0 }, 1, { x: 1300, onUpdate: StatSocial.helpers.bind(@onGridSimplifyUpdate,@) }
 		@controller.addTween start, @gridSimplifyTween, dur
@@ -315,14 +413,14 @@ class App
 
 		start = start + dur - (@frameDurationTime)
 		dur = 1
-		@carouselTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-carousel'); setTimeout (=> @$carousel.addClass('is-open') ), 200), onReverseComplete:=>( @$carousel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-carousel') ), 800) }
+		@carouselTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-carousel'); setTimeout (=> @$carousel.addClass('is-open') ), 10), onReverseComplete:=>( @$carousel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-carousel') ), 100) }
 		@controller.addTween start, @carouselTriggerTween, dur
 
 		start = start + dur
 		dur = 3*@frameDurationTime
 		@startPoints.push 
 			start: start+(0.75*@frameDurationTime)
-			delay: 3000
+			delay: 4000
 			dur: 1
 
 		it = @
@@ -339,7 +437,7 @@ class App
 
 		start = start + dur - (2*@frameDurationTime)
 		dur = 1
-		@ferrisWheelTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-ferris-wheel'); setTimeout( (=> @$ferrisWheel.addClass('is-open') ), 200)), onReverseComplete:=>( @$ferrisWheel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-ferris-wheel') ), 800) }
+		@ferrisWheelTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-ferris-wheel'); setTimeout( (=> @$ferrisWheel.addClass('is-open') ), 10)), onReverseComplete:=>( @$ferrisWheel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-ferris-wheel') ), 100) }
 		@controller.addTween start, @ferrisWheelTriggerTween, dur
 
 		start = start + dur + @frameDurationTime
@@ -389,8 +487,8 @@ class App
 		dur = @frameDurationTime
 		@startPoints.push 
 			start: start
-			delay: 0
-			dur: 2
+			delay: 1000
+			dur: 1
 
 		@moonTween = TweenMax.to $('.moon-n-text--side'), 1, { y: -100, opacity: 0 }
 		@controller.addTween start, @moonTween, dur
@@ -414,7 +512,7 @@ class App
 		dur = @frameDurationTime
 		@startPoints.push 
 			start: start
-			delay: 0
+			delay: 3000
 			dur: 1
 
 		@entranceTween  = TweenMax.to @$('#js-entrance'), 1, { y: 0 }
@@ -468,7 +566,7 @@ class App
 		dur = @frameDurationTime
 		@startPoints.push 
 			start: start
-			delay: 0
+			delay: 3000
 			dur: 3
 
 		@ticketsTween  = TweenMax.to $tickets, 1, { y: 0 }
@@ -478,7 +576,7 @@ class App
 		dur = @frameDurationTime
 		@startPoints.push 
 			start: start + @frameDurationTime
-			delay: 0
+			delay: 3
 			dur: 1
 
 		@ticket1  = TweenMax.to $ticket1, 1, { rotation: -20, y: -20, x: -50 }

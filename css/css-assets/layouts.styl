@@ -26,6 +26,14 @@ firstCurtainText()
 	padding-bottom curtainMaskSize
 	overflow hidden
 	z-index 4
+
+	.scroll-suggest-fork
+		position absolute
+		z-index 11
+		bottom 20px
+		left 50%
+		margin-left -64px
+
 	&--left, &--right
 		width (leftSize)%
 		height 100%
@@ -123,6 +131,7 @@ nightTransitionTime = 1.5s
 	position absolute
 	nw 0
 	z-index 2
+
 	.tickets
 		position absolute
 		bottom 0
@@ -714,3 +723,9 @@ coef = 10
 		// background-color: gray
 		// background-image: linear-gradient(transparent 50%, rgba(255,255,255,.5) 50%)
 		// background-size: 50px 50px
+
+
+/* 1484ec7d8fd73017bbd9a53c23db980b */
+.main-header-menu-section-l
+	& + .main-header-menu-section-l
+		border-top 1px solid #737f8b

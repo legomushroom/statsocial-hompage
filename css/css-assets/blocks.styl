@@ -1,6 +1,75 @@
 // BLOCKS
 @import '../assets/imports.styl'
 
+.pages-btns
+	position absolute
+	right 20px
+	bottom 20px
+	transform translateY(-50%)
+	z-index 11
+	&__play
+		circle 4*gs
+		background-color white
+		position absolute
+		top  - 1.5*gs
+		left - 5*gs
+		cursor pointer
+		.at-mobiles &
+			top - gs
+		.icon
+			rect 1.5*gs
+			fill #ff6c66
+		&__icon
+			position absolute
+			nw 50%
+			margin-left - .75*gs
+			margin-top  - .75*gs
+			fill #777
+		&__play
+			margin-left - .6*gs
+		&__pause
+			display none
+		&.is-playing
+			.pages-btns__play__pause
+				display block
+			.pages-btns__play__play
+				display none
+			
+	&.is-transparent
+		opacity .75
+		.at-mobiles &
+			opacity 1
+		&:hover
+			opacity 1
+	&__btn
+		border-radius 50%
+		rect 1.5*gs
+		float left
+		// background white
+		border 2px solid white
+		& + .pages-btns__btn
+			margin-left gs
+		.at-mobiles &
+			rect 2.5*gs
+		&:hover, &.is-check
+			cursor pointer
+			background-color white
+
+.scroll-suggest, .scroll-suggest-fork
+	width 128px
+	height 65px
+	position relative
+
+.scroll-suggest
+	position absolute
+	nw 0
+	&--mouse
+		retina 'i/scroll-suggest' 100% transparent
+	&--keys
+		retina 'i/scroll-suggest-keys' 100% transparent
+	&--touch
+		retina 'i/scroll-suggest-touch@2x' 100% transparent
+
 .tickets
 	position relative
 	.ticket
@@ -1086,10 +1155,100 @@ ferrisWheelSize = 375
 			bottom 15px
 
 
+/* c5096dd94259d8cfadd96d35e63c142d */
+mainIcon = 323px
+.main-header
+	height 80px
+	// min-width 800px
+	position absolute
+	width 100%
+	z-index 20
+
+	&.is-allow-transition
+		.sidebar-logo-e, .header-btn-e,
+		.main-header-menu
+			transition opacity .4s linear
+		.page-menu-header
+			transition background .4s linear
+
+	.sidebar-logo-e
+		width mainIcon
+		float left
+	.page-menu-header
+		margin-left mainIcon
+		.main-header-menu
+			display block
+
+	&.is-hidden
+		.sidebar-logo-e, .header-btn-e, .main-header-menu
+			opacity 0
+		.page-menu-header
+			background-color transparent
+		.main-header-menu
+			display none
+		.icon
+			fill white
+			&:hover
+				fill #f1f1f1
+
+/* 9be0db16055ee1ab51f1a589706b9906 */
+.page-menu-header
+	height 100%
+	// height 80px
+	background-color rgba(white, .8)
+	position relative
+	padding 24px 90px 24px 27px
+
+	menuIconColor = #436c7c
+	.page-header2--menu-icon
+		position absolute
+		right 26px
+		top  27px
+		rect 24px
+		fill menuIconColor
+
+		&:hover
+			fill   darken(menuIconColor, 5)
+			cursor pointer
+
+	.header-btn-e
+		font-weight 500
+
+	.main-header-menu
+		position absolute
+		right 0
+		top 100%
+		z-index 10
+		display none
 
 
 
+/* 1484ec7d8fd73017bbd9a53c23db980b */
+.main-header-menu
+	width 240px
 
+/* 2a29d0710e838e8ac19c7624971d7af0 */
+.main-header-menu-item
+	font-size 20px
+	height 67px
+	color #416c7c
+	background-color rgba(255,255,255,.6)
+	padding-left 3*gs
+	padding-top 23px
+	display block
+	
+	/* 63587e16a922f901b64247d9f217cce5 */
+	&.is-hoverable
+		&:hover
+			cursor pointer
+			background-color rgba(255,255,255,.8)
 
+	/* 1484ec7d8fd73017bbd9a53c23db980b */
+	&.is-checkable
+		&.is-check
+			background-color #7ab9d0
+			color white
+			cursor default
+			box-shadow inset 4px 0 0 white
 
 
