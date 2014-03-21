@@ -19,16 +19,15 @@ carouselTransitionTime = .3s
 		transition all carouselTransitionTime ease
 
 	.cylinder-1
-		.side
-			height 0
-			transition height (carouselTransitionTime/2) ease-out
-			transition-delay carouselTransitionTime
+		height 0
+		transition height (carouselTransitionTime/2) ease-out
+		transition-delay carouselTransitionTime
 
 		.banner
 			backface-visibility hidden
 			transform scale(0) translateZ(PX)
 			transition all carouselTransitionTime ease-out
-			transsition-delay 0
+			transition-delay 0
 
 	.carousel-middle
 		width .75em
@@ -36,18 +35,18 @@ carouselTransitionTime = .3s
 		transition all (carouselTransitionTime/2) cubic-bezier(0.545, 0.380, 0.465, 1.540)
 		transform translateY(400*PX) translateX(-2*PX) translateZ(22*PX) rotateY(-120deg)
 		transition-delay 2*carouselTransitionTime
-
+	.carousel__sticks
+		height 0
+		position relative
+		nw 0
+		top 50%
+		transform-style preserve-3d
+		transition all carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
 	.cylinder-2
 		.icon-banner
 			transform scale(0) translateZ(1px)
 			transition all carouselTransitionTime linear
 			transition-delay 0
-
-		.side
-			height 0
-			top -2em
-			transition all carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
-			// 17em
 	
 	width = 20*PX
 	.carousel-bottom
@@ -83,10 +82,9 @@ carouselTransitionTime = .3s
 				animation-delay rotateTime
 
 		.cylinder-1
-			.side
-				height 4em
-				transition-delay carouselTransitionTime
-				transition-timing-function cubic-bezier(0.545, 0.380, 0.465, 1.540)
+			height 4em
+			transition-delay carouselTransitionTime
+			transition-timing-function cubic-bezier(0.545, 0.380, 0.465, 1.540)
 			
 			.banner
 				transform scale(1) translateZ(PX)
@@ -111,15 +109,16 @@ carouselTransitionTime = .3s
 			margin-left -2em
 			transition-timing-function cubic-bezier(0.545, 0.380, 0.465, 1.540)
 			transition-delay 2*carouselTransitionTime
-
+		
+		.carousel__sticks
+			height 16em + 2*PX
+			transition-delay 4*carouselTransitionTime
+			transition-timing-function ease-out
+			top 40%
 		.cylinder-2
+			height 100%
 			.side
-				// background-color #dd5754
-				height 16em + 2*PX
-				top 0
-				transition-delay 4*carouselTransitionTime
-				transition-timing-function ease-out
-
+				height 100%
 			.icon-banner
 				transform scale(1) translateZ(1px)
 				transition-delay 5.5*carouselTransitionTime
@@ -408,7 +407,7 @@ width = 2.5em
 	margin:-2em 0 0 -17.90625em;
 	.side
 		width:3.1581877625221533em
-		height:4em
+		height: 100%
 	.bm
 		width:35.8125em
 		height:35.8125em

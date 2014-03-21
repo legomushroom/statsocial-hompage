@@ -395,18 +395,18 @@ html
                           include css/partials/banner
 
 
-
-                  - icons = ['fashion', 'education', 'plant', 'book', 'bowling', 'tv', 'celebrities', 'joystick2']
-                  - r = -1
-                  - for(var i=2; i<=9;i++)
-                    .shape.cylinder-2(class="cyl-#{i}")
-                      - for(var j=0; j<=2;j++)
-                        .face.side(class="s#{j}")
-                          if (j == 2)
-                            r = r+1
-                            - el = { }
-                            - icon = { path: icons[r]+'-icon' }
-                            include css/partials/icon-banner
+                  .carousel__sticks
+                    - icons = ['fashion', 'education', 'plant', 'book', 'bowling', 'tv', 'celebrities', 'joystick2']
+                    - r = -1
+                    - for(var i=2; i<=9;i++)
+                      .shape.cylinder-2(class="cyl-#{i}")
+                        - for(var j=0; j<=2;j++)
+                          .face.side(class="s#{j}")
+                            if (j == 2)
+                              r = r+1
+                              - el = { }
+                              - icon = { path: icons[r]+'-icon' }
+                              include css/partials/icon-banner
 
     script(src="js/modernizr.js")
     script(src="js/jquery-2.1.0.min.js")

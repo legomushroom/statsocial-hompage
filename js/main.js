@@ -312,7 +312,6 @@
     };
 
     App.prototype.scrollReverseEnd = function() {
-      console.log('a');
       return this.$menuSuggest.hide();
     };
 
@@ -741,11 +740,15 @@
         dur: 1
       });
       this.moonTween = TweenMax.to($('.moon-n-text--side'), 1, {
-        y: -100,
+        y: -60,
+        opacity: 0
+      });
+      this.moonOpacityTween = TweenMax.to($('.moon--chart'), 1, {
         opacity: 0
       });
       this.controller.addTween(start, this.moonTween, dur);
-      start = start + dur - this.frameDurationTime;
+      this.controller.addTween(start, this.moonOpacityTween, dur);
+      start = start + dur - (this.frameDurationTime / 2);
       dur = 3 * this.frameDurationTime;
       it = this;
       this.$plane3Inner = this.$plane3.find('#js-plane-inner');

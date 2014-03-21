@@ -19,6 +19,8 @@
 	bottom 20px
 	transform translateY(-50%)
 	z-index 11
+	.at-mobiles &
+		bottom 40px
 	&__play
 		circle 4*gs
 		background-color white
@@ -289,27 +291,36 @@ buildingLogoAnimTime = 5s
 craterShadowColor = #b99a6b
 .moon
 	circle 102px
-	retina 'i/moon' 100% #fad296
+	retina 'i/moon' 100% transparent
 	position relative
 	overflow hidden
-	&:before
-		content ''
+	hl green
+	
+	.moon__blind
+		background-color rgba(#f6c855, .78)
 		position absolute
-		circle 100%
 		nw 0
-		background-color rgba(#f6c855, .58)
-		z-index 1
-		border-radius 50%
-	// .moon--chart
-	.moon--chart__1
-		width 51%
-		height 102%
+		rect 100%
+		z-index 0
+		
+	.moon--chart
+		overflow hidden
 		position absolute
-		z-index 2
-		nw -1px
-		background-color rgba(#4b99bd, .78)
-		border-top-left-radius  	100px
-		border-bottom-left-radius 100px
+		width  50%
+		height 100%
+		z-index 1
+		&:before
+			content ''
+			circle 	100%
+			width 	200%
+			background-color #4b99bd
+			position absolute
+			nw 0
+	.moon--chart__2
+		left 50%
+		&:before
+			left -100%
+			background-color #f6c855
 
 /* fba4ecd90d2db7a0f9b5ed45a89284b6 */
 .baloon
@@ -1006,6 +1017,7 @@ ferrisWheelSize = 375
 	height 50%
 	position relative
 	border 8px solid transparent
+	// outline-color red
 
 	&__icons
 		position absolute

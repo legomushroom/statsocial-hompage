@@ -226,10 +226,7 @@ class App
 		@$menuSuggest.removeClass('is-transparent').show()
 
 	scrollEnd:-> @$menuSuggest.show()
-
-	scrollReverseEnd:-> 
-		console.log 'a'
-		@$menuSuggest.hide()
+	scrollReverseEnd:-> @$menuSuggest.hide()
 
 	buildAnimations:->
 		$quoCurtain = @$('#js-quo-curtain')
@@ -508,10 +505,12 @@ class App
 			delay: 1000
 			dur: 1
 
-		@moonTween = TweenMax.to $('.moon-n-text--side'), 1, { y: -100, opacity: 0 }
+		@moonTween = TweenMax.to $('.moon-n-text--side'), 1, { y: -60, opacity: 0 }
+		@moonOpacityTween = TweenMax.to $('.moon--chart'), 1, { opacity: 0 }
 		@controller.addTween start, @moonTween, dur
+		@controller.addTween start, @moonOpacityTween, dur
 
-		start = start + dur - (@frameDurationTime)
+		start = start + dur - (@frameDurationTime/2)
 		dur = 3*@frameDurationTime
 
 		it = @
