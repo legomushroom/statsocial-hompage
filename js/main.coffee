@@ -179,7 +179,7 @@ class App
 			@$mainMenu.toggleClass 'is-hidden', !(@isMenuShow = !@isMenuShow)
 			e.stopPropagation()
 
-		$(document.body).on 'click', =>
+		$(document.body).on 'click', (e)=>
 			@hideMenu()
 			e.stopPropagation()
 

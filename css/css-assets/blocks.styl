@@ -11,7 +11,7 @@
 		circle 4*gs
 		background-color white
 		position absolute
-		top  - 1.5*gs
+		top  - 1.25*gs
 		left - 5*gs
 		cursor pointer
 		.at-mobiles &
@@ -34,6 +34,9 @@
 				display block
 			.pages-btns__play__play
 				display none
+
+			& ~ .pages-btns__btn.is-check
+				animation playing 1s ease infinite
 			
 	&.is-transparent
 		opacity .75

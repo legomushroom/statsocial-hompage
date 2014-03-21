@@ -235,7 +235,7 @@
         _this.$mainMenu.toggleClass('is-hidden', !(_this.isMenuShow = !_this.isMenuShow));
         return e.stopPropagation();
       });
-      return $(document.body).on('click', function() {
+      return $(document.body).on('click', function(e) {
         _this.hideMenu();
         return e.stopPropagation();
       });
