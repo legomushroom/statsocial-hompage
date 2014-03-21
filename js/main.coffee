@@ -37,6 +37,7 @@ class App
 		@$pagesBtns 		= $('#js-pages-btns')
 		@$playBtn 			= $('#js-pages-btns-play')
 		@$mainMenu 			= $('#js-main-menu')
+		@$menuSuggest 	= $('#js-menu-suggest')
 		@prevPlaneProgress = -1
 		@maxScroll = -19000
 		@readDelay = 3000
@@ -46,10 +47,12 @@ class App
 
 	hideMenu:-> 
 		@$mainMenu.addClass 'is-hidden'
+		@$menuSuggest.removeClass 'h-g-i'
 		@isMenuShow = false
 
 	showMenu:-> 
 		@$mainMenu.removeClass 'is-hidden'
+		@$menuSuggest.addClass 'h-g-i'
 		@isMenuShow = true
 
 	initController:->
@@ -176,7 +179,8 @@ class App
 					}
 
 		$('#js-menu-btn').on 'click', (e)=> 
-			@$mainMenu.toggleClass 'is-hidden', !(@isMenuShow = !@isMenuShow)
+			if (@isMenuShow = !@isMenuShow) then @showMenu()
+			else @hideMenu()
 			e.stopPropagation()
 
 		$(document.body).on 'click', (e)=>
@@ -213,6 +217,18 @@ class App
 		method = if @curtainTextTween2.totalProgress() >= 1 then 'hide' else 'show'
 		@$scence[method]()
 
+	scrollStart:->
+		@stopSuggest()
+		@$menuSuggest.addClass('is-transparent').hide()
+
+	scrollReverseStart:->
+		@playSuggest()
+		@$menuSuggest.removeClass('is-transparent').show()
+
+	scrollEnd:-> @$menuSuggest.show()
+
+	scrollReverseEnd:-> @$menuSuggest.hide()
+
 	buildAnimations:->
 		$quoCurtain = @$('#js-quo-curtain')
 		$tickets = @$('#js-tickets')
@@ -226,7 +242,7 @@ class App
 		@curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { left: '-50%'}
 		# @curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { rotation: 90, transformOrigin: 'center top' }
 		# @curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { rotation: 90, transformOrigin: 'center top', top: '100%' }
-		@curtainTween2 	= TweenMax.to @$('#js-right-curtain'), 	1, 	{	left: '100%', onStart:=> @stopSuggest()  }
+		@curtainTween2 	= TweenMax.to @$('#js-right-curtain'), 	1, 	{	left: '100%', onStart: StatSocial.helpers.bind(@scrollStart,@), onReverseComplete: StatSocial.helpers.bind(@scrollReverseStart,@)}
 		
 		start = 1
 		dur = @frameDurationTime
@@ -590,8 +606,12 @@ class App
 		@clip  = TweenMax.to $clip, 1, { rotation: -3, y: 56, x: -70 }
 		@controller.addTween start, @clip, dur
 
-		@ticket2  = TweenMax.to $ticket2, 1, { rotation: -10 }
+		@ticket2  = TweenMax.to $ticket2, 1, { rotation: -10, onComplete: StatSocial.helpers.bind(@scrollEnd,@)}
+
+		endTriggerTween = TweenMax.to {}, 1, { onReverseComplete: StatSocial.helpers.bind(@scrollReverseEnd,@)}
+
 		@controller.addTween start, @ticket2, dur
+		@controller.addTween start+dur-1, endTriggerTween, 1
 
 	onBaloonsUpdate1:->
 		if @baloonsTween1.totalProgress() >= 1
@@ -835,8 +855,6 @@ class App
 		if @scriptTween3.totalProgress() >= 1
 			@$scence2.hide()
 		else @$scence2.show()
-
-
 
 
 

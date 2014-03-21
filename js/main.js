@@ -39,6 +39,7 @@
       this.$pagesBtns = $('#js-pages-btns');
       this.$playBtn = $('#js-pages-btns-play');
       this.$mainMenu = $('#js-main-menu');
+      this.$menuSuggest = $('#js-menu-suggest');
       this.prevPlaneProgress = -1;
       this.maxScroll = -19000;
       this.readDelay = 3000;
@@ -48,11 +49,13 @@
 
     App.prototype.hideMenu = function() {
       this.$mainMenu.addClass('is-hidden');
+      this.$menuSuggest.removeClass('h-g-i');
       return this.isMenuShow = false;
     };
 
     App.prototype.showMenu = function() {
       this.$mainMenu.removeClass('is-hidden');
+      this.$menuSuggest.addClass('h-g-i');
       return this.isMenuShow = true;
     };
 
@@ -232,7 +235,11 @@
         }
       });
       $('#js-menu-btn').on('click', function(e) {
-        _this.$mainMenu.toggleClass('is-hidden', !(_this.isMenuShow = !_this.isMenuShow));
+        if ((_this.isMenuShow = !_this.isMenuShow)) {
+          _this.showMenu();
+        } else {
+          _this.hideMenu();
+        }
         return e.stopPropagation();
       });
       return $(document.body).on('click', function(e) {
@@ -290,8 +297,26 @@
       return this.$scence[method]();
     };
 
+    App.prototype.scrollStart = function() {
+      this.stopSuggest();
+      return this.$menuSuggest.addClass('is-transparent').hide();
+    };
+
+    App.prototype.scrollReverseStart = function() {
+      this.playSuggest();
+      return this.$menuSuggest.removeClass('is-transparent').show();
+    };
+
+    App.prototype.scrollEnd = function() {
+      return this.$menuSuggest.show();
+    };
+
+    App.prototype.scrollReverseEnd = function() {
+      return this.$menuSuggest.hide();
+    };
+
     App.prototype.buildAnimations = function() {
-      var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, dur, i, it, planeTween1, planeTween2, planeTween3, planeTween4, start, _i, _j, _len, _ref,
+      var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, dur, endTriggerTween, i, it, planeTween1, planeTween2, planeTween3, planeTween4, start, _i, _j, _len, _ref,
         _this = this;
 
       $quoCurtain = this.$('#js-quo-curtain');
@@ -305,9 +330,8 @@
       });
       this.curtainTween2 = TweenMax.to(this.$('#js-right-curtain'), 1, {
         left: '100%',
-        onStart: function() {
-          return _this.stopSuggest();
-        }
+        onStart: StatSocial.helpers.bind(this.scrollStart, this),
+        onReverseComplete: StatSocial.helpers.bind(this.scrollReverseStart, this)
       });
       start = 1;
       dur = this.frameDurationTime;
@@ -851,9 +875,14 @@
       });
       this.controller.addTween(start, this.clip, dur);
       this.ticket2 = TweenMax.to($ticket2, 1, {
-        rotation: -10
+        rotation: -10,
+        onComplete: StatSocial.helpers.bind(this.scrollEnd, this)
       });
-      return this.controller.addTween(start, this.ticket2, dur);
+      endTriggerTween = TweenMax.to({}, 1, {
+        onReverseComplete: StatSocial.helpers.bind(this.scrollReverseEnd, this)
+      });
+      this.controller.addTween(start, this.ticket2, dur);
+      return this.controller.addTween(start + dur - 1, endTriggerTween, 1);
     };
 
     App.prototype.onBaloonsUpdate1 = function() {
