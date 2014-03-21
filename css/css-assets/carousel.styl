@@ -177,9 +177,13 @@ width = 90%
 	display inline-block
 	transition all .25s ease-out
 	backface-visibility hidden
-	fill #f9f1dd
+	background url('i/dome-white.png') no-repeat center center
+	background-size 100%
+	// fill #f9f1dd
 	&:nth-of-type(even)
-		fill #ff6d6a
+		background url('i/dome-red.png') no-repeat center center
+		background-size 100%
+	// 	fill #ff6d6a
 
 .model
 	for i in 1..36

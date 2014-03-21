@@ -227,7 +227,9 @@ class App
 
 	scrollEnd:-> @$menuSuggest.show()
 
-	scrollReverseEnd:-> @$menuSuggest.hide()
+	scrollReverseEnd:-> 
+		console.log 'a'
+		@$menuSuggest.hide()
 
 	buildAnimations:->
 		$quoCurtain = @$('#js-quo-curtain')
@@ -606,12 +608,18 @@ class App
 		@clip  = TweenMax.to $clip, 1, { rotation: -3, y: 56, x: -70 }
 		@controller.addTween start, @clip, dur
 
-		@ticket2  = TweenMax.to $ticket2, 1, { rotation: -10, onComplete: StatSocial.helpers.bind(@scrollEnd,@)}
-
-		endTriggerTween = TweenMax.to {}, 1, { onReverseComplete: StatSocial.helpers.bind(@scrollReverseEnd,@)}
+		@ticket2  = TweenMax.to $ticket2, 1, { rotation: -10, onUpdate: StatSocial.helpers.bind(@onTicket2Update,@) }
 
 		@controller.addTween start, @ticket2, dur
-		@controller.addTween start+dur-1, endTriggerTween, 1
+
+	onTicket2Update:-> 
+		if (@ticket2.progress() < 1)  
+			if !@isReverseEnd 
+				@isReverseEnd = true
+				@scrollReverseEnd()
+		else 
+			@scrollEnd()
+			@isReverseEnd = false
 
 	onBaloonsUpdate1:->
 		if @baloonsTween1.totalProgress() >= 1
@@ -643,7 +651,7 @@ class App
 		@setLiveLinesCurve @lineSimplifyTween.target.curve
 
 	onGridSimplifyUpdate:->
-		@$horizontalPattern.attr 'transform', "translate(-#{@gridSimplifyTween.target.x},0)"
+		@$horizontalPattern.attr 'transform', 	"translate(-#{@gridSimplifyTween.target.x},0)"
 		@$horizontalPatternDouble.attr 'transform', "translate(-#{@gridSimplifyTween.target.x},0)"
 		
 	onRollerRails1Update:()-> 

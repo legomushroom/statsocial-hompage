@@ -312,11 +312,12 @@
     };
 
     App.prototype.scrollReverseEnd = function() {
+      console.log('a');
       return this.$menuSuggest.hide();
     };
 
     App.prototype.buildAnimations = function() {
-      var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, dur, endTriggerTween, i, it, planeTween1, planeTween2, planeTween3, planeTween4, start, _i, _j, _len, _ref,
+      var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, dur, i, it, planeTween1, planeTween2, planeTween3, planeTween4, start, _i, _j, _len, _ref,
         _this = this;
 
       $quoCurtain = this.$('#js-quo-curtain');
@@ -876,13 +877,21 @@
       this.controller.addTween(start, this.clip, dur);
       this.ticket2 = TweenMax.to($ticket2, 1, {
         rotation: -10,
-        onComplete: StatSocial.helpers.bind(this.scrollEnd, this)
+        onUpdate: StatSocial.helpers.bind(this.onTicket2Update, this)
       });
-      endTriggerTween = TweenMax.to({}, 1, {
-        onReverseComplete: StatSocial.helpers.bind(this.scrollReverseEnd, this)
-      });
-      this.controller.addTween(start, this.ticket2, dur);
-      return this.controller.addTween(start + dur - 1, endTriggerTween, 1);
+      return this.controller.addTween(start, this.ticket2, dur);
+    };
+
+    App.prototype.onTicket2Update = function() {
+      if (this.ticket2.progress() < 1) {
+        if (!this.isReverseEnd) {
+          this.isReverseEnd = true;
+          return this.scrollReverseEnd();
+        }
+      } else {
+        this.scrollEnd();
+        return this.isReverseEnd = false;
+      }
     };
 
     App.prototype.onBaloonsUpdate1 = function() {
