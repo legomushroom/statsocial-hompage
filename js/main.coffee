@@ -429,9 +429,44 @@ class App
 
 		# CAROUSEL
 		start = start + dur - (@frameDurationTime)
-		dur = 1
-		@carouselTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-carousel'); setTimeout (=> @$carousel.addClass('is-open') ), 10), onReverseComplete:=>( @$carousel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-carousel') ), 100) }
-		@controller.addTween start, @carouselTriggerTween, dur
+		dur = @frameDurationTime/2
+		@carouselUpTween = TweenMax.to @$carousel, 1, { y: 0}
+		@controller.addTween start, @carouselUpTween, dur
+		# roof
+		dur = @frameDurationTime/2
+		start = start + (@frameDurationTime/2)
+		for i in [1..36]
+			name = "carouselDomeS#{i}Tween"
+			@[name] = TweenMax.to @$carousel.find(".dome__inner--#{i}"), 1, { 
+				rotationX: -50.75
+			}
+			@controller.addTween start, @[name], dur
+
+		start += dur
+		dur = @frameDurationTime/2
+		@carouselRoofBottom = TweenMax.to @$carousel.find('#js-carousel-roof-bottom'), 1, { height: 64, ease:Elastic.easeOut }
+		@controller.addTween start, @carouselRoofBottom, dur
+
+		start += dur
+		dur = @frameDurationTime/2
+		@carouselMiddle = TweenMax.to @$carousel.find('#js-carousel-middle'), 1, { 
+			width: '5em'
+			marginLeft: '-2.5em'
+			ease:Elastic.easeOut
+		}
+		@controller.addTween start, @carouselMiddle, dur
+
+		start += dur
+		dur = @frameDurationTime/2
+		@carouselMiddle = TweenMax.to @$carousel.find('#js-carousel-bottom'), 1, { 
+			left: 			0
+			width: 			'35.375em'
+			marginLeft: '-2em'
+			ease:Elastic.easeOut
+		}
+		@controller.addTween start, @carouselMiddle, dur
+
+		
 
 		start = start + dur
 		dur = 3*@frameDurationTime

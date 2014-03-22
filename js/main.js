@@ -316,7 +316,7 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, dur, i, it, planeTween1, planeTween2, planeTween3, planeTween4, start, _i, _j, _len, _ref,
+      var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, dur, i, it, name, planeTween1, planeTween2, planeTween3, planeTween4, start, _i, _j, _k, _len, _ref,
         _this = this;
 
       $quoCurtain = this.$('#js-quo-curtain');
@@ -579,22 +579,44 @@
       });
       this.controller.addTween(start, this.rollerCabinsTriggerTween, dur);
       start = start + dur - this.frameDurationTime;
-      dur = 1;
-      this.carouselTriggerTween = TweenMax.to({}, 1, {
-        onComplete: (function() {
-          _this.$scence3.addClass('is-show-carousel');
-          return setTimeout((function() {
-            return _this.$carousel.addClass('is-open');
-          }), 10);
-        }),
-        onReverseComplete: function() {
-          _this.$carousel.removeClass('is-open');
-          return setTimeout((function() {
-            return _this.$scence3.removeClass('is-show-carousel');
-          }), 100);
-        }
+      dur = this.frameDurationTime / 2;
+      this.carouselUpTween = TweenMax.to(this.$carousel, 1, {
+        y: 0
       });
-      this.controller.addTween(start, this.carouselTriggerTween, dur);
+      this.controller.addTween(start, this.carouselUpTween, dur);
+      dur = this.frameDurationTime / 2;
+      start = start + (this.frameDurationTime / 2);
+      for (i = _k = 1; _k <= 36; i = ++_k) {
+        name = "carouselDomeS" + i + "Tween";
+        this[name] = TweenMax.to(this.$carousel.find(".dome__inner--" + i), 1, {
+          rotationX: -50.75
+        });
+        this.controller.addTween(start, this[name], dur);
+      }
+      start += dur;
+      dur = this.frameDurationTime / 2;
+      this.carouselRoofBottom = TweenMax.to(this.$carousel.find('#js-carousel-roof-bottom'), 1, {
+        height: 64,
+        ease: Elastic.easeOut
+      });
+      this.controller.addTween(start, this.carouselRoofBottom, dur);
+      start += dur;
+      dur = this.frameDurationTime / 2;
+      this.carouselMiddle = TweenMax.to(this.$carousel.find('#js-carousel-middle'), 1, {
+        width: '5em',
+        marginLeft: '-2.5em',
+        ease: Elastic.easeOut
+      });
+      this.controller.addTween(start, this.carouselMiddle, dur);
+      start += dur;
+      dur = this.frameDurationTime / 2;
+      this.carouselMiddle = TweenMax.to(this.$carousel.find('#js-carousel-bottom'), 1, {
+        left: 0,
+        width: '35.375em',
+        marginLeft: '-2em',
+        ease: Elastic.easeOut
+      });
+      this.controller.addTween(start, this.carouselMiddle, dur);
       start = start + dur;
       dur = 3 * this.frameDurationTime;
       this.startPoints.push({
@@ -807,10 +829,10 @@
       $animas = this.$('.anima-fork');
       this.logosTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
-          var anima, _k, _len1, _results;
+          var anima, _l, _len1, _results;
 
           _results = [];
-          for (i = _k = 0, _len1 = $animas.length; _k < _len1; i = ++_k) {
+          for (i = _l = 0, _len1 = $animas.length; _l < _len1; i = ++_l) {
             anima = $animas[i];
             if (i === 0) {
               _results.push($(anima).show());

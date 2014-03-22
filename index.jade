@@ -362,7 +362,7 @@ html
               .carousel-top--circle-large
               .carousel-top--circle-small
 
-            .carousel-bottom
+            .carousel-bottom#js-carousel-bottom
               .carousel-bottom--top
               .carousel-bottom--bottom
               .carousel-bottom--bottom2
@@ -376,13 +376,13 @@ html
                     - var em = 1/16;
                     - for (var i=1; i<=amount;i++)  
                       .dome(class="s#{i}")
+                        .dome__inner(class="dome__inner--#{i}")
                         //- svg(style='width: #{width*em}em; height: #{height*em}em;')
                         //-   polygon(points='#{width/2},0 #{width},#{height} 0,#{height}')
 
                 .scene
-                  .carousel-middle
-
-                  .shape.cylinder-1.cyl-1
+                  .carousel-middle#js-carousel-middle
+                  .shape.cylinder-1.cyl-1#js-carousel-roof-bottom
                     - var captions = ['Brands', 'Interests', 'Celebrities', 'TV shows']
                     - var c = -1;
                     - for(var i=0; i<=36;i++)

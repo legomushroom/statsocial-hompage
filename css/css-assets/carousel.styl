@@ -20,9 +20,6 @@ carouselTransitionTime = .3s
 
 	.cylinder-1
 		height 0
-		transition height (carouselTransitionTime/2) ease-out
-		transition-delay carouselTransitionTime
-
 		.banner
 			backface-visibility hidden
 			transform scale(0) translateZ(PX)
@@ -32,9 +29,9 @@ carouselTransitionTime = .3s
 	.carousel-middle
 		width .75em
 		margin-left - 3*PX
-		transition all (carouselTransitionTime/2) cubic-bezier(0.545, 0.380, 0.465, 1.540)
+		// transition all (carouselTransitionTime/2) cubic-bezier(0.545, 0.380, 0.465, 1.540)
 		transform translateY(400*PX) translateX(-2*PX) translateZ(22*PX) rotateY(-120deg)
-		transition-delay 2*carouselTransitionTime
+		// transition-delay 2*carouselTransitionTime
 	.carousel__sticks
 		height 0
 		position relative
@@ -53,8 +50,8 @@ carouselTransitionTime = .3s
 		width width
 		margin-left -(width/2)
 		left 50%
-		transition all carouselTransitionTime ease-in
-		transition-delay 2*carouselTransitionTime
+		// transition all carouselTransitionTime ease-in
+		// transition-delay 2*carouselTransitionTime
 
 	carouselAnimationTime  = 40s
 	rotateTime = 6*carouselTransitionTime
@@ -67,7 +64,7 @@ carouselTransitionTime = .3s
 		.carousel-middle
 			animation rotateCarouselMiddle carouselAnimationTime rotateEasing infinite
 			animation-delay rotateTime
-			transition all carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
+			// transition all carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
 
 			
 		iconBannerAnimationTime = 4s
@@ -83,8 +80,6 @@ carouselTransitionTime = .3s
 
 		.cylinder-1
 			height 4em
-			transition-delay carouselTransitionTime
-			transition-timing-function cubic-bezier(0.545, 0.380, 0.465, 1.540)
 			.banner
 				transform scale(1) translateZ(PX)
 			c = -1
@@ -99,14 +94,14 @@ carouselTransitionTime = .3s
 			transform translateY(400*PX) translateX(-2*PX) translateZ(22*PX) rotateY(-120deg)
 			width 5em
 			margin-left -2.5em
-			transition-delay 3*carouselTransitionTime
+			// transition-delay 3*carouselTransitionTime
 
 		.carousel-bottom
-			width 36em - 10*PX
-			left 0
-			margin-left -2em
-			transition-timing-function cubic-bezier(0.545, 0.380, 0.465, 1.540)
-			transition-delay 2*carouselTransitionTime
+			// width 36em - 10*PX
+			// left 0
+			// margin-left -2em
+			// transition-timing-function cubic-bezier(0.545, 0.380, 0.465, 1.540)
+			// transition-delay 2*carouselTransitionTime
 		
 		.carousel__sticks
 			height 16em + 2*PX
@@ -172,27 +167,33 @@ width = 90%
 .dome
 	position absolute
 	display inline-block
-	transition all .25s ease-out
 	backface-visibility hidden
-	background url('i/dome-white.png') no-repeat center center
-	background-size 100%
-	// fill #f9f1dd
+	width: 50*PX
+	height: 370.5*PX
+	transform-style preserve-3d
+	transform-origin 50% top 0
 	&:nth-of-type(even)
-		background url('i/dome-red.png') no-repeat center center
+		.dome__inner
+			background url('i/dome-red.png') no-repeat center center
+			background-size 100%
+	&__inner
+		rect 100%
+		nw 0
+		position absolute
+		background url('i/dome-white.png') no-repeat center center
 		background-size 100%
-	// 	fill #ff6d6a
+		transform-origin 50% top 0
 
 .model
+	position relative
 	for i in 1..36
 		.s{i}
 			transform translate3d(-60*PX, 0, 0) rotateZ(i*10deg) scaleZ(1) rotateX(-90deg)//
 			transform-origin 50% top 0
-			width: 50*PX
-			height: 370.5*PX
-			transition-delay .5s
-			.carousel.is-open &
-				transition-delay 0
-				transform translate3d(-60*PX, 0, 0) rotateZ(i*10deg) scaleZ(1) rotateX(-39.5deg)
+			// transition-delay .5s
+			// .carousel.is-open &
+			// 	transition-delay 0
+			// 	transform translate3d(-60*PX, 0, 0) rotateZ(i*10deg) scaleZ(1) rotateX(-39.5deg)
 
 
 .carousel--scene
@@ -398,7 +399,7 @@ width = 2.5em
 
 /* .cyl-1 styles */
 .cyl-1
-	transform translate3d(-0.1875em, 2.0625em, 1.1875em) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+	transform translate3d(-0.1875em, 2.0625em, 1.1875em) rotateX(0deg) rotateY(-.25deg) rotateZ(0deg);
 	opacity:1;
 	width:35.8125em;
 	height:4em;
