@@ -39,7 +39,7 @@ class App
 		@$mainMenu 			= $('#js-main-menu')
 		@$menuSuggest 	= $('#js-menu-suggest')
 		@prevPlaneProgress = -1
-		@maxScroll = -19000
+		@maxScroll = -19320
 		@readDelay = 3000
 		@startPoints = []
 		@readDelayItems = [3,4,5,6,8,10]
@@ -209,7 +209,7 @@ class App
 	calcCurrentScenseNum:(that)->
 		num = 0
 		for point, i in @startPoints
-			if -that.y > point.start
+			if -that.y >= point.start
 				num = i
 		@setCurrentScenseNum num
 
@@ -307,7 +307,7 @@ class App
 		start = start + dur - (@frameDurationTime/1.5)
 		dur = 3*@frameDurationTime
 		@startPoints.push 
-			start: start + (@frameDurationTime)
+			start: start + (@frameDurationTime-(@frameDurationTime/10))
 			delay: 3000
 			dur: 3
 
@@ -414,7 +414,7 @@ class App
 		start = start + dur 
 		dur = 3*@frameDurationTime
 		@startPoints.push 
-			start: start+@frameDurationTime
+			start: start+@frameDurationTime-(@frameDurationTime/8)
 			delay: 3000
 			dur: 3
 
@@ -426,6 +426,8 @@ class App
 		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showTrain2() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideTrain2(); ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, dur
 
+
+		# CAROUSEL
 		start = start + dur - (@frameDurationTime)
 		dur = 1
 		@carouselTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-carousel'); setTimeout (=> @$carousel.addClass('is-open') ), 10), onReverseComplete:=>( @$carousel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-carousel') ), 100) }
@@ -434,7 +436,7 @@ class App
 		start = start + dur
 		dur = 3*@frameDurationTime
 		@startPoints.push 
-			start: start+(0.75*@frameDurationTime)
+			start: start+(0.95*@frameDurationTime)
 			delay: 4000
 			dur: 1
 
@@ -527,8 +529,8 @@ class App
 		
 		start = start + dur - (2*@frameDurationTime)
 		dur = @frameDurationTime
-		@startPoints.push 
-			start: start
+		@startPoints.push
+			start: start - (@frameDurationTime/16)
 			delay: 3000
 			dur: 1
 

@@ -41,7 +41,7 @@
       this.$mainMenu = $('#js-main-menu');
       this.$menuSuggest = $('#js-menu-suggest');
       this.prevPlaneProgress = -1;
-      this.maxScroll = -19000;
+      this.maxScroll = -19320;
       this.readDelay = 3000;
       this.startPoints = [];
       return this.readDelayItems = [3, 4, 5, 6, 8, 10];
@@ -283,7 +283,7 @@
       _ref = this.startPoints;
       for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
         point = _ref[i];
-        if (-that.y > point.start) {
+        if (-that.y >= point.start) {
           num = i;
         }
       }
@@ -426,7 +426,7 @@
       start = start + dur - (this.frameDurationTime / 1.5);
       dur = 3 * this.frameDurationTime;
       this.startPoints.push({
-        start: start + this.frameDurationTime,
+        start: start + (this.frameDurationTime - (this.frameDurationTime / 10)),
         delay: 3000,
         dur: 3
       });
@@ -544,7 +544,7 @@
       start = start + dur;
       dur = 3 * this.frameDurationTime;
       this.startPoints.push({
-        start: start + this.frameDurationTime,
+        start: start + this.frameDurationTime - (this.frameDurationTime / 8),
         delay: 3000,
         dur: 3
       });
@@ -598,7 +598,7 @@
       start = start + dur;
       dur = 3 * this.frameDurationTime;
       this.startPoints.push({
-        start: start + (0.75 * this.frameDurationTime),
+        start: start + (0.95 * this.frameDurationTime),
         delay: 4000,
         dur: 1
       });
@@ -770,7 +770,7 @@
       start = start + dur - (2 * this.frameDurationTime);
       dur = this.frameDurationTime;
       this.startPoints.push({
-        start: start,
+        start: start - (this.frameDurationTime / 16),
         delay: 3000,
         dur: 1
       });
