@@ -429,26 +429,29 @@ class App
 
 		# CAROUSEL
 		start = start + dur - (@frameDurationTime)
+		carouselConstrDuration = @frameDurationTime
+		carouselPartDuration = carouselConstrDuration/7
 		dur = @frameDurationTime/2
 		@carouselUpTween = TweenMax.to @$carousel, 1, { y: 0}
 		@controller.addTween start, @carouselUpTween, dur
 		# roof
-		dur = @frameDurationTime/2
+		dur = carouselPartDuration
 		start = start + (@frameDurationTime/2)
 		for i in [1..36]
 			name = "carouselDomeS#{i}Tween"
 			@[name] = TweenMax.to @$carousel.find(".dome__inner--#{i}"), 1, { 
-				rotationX: -50.75
+				rotationX: -50.675
+				z: 0
 			}
 			@controller.addTween start, @[name], dur
 
 		start += dur
-		dur = @frameDurationTime/2
+		dur = carouselPartDuration
 		@carouselRoofBottom = TweenMax.to @$carousel.find('#js-carousel-roof-bottom'), 1, { height: 64, ease:Elastic.easeOut }
 		@controller.addTween start, @carouselRoofBottom, dur
 
 		start += dur
-		dur = @frameDurationTime/2
+		dur = carouselPartDuration
 		@carouselMiddle = TweenMax.to @$carousel.find('#js-carousel-middle'), 1, { 
 			width: '5em'
 			marginLeft: '-2.5em'
@@ -457,18 +460,56 @@ class App
 		@controller.addTween start, @carouselMiddle, dur
 
 		start += dur
-		dur = @frameDurationTime/2
-		@carouselMiddle = TweenMax.to @$carousel.find('#js-carousel-bottom'), 1, { 
+		dur = carouselPartDuration
+		@carouselBottom = TweenMax.to @$carousel.find('#js-carousel-bottom'), 1, { 
 			left: 			0
 			width: 			'35.375em'
 			marginLeft: '-2em'
 			ease:Elastic.easeOut
 		}
-		@controller.addTween start, @carouselMiddle, dur
+		@controller.addTween start, @carouselBottom, dur
 
-		
+		start += dur
+		dur = carouselPartDuration
+		@carouselBottom = TweenMax.to @$carousel.find('#js-carousel-bottom'), 1, { 
+			left: 			0
+			width: 			'35.375em'
+			marginLeft: '-2em'
+			ease:Elastic.easeOut
+		}
+		@controller.addTween start, @carouselBottom, dur
 
-		start = start + dur
+		start += dur
+		dur = carouselPartDuration
+		@carouselBottom = TweenMax.to @$carousel.find('#js-sticks'), 1, { 
+			height: '16.125em'
+			top: 		'40%'
+			ease: Bounce.Out
+		}
+		@controller.addTween start, @carouselBottom, dur
+
+		start += dur
+		dur = carouselPartDuration
+		@carouselBottom = TweenMax.to @$carousel.find('.icon-banner'), 1, { 
+			scale: 1
+			z: 1
+			ease:Elastic.easeOut
+		}
+		@controller.addTween start, @carouselBottom, dur
+
+
+		start += dur
+		dur = 2*carouselPartDuration
+		@carouselBottom = TweenMax.to @$carousel.find('.banner'), 1, { 
+			scale: 1
+			z: 1
+			ease:Elastic.easeOut
+			onUpdate: StatSocial.helpers.bind(@onCarouselLastTweenUpdate,@)
+		}
+		@controller.addTween start, @carouselBottom, dur
+
+
+		start = start + dur - @frameDurationTime
 		dur = 3*@frameDurationTime
 		@startPoints.push 
 			start: start+(0.95*@frameDurationTime)
@@ -647,6 +688,12 @@ class App
 		@ticket2  = TweenMax.to $ticket2, 1, { rotation: -10, onUpdate: StatSocial.helpers.bind(@onTicket2Update,@) }
 
 		@controller.addTween start, @ticket2, dur
+
+	onCarouselLastTweenUpdate:->
+		if @carouselBottom.progress() >= .5
+			@$carousel.addClass 'is-open'
+		else @$carousel.removeClass 'is-open'
+
 
 	onTicket2Update:-> 
 		if (@ticket2.progress() < 1)  

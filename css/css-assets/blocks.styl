@@ -273,19 +273,22 @@ buildingLogoAnimTime = 5s
 .moon-n-text
 	position relative
 	display inline-block
-	padding 0 88px 0 70px
+	// padding 0 88px 0 70px
+	padding-right 50px
+	text-align right
 	.moon-n-text--side
 		text-align center
 		padding 35px 16px
-		position absolute
+		float left
 	.moon-n-text--side__left
-		left 0
 		color #a5daf2
 	.moon-n-text--side__right
 		color #f6c855
-		right 0
 	.moon
-		transform translateZ(0)
+		float left
+	&__center
+		display inline-block
+		
 
 craterShadowColor = #b99a6b
 .moon
@@ -293,15 +296,12 @@ craterShadowColor = #b99a6b
 	retina 'i/moon' 100% transparent
 	position relative
 	overflow hidden
-	hl green
-	
 	.moon__blind
 		background-color rgba(#f6c855, .78)
 		position absolute
 		nw 0
 		rect 100%
 		z-index 0
-		
 	.moon--chart
 		overflow hidden
 		position absolute

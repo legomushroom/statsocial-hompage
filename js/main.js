@@ -316,7 +316,7 @@
     };
 
     App.prototype.buildAnimations = function() {
-      var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, dur, i, it, name, planeTween1, planeTween2, planeTween3, planeTween4, start, _i, _j, _k, _len, _ref,
+      var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, carouselConstrDuration, carouselPartDuration, dur, i, it, name, planeTween1, planeTween2, planeTween3, planeTween4, start, _i, _j, _k, _len, _ref,
         _this = this;
 
       $quoCurtain = this.$('#js-quo-curtain');
@@ -579,29 +579,32 @@
       });
       this.controller.addTween(start, this.rollerCabinsTriggerTween, dur);
       start = start + dur - this.frameDurationTime;
+      carouselConstrDuration = this.frameDurationTime;
+      carouselPartDuration = carouselConstrDuration / 7;
       dur = this.frameDurationTime / 2;
       this.carouselUpTween = TweenMax.to(this.$carousel, 1, {
         y: 0
       });
       this.controller.addTween(start, this.carouselUpTween, dur);
-      dur = this.frameDurationTime / 2;
+      dur = carouselPartDuration;
       start = start + (this.frameDurationTime / 2);
       for (i = _k = 1; _k <= 36; i = ++_k) {
         name = "carouselDomeS" + i + "Tween";
         this[name] = TweenMax.to(this.$carousel.find(".dome__inner--" + i), 1, {
-          rotationX: -50.75
+          rotationX: -50.675,
+          z: 0
         });
         this.controller.addTween(start, this[name], dur);
       }
       start += dur;
-      dur = this.frameDurationTime / 2;
+      dur = carouselPartDuration;
       this.carouselRoofBottom = TweenMax.to(this.$carousel.find('#js-carousel-roof-bottom'), 1, {
         height: 64,
         ease: Elastic.easeOut
       });
       this.controller.addTween(start, this.carouselRoofBottom, dur);
       start += dur;
-      dur = this.frameDurationTime / 2;
+      dur = carouselPartDuration;
       this.carouselMiddle = TweenMax.to(this.$carousel.find('#js-carousel-middle'), 1, {
         width: '5em',
         marginLeft: '-2.5em',
@@ -609,15 +612,49 @@
       });
       this.controller.addTween(start, this.carouselMiddle, dur);
       start += dur;
-      dur = this.frameDurationTime / 2;
-      this.carouselMiddle = TweenMax.to(this.$carousel.find('#js-carousel-bottom'), 1, {
+      dur = carouselPartDuration;
+      this.carouselBottom = TweenMax.to(this.$carousel.find('#js-carousel-bottom'), 1, {
         left: 0,
         width: '35.375em',
         marginLeft: '-2em',
         ease: Elastic.easeOut
       });
-      this.controller.addTween(start, this.carouselMiddle, dur);
-      start = start + dur;
+      this.controller.addTween(start, this.carouselBottom, dur);
+      start += dur;
+      dur = carouselPartDuration;
+      this.carouselBottom = TweenMax.to(this.$carousel.find('#js-carousel-bottom'), 1, {
+        left: 0,
+        width: '35.375em',
+        marginLeft: '-2em',
+        ease: Elastic.easeOut
+      });
+      this.controller.addTween(start, this.carouselBottom, dur);
+      start += dur;
+      dur = carouselPartDuration;
+      this.carouselBottom = TweenMax.to(this.$carousel.find('#js-sticks'), 1, {
+        height: '16.125em',
+        top: '40%',
+        ease: Bounce.Out
+      });
+      this.controller.addTween(start, this.carouselBottom, dur);
+      start += dur;
+      dur = carouselPartDuration;
+      this.carouselBottom = TweenMax.to(this.$carousel.find('.icon-banner'), 1, {
+        scale: 1,
+        z: 1,
+        ease: Elastic.easeOut
+      });
+      this.controller.addTween(start, this.carouselBottom, dur);
+      start += dur;
+      dur = 2 * carouselPartDuration;
+      this.carouselBottom = TweenMax.to(this.$carousel.find('.banner'), 1, {
+        scale: 1,
+        z: 1,
+        ease: Elastic.easeOut,
+        onUpdate: StatSocial.helpers.bind(this.onCarouselLastTweenUpdate, this)
+      });
+      this.controller.addTween(start, this.carouselBottom, dur);
+      start = start + dur - this.frameDurationTime;
       dur = 3 * this.frameDurationTime;
       this.startPoints.push({
         start: start + (0.95 * this.frameDurationTime),
@@ -905,6 +942,14 @@
         onUpdate: StatSocial.helpers.bind(this.onTicket2Update, this)
       });
       return this.controller.addTween(start, this.ticket2, dur);
+    };
+
+    App.prototype.onCarouselLastTweenUpdate = function() {
+      if (this.carouselBottom.progress() >= .5) {
+        return this.$carousel.addClass('is-open');
+      } else {
+        return this.$carousel.removeClass('is-open');
+      }
     };
 
     App.prototype.onTicket2Update = function() {

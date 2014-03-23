@@ -348,12 +348,14 @@ html
 
 
           .moon-n-text#js-moon
-            .moon-n-text--side.moon-n-text--side__left Male
-              div 50%
-            .moon-n-text--side.moon-n-text--side__right Female
-              div 50%
-            - el = { class: '', id: ''} 
-            include css/partials/moon
+            .moon-n-text__center
+              .moon-n-text--side.moon-n-text--side__left Male
+                div 50%
+              - el = { class: '', id: ''} 
+              include css/partials/moon
+              .moon-n-text--side.moon-n-text--side__right Female
+                div 50%
+            
 
           .entrance#js-entrance
 
@@ -394,7 +396,7 @@ html
                           include css/partials/banner
 
 
-                  .carousel__sticks
+                  .carousel__sticks#js-sticks
                     - icons = ['fashion', 'education', 'plant', 'book', 'bowling', 'tv', 'celebrities', 'joystick2']
                     - r = -1
                     - for(var i=2; i<=9;i++)
@@ -403,7 +405,7 @@ html
                           .face.side(class="s#{j}")
                             if (j == 2)
                               r = r+1
-                              - el = { }
+                              - el = { class: (r % 2 == 0)? 'icon-banner--odd' : '' }
                               - icon = { path: icons[r]+'-icon' }
                               include css/partials/icon-banner
 
