@@ -716,10 +716,11 @@
       this.controller.addTween(start, tween, dur);
       start += dur - dur / 2;
       dur = ferrisCoef;
-      tween = TweenMax.to(this.$ferrisWheel.find(".human"), 1, {
-        y: 0
+      this.ferrisHumansTween = TweenMax.to(this.$ferrisWheel.find(".human"), 1, {
+        y: 0,
+        onUpdate: StatSocial.helpers.bind(this.onFerrisLastTweenUpdate, this)
       });
-      this.controller.addTween(start, tween, dur);
+      this.controller.addTween(start, this.ferrisHumansTween, dur);
       this.ferrisText = this.$('#js-ferris-text')[0];
       this.ferrisTextPath = this.$('#ferris-script')[0];
       start += dur / 2;
@@ -962,6 +963,13 @@
         onUpdate: StatSocial.helpers.bind(this.onTicket2Update, this)
       });
       return this.controller.addTween(start, this.ticket2, dur);
+    };
+
+    App.prototype.onFerrisLastTweenUpdate = function() {
+      var method;
+
+      method = this.ferrisHumansTween.progress() >= .5 ? 'addClass' : 'removeClass';
+      return this.$ferrisWheel[method]('is-open');
     };
 
     App.prototype.onCarouselLastTweenUpdate = function() {

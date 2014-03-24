@@ -102,14 +102,15 @@
 		bottom 60px
 		left -30px
 		position absolute
+		display none
 		z-index 1
 		retina 'i/clip' 100% transparent
 		transform rotate(15deg)
 
 
 .ticket1, .ticket2, .tickets
-	width  236px
-	height 411px
+	width  224px
+	height 356px
 
 .ticket1
 	retina 'i/ticket1' 100% transparent
@@ -117,8 +118,6 @@
 color = #c94a4a
 bottomColor = #e5d6b5
 .ticket2
-	width  236px
-	height 411px
 	retina 'i/ticket2' 100% transparent
 	color color
 	outage()
@@ -127,16 +126,15 @@ bottomColor = #e5d6b5
 	text-align center
 	&__header
 		position absolute
-		top 21.5%
+		top 23%
 		width 100%
 		font-size 22px
 	&__content
 		position absolute
 		width (contentWidth)%
 		left ((100 - contentWidth)/2)%
-		top 36%
+		top 35%
 	&__line
-		// hl orange
 		text-align left
 		white-space nowrap
 		border-bottom 2px solid bottomColor
@@ -165,7 +163,7 @@ bottomColor = #e5d6b5
 		text-align center
 		position absolute
 		left 50%
-		bottom 10%
+		bottom 11%
 		display inline-block
 		font-size 20px
 		border-radius 3px

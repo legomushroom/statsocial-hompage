@@ -586,10 +586,11 @@ class App
 
 		start += dur - dur/2
 		dur = ferrisCoef
-		tween = TweenMax.to @$ferrisWheel.find(".human"), 1, {
+		@ferrisHumansTween = TweenMax.to @$ferrisWheel.find(".human"), 1, {
 			y: 0
+			onUpdate: StatSocial.helpers.bind(@onFerrisLastTweenUpdate,@)
 		}
-		@controller.addTween start, tween, dur
+		@controller.addTween start, @ferrisHumansTween, dur
 
 		@ferrisText 		= @$('#js-ferris-text')[0]
 		@ferrisTextPath = @$('#ferris-script')[0]
@@ -742,11 +743,14 @@ class App
 
 		@controller.addTween start, @ticket2, dur
 
+	onFerrisLastTweenUpdate:->
+		method = if @ferrisHumansTween.progress() >= .5 then 'addClass' else 'removeClass'
+		@$ferrisWheel[method] 'is-open'
+
 	onCarouselLastTweenUpdate:->
 		if @carouselBottom.progress() >= .35
 			@$carousel.addClass 'is-open'
 		else @$carousel.removeClass 'is-open'
-
 
 	onTicket2Update:-> 
 		if (@ticket2.progress() < 1)  
