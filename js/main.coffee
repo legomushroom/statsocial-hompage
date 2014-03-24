@@ -4,6 +4,9 @@ class App
 		@initScroll()
 		@initController()
 		@buildAnimations()
+		
+		@maxScroll = -@startPoints[@startPoints.length]
+
 		@listenKeys()
 		@initMap()
 		# @playSuggest()
@@ -39,7 +42,6 @@ class App
 		@$mainMenu 			= $('#js-main-menu')
 		@$menuSuggest 	= $('#js-menu-suggest')
 		@prevPlaneProgress = -1
-		@maxScroll = -20250
 		@readDelay = 3000
 		@startPoints = []
 		@readDelayItems = [3,4,5,6,8,10]
@@ -150,7 +152,7 @@ class App
 				when 37, 38
 					@setCurrentScenseNum if @currSequenceTweenNum > 0 then @currSequenceTweenNum-1 else @currSequenceTweenNum
 					@stopLoopSequence()
-					@currSequenceTween = TweenMax.to @scroller, @startPoints[@currSequenceTweenNum+1].dur, 	{ 
+					@currSequenceTween = TweenMax.to @scroller, @startPoints[@currSequenceTweenNum].dur, 	{ 
 						y: -@startPoints[@currSequenceTweenNum].start
 						onUpdate:(=> @controller.setScrollContainerOffset(0, -(@scroller.y)).triggerCheckAnim(true) ) 
 					}
@@ -494,13 +496,14 @@ class App
 			}
 		@controller.addTween start, planeTween2, dur
 
+		ferrisCoef = @frameDurationTime/1.5
 		start += dur - (2*@frameDurationTime)
-		dur = @frameDurationTime
+		dur = ferrisCoef
 		@ferrisBottomTween = TweenMax.to @$ferrisWheel.find('#js-ferris-main'), 1, { y: 0 }
 		@controller.addTween start, @ferrisBottomTween, dur
 
 		start += dur
-		dur = @frameDurationTime
+		dur = ferrisCoef
 		@ferrisTopTween = TweenMax.to @$ferrisWheel.find('#js-ferris-top'), 1, { 
 			width: 			'108%'
 			marginLeft: '-4%'
@@ -509,7 +512,7 @@ class App
 		@controller.addTween start, @ferrisTopTween, dur
 
 		start += dur
-		dur = @frameDurationTime
+		dur = ferrisCoef
 
 		$ferrisSpikes = @$ferrisWheel.find('.ferris-base--spike')
 		@ferrisSpike1Tween = TweenMax.to @$ferrisWheel.find('#js-ferris-spike1'), 1, { 
@@ -528,7 +531,7 @@ class App
 		@controller.addTween start, @ferrisSpike2Tween, dur
 
 		start += dur
-		dur = @frameDurationTime
+		dur = ferrisCoef
 		@ferrisHandleTween = TweenMax.to @$ferrisWheel.find('#js-ferris-handle'), 1, {
 				scale: 1
 				ease: Elastic.easeOut
@@ -536,7 +539,7 @@ class App
 		@controller.addTween start, @ferrisHandleTween, dur
 
 		start += dur - dur/1.85
-		dur = 2*@frameDurationTime
+		dur = 2*ferrisCoef
 		@ferrisCenterTween = TweenMax.to @$ferrisWheel.find('#js-ferris-center'), 1, {
 				scale: 1
 				ease: Elastic.easeOut
@@ -544,7 +547,7 @@ class App
 		@controller.addTween start, @ferrisCenterTween, dur
 
 		start += dur - dur/1.75
-		dur = 2*@frameDurationTime
+		dur = 2*ferrisCoef
 		@ferrisCircle2Tween = TweenMax.to @$ferrisWheel.find('#js-ferris-circle2'), 1, {
 				scale: 1
 				ease: Elastic.easeOut
@@ -552,58 +555,53 @@ class App
 		@controller.addTween start, @ferrisCircle2Tween, dur
 
 		start += dur - dur/1.65
-		dur = 2*@frameDurationTime
+		dur = 2*ferrisCoef
 		@ferrisCircle1Tween = TweenMax.to @$ferrisWheel.find('#js-ferris-circle1'), 1, {
 				scale: 1
 				ease: Elastic.easeOut
 			}
 		@controller.addTween start, @ferrisCircle1Tween, dur
 
+		start += dur - dur/1.65
+		dur = ferrisCoef
+		tween = TweenMax.to @$ferrisWheel.find("#js-ferris-spikes"), 1, {
+			opacity: 1
+			# ease: Elastic.easeOut
+		}
+		@controller.addTween start, tween, dur
 
-		start += dur
-		dur = 2*@frameDurationTime
-		spikeAngle = 60
-		cnt = 24
-		step = (2*Math.PI)/cnt
-		rotateStep = 360/cnt
-		rotateAngle = 0
-		ferrisWheelSize = 375
-		spikesCircleSize = (ferrisWheelSize*.69)
-		centerX = (ferrisWheelSize/2) - 1
-		centerY = (ferrisWheelSize/2) - 1
-		radius 	= spikesCircleSize/2
-		angle = 0
-		em = 1/16
-		spikeHeight = 38*em
-		for i in [0..cnt]
-			x = centerX + Math.cos(angle)*radius
-			y = centerY + Math.sin(angle)*radius
-			tween = TweenMax.to @$ferrisWheel.find(".ferris-wheel--spike.n-#{i}"), 1, {
-				x: "#{x*em}em"
-				y: "#{y*em - (spikeHeight/2)}em"
-				rotation: "#{rotateAngle - spikeAngle}deg"
-				z: 0
-				opacity: 1
-				# rotate((rotateAngle - spikeAngle)deg)
-				# transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) 
-			}
-			@controller.addTween start, tween, dur
-			rotateAngle += rotateStep
-			angle += step
+		# start += dur - dur/2
+		dur = 2*ferrisCoef
+		tween = TweenMax.to @$ferrisWheel.find(".cabin--core2"), 1, {
+			scale: 1
+			ease: Elastic.easeOut
+		}
+		@controller.addTween start, tween, dur
 
+		dur = ferrisCoef
+		tween = TweenMax.to @$ferrisWheel.find(".cabin--handle"), 1, {
+			height: '2.5em'
+		}
+		@controller.addTween start, tween, dur
 
-		start = start + dur + @frameDurationTime
-		dur = 3*@frameDurationTime
-		@startPoints.push 
-			start: start+(@frameDurationTime/1.5)
-			delay: 3000
-			dur: @autoplayDurationUnit/2
+		start += dur - dur/2
+		dur = ferrisCoef
+		tween = TweenMax.to @$ferrisWheel.find(".human"), 1, {
+			y: 0
+		}
+		@controller.addTween start, tween, dur
 
 		@ferrisText 		= @$('#js-ferris-text')[0]
 		@ferrisTextPath = @$('#ferris-script')[0]
-
-		@ferrisTextTween = TweenMax.to { offset: 2300 }, 1, { offset: 100, onUpdate: StatSocial.helpers.bind(@onFerrisTextUpdate,@) }
+		start += dur/2 # ferrisCoef
+		dur = 3*ferrisCoef
+		@ferrisTextTween = TweenMax.to { offset: 2300 }, 1, { offset: 400, onUpdate: StatSocial.helpers.bind(@onFerrisTextUpdate,@) }
 		@controller.addTween start, @ferrisTextTween, dur
+
+		@startPoints.push 
+			start: start + ferrisCoef/1.35
+			delay: 3000
+			dur: @autoplayDurationUnit/2.5
 
 		start = start + dur - (1.5*@frameDurationTime)
 		dur = @frameDurationTime
@@ -637,17 +635,13 @@ class App
 
 		start = start + dur
 		dur = @frameDurationTime
-		# @startPoints.push 
-		# 	start: start
-		# 	delay: 1000
-		# 	dur: @autoplayDurationUnit/2
 
 		@moonTween = TweenMax.to $('.moon-n-text--side'), 1, { y: -60, opacity: 0 }
 		@moonOpacityTween = TweenMax.to $('.moon--chart'), 1, { opacity: 0 }
-		@controller.addTween start, @moonTween, dur
-		@controller.addTween start, @moonOpacityTween, dur
+		@controller.addTween start, @moonOpacityTween, dur/2
+		@controller.addTween start, @moonTween, dur/2
 
-		start = start + dur - (@frameDurationTime/2)
+		start += dur/5
 		dur = 3*@frameDurationTime
 
 		it = @
@@ -660,14 +654,14 @@ class App
 					it.$plane3Inner[method]('is-flip')
 					@oldP = p
 			}
-		@controller.addTween start, planeTween3, dur
+		@controller.addTween start, planeTween3, dur/3
 		
 		start = start + dur - (2*@frameDurationTime)
 		dur = @frameDurationTime
 		@startPoints.push
-			start: start - (@frameDurationTime/16)
+			start: start - (@frameDurationTime/1.4)
 			delay: 3000
-			dur: 1.25*@autoplayDurationUnit
+			dur: @autoplayDurationUnit/1.5
 
 		@entranceTween  = TweenMax.to @$('#js-entrance'), 1, { y: 0 }
 		@controller.addTween start, @entranceTween, dur

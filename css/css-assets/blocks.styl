@@ -445,6 +445,13 @@ ferrisWheelSize = 375
 	position relative
 	z-index 20
 
+	&__spikes
+		opacity 0
+		// transform scale(0)
+		rect 100%
+		nw 0
+		position absolute
+
 	.ferris-wheel--script-path
 		position absolute
 		top  - 16*gs
@@ -452,85 +459,14 @@ ferrisWheelSize = 375
 		text 
 			fill #493542
 			font-size 4*gs
-	.ferris-wheel--core
-		animation-fill-mode both
-		animation ferris-wheel-rotate 30s linear infinite
-	.cabin--core
-		animation-fill-mode both
-		animation ferris-cabin-rotate 30s linear infinite
+	
 	&.is-open 
-		// .ferris-wheel--spike
-		// 	height spikeHeight
-		// 	spikeAngle = 60
-		// 	spikesCircleSize = (ferrisWheelSize*.69)
-		// 	cnt = 24
-		// 	PI = 3.141598
-		// 	step = (2*PI)/cnt
-		// 	rotateStep = 360/cnt
-		// 	rotateAngle = 0
-		// 	centerX = (ferrisWheelSize/2) - 1
-		// 	centerY = (ferrisWheelSize/2) - 1
-		// 	radius 	= spikesCircleSize/2
-		// 	angle = 0
-		// 	for i in 0..(cnt - 1)
-		// 		&.n-{i}
-		// 			x = centerX + cos(angle)*radius
-		// 			y = centerY + sin(angle)*radius
-		// 			transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle - spikeAngle)deg)
-				
-		// 		rotateAngle = rotateAngle + rotateStep
-		// 		angle = angle + step
-			
-		// 	rotateAngle = 0
-		// 	angle 			= .16
-		// 	for i in 0..(cnt - 1)
-		// 		&.s-{i}
-		// 			x = centerX + cos(angle)*radius
-		// 			y = centerY + sin(angle)*radius
-		// 			transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle + spikeAngle)deg)
-				
-		// 		rotateAngle = rotateAngle + rotateStep
-		// 		angle = angle + step
-
-		.cabin
-			opacity 1
-			transition-duration 0
-
-			cnt = 12
-			PI = 3.141598
-			step = (2*PI)/cnt
-			rotateStep = 360/cnt
-			rotateAngle = 0
-			centerX = ferrisWheelSize/2
-			centerY = ferrisWheelSize/2
-			radius 	= ferrisWheelSize/2
-			angle = 0
-			.human
-				transition top ferrisWheelTransitionCoef linear
-			for i in 0..(cnt - 1)
-				&.n-{i}
-					.human-0
-						top  - 5*PX
-						right 20%
-						transition-delay 7*ferrisWheelTransitionCoef + (random(0,25)/100)
-					.human-1
-						top  - random(0,5)*PX
-						right 40%
-						transition-delay 7*ferrisWheelTransitionCoef + (random(0,25)/100)
-					.human-2
-						top  - random(3,7)*PX
-						right 60%
-						transition-delay 7*ferrisWheelTransitionCoef + (random(0,25)/100)
-
-		.cabin--handle
-			height 40*PX
-			transition all ferrisWheelTransitionCoef linear
-			transition-delay 6*ferrisWheelTransitionCoef
-
-		.cabin--core2
-			transform scale(1)
-			transition all ferrisWheelTransitionCoef linear
-			transition-delay 6.5*ferrisWheelTransitionCoef
+		.ferris-wheel--core
+			animation-fill-mode both
+			animation ferris-wheel-rotate 30s linear infinite
+		.cabin--core
+			animation-fill-mode both
+			animation ferris-cabin-rotate 30s linear infinite
 
 	.ferris-wheel--core
 		rect 100%
@@ -566,13 +502,12 @@ ferrisWheelSize = 375
 
 	.ferris-wheel--spike
 		width  3*PX
-		height 0
 		height spikeHeight
 		background-color #9a3333
 		position absolute
 		z-index 0
 		transform-origin 50% 50%
-		opacity 0
+		height spikeHeight
 		spikeAngle = 60
 		spikesCircleSize = (ferrisWheelSize*.69)
 		cnt = 24
@@ -580,15 +515,15 @@ ferrisWheelSize = 375
 		step = (2*PI)/cnt
 		rotateStep = 360/cnt
 		rotateAngle = 0
-		centerX = (ferrisWheelSize/2)
+		centerX = (ferrisWheelSize/2) - 1
 		centerY = (ferrisWheelSize/2)
-		radius 	= (spikesCircleSize/2) - 15
+		radius 	= spikesCircleSize/2 + 1
 		angle = 0
 		for i in 0..(cnt - 1)
 			&.n-{i}
 				x = centerX + cos(angle)*radius
 				y = centerY + sin(angle)*radius
-				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle)deg)
+				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle - spikeAngle)deg)
 			
 			rotateAngle = rotateAngle + rotateStep
 			angle = angle + step
@@ -599,7 +534,7 @@ ferrisWheelSize = 375
 			&.s-{i}
 				x = centerX + cos(angle)*radius
 				y = centerY + sin(angle)*radius
-				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle)deg)
+				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle + spikeAngle)deg)
 			
 			rotateAngle = rotateAngle + rotateStep
 			angle = angle + step
@@ -628,9 +563,25 @@ ferrisWheelSize = 375
 	.cabin
 		position absolute
 		nw 0
-		opacity 1
+		cnt = 12
+		.human
+			transform translateY(15*PX)
+		for i in 0..(cnt - 1)
+			&.n-{i}
+				.human-0
+					top  - 5*PX
+					right 20%
+				.human-1
+					top  - random(0,5)*PX
+					right 40%
+				.human-2
+					top  - random(3,7)*PX
+					right 60%
+
 		.icon
 			fill #3f797f
+		
+
 	
 	cnt = 12
 	PI = 3.141598
@@ -683,8 +634,6 @@ ferrisWheelSize = 375
 		nw 0
 	 .cabin--core2
 		transform scale(0)
-		transition all ferrisWheelTransitionCoef linear
-		transition-delay 0
 
 	.human
 		z-index 0

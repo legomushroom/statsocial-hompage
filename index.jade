@@ -2,7 +2,7 @@
 html
   head
     meta(charset='UTF-8')
-    title STAT SOCIAL
+    title STATSOCIAL
     link(href="css/main.css", type="text/css", rel="stylesheet")
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700,800', rel='stylesheet', type='text/css')
   
@@ -27,7 +27,7 @@ html
 
         .main-header.is-hidden#js-main-menu
           .sidebar-logo-e.is-blue-bg
-              | STAT SOCIAL
+              | STATSOCIAL
             .page-menu-header#js-menu-btn
               .icon.page-header2--menu-icon(title='')
                 svg(viewbox='0 0 32 32')
@@ -322,12 +322,13 @@ html
               .ferris-wheel--circle1#js-ferris-circle1
               .ferris-wheel--circle2#js-ferris-circle2
 
-              - var spikesCnt = 24
-              - for (var i=0; i<spikesCnt; i++)
-                .ferris-wheel--spike(class="n-#{i}")
+              .ferris-wheel__spikes#js-ferris-spikes
+                - var spikesCnt = 24
+                - for (var i=0; i<spikesCnt; i++)
+                  .ferris-wheel--spike(class="n-#{i}")
 
-              - for (var i=0; i<spikesCnt; i++)
-                .ferris-wheel--spike(class="s-#{i}")
+                - for (var i=0; i<spikesCnt; i++)
+                  .ferris-wheel--spike(class="s-#{i}")
 
             .ferris-base#js-ferris-base
               .ferris-base--center#js-ferris-center
