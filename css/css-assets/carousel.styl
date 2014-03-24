@@ -29,6 +29,17 @@ carouselTransitionTime = .3s
 		nw 0
 		top 50%
 		transform-style preserve-3d
+		.cylinder-2
+			opacity:1;
+			width:.25em
+			margin:-7.5em 0 0 -0.125em
+			height 100%
+			.side
+				width:0.4580127018922192em
+				backface-visibility visible
+				height 100%
+				background-color: #faf4e5
+				
 	width = 20*PX
 	.carousel-bottom
 		width width
@@ -371,16 +382,6 @@ for i in 2..9
 		degree = 70deg
 	.cyl-{i}
 		transform translate3d(xz[r], 10.249999999999998em, xz[r+1]) rotateX(0deg) rotateY(degree) rotateZ(0deg);
-		opacity:1;
-		width:.25em
-		margin:-7.5em 0 0 -0.125em
-		height 100%
-		.side
-			width:0.4580127018922192em
-			backface-visibility visible
-			height 100%
-		.face, .side
-			background-color: #faf4e5
 
 		start = 60
 		for j in 0..2

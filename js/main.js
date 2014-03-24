@@ -10,7 +10,6 @@
       this.buildAnimations();
       this.listenKeys();
       this.initMap();
-      this.playSuggest();
       this.addCssClasses();
       this.loopSequence = StatSocial.helpers.bind(this.loopSequence, this);
     }
@@ -37,7 +36,7 @@
       this.$keysSuggest = $('#js-scroll-suggest-keys');
       this.$touchSuggest = $('#js-scroll-suggest-touch');
       this.$pagesBtns = $('#js-pages-btns');
-      this.$playBtn = $('#js-pages-btns-play');
+      this.$playBtn = $('#js-play');
       this.$mainMenu = $('#js-main-menu');
       this.$menuSuggest = $('#js-menu-suggest');
       this.prevPlaneProgress = -1;
@@ -85,7 +84,8 @@
           }
         }
       });
-      return this.$playBtn.addClass('is-playing');
+      this.$playBtn.addClass('is-playing');
+      return this.$pagesBtns.addClass('is-playing');
     };
 
     App.prototype.addCssClasses = function() {
@@ -103,7 +103,8 @@
         _ref.kill();
       }
       this.play = false;
-      return this.$playBtn.removeClass('is-playing');
+      this.$playBtn.removeClass('is-playing');
+      return this.$pagesBtns.removeClass('is-playing');
     };
 
     App.prototype.setCurrentScenseNum = function(num) {
@@ -112,7 +113,7 @@
       }
       this.currSequenceTweenNum = num;
       this.$pagesBtnsChildren.filter('.is-check').removeClass('is-check');
-      this.$pagesBtnsChildren.eq(num + 1).addClass('is-check');
+      this.$pagesBtnsChildren.eq(num).addClass('is-check');
       return num;
     };
 
@@ -130,7 +131,7 @@
         var num;
 
         _this.stopLoopSequence();
-        num = $(e.target).index() - 1;
+        num = $(e.target).index();
         _this.currSequenceTween = TweenMax.to(_this.scroller, _this.startPoints[num].dur, {
           y: -_this.startPoints[num].start,
           onUpdate: (function() {
@@ -140,53 +141,19 @@
         return _this.setCurrentScenseNum(num);
       });
       it = this;
-      return this.$pagesBtns.on('click', '#js-pages-btns-play', function(e) {
+      return this.$playBtn.on('click', function(e) {
         var $it;
 
         $it = $(this);
-        it.play = !this.play;
+        it.play = !it.play;
         $it.toggleClass('is-playing', it.play);
+        it.$pagesBtns.toggleClass('is-playing', it.play);
         if (it.play && (it.currSequenceTweenNum < it.startPoints.length - 1)) {
           return it.loopSequence();
         } else {
           return it.stopLoopSequence();
         }
       });
-    };
-
-    App.prototype.playSuggest = function() {
-      var currBlock,
-        _this = this;
-
-      this.$scrollSuggest.show();
-      if (!StatSocial.helpers.isMobile()) {
-        this.$keysSuggest.hide();
-        this.$mouseSuggest.show();
-        currBlock = this.$mouseSuggest;
-        return this.suggestInterval = setInterval(function() {
-          if (currBlock === _this.$mouseSuggest) {
-            _this.$mouseSuggest.hide();
-            _this.$keysSuggest.fadeIn();
-            return currBlock = _this.$keysSuggest;
-          } else {
-            _this.$keysSuggest.hide();
-            _this.$mouseSuggest.fadeIn();
-            return currBlock = _this.$mouseSuggest;
-          }
-        }, 5000);
-      } else {
-        this.$touchSuggest.show();
-        this.$mouseSuggest.hide();
-        return this.$keysSuggest.hide();
-      }
-    };
-
-    App.prototype.stopSuggest = function() {
-      clearInterval(this.suggestInterval);
-      this.$keysSuggest.hide();
-      this.$mouseSuggest.hide();
-      this.$touchSuggest.hide();
-      return this.$scrollSuggest.hide();
     };
 
     App.prototype.listenKeys = function() {
@@ -298,22 +265,16 @@
     };
 
     App.prototype.scrollStart = function() {
-      this.stopSuggest();
       return this.$menuSuggest.addClass('is-transparent').hide();
     };
 
     App.prototype.scrollReverseStart = function() {
-      this.playSuggest();
       return this.$menuSuggest.removeClass('is-transparent').show();
     };
 
-    App.prototype.scrollEnd = function() {
-      return this.$menuSuggest.show();
-    };
+    App.prototype.scrollEnd = function() {};
 
-    App.prototype.scrollReverseEnd = function() {
-      return this.$menuSuggest.hide();
-    };
+    App.prototype.scrollReverseEnd = function() {};
 
     App.prototype.buildAnimations = function() {
       var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, carouselConstrDuration, carouselPartDuration, dur, i, it, name, planeTween1, planeTween2, planeTween3, planeTween4, start, _i, _j, _k, _len, _ref,
@@ -325,6 +286,7 @@
       $ticket2 = this.$('#js-ticket2');
       $clip = this.$('#js-clip');
       this.frameDurationTime = 1000;
+      this.autoplayDurationUnit = 5;
       this.curtainTween1 = TweenMax.to(this.$('#js-left-curtain'), 1, {
         left: '-50%'
       });
@@ -428,7 +390,7 @@
       this.startPoints.push({
         start: start + (this.frameDurationTime - (this.frameDurationTime / 10)),
         delay: 3000,
-        dur: 3
+        dur: this.autoplayDurationUnit
       });
       this.$moon = this.$('#js-moon');
       it = this;
@@ -546,7 +508,7 @@
       this.startPoints.push({
         start: start + this.frameDurationTime - (this.frameDurationTime / 8),
         delay: 3000,
-        dur: 3
+        dur: this.autoplayDurationUnit
       });
       this.rollerTextTween = TweenMax.to({
         offset: this.rollerLine2.getTotalLength()
@@ -580,13 +542,13 @@
       this.controller.addTween(start, this.rollerCabinsTriggerTween, dur);
       start = start + dur - this.frameDurationTime;
       carouselConstrDuration = this.frameDurationTime;
-      carouselPartDuration = carouselConstrDuration / 7;
+      carouselPartDuration = carouselConstrDuration / 2;
       dur = this.frameDurationTime / 2;
       this.carouselUpTween = TweenMax.to(this.$carousel, 1, {
         y: 0
       });
       this.controller.addTween(start, this.carouselUpTween, dur);
-      dur = carouselPartDuration;
+      dur = carouselPartDuration / 2;
       start = start + (this.frameDurationTime / 2);
       for (i = _k = 1; _k <= 36; i = ++_k) {
         name = "carouselDomeS" + i + "Tween";
@@ -603,49 +565,30 @@
         ease: Elastic.easeOut
       });
       this.controller.addTween(start, this.carouselRoofBottom, dur);
-      start += dur;
-      dur = carouselPartDuration;
+      start += dur - carouselPartDuration;
+      dur = carouselPartDuration / 2;
       this.carouselMiddle = TweenMax.to(this.$carousel.find('#js-carousel-middle'), 1, {
         width: '5em',
-        marginLeft: '-2.5em',
-        ease: Elastic.easeOut
+        marginLeft: '-2.5em'
       });
       this.controller.addTween(start, this.carouselMiddle, dur);
-      start += dur;
-      dur = carouselPartDuration;
+      start += dur - dur / 2;
+      dur = carouselPartDuration / 2;
       this.carouselBottom = TweenMax.to(this.$carousel.find('#js-carousel-bottom'), 1, {
         left: 0,
         width: '35.375em',
-        marginLeft: '-2em',
-        ease: Elastic.easeOut
+        marginLeft: '-2em'
       });
       this.controller.addTween(start, this.carouselBottom, dur);
-      start += dur;
-      dur = carouselPartDuration;
-      this.carouselBottom = TweenMax.to(this.$carousel.find('#js-carousel-bottom'), 1, {
-        left: 0,
-        width: '35.375em',
-        marginLeft: '-2em',
-        ease: Elastic.easeOut
-      });
-      this.controller.addTween(start, this.carouselBottom, dur);
-      start += dur;
+      start += 0;
       dur = carouselPartDuration;
       this.carouselBottom = TweenMax.to(this.$carousel.find('#js-sticks'), 1, {
         height: '16.125em',
         top: '40%',
-        ease: Bounce.Out
+        ease: Bounce.easeOut
       });
       this.controller.addTween(start, this.carouselBottom, dur);
-      start += dur;
-      dur = carouselPartDuration;
-      this.carouselBottom = TweenMax.to(this.$carousel.find('.icon-banner'), 1, {
-        scale: 1,
-        z: 1,
-        ease: Elastic.easeOut
-      });
-      this.controller.addTween(start, this.carouselBottom, dur);
-      start += dur;
+      start += dur - dur / 4;
       dur = 2 * carouselPartDuration;
       this.carouselBottom = TweenMax.to(this.$carousel.find('.banner'), 1, {
         scale: 1,
@@ -654,12 +597,20 @@
         onUpdate: StatSocial.helpers.bind(this.onCarouselLastTweenUpdate, this)
       });
       this.controller.addTween(start, this.carouselBottom, dur);
+      start += dur / 8;
+      dur = 2 * carouselPartDuration;
+      this.carouselBottom = TweenMax.to(this.$carousel.find('.icon-banner'), 1, {
+        scale: 1,
+        z: 1,
+        ease: Elastic.easeOut
+      });
+      this.controller.addTween(start, this.carouselBottom, dur);
       start = start + dur - this.frameDurationTime;
       dur = 3 * this.frameDurationTime;
       this.startPoints.push({
         start: start + (0.95 * this.frameDurationTime),
         delay: 4000,
-        dur: 1
+        dur: this.autoplayDurationUnit
       });
       it = this;
       this.$plane2Inner = this.$plane2.find('#js-plane-inner');
@@ -700,7 +651,7 @@
       this.startPoints.push({
         start: start + (this.frameDurationTime / 1.5),
         delay: 3000,
-        dur: 1
+        dur: this.autoplayDurationUnit
       });
       this.ferrisText = this.$('#js-ferris-text')[0];
       this.ferrisTextPath = this.$('#ferris-script')[0];
@@ -796,7 +747,7 @@
       this.startPoints.push({
         start: start,
         delay: 1000,
-        dur: 1
+        dur: this.autoplayDurationUnit / 2
       });
       this.moonTween = TweenMax.to($('.moon-n-text--side'), 1, {
         y: -60,
@@ -831,7 +782,7 @@
       this.startPoints.push({
         start: start - (this.frameDurationTime / 16),
         delay: 3000,
-        dur: 1
+        dur: this.autoplayDurationUnit / 2
       });
       this.entranceTween = TweenMax.to(this.$('#js-entrance'), 1, {
         y: 0
@@ -912,7 +863,7 @@
       this.startPoints.push({
         start: start,
         delay: 3000,
-        dur: 3
+        dur: this.autoplayDurationUnit / 2
       });
       this.ticketsTween = TweenMax.to($tickets, 1, {
         y: 0
@@ -923,7 +874,7 @@
       this.startPoints.push({
         start: start + this.frameDurationTime,
         delay: 3,
-        dur: 1
+        dur: this.autoplayDurationUnit / 2
       });
       this.ticket1 = TweenMax.to($ticket1, 1, {
         rotation: -20,

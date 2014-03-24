@@ -16,14 +16,13 @@ html
     include css/icons.svg
     section(role="main")#js-main.main-l
       #scroller
+        .play#js-play(title="autoplay")
+          - el = { path: 'play-icon', class: 'play__icon play__icon--play', id: ''}
+          include css/partials/icon
+          - el = { path: 'pause-icon', class: 'play__icon play__icon--pause', id: ''}
+          include css/partials/icon
+
         .pages-btns.is-transparent.cf#js-pages-btns
-          .pages-btns__play#js-pages-btns-play(title="autoplay")
-            - el = { path: 'play-icon', class: 'pages-btns__play__icon pages-btns__play__play', id: ''}
-            include css/partials/icon
-
-            - el = { path: 'pause-icon', class: 'pages-btns__play__icon pages-btns__play__pause', id: ''}
-            include css/partials/icon
-
         .menu-suggest#js-menu-suggest menu
 
         .main-header.is-hidden#js-main-menu
@@ -53,10 +52,10 @@ html
 
 
         .curtain-l#js-curtain1
-          .scroll-suggest-fork#js-scroll-suggest
-            .scroll-suggest.scroll-suggest--mouse#js-scroll-suggest-mouse
-            .scroll-suggest.scroll-suggest--keys#js-scroll-suggest-keys.h-g
-            .scroll-suggest.scroll-suggest--touch#js-scroll-suggest-touch.h-g
+          //- .scroll-suggest-fork#js-scroll-suggest
+          //-   .scroll-suggest.scroll-suggest--mouse#js-scroll-suggest-mouse
+          //-   .scroll-suggest.scroll-suggest--keys#js-scroll-suggest-keys.h-g
+          //-   .scroll-suggest.scroll-suggest--touch#js-scroll-suggest-touch.h-g
 
           .curtain-l--left#js-left-curtain
             .curtain-l--left--peel#js-left-peel

@@ -9,48 +9,53 @@
 	border-radius 3px
 	padding 1px 4px
 	padding-right 44px
-
 	&.is-transparent
 		background-color #095273
+
+
+.play
+	circle 4*gs
+	background-color white
+	position fixed
+	z-index 20
+	bottom 2*gs
+	left 50%
+	margin-left - 2*gs
+	cursor pointer
+	.icon
+		rect 1.5*gs
+		fill #ff6c66
+	&__icon
+		position absolute
+		nw 50%
+		margin-left - .75*gs
+		margin-top  - .75*gs
+		fill #777
+		&--play
+			margin-left - .6*gs
+		&--pause
+			display none
+
+	&.is-playing
+		.play__icon--pause
+			display block
+		.play__icon--play
+			display none
+			// & ~ .pages-btns__btn.is-check
+			// 	animation playing 1s ease infinite
+
+
 .pages-btns
 	position absolute
 	right 20px
 	bottom 20px
 	transform translateY(-50%)
 	z-index 11
+	&.is-playing
+		.pages-btns__btn.is-check
+			animation playing 1s ease infinite
 	.at-mobiles &
 		bottom 40px
-	&__play
-		circle 4*gs
-		background-color white
-		position absolute
-		top  - 1.25*gs
-		left - 5*gs
-		cursor pointer
-		.at-mobiles &
-			top - gs
-		.icon
-			rect 1.5*gs
-			fill #ff6c66
-		&__icon
-			position absolute
-			nw 50%
-			margin-left - .75*gs
-			margin-top  - .75*gs
-			fill #777
-		&__play
-			margin-left - .6*gs
-		&__pause
-			display none
-		&.is-playing
-			.pages-btns__play__pause
-				display block
-			.pages-btns__play__play
-				display none
-
-			& ~ .pages-btns__btn.is-check
-				animation playing 1s ease infinite
-			
 	&.is-transparent
 		opacity .75
 		.at-mobiles &
@@ -71,20 +76,20 @@
 			cursor pointer
 			background-color white
 
-.scroll-suggest, .scroll-suggest-fork
-	width 128px
-	height 65px
-	position relative
+// .scroll-suggest, .scroll-suggest-fork
+// 	width 128px
+// 	height 65px
+// 	position relative
 
-.scroll-suggest
-	position absolute
-	nw 0
-	&--mouse
-		retina 'i/scroll-suggest' 100% transparent
-	&--keys
-		retina 'i/scroll-suggest-keys' 100% transparent
-	&--touch
-		retina 'i/scroll-suggest-touch@2x' 100% transparent
+// .scroll-suggest
+// 	position absolute
+// 	nw 0
+// 	&--mouse
+// 		retina 'i/scroll-suggest' 100% transparent
+// 	&--keys
+// 		retina 'i/scroll-suggest-keys' 100% transparent
+// 	&--touch
+// 		retina 'i/scroll-suggest-touch@2x' 100% transparent
 
 .tickets
 	position relative
