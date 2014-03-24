@@ -150,11 +150,6 @@ nightTransitionTime = 1.5s
 		.carousel
 			.no-preserve-3d &
 				transform translateY(-38px) scale(1)
-	&.is-show-ferris-wheel
-		.ferris-wheel
-			transition-delay 0
-			transform translateY(0)
-			transition all .35s ease-out
 	.entrance
 		position absolute
 		bottom groundHeight - 4px
@@ -181,7 +176,7 @@ nightTransitionTime = 1.5s
 	.ferris-wheel
 		position absolute
 		bottom groundHeight + 15px
-		transform translateY(150%)
+		// transform translateY(150%)
 		z-index 4
 		left 5%
 	.roller-coaster-b

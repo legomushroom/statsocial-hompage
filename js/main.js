@@ -40,7 +40,7 @@
       this.$mainMenu = $('#js-main-menu');
       this.$menuSuggest = $('#js-menu-suggest');
       this.prevPlaneProgress = -1;
-      this.maxScroll = -19320;
+      this.maxScroll = -20250;
       this.readDelay = 3000;
       this.startPoints = [];
       return this.readDelayItems = [3, 4, 5, 6, 8, 10];
@@ -277,7 +277,7 @@
     App.prototype.scrollReverseEnd = function() {};
 
     App.prototype.buildAnimations = function() {
-      var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, carouselConstrDuration, carouselPartDuration, dur, i, it, name, planeTween1, planeTween2, planeTween3, planeTween4, start, _i, _j, _k, _len, _ref,
+      var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $ferrisSpikes, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, angle, bush, carouselConstrDuration, carouselPartDuration, centerX, centerY, cnt, dur, em, ferrisWheelSize, i, it, name, planeTween1, planeTween2, planeTween3, planeTween4, radius, rotateAngle, rotateStep, spikeAngle, spikeHeight, spikesCircleSize, start, step, tween, x, y, _i, _j, _k, _l, _len, _ref,
         _this = this;
 
       $quoCurtain = this.$('#js-quo-curtain');
@@ -572,7 +572,7 @@
         marginLeft: '-2.5em'
       });
       this.controller.addTween(start, this.carouselMiddle, dur);
-      start += dur - dur / 2;
+      start += 0;
       dur = carouselPartDuration / 2;
       this.carouselBottom = TweenMax.to(this.$carousel.find('#js-carousel-bottom'), 1, {
         left: 0,
@@ -605,12 +605,12 @@
         ease: Elastic.easeOut
       });
       this.controller.addTween(start, this.carouselBottom, dur);
-      start = start + dur - this.frameDurationTime;
-      dur = 3 * this.frameDurationTime;
+      start = start - this.frameDurationTime / 1.5;
+      dur = 3.5 * this.frameDurationTime;
       this.startPoints.push({
-        start: start + (0.95 * this.frameDurationTime),
+        start: start + 1.1 * this.frameDurationTime,
         delay: 4000,
-        dur: this.autoplayDurationUnit
+        dur: this.autoplayDurationUnit / 1.5
       });
       it = this;
       this.$plane2Inner = this.$plane2.find('#js-plane-inner');
@@ -629,29 +629,108 @@
         }
       });
       this.controller.addTween(start, planeTween2, dur);
-      start = start + dur - (2 * this.frameDurationTime);
-      dur = 1;
-      this.ferrisWheelTriggerTween = TweenMax.to({}, 1, {
-        onComplete: (function() {
-          _this.$scence3.addClass('is-show-ferris-wheel');
-          return setTimeout((function() {
-            return _this.$ferrisWheel.addClass('is-open');
-          }), 10);
-        }),
+      start += dur - (2 * this.frameDurationTime);
+      dur = this.frameDurationTime;
+      this.ferrisBottomTween = TweenMax.to(this.$ferrisWheel.find('#js-ferris-main'), 1, {
+        y: 0
+      });
+      this.controller.addTween(start, this.ferrisBottomTween, dur);
+      start += dur;
+      dur = this.frameDurationTime;
+      this.ferrisTopTween = TweenMax.to(this.$ferrisWheel.find('#js-ferris-top'), 1, {
+        width: '108%',
+        marginLeft: '-4%',
+        overflow: 'visible'
+      });
+      this.controller.addTween(start, this.ferrisTopTween, dur);
+      start += dur;
+      dur = this.frameDurationTime;
+      $ferrisSpikes = this.$ferrisWheel.find('.ferris-base--spike');
+      this.ferrisSpike1Tween = TweenMax.to(this.$ferrisWheel.find('#js-ferris-spike1'), 1, {
+        rotation: 19,
+        height: '11.5625em',
+        y: 0,
+        onStart: function() {
+          return $ferrisSpikes.css({
+            'opacity': 1
+          });
+        },
         onReverseComplete: function() {
-          _this.$ferrisWheel.removeClass('is-open');
-          return setTimeout((function() {
-            return _this.$scence3.removeClass('is-show-ferris-wheel');
-          }), 100);
+          return $ferrisSpikes.css({
+            'opacity': 0
+          });
         }
       });
-      this.controller.addTween(start, this.ferrisWheelTriggerTween, dur);
+      this.controller.addTween(start, this.ferrisSpike1Tween, dur);
+      this.ferrisSpike2Tween = TweenMax.to(this.$ferrisWheel.find('#js-ferris-spike2'), 1, {
+        rotation: -19,
+        height: '11.5625em',
+        y: 0
+      });
+      this.controller.addTween(start, this.ferrisSpike2Tween, dur);
+      start += dur;
+      dur = this.frameDurationTime;
+      this.ferrisHandleTween = TweenMax.to(this.$ferrisWheel.find('#js-ferris-handle'), 1, {
+        scale: 1,
+        ease: Elastic.easeOut
+      });
+      this.controller.addTween(start, this.ferrisHandleTween, dur);
+      start += dur - dur / 1.85;
+      dur = 2 * this.frameDurationTime;
+      this.ferrisCenterTween = TweenMax.to(this.$ferrisWheel.find('#js-ferris-center'), 1, {
+        scale: 1,
+        ease: Elastic.easeOut
+      });
+      this.controller.addTween(start, this.ferrisCenterTween, dur);
+      start += dur - dur / 1.75;
+      dur = 2 * this.frameDurationTime;
+      this.ferrisCircle2Tween = TweenMax.to(this.$ferrisWheel.find('#js-ferris-circle2'), 1, {
+        scale: 1,
+        ease: Elastic.easeOut
+      });
+      this.controller.addTween(start, this.ferrisCircle2Tween, dur);
+      start += dur - dur / 1.65;
+      dur = 2 * this.frameDurationTime;
+      this.ferrisCircle1Tween = TweenMax.to(this.$ferrisWheel.find('#js-ferris-circle1'), 1, {
+        scale: 1,
+        ease: Elastic.easeOut
+      });
+      this.controller.addTween(start, this.ferrisCircle1Tween, dur);
+      start += dur;
+      dur = 2 * this.frameDurationTime;
+      spikeAngle = 60;
+      cnt = 24;
+      step = (2 * Math.PI) / cnt;
+      rotateStep = 360 / cnt;
+      rotateAngle = 0;
+      ferrisWheelSize = 375;
+      spikesCircleSize = ferrisWheelSize * .69;
+      centerX = (ferrisWheelSize / 2) - 1;
+      centerY = (ferrisWheelSize / 2) - 1;
+      radius = spikesCircleSize / 2;
+      angle = 0;
+      em = 1 / 16;
+      spikeHeight = 38 * em;
+      for (i = _l = 0; 0 <= cnt ? _l <= cnt : _l >= cnt; i = 0 <= cnt ? ++_l : --_l) {
+        x = centerX + Math.cos(angle) * radius;
+        y = centerY + Math.sin(angle) * radius;
+        tween = TweenMax.to(this.$ferrisWheel.find(".ferris-wheel--spike.n-" + i), 1, {
+          x: "" + (x * em) + "em",
+          y: "" + (y * em - (spikeHeight / 2)) + "em",
+          rotation: "" + (rotateAngle - spikeAngle) + "deg",
+          z: 0,
+          opacity: 1
+        });
+        this.controller.addTween(start, tween, dur);
+        rotateAngle += rotateStep;
+        angle += step;
+      }
       start = start + dur + this.frameDurationTime;
       dur = 3 * this.frameDurationTime;
       this.startPoints.push({
         start: start + (this.frameDurationTime / 1.5),
         delay: 3000,
-        dur: this.autoplayDurationUnit
+        dur: this.autoplayDurationUnit / 2
       });
       this.ferrisText = this.$('#js-ferris-text')[0];
       this.ferrisTextPath = this.$('#ferris-script')[0];
@@ -744,11 +823,6 @@
       }), dur);
       start = start + dur;
       dur = this.frameDurationTime;
-      this.startPoints.push({
-        start: start,
-        delay: 1000,
-        dur: this.autoplayDurationUnit / 2
-      });
       this.moonTween = TweenMax.to($('.moon-n-text--side'), 1, {
         y: -60,
         opacity: 0
@@ -782,7 +856,7 @@
       this.startPoints.push({
         start: start - (this.frameDurationTime / 16),
         delay: 3000,
-        dur: this.autoplayDurationUnit / 2
+        dur: 1.25 * this.autoplayDurationUnit
       });
       this.entranceTween = TweenMax.to(this.$('#js-entrance'), 1, {
         y: 0
@@ -817,10 +891,10 @@
       $animas = this.$('.anima-fork');
       this.logosTriggerTween = TweenMax.to({}, 1, {
         onComplete: (function() {
-          var anima, _l, _len1, _results;
+          var anima, _len1, _m, _results;
 
           _results = [];
-          for (i = _l = 0, _len1 = $animas.length; _l < _len1; i = ++_l) {
+          for (i = _m = 0, _len1 = $animas.length; _m < _len1; i = ++_m) {
             anima = $animas[i];
             if (i === 0) {
               _results.push($(anima).show());
@@ -863,7 +937,7 @@
       this.startPoints.push({
         start: start,
         delay: 3000,
-        dur: this.autoplayDurationUnit / 2
+        dur: this.autoplayDurationUnit / 1.5
       });
       this.ticketsTween = TweenMax.to($tickets, 1, {
         y: 0
@@ -896,7 +970,7 @@
     };
 
     App.prototype.onCarouselLastTweenUpdate = function() {
-      if (this.carouselBottom.progress() >= .5) {
+      if (this.carouselBottom.progress() >= .35) {
         return this.$carousel.addClass('is-open');
       } else {
         return this.$carousel.removeClass('is-open');

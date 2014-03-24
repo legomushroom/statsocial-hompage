@@ -319,8 +319,8 @@ html
                     - el = { class: 'human-'+j, id: '' }
                     include css/partials/human
 
-              .ferris-wheel--circle1
-              .ferris-wheel--circle2
+              .ferris-wheel--circle1#js-ferris-circle1
+              .ferris-wheel--circle2#js-ferris-circle2
 
               - var spikesCnt = 24
               - for (var i=0; i<spikesCnt; i++)
@@ -329,16 +329,16 @@ html
               - for (var i=0; i<spikesCnt; i++)
                 .ferris-wheel--spike(class="s-#{i}")
 
-            .ferris-base
-              .ferris-base--center
+            .ferris-base#js-ferris-base
+              .ferris-base--center#js-ferris-center
                 - el = { path: 'twitter-icon'  }
                 include css/partials/icon
                 
-              .ferris-base--top
-              .ferris-base--main
-              .ferris-base--spike.is-1
-              .ferris-base--spike.is-2
-              .ferris-base--handle
+              .ferris-base--top#js-ferris-top
+              .ferris-base--main#js-ferris-main
+              .ferris-base--spike.is-1#js-ferris-spike1
+              .ferris-base--spike.is-2#js-ferris-spike2
+              .ferris-base--handle#js-ferris-handle
 
 
 

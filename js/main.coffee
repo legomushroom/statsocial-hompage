@@ -39,7 +39,7 @@ class App
 		@$mainMenu 			= $('#js-main-menu')
 		@$menuSuggest 	= $('#js-menu-suggest')
 		@prevPlaneProgress = -1
-		@maxScroll = -19320
+		@maxScroll = -20250
 		@readDelay = 3000
 		@startPoints = []
 		@readDelayItems = [3,4,5,6,8,10]
@@ -436,7 +436,7 @@ class App
 		}
 		@controller.addTween start, @carouselMiddle, dur
 
-		start += dur - dur/2
+		start += 0 #dur - dur/2
 		dur = carouselPartDuration/2
 		@carouselBottom = TweenMax.to @$carousel.find('#js-carousel-bottom'), 1, { 
 			left: 			0
@@ -475,14 +475,12 @@ class App
 		}
 		@controller.addTween start, @carouselBottom, dur
 
-
-
-		start = start + dur - @frameDurationTime
-		dur = 3*@frameDurationTime
+		start = start - @frameDurationTime/1.5
+		dur = 3.5*@frameDurationTime
 		@startPoints.push 
-			start: start+(0.95*@frameDurationTime)
+			start: start + 1.1*@frameDurationTime
 			delay: 4000
-			dur: @autoplayDurationUnit
+			dur: @autoplayDurationUnit/1.5
 
 		it = @
 		@$plane2Inner = @$plane2.find('#js-plane-inner')
@@ -496,17 +494,110 @@ class App
 			}
 		@controller.addTween start, planeTween2, dur
 
-		start = start + dur - (2*@frameDurationTime)
-		dur = 1
-		@ferrisWheelTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-ferris-wheel'); setTimeout( (=> @$ferrisWheel.addClass('is-open') ), 10)), onReverseComplete:=>( @$ferrisWheel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-ferris-wheel') ), 100) }
-		@controller.addTween start, @ferrisWheelTriggerTween, dur
+		start += dur - (2*@frameDurationTime)
+		dur = @frameDurationTime
+		@ferrisBottomTween = TweenMax.to @$ferrisWheel.find('#js-ferris-main'), 1, { y: 0 }
+		@controller.addTween start, @ferrisBottomTween, dur
+
+		start += dur
+		dur = @frameDurationTime
+		@ferrisTopTween = TweenMax.to @$ferrisWheel.find('#js-ferris-top'), 1, { 
+			width: 			'108%'
+			marginLeft: '-4%'
+			overflow: 'visible'
+		}
+		@controller.addTween start, @ferrisTopTween, dur
+
+		start += dur
+		dur = @frameDurationTime
+
+		$ferrisSpikes = @$ferrisWheel.find('.ferris-base--spike')
+		@ferrisSpike1Tween = TweenMax.to @$ferrisWheel.find('#js-ferris-spike1'), 1, { 
+			rotation: 19
+			height: '11.5625em'
+			y: 0
+			onStart:-> $ferrisSpikes.css 'opacity': 1
+			onReverseComplete:-> $ferrisSpikes.css 'opacity': 0
+		}
+		@controller.addTween start, @ferrisSpike1Tween, dur
+		@ferrisSpike2Tween = TweenMax.to @$ferrisWheel.find('#js-ferris-spike2'), 1, {
+				rotation: -19
+				height: '11.5625em'
+				y: 0
+			}
+		@controller.addTween start, @ferrisSpike2Tween, dur
+
+		start += dur
+		dur = @frameDurationTime
+		@ferrisHandleTween = TweenMax.to @$ferrisWheel.find('#js-ferris-handle'), 1, {
+				scale: 1
+				ease: Elastic.easeOut
+			}
+		@controller.addTween start, @ferrisHandleTween, dur
+
+		start += dur - dur/1.85
+		dur = 2*@frameDurationTime
+		@ferrisCenterTween = TweenMax.to @$ferrisWheel.find('#js-ferris-center'), 1, {
+				scale: 1
+				ease: Elastic.easeOut
+			}
+		@controller.addTween start, @ferrisCenterTween, dur
+
+		start += dur - dur/1.75
+		dur = 2*@frameDurationTime
+		@ferrisCircle2Tween = TweenMax.to @$ferrisWheel.find('#js-ferris-circle2'), 1, {
+				scale: 1
+				ease: Elastic.easeOut
+			}
+		@controller.addTween start, @ferrisCircle2Tween, dur
+
+		start += dur - dur/1.65
+		dur = 2*@frameDurationTime
+		@ferrisCircle1Tween = TweenMax.to @$ferrisWheel.find('#js-ferris-circle1'), 1, {
+				scale: 1
+				ease: Elastic.easeOut
+			}
+		@controller.addTween start, @ferrisCircle1Tween, dur
+
+
+		start += dur
+		dur = 2*@frameDurationTime
+		spikeAngle = 60
+		cnt = 24
+		step = (2*Math.PI)/cnt
+		rotateStep = 360/cnt
+		rotateAngle = 0
+		ferrisWheelSize = 375
+		spikesCircleSize = (ferrisWheelSize*.69)
+		centerX = (ferrisWheelSize/2) - 1
+		centerY = (ferrisWheelSize/2) - 1
+		radius 	= spikesCircleSize/2
+		angle = 0
+		em = 1/16
+		spikeHeight = 38*em
+		for i in [0..cnt]
+			x = centerX + Math.cos(angle)*radius
+			y = centerY + Math.sin(angle)*radius
+			tween = TweenMax.to @$ferrisWheel.find(".ferris-wheel--spike.n-#{i}"), 1, {
+				x: "#{x*em}em"
+				y: "#{y*em - (spikeHeight/2)}em"
+				rotation: "#{rotateAngle - spikeAngle}deg"
+				z: 0
+				opacity: 1
+				# rotate((rotateAngle - spikeAngle)deg)
+				# transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) 
+			}
+			@controller.addTween start, tween, dur
+			rotateAngle += rotateStep
+			angle += step
+
 
 		start = start + dur + @frameDurationTime
 		dur = 3*@frameDurationTime
 		@startPoints.push 
 			start: start+(@frameDurationTime/1.5)
 			delay: 3000
-			dur: @autoplayDurationUnit
+			dur: @autoplayDurationUnit/2
 
 		@ferrisText 		= @$('#js-ferris-text')[0]
 		@ferrisTextPath = @$('#ferris-script')[0]
@@ -546,10 +637,10 @@ class App
 
 		start = start + dur
 		dur = @frameDurationTime
-		@startPoints.push 
-			start: start
-			delay: 1000
-			dur: @autoplayDurationUnit/2
+		# @startPoints.push 
+		# 	start: start
+		# 	delay: 1000
+		# 	dur: @autoplayDurationUnit/2
 
 		@moonTween = TweenMax.to $('.moon-n-text--side'), 1, { y: -60, opacity: 0 }
 		@moonOpacityTween = TweenMax.to $('.moon--chart'), 1, { opacity: 0 }
@@ -576,7 +667,7 @@ class App
 		@startPoints.push
 			start: start - (@frameDurationTime/16)
 			delay: 3000
-			dur: @autoplayDurationUnit/2
+			dur: 1.25*@autoplayDurationUnit
 
 		@entranceTween  = TweenMax.to @$('#js-entrance'), 1, { y: 0 }
 		@controller.addTween start, @entranceTween, dur
@@ -635,7 +726,7 @@ class App
 		@startPoints.push 
 			start: start
 			delay: 3000
-			dur: @autoplayDurationUnit/2
+			dur: @autoplayDurationUnit/1.5
 
 		@ticketsTween  = TweenMax.to $tickets, 1, { y: 0 }
 		@controller.addTween start, @ticketsTween, dur
@@ -658,7 +749,7 @@ class App
 		@controller.addTween start, @ticket2, dur
 
 	onCarouselLastTweenUpdate:->
-		if @carouselBottom.progress() >= .5
+		if @carouselBottom.progress() >= .35
 			@$carousel.addClass 'is-open'
 		else @$carousel.removeClass 'is-open'
 
