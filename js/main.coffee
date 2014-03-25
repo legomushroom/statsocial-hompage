@@ -80,7 +80,6 @@ class App
 		@$playBtn.addClass 'is-playing'
 		@$pagesBtns.addClass 'is-playing'
 
-
 	addCssClasses:->
 		@$mainMenu.addClass 'is-allow-transition'
 		if StatSocial.helpers.isMobile()
@@ -92,7 +91,6 @@ class App
 		@play = false
 		@$playBtn.removeClass 'is-playing'
 		@$pagesBtns.removeClass 'is-playing'
-
 
 	setCurrentScenseNum:(num)->
 		if (@currSequenceTweenNum is num) or (num >= @startPoints.length) then return num
@@ -124,7 +122,6 @@ class App
 			if it.play and (it.currSequenceTweenNum < it.startPoints.length-1)
 				it.loopSequence()
 			else it.stopLoopSequence()
-
 
 	listenKeys:->
 		scrollStep = @frameDurationTime/4
@@ -166,7 +163,6 @@ class App
 		$document.on 'click', (e)=>
 			@hideMenu()
 			e.stopPropagation()
-
 
 	initScroll:->
 		@scroller = new IScroll '#js-main', { probeType: 3, mouseWheel: true, deceleration: 0.001 }
