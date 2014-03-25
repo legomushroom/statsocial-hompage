@@ -18,7 +18,7 @@ carouselTransitionTime = .3s
 		height 0
 		.banner
 			backface-visibility hidden
-			transform scale(0) translateZ(PX)
+			transform scale(0) translateZ(2*PX)
 	.carousel-middle
 		width .75em
 		margin-left - 3*PX
@@ -38,9 +38,9 @@ carouselTransitionTime = .3s
 				width:0.4580127018922192em
 				backface-visibility visible
 				height 100%
-				background-color: #faf4e5
+				background url('i/carousel-sticks-bg.png') repeat
+				// background-color: #faf4e5
 				// background-color: lighten(#9B2E2E, 15)
-
 
 	width = 20*PX
 	.carousel-bottom
@@ -115,11 +115,11 @@ width = 90%
 .dome
 	position absolute
 	display inline-block
-	backface-visibility hidden
 	width: 50*PX
 	height: 370.5*PX
 	transform-style preserve-3d
 	transform-origin 50% top 0
+	backface-visibility hidden
 	&:nth-of-type(even)
 		.dome__inner
 			background url('i/dome-red.png') no-repeat center center

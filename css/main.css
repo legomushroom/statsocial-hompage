@@ -1859,14 +1859,23 @@ a,
 }
 .sidebar-logo-e {
   color: #fff;
-  font-size: 30px;
-  font-weight: 700;
+  font-size: 24px;
   text-align: center;
   height: 80px;
-  padding-top: 25px;
+  padding-top: 29px;
   font-weight: 100;
+  padding-left: 68px;
   font-family: 'outageregular';
 /* 4b72743163939c4a6bedd1ba7a59ba6c */
+}
+.sidebar-logo-e .icon {
+  width: 56px;
+  height: 56px;
+  display: block;
+  fill: #fff;
+  position: absolute;
+  top: 9px;
+  left: 50px;
 }
 .sidebar-logo-e.is-blue-bg {
   background-color: #7db9cf;
@@ -1921,6 +1930,21 @@ a,
   cursor: pointer;
   padding-bottom: 2px;
   border-bottom: 1px solid #fff;
+}
+.description {
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  margin-top: 70px;
+  z-index: 20;
+  display: none;
+}
+.description--3 {
+  left: 50%;
+  display: inline-block;
+  margin-left: -300px;
 }
 .menu-suggest {
   font-family: 'outageregular';
@@ -2714,11 +2738,11 @@ a,
   transform: translateX(18.713000245739508em) translateY(14.605475038048542em) rotate(-30deg);
 }
 .ferris-wheel .ferris-wheel--spike.n-3 {
-  -webkit-transform: translateX(17.41805771106243em) translateY(16.293073113576796em) rotate(-15deg);
-  -moz-transform: translateX(17.41805771106243em) translateY(16.293073113576796em) rotate(-15deg);
-  -ms-transform: translateX(17.41805771106243em) translateY(16.293073113576796em) rotate(-15deg);
-  -o-transform: translateX(17.41805771106243em) translateY(16.293073113576796em) rotate(-15deg);
-  transform: translateX(17.41805771106243em) translateY(16.293073113576796em) rotate(-15deg);
+  -webkit-transform: translateX(17.41805771106243em) translateY(16.293073113576792em) rotate(-15deg);
+  -moz-transform: translateX(17.41805771106243em) translateY(16.293073113576792em) rotate(-15deg);
+  -ms-transform: translateX(17.41805771106243em) translateY(16.293073113576792em) rotate(-15deg);
+  -o-transform: translateX(17.41805771106243em) translateY(16.293073113576792em) rotate(-15deg);
+  transform: translateX(17.41805771106243em) translateY(16.293073113576792em) rotate(-15deg);
 }
 .ferris-wheel .ferris-wheel--spike.n-4 {
   -webkit-transform: translateX(15.730456173893213em) translateY(17.588011136953458em) rotate(0deg);
@@ -3079,11 +3103,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-0 .human-1 {
-  top: -0.25em;
+  top: -0.1875em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-0 .human-2 {
-  top: -0.375em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-1 .human-0 {
@@ -3091,11 +3115,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-1 .human-1 {
-  top: -0.3125em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-1 .human-2 {
-  top: -0.375em;
+  top: -0.3125em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-2 .human-0 {
@@ -3103,11 +3127,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-2 .human-1 {
-  top: -0.1875em;
+  top: -0.125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-2 .human-2 {
-  top: -0.25em;
+  top: -0.1875em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-3 .human-0 {
@@ -3115,7 +3139,7 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-3 .human-1 {
-  top: -0.0625em;
+  top: -0.1875em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-3 .human-2 {
@@ -3127,11 +3151,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-4 .human-1 {
-  top: -0.3125em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-4 .human-2 {
-  top: -0.25em;
+  top: -0.375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-5 .human-0 {
@@ -3139,11 +3163,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-5 .human-1 {
-  top: -0.25em;
+  top: -0.3125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-5 .human-2 {
-  top: -0.1875em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-6 .human-0 {
@@ -3151,7 +3175,7 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-6 .human-1 {
-  top: -0.125em;
+  top: -0.3125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-6 .human-2 {
@@ -3175,11 +3199,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-8 .human-1 {
-  top: -0.25em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-8 .human-2 {
-  top: -0.1875em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-9 .human-0 {
@@ -3191,7 +3215,7 @@ a,
   right: 40%;
 }
 .ferris-wheel .cabin.n-9 .human-2 {
-  top: -0.4375em;
+  top: -0.1875em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-10 .human-0 {
@@ -3199,11 +3223,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-10 .human-1 {
-  top: -0.25em;
+  top: -0.0625em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-10 .human-2 {
-  top: -0.25em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-11 .human-0 {
@@ -3211,11 +3235,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-11 .human-1 {
-  top: 0em;
+  top: -0.25em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-11 .human-2 {
-  top: -0.3125em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin .icon {
@@ -3928,7 +3952,7 @@ a,
   border-bottom-color: #f9f0dd;
 }
 .building-b {
-  background: #64c2c1;
+  background: url("i/building-bg.png") repeat;
   width: 5.5%;
   height: 50%;
   position: relative;
@@ -3993,6 +4017,9 @@ a,
   -o-animation-fill-mode: both;
   animation-fill-mode: both;
 }
+.building-b.is-hide-label {
+  background: #64c2c1;
+}
 .building-b.is-hide-label > .text-be {
   opacity: 0;
   -webkit-animation: none;
@@ -4001,6 +4028,13 @@ a,
   -o-animation: none;
   animation: none;
   transition: none;
+}
+.curtain3-building6-lh.is-dark-bg,
+.curtain3-building7-lh.is-dark-bg,
+.curtain3-building8-lh.is-dark-bg,
+.curtain3-building9-lh.is-dark-bg {
+  background: transparent url("i/building-bg-dark.png") repeat;
+  background-color: transparent;
 }
 .cloud-b,
 .cloud2-b {
@@ -4181,12 +4215,13 @@ a,
 .main-header.is-hidden .header-btn-e,
 .main-header.is-hidden .main-header-menu {
   opacity: 0;
-}
-.main-header.is-hidden .page-menu-header {
-  background-color: transparent;
+  cursor: default;
 }
 .main-header.is-hidden .main-header-menu {
   display: none;
+}
+.main-header.is-hidden .page-menu-header {
+  background-color: transparent;
 }
 .main-header.is-hidden .icon {
   fill: #fff;
@@ -4258,13 +4293,6 @@ a,
   padding-bottom: curtainMaskSize;
   overflow: hidden;
   z-index: 4;
-}
-.curtain-l .scroll-suggest-fork {
-  position: absolute;
-  z-index: 11;
-  bottom: 20px;
-  left: 50%;
-  margin-left: -64px;
 }
 .curtain-l--left,
 .curtain-l--right {
@@ -4371,6 +4399,7 @@ a,
 /* W3C */
 }
 .underline-text {
+  position: relative;
   position: absolute;
   color: #fff;
   font-family: 'outageregular';
@@ -4382,6 +4411,20 @@ a,
   top: 50%;
   margin-top: -32px;
   z-index: 3;
+}
+.underline-text .large-logo {
+  fill: #fff;
+  width: 320px;
+  height: 320px;
+  position: absolute;
+  margin-left: -80px;
+  margin-top: -384px;
+  -webkit-transform: translateY(50px);
+  -moz-transform: translateY(50px);
+  -ms-transform: translateY(50px);
+  -o-transform: translateY(50px);
+  transform: translateY(50px);
+  opacity: 0;
 }
 .underline-text__left {
   left: 0;
@@ -8057,11 +8100,11 @@ a,
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transform: scale(0) translateZ(0.0625em);
-  -moz-transform: scale(0) translateZ(0.0625em);
-  -ms-transform: scale(0) translateZ(0.0625em);
-  -o-transform: scale(0) translateZ(0.0625em);
-  transform: scale(0) translateZ(0.0625em);
+  -webkit-transform: scale(0) translateZ(0.125em);
+  -moz-transform: scale(0) translateZ(0.125em);
+  -ms-transform: scale(0) translateZ(0.125em);
+  -o-transform: scale(0) translateZ(0.125em);
+  transform: scale(0) translateZ(0.125em);
 }
 .carousel .carousel-middle {
   width: 0.75em;
@@ -8096,7 +8139,7 @@ a,
   -ms-backface-visibility: visible;
   backface-visibility: visible;
   height: 100%;
-  background-color: #faf4e5;
+  background: url("i/carousel-sticks-bg.png") repeat;
 }
 .carousel .carousel-bottom {
   width: 1.25em;
@@ -8199,10 +8242,6 @@ a,
 .dome {
   position: absolute;
   display: inline-block;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -ms-backface-visibility: hidden;
-  backface-visibility: hidden;
   width: 3.125em;
   height: 23.15625em;
   -webkit-transform-style: preserve-3d;
@@ -8214,6 +8253,10 @@ a,
   -ms-transform-origin: 50% top 0;
   -o-transform-origin: 50% top 0;
   transform-origin: 50% top 0;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 .dome:nth-of-type(even) .dome__inner {
   background: url("i/dome-red.png") no-repeat center center;

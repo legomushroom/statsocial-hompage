@@ -27,13 +27,6 @@ firstCurtainText()
 	overflow hidden
 	z-index 4
 
-	.scroll-suggest-fork
-		position absolute
-		z-index 11
-		bottom 20px
-		left 50%
-		margin-left -64px
-
 	&--left, &--right
 		width (leftSize)%
 		height 100%
@@ -106,8 +99,20 @@ firstCurtainText()
 				background: linear-gradient(to right,  rgba(255,255,255,1) 2%,rgba(230,230,230,1) 71%,rgba(238,238,238,1) 100%); /* W3C */
 
 .underline-text
+	position relative
 	firstCurtainText()
 	z-index 3
+	size = 40*gs
+	.large-logo
+		fill white
+		rect size
+		position absolute
+		margin-left - 10*gs
+		// center-shift size
+		margin-top - size - 8*gs
+		transform translateY(50px)
+		opacity 0
+
 .underline-text__left
 	left 0
 	text-align right

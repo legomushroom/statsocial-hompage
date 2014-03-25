@@ -21,8 +21,10 @@ class Helpers
 		) navigator.userAgent or navigator.vendor or window.opera
 		check
 
+	isMobileSafari:->
+		navigator.userAgent.match /(iPod|iPhone|iPad)/
+
 	isIE:->
-		if @isIECache then return @isIECache
 		undef = undefined # Return value assumes failure.
 		rv = -1
 		ua = window.navigator.userAgent
@@ -37,9 +39,7 @@ class Helpers
 		  # IE 11 (or newer) => return version number
 		  rvNum = ua.indexOf("rv:")
 		  rv = parseInt(ua.substring(rvNum + 3, ua.indexOf(".", rvNum)), 10)
-		@isIECache = (if (rv > -1) then rv else undef)
-		@isIECache
-
+		(if (rv > -1) then rv else undef)
 
 
 window.StatSocial ?= {}

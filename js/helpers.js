@@ -47,12 +47,13 @@
       return check;
     };
 
+    Helpers.prototype.isMobileSafari = function() {
+      return navigator.userAgent.match(/(iPod|iPhone|iPad)/);
+    };
+
     Helpers.prototype.isIE = function() {
       var msie, rv, rvNum, trident, ua, undef;
 
-      if (this.isIECache) {
-        return this.isIECache;
-      }
       undef = void 0;
       rv = -1;
       ua = window.navigator.userAgent;
@@ -64,8 +65,11 @@
         rvNum = ua.indexOf("rv:");
         rv = parseInt(ua.substring(rvNum + 3, ua.indexOf(".", rvNum)), 10);
       }
-      this.isIECache = (rv > -1 ? rv : undef);
-      return this.isIECache;
+      if (rv > -1) {
+        return rv;
+      } else {
+        return undef;
+      }
     };
 
     return Helpers;

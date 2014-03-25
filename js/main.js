@@ -40,6 +40,7 @@
       this.$playBtn = $('#js-play');
       this.$mainMenu = $('#js-main-menu');
       this.$menuSuggest = $('#js-menu-suggest');
+      this.$largeLogo = $('#js-large-logo');
       this.prevPlaneProgress = -1;
       this.readDelay = 3000;
       this.startPoints = [];
@@ -165,7 +166,7 @@
       this.currSequenceTweenNum = 0;
       $document = $(document);
       $document.on('keyup', function(e) {
-        switch (e.keyCode) {
+        switch (e.which) {
           case 32:
             _this.play = !_this.play;
             if (_this.play && (_this.currSequenceTweenNum < _this.startPoints.length - 1)) {
@@ -178,7 +179,7 @@
       currTweenKeydown = null;
       stepSize = this.frameDurationTime;
       $document.on('keydown', function(e) {
-        switch (e.keyCode) {
+        switch (e.which) {
           case 39:
           case 40:
             _this.setCurrentScenseNum(_this.currSequenceTweenNum < _this.startPoints.length - 1 ? _this.currSequenceTweenNum + 1 : _this.currSequenceTweenNum);
@@ -201,7 +202,7 @@
             });
         }
       });
-      $('#js-menu-btn').on('click', function(e) {
+      $('#js-menu-btn, #js-main-menu').on('click', function(e) {
         if ((_this.isMenuShow = !_this.isMenuShow)) {
           _this.showMenu();
         } else {
@@ -209,7 +210,7 @@
         }
         return e.stopPropagation();
       });
-      return $(document.body).on('click', function(e) {
+      return $document.on('click', function(e) {
         _this.hideMenu();
         return e.stopPropagation();
       });
@@ -277,7 +278,7 @@
     App.prototype.scrollReverseEnd = function() {};
 
     App.prototype.buildAnimations = function() {
-      var $animas, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $ferrisSpikes, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, carouselConstrDuration, carouselPartDuration, dur, ferrisCoef, i, it, name, planeTween1, planeTween2, planeTween3, planeTween4, start, tween, _i, _j, _k, _len, _ref,
+      var $animas, $bannersBuildings, $buildings, $bush, $bushes, $clip, $cloudParts, $clouds, $el, $ferrisSpikes, $iconBanner, $quoCurtain, $ticket1, $ticket2, $tickets, bush, carouselConstrDuration, carouselPartDuration, dur, ferrisCoef, i, it, name, planeTween1, planeTween2, planeTween3, planeTween4, start, tween, _i, _j, _k, _len, _ref,
         _this = this;
 
       $quoCurtain = this.$('#js-quo-curtain');
@@ -296,7 +297,7 @@
         onReverseComplete: StatSocial.helpers.bind(this.scrollReverseStart, this)
       });
       start = 1;
-      dur = this.frameDurationTime;
+      dur = 4 * this.frameDurationTime;
       this.startPoints.push({
         start: start,
         delay: 0,
@@ -315,17 +316,21 @@
         }
       });
       this.controller.addTween(start, this.curtainTextTween2, dur);
-      start = start + dur;
-      dur = this.frameDurationTime;
+      start += dur - dur / 20;
       this.controller.addTween(start, this.curtainTween1, dur);
       this.leftPeelTween = TweenMax.to(this.$('#js-left-peel, #js-left-peel-gradient'), 1, {
         css: {
           width: '100%'
         }
       });
-      this.controller.addTween(start, this.leftPeelTween, this.frameDurationTime);
-      start = start + dur - this.frameDurationTime;
+      this.controller.addTween(start, this.leftPeelTween, dur);
+      start += dur / 2;
       dur = this.frameDurationTime;
+      this.largeLogoTween = TweenMax.to(this.$largeLogo, 1, {
+        opacity: 1,
+        y: 0
+      });
+      this.controller.addTween(start, this.largeLogoTween, dur);
       this.groundTween = TweenMax.to(this.$ground, 1, {
         css: {
           y: 0
@@ -390,7 +395,7 @@
       this.startPoints.push({
         start: start + (this.frameDurationTime - (this.frameDurationTime / 10)),
         delay: 3000,
-        dur: this.autoplayDurationUnit
+        dur: 1.25 * this.autoplayDurationUnit
       });
       this.$moon = this.$('#js-moon');
       it = this;
@@ -721,7 +726,8 @@
         onUpdate: StatSocial.helpers.bind(this.onFerrisLastTweenUpdate, this)
       });
       this.controller.addTween(start, this.ferrisHumansTween, dur);
-      this.ferrisText = this.$('#js-ferris-text')[0];
+      this.$ferrisText = this.$('#js-ferris-text');
+      this.ferrisText = this.$ferrisText[0];
       this.ferrisTextPath = this.$('#ferris-script')[0];
       start += dur / 2;
       dur = 3 * ferrisCoef;
@@ -729,15 +735,24 @@
         offset: 2300
       }, 1, {
         offset: 400,
-        onUpdate: StatSocial.helpers.bind(this.onFerrisTextUpdate, this)
+        onUpdate: StatSocial.helpers.bind(this.onFerrisTextUpdate, this),
+        onStart: function() {
+          return _this.$ferrisText.show();
+        },
+        onComplete: function() {
+          return _this.$ferrisText.hide();
+        },
+        onReverseComplete: function() {
+          return _this.$ferrisText.hide();
+        }
       });
       this.controller.addTween(start, this.ferrisTextTween, dur);
       this.startPoints.push({
-        start: start + ferrisCoef / 1.35,
+        start: start + ferrisCoef / 1.1,
         delay: 3000,
         dur: this.autoplayDurationUnit / 2.5
       });
-      start = start + dur - (1.5 * this.frameDurationTime);
+      start = start + dur - (1.35 * this.frameDurationTime);
       dur = this.frameDurationTime;
       this.moonTween = TweenMax.to(this.$moon, 1, {
         x: 0,
@@ -746,6 +761,8 @@
       this.controller.addTween(start, this.moonTween, dur);
       $cloudParts = this.$('.cloud-b > *');
       $iconBanner = $('.icon-banner');
+      $buildings = this.$('.building-b');
+      $bannersBuildings = this.$('.curtain3-building6-lh, .curtain3-building7-lh, .curtain3-building8-lh, .curtain3-building9-lh');
       this.controller.addTween(start, TweenMax.to(this.$('.cabin--base, .icon-banner'), 1, {
         backgroundColor: '#f2d577'
       }), dur);
@@ -763,7 +780,7 @@
           return $iconBanner.removeClass('no-transition-g-i');
         })
       }), dur);
-      this.controller.addTween(start, TweenMax.to(this.$('.building-b'), 1, {
+      this.controller.addTween(start, TweenMax.to($buildings, 1, {
         backgroundColor: '#13688d'
       }), dur);
       this.controller.addTween(start, TweenMax.to(this.$('.human'), 1, {
@@ -815,7 +832,10 @@
         fill: '#153750'
       }), dur);
       this.controller.addTween(start, TweenMax.to(this.$ground, 1, {
-        backgroundColor: '#333040'
+        backgroundColor: '#333040',
+        onComplete: function() {
+          return StatSocial.helpers.isMobileSafari() && $bannersBuildings.addClass('is-dark-bg');
+        }
       }), dur);
       start = start + dur;
       dur = this.frameDurationTime;
@@ -824,10 +844,16 @@
         opacity: 0
       });
       this.moonOpacityTween = TweenMax.to($('.moon--chart'), 1, {
-        opacity: 0
+        opacity: 0,
+        onReverseComplete: function() {
+          return StatSocial.helpers.isMobileSafari() && $bannersBuildings.removeClass('is-dark-bg');
+        }
       });
       this.controller.addTween(start, this.moonOpacityTween, dur / 2);
       this.controller.addTween(start, this.moonTween, dur / 2);
+      StatSocial.helpers.isMobileSafari() && this.controller.addTween(start + dur, TweenMax.to($bannersBuildings, 1, {
+        backgroundColor: 'transparent'
+      }), dur);
       start += dur / 5;
       dur = 3 * this.frameDurationTime;
       it = this;

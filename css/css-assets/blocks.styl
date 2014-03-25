@@ -1,6 +1,21 @@
 // BLOCKS
 @import '../assets/imports.styl'
 
+.description
+	color white
+	openSans()
+	font-size 20px
+	position absolute
+	top 50%
+	margin-top 70px
+	z-index 20
+	display none
+	// hl green
+	&--3
+		left 50%
+		display inline-block
+		margin-left -300px
+
 .menu-suggest
 	outage()
 	color white
@@ -848,20 +863,18 @@ ferrisWheelSize = 375
 		border-bottom-color #f9f0dd
 
 .building-b
-	background #64c2c1
+	// background-color #64c2c1
+	background url('i/building-bg.png') repeat
 	// background-size 100% auto
 	width 5.5%
 	height 50%
 	position relative
 	border 8px solid transparent
-	// outline-color red
-
 	&__icons
 		position absolute
 		top 0
 		width  100%
 		height 4*gs
-
 	> .text-be
 		font-size 26px
 		color white
@@ -875,7 +888,6 @@ ferrisWheelSize = 375
 		text-shadow 0 0 6px white
 		opacity 0
 		transition opacity .2s linear
-
 	> .tip-be
 			position absolute
 			display block
@@ -888,12 +900,10 @@ ferrisWheelSize = 375
 			z-index 0
 			transition top .5s ease-out
 			display none
-
 	&.is-tip.curtain3-building7-lh
 		> .tip-be
 			top - 100px
 			display block
-		
 	&.is-show-label
 		> .text-be
 			opacity 1
@@ -902,13 +912,18 @@ ferrisWheelSize = 375
 			animation-delay 3s
 			-webkit-animation-fill-mode both
 			animation-fill-mode both
-
 	&.is-hide-label
+		background #64c2c1
 		> .text-be
 			opacity 0
 			animation none
 			transition none
-			
+
+.curtain3-building6-lh, .curtain3-building7-lh,
+.curtain3-building8-lh, .curtain3-building9-lh
+	&.is-dark-bg
+		background transparent url('i/building-bg-dark.png') repeat
+		background-color transparent
 
 /* 4cbf1f487e13aad9100b274a119b2453 */
 .cloud-b
@@ -1033,7 +1048,6 @@ mainIcon = 323px
 			transition opacity .4s linear
 		.page-menu-header
 			transition background .4s linear
-
 	.sidebar-logo-e
 		width mainIcon
 		float left
@@ -1041,14 +1055,15 @@ mainIcon = 323px
 		margin-left mainIcon
 		.main-header-menu
 			display block
-
 	&.is-hidden
-		.sidebar-logo-e, .header-btn-e, .main-header-menu
+		.sidebar-logo-e, .header-btn-e,
+		.main-header-menu
 			opacity 0
-		.page-menu-header
-			background-color transparent
+			cursor default
 		.main-header-menu
 			display none
+		.page-menu-header
+			background-color transparent
 		.icon
 			fill white
 			&:hover

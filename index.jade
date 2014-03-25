@@ -27,11 +27,12 @@ html
 
         .main-header.is-hidden#js-main-menu
           .sidebar-logo-e.is-blue-bg
+              - el = { path: 'statsocial-icon', class: '', id: ''}
+              include css/partials/icon
               | STATSOCIAL
             .page-menu-header#js-menu-btn
-              .icon.page-header2--menu-icon(title='')
-                svg(viewbox='0 0 32 32')
-                  use(xlink:href='#menu-icon')
+               - el = { path: 'menu-icon', class: 'page-header2--menu-icon', id: ''}
+                include css/partials/icon
               .header-btn-e.is-hoverable-blue2.f-l-g Request Demo
               .header-btn-e.is-hoverable-blue2.f-r-g Sign Up
               .header-btn-e.is-hoverable-blue2.f-r-g Log In
@@ -50,13 +51,10 @@ html
                   a.main-header-menu-item.is-hoverable.is-checkable Privacy policy
                   a.main-header-menu-item.is-hoverable.is-checkable Terms of service
 
+        
+          
 
         .curtain-l#js-curtain1
-          //- .scroll-suggest-fork#js-scroll-suggest
-          //-   .scroll-suggest.scroll-suggest--mouse#js-scroll-suggest-mouse
-          //-   .scroll-suggest.scroll-suggest--keys#js-scroll-suggest-keys.h-g
-          //-   .scroll-suggest.scroll-suggest--touch#js-scroll-suggest-touch.h-g
-
           .curtain-l--left#js-left-curtain
             .curtain-l--left--peel#js-left-peel
               .curtain-l--left--peel--gradient#js-left-peel-gradient
@@ -67,7 +65,17 @@ html
             .curtain-l--right--peel#js-right-peel
               .curtain-l--right--peel--gradient#js-right-peel-gradient
 
-        .underline-text.underline-text__right#js-curtain-text1 social
+          .description.description--1 Big social data.
+          .description.description--2 Big mess.
+          .description.description--3 Big missed opportunities.
+          .description.description--4 Time to recapture them.
+          .description.description--5 Dispel the noise.
+          .description.description--6 Hone in on the useful.
+
+        .underline-text.underline-text__right#js-curtain-text1 
+          | social
+          - el = { path: 'statsocial-icon', class: 'large-logo', idAttribute: 'js-large-logo'}
+          include css/partials/icon
         .underline-text.underline-text__left#js-curtain-text2 stat
 
         .curtain3-l#js-curtain3
