@@ -310,7 +310,7 @@
         }
       });
       this.controller.addTween(start, this.rightPeelTween, dur);
-      this.curtainTextTween2 = TweenMax.to(this.$('#js-quo-curtain'), 1, {
+      this.curtainTextTween2 = TweenMax.to(this.$('#js-quo-curtain, #js-desc-2'), 1, {
         css: {
           left: '-100%'
         }
@@ -378,7 +378,7 @@
           })
         }), dur);
       }
-      this.curtainTextTween2 = TweenMax.to(this.$('.underline-text'), 1, {
+      this.curtainTextTween2 = TweenMax.to(this.$('.underline-text, #js-desc-1, #js-desc-3'), 1, {
         css: {
           top: '-25%'
         },

@@ -230,7 +230,7 @@ class App
 
 		@rightPeelTween 	= TweenMax.to @$('#js-right-peel, #js-right-peel-gradient'), 	1, 	{ css:{ width: '100%' }}
 		@controller.addTween start, @rightPeelTween, dur
-		@curtainTextTween2	= TweenMax.to @$('#js-quo-curtain'), 1, { css:{ left: '-100%' } }
+		@curtainTextTween2	= TweenMax.to @$('#js-quo-curtain, #js-desc-2'), 1, { css:{ left: '-100%' } }
 		@controller.addTween start, @curtainTextTween2, dur
 
 		start += dur - dur/20
@@ -279,7 +279,7 @@ class App
 															onReverseComplete:(-> @target.removeClass('is-show-label is-tip bounce-eff'))
 														}), dur
 
-		@curtainTextTween2  = TweenMax.to @$('.underline-text'), 1, { css:{ top: '-25%' }, onReverseComplete:(=> @$('.underline-text').css 'top': '50%'), onUpdate: StatSocial.helpers.bind(@onBuildingsUpdate,@) }
+		@curtainTextTween2  = TweenMax.to @$('.underline-text, #js-desc-1, #js-desc-3'), 1, { css:{ top: '-25%' }, onReverseComplete:(=> @$('.underline-text').css 'top': '50%'), onUpdate: StatSocial.helpers.bind(@onBuildingsUpdate,@) }
 		@controller.addTween start-(@frameDurationTime/10), @curtainTextTween2, dur
 
 		# @largeLogoTween  = TweenMax.to @$largeLogo, 1, { top: '-25%', marginTop: -1500 }

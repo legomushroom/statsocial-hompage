@@ -1934,19 +1934,41 @@ a,
 .description {
   color: #fff;
   font-family: 'Open Sans', sans-serif;
-  font-size: 20px;
+  font-size: 24px;
   position: absolute;
   top: 50%;
   margin-top: 70px;
   z-index: 20;
 }
 .description--1 {
+  width: 45.25%;
   left: 0;
   text-align: right;
+  -webkit-transform: translateX(200%);
+  -moz-transform: translateX(200%);
+  -ms-transform: translateX(200%);
+  -o-transform: translateX(200%);
+  transform: translateX(200%);
 }
-.description--2 {
+.description--2,
+.description--3 {
   right: 0;
   text-align: left;
+  padding-left: 4px;
+  z-index: 0;
+}
+.description--2 {
+  width: 100%;
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  -o-transform: translateX(100%);
+  transform: translateX(100%);
+}
+.description--3 {
+  width: 54.75%;
+  z-index: -1;
+  padding-left: 7px;
 }
 .menu-suggest {
   font-family: 'outageregular';
@@ -3105,11 +3127,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-0 .human-1 {
-  top: -0.0625em;
+  top: -0.125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-0 .human-2 {
-  top: -0.3125em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-1 .human-0 {
@@ -3117,7 +3139,7 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-1 .human-1 {
-  top: -0.0625em;
+  top: -0.3125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-1 .human-2 {
@@ -3129,7 +3151,7 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-2 .human-1 {
-  top: -0.0625em;
+  top: -0.125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-2 .human-2 {
@@ -3141,11 +3163,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-3 .human-1 {
-  top: -0.125em;
+  top: -0.25em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-3 .human-2 {
-  top: -0.3125em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-4 .human-0 {
@@ -3153,11 +3175,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-4 .human-1 {
-  top: -0.25em;
+  top: -0.0625em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-4 .human-2 {
-  top: -0.1875em;
+  top: -0.25em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-5 .human-0 {
@@ -3169,7 +3191,7 @@ a,
   right: 40%;
 }
 .ferris-wheel .cabin.n-5 .human-2 {
-  top: -0.375em;
+  top: -0.25em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-6 .human-0 {
@@ -3177,11 +3199,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-6 .human-1 {
-  top: -0.3125em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-6 .human-2 {
-  top: -0.4375em;
+  top: -0.375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-7 .human-0 {
@@ -3189,11 +3211,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-7 .human-1 {
-  top: -0.0625em;
+  top: -0.25em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-7 .human-2 {
-  top: -0.4375em;
+  top: -0.375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-8 .human-0 {
@@ -3201,7 +3223,7 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-8 .human-1 {
-  top: -0.1875em;
+  top: -0.0625em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-8 .human-2 {
@@ -3213,11 +3235,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-9 .human-1 {
-  top: -0.25em;
+  top: -0.125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-9 .human-2 {
-  top: -0.25em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-10 .human-0 {
@@ -3225,11 +3247,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-10 .human-1 {
-  top: -0.3125em;
+  top: -0.125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-10 .human-2 {
-  top: -0.4375em;
+  top: -0.375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-11 .human-0 {
@@ -3237,11 +3259,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-11 .human-1 {
-  top: -0.25em;
+  top: -0.3125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-11 .human-2 {
-  top: -0.4375em;
+  top: -0.1875em;
   right: 60%;
 }
 .ferris-wheel .cabin .icon {
@@ -3536,11 +3558,11 @@ a,
   fill: #8fa2a8;
 }
 .ferris-wheel .n-8 {
-  -webkit-transform: translateX(4.48444734588416em) translateY(0.1949730308292299em);
-  -moz-transform: translateX(4.48444734588416em) translateY(0.1949730308292299em);
-  -ms-transform: translateX(4.48444734588416em) translateY(0.1949730308292299em);
-  -o-transform: translateX(4.48444734588416em) translateY(0.1949730308292299em);
-  transform: translateX(4.48444734588416em) translateY(0.1949730308292299em);
+  -webkit-transform: translateX(4.484447345884159em) translateY(0.1949730308292299em);
+  -moz-transform: translateX(4.484447345884159em) translateY(0.1949730308292299em);
+  -ms-transform: translateX(4.484447345884159em) translateY(0.1949730308292299em);
+  -o-transform: translateX(4.484447345884159em) translateY(0.1949730308292299em);
+  transform: translateX(4.484447345884159em) translateY(0.1949730308292299em);
 }
 .ferris-wheel .n-8 .cabin--handle {
   -webkit-transform: rotate(330deg);
