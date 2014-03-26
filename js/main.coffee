@@ -220,17 +220,40 @@ class App
 		@curtainTween2 	= TweenMax.to @$('#js-right-curtain'), 	1, 	{	left: '100%', onStart: StatSocial.helpers.bind(@scrollStart,@), onReverseComplete: StatSocial.helpers.bind(@scrollReverseStart,@)}
 		
 		start = 1
-		dur = 4*@frameDurationTime
+		dur = @frameDurationTime
+		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ x: 160 }
+		@controller.addTween start, @descr1Tween, dur
+
+		start += 1.5*dur
+		dur = @frameDurationTime
+		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 190 }
+		@controller.addTween start, @descr2Tween, dur
+
+		start +=  dur/2
+		dur = @frameDurationTime/2
+		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ left: '-100%' }
+		@controller.addTween start, @descr1Tween, dur
+
+		start +=  2*dur
+		dur = @frameDurationTime/2
+		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 0 }
+		@controller.addTween start, @descr2Tween, dur
+
 		@startPoints.push 
 			start: start
 			delay: 0
 			dur: 1
 
+
+		start += 2*dur
+		dur = 4*@frameDurationTime
+		
+
 		@controller.addTween start, @curtainTween2, dur
 
 		@rightPeelTween 	= TweenMax.to @$('#js-right-peel, #js-right-peel-gradient'), 	1, 	{ css:{ width: '100%' }}
 		@controller.addTween start, @rightPeelTween, dur
-		@curtainTextTween2	= TweenMax.to @$('#js-quo-curtain, #js-desc-2'), 1, { css:{ left: '-100%' } }
+		@curtainTextTween2	= TweenMax.to @$('#js-quo-curtain'), 1, { css:{ left: '-100%' } }
 		@controller.addTween start, @curtainTextTween2, dur
 
 		start += dur - dur/20
@@ -279,7 +302,7 @@ class App
 															onReverseComplete:(-> @target.removeClass('is-show-label is-tip bounce-eff'))
 														}), dur
 
-		@curtainTextTween2  = TweenMax.to @$('.underline-text, #js-desc-1, #js-desc-3'), 1, { css:{ top: '-25%' }, onReverseComplete:(=> @$('.underline-text').css 'top': '50%'), onUpdate: StatSocial.helpers.bind(@onBuildingsUpdate,@) }
+		@curtainTextTween2  = TweenMax.to @$('.underline-text, #js-desc-2, #js-desc-3'), 1, { css:{ top: '-25%' }, onReverseComplete:(=> @$('.underline-text').css 'top': '50%'), onUpdate: StatSocial.helpers.bind(@onBuildingsUpdate,@) }
 		@controller.addTween start-(@frameDurationTime/10), @curtainTextTween2, dur
 
 		# @largeLogoTween  = TweenMax.to @$largeLogo, 1, { top: '-25%', marginTop: -1500 }

@@ -297,12 +297,36 @@
         onReverseComplete: StatSocial.helpers.bind(this.scrollReverseStart, this)
       });
       start = 1;
-      dur = 4 * this.frameDurationTime;
+      dur = this.frameDurationTime;
+      this.descr1Tween = TweenMax.to(this.$('#js-desc-1'), 1, {
+        x: 160
+      });
+      this.controller.addTween(start, this.descr1Tween, dur);
+      start += 1.5 * dur;
+      dur = this.frameDurationTime;
+      this.descr2Tween = TweenMax.to(this.$('#js-desc-2'), 1, {
+        x: 190
+      });
+      this.controller.addTween(start, this.descr2Tween, dur);
+      start += dur / 2;
+      dur = this.frameDurationTime / 2;
+      this.descr1Tween = TweenMax.to(this.$('#js-desc-1'), 1, {
+        left: '-100%'
+      });
+      this.controller.addTween(start, this.descr1Tween, dur);
+      start += 2 * dur;
+      dur = this.frameDurationTime / 2;
+      this.descr2Tween = TweenMax.to(this.$('#js-desc-2'), 1, {
+        x: 0
+      });
+      this.controller.addTween(start, this.descr2Tween, dur);
       this.startPoints.push({
         start: start,
         delay: 0,
         dur: 1
       });
+      start += 2 * dur;
+      dur = 4 * this.frameDurationTime;
       this.controller.addTween(start, this.curtainTween2, dur);
       this.rightPeelTween = TweenMax.to(this.$('#js-right-peel, #js-right-peel-gradient'), 1, {
         css: {
@@ -310,7 +334,7 @@
         }
       });
       this.controller.addTween(start, this.rightPeelTween, dur);
-      this.curtainTextTween2 = TweenMax.to(this.$('#js-quo-curtain, #js-desc-2'), 1, {
+      this.curtainTextTween2 = TweenMax.to(this.$('#js-quo-curtain'), 1, {
         css: {
           left: '-100%'
         }
@@ -378,7 +402,7 @@
           })
         }), dur);
       }
-      this.curtainTextTween2 = TweenMax.to(this.$('.underline-text, #js-desc-1, #js-desc-3'), 1, {
+      this.curtainTextTween2 = TweenMax.to(this.$('.underline-text, #js-desc-2, #js-desc-3'), 1, {
         css: {
           top: '-25%'
         },
