@@ -279,9 +279,9 @@ class App
 		@controller.addTween start, @descr2Tween, dur
 
 		@startPoints.push 
-			start: start+dur-(dur/7.5)
+			start: start+dur
 			delay: 2000
-			dur: 4
+			dur: 7
 
 		@groundTween  = TweenMax.to @$ground, 1, { css:{ y: 0 } }
 		@controller.addTween start, @groundTween, dur
@@ -296,7 +296,7 @@ class App
 		@controller.addTween start, @cloudTween, dur
 		
 		# -> BUILDINGS
-		start = start + dur + (@frameDurationTime/2)
+		start += dur + (@frameDurationTime)
 		dur = @frameDurationTime
 
 		$buildings  = @$('.building-b')

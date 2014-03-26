@@ -369,9 +369,9 @@
       });
       this.controller.addTween(start, this.descr2Tween, dur);
       this.startPoints.push({
-        start: start + dur - (dur / 7.5),
+        start: start + dur,
         delay: 2000,
-        dur: 4
+        dur: 7
       });
       this.groundTween = TweenMax.to(this.$ground, 1, {
         css: {
@@ -397,7 +397,7 @@
         })
       });
       this.controller.addTween(start, this.cloudTween, dur);
-      start = start + dur + (this.frameDurationTime / 2);
+      start += dur + this.frameDurationTime;
       dur = this.frameDurationTime;
       $buildings = this.$('.building-b');
       for (i = _i = 0, _ref = $buildings.length; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
