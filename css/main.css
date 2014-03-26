@@ -2955,11 +2955,11 @@ a,
   transform: translateX(8.320233742203794em) translateY(17.965497051257152em) rotate(165deg);
 }
 .ferris-wheel .ferris-wheel--spike.s-8 {
-  -webkit-transform: translateX(6.509778202147154em) translateY(16.84875439060485em) rotate(180deg);
-  -moz-transform: translateX(6.509778202147154em) translateY(16.84875439060485em) rotate(180deg);
-  -ms-transform: translateX(6.509778202147154em) translateY(16.84875439060485em) rotate(180deg);
-  -o-transform: translateX(6.509778202147154em) translateY(16.84875439060485em) rotate(180deg);
-  transform: translateX(6.509778202147154em) translateY(16.84875439060485em) rotate(180deg);
+  -webkit-transform: translateX(6.509778202147153em) translateY(16.84875439060485em) rotate(180deg);
+  -moz-transform: translateX(6.509778202147153em) translateY(16.84875439060485em) rotate(180deg);
+  -ms-transform: translateX(6.509778202147153em) translateY(16.84875439060485em) rotate(180deg);
+  -o-transform: translateX(6.509778202147153em) translateY(16.84875439060485em) rotate(180deg);
+  transform: translateX(6.509778202147153em) translateY(16.84875439060485em) rotate(180deg);
 }
 .ferris-wheel .ferris-wheel--spike.s-9 {
   -webkit-transform: translateX(5.050047397075844em) translateY(15.301482788923867em) rotate(195deg);
@@ -3117,7 +3117,7 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-0 .human-1 {
-  top: -0.125em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-0 .human-2 {
@@ -3129,11 +3129,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-1 .human-1 {
-  top: -0.25em;
+  top: -0.1875em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-1 .human-2 {
-  top: -0.1875em;
+  top: -0.25em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-2 .human-0 {
@@ -3141,11 +3141,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-2 .human-1 {
-  top: -0.125em;
+  top: -0.1875em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-2 .human-2 {
-  top: -0.375em;
+  top: -0.3125em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-3 .human-0 {
@@ -3153,11 +3153,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-3 .human-1 {
-  top: -0.125em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-3 .human-2 {
-  top: -0.375em;
+  top: -0.25em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-4 .human-0 {
@@ -3165,11 +3165,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-4 .human-1 {
-  top: 0em;
+  top: -0.25em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-4 .human-2 {
-  top: -0.4375em;
+  top: -0.3125em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-5 .human-0 {
@@ -3177,11 +3177,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-5 .human-1 {
-  top: 0em;
+  top: -0.0625em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-5 .human-2 {
-  top: -0.25em;
+  top: -0.375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-6 .human-0 {
@@ -3193,7 +3193,7 @@ a,
   right: 40%;
 }
 .ferris-wheel .cabin.n-6 .human-2 {
-  top: -0.3125em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-7 .human-0 {
@@ -3201,11 +3201,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-7 .human-1 {
-  top: -0.125em;
+  top: -0.0625em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-7 .human-2 {
-  top: -0.3125em;
+  top: -0.25em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-8 .human-0 {
@@ -3213,11 +3213,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-8 .human-1 {
-  top: -0.3125em;
+  top: -0.0625em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-8 .human-2 {
-  top: -0.1875em;
+  top: -0.3125em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-9 .human-0 {
@@ -3225,7 +3225,7 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-9 .human-1 {
-  top: -0.125em;
+  top: -0.25em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-9 .human-2 {
@@ -3237,11 +3237,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-10 .human-1 {
-  top: -0.3125em;
+  top: -0.125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-10 .human-2 {
-  top: -0.1875em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-11 .human-0 {
@@ -3249,11 +3249,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-11 .human-1 {
-  top: -0.125em;
+  top: -0.1875em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-11 .human-2 {
-  top: -0.25em;
+  top: -0.3125em;
   right: 60%;
 }
 .ferris-wheel .cabin .icon {
@@ -3548,11 +3548,11 @@ a,
   fill: #8fa2a8;
 }
 .ferris-wheel .n-8 {
-  -webkit-transform: translateX(4.48444734588416em) translateY(0.1949730308292299em);
-  -moz-transform: translateX(4.48444734588416em) translateY(0.1949730308292299em);
-  -ms-transform: translateX(4.48444734588416em) translateY(0.1949730308292299em);
-  -o-transform: translateX(4.48444734588416em) translateY(0.1949730308292299em);
-  transform: translateX(4.48444734588416em) translateY(0.1949730308292299em);
+  -webkit-transform: translateX(4.484447345884159em) translateY(0.1949730308292299em);
+  -moz-transform: translateX(4.484447345884159em) translateY(0.1949730308292299em);
+  -ms-transform: translateX(4.484447345884159em) translateY(0.1949730308292299em);
+  -o-transform: translateX(4.484447345884159em) translateY(0.1949730308292299em);
+  transform: translateX(4.484447345884159em) translateY(0.1949730308292299em);
 }
 .ferris-wheel .n-8 .cabin--handle {
   -webkit-transform: rotate(330deg);

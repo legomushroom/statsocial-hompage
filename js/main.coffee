@@ -219,35 +219,42 @@ class App
 		# @curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { rotation: 90, transformOrigin: 'center top', top: '100%' }
 		@curtainTween2 	= TweenMax.to @$('#js-right-curtain'), 	1, 	{	left: '100%', onStart: StatSocial.helpers.bind(@scrollStart,@), onReverseComplete: StatSocial.helpers.bind(@scrollReverseStart,@)}
 		
-		start = 1
-		dur = @frameDurationTime
-		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ x: 160 }
-		@controller.addTween start, @descr1Tween, dur
-
-		start += 1.5*dur
-		dur = @frameDurationTime
-		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 190 }
-		@controller.addTween start, @descr2Tween, dur
-
-		start +=  dur/2
-		dur = @frameDurationTime/2
-		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ left: '-100%' }
-		@controller.addTween start, @descr1Tween, dur
-
-		start +=  2*dur
-		dur = @frameDurationTime/2
-		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 0 }
-		@controller.addTween start, @descr2Tween, dur
-
 		@startPoints.push 
 			start: start
 			delay: 0
 			dur: 1
 
+		start = 1
+		dur = 2*@frameDurationTime
+		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ x: 160 }
+		@controller.addTween start, @descr1Tween, dur
+
+		@startPoints.push 
+			start: start+dur
+			delay: 1000
+			dur: 1.5
+
+		start += dur
+		dur = 2*@frameDurationTime
+		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 190 }
+		@controller.addTween start, @descr2Tween, dur
+
+		start +=  dur/2
+		dur = 2*@frameDurationTime
+		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ left: '-100%' }
+		@controller.addTween start, @descr1Tween, dur
+
+		dur = @frameDurationTime
+		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 0 }
+		@controller.addTween start, @descr2Tween, dur
+
+		@startPoints.push 
+			start: start+dur
+			delay: 1000
+			dur: 2
 
 		start += 2*dur
 		dur = 4*@frameDurationTime
-		
 
 		@controller.addTween start, @curtainTween2, dur
 
@@ -266,9 +273,15 @@ class App
 		start += dur/2
 		dur = @frameDurationTime
 
-
 		@largeLogoTween  = TweenMax.to @$largeLogo, 1, { opacity: 1, y: 0 }
 		@controller.addTween start, @largeLogoTween, dur
+		@descr2Tween 	= TweenMax.to @$('#js-desc-2, #js-desc-3'), 	1, 	{ x: 55 }
+		@controller.addTween start, @descr2Tween, dur
+
+		@startPoints.push 
+			start: start+dur-(dur/7.5)
+			delay: 2000
+			dur: 4
 
 		@groundTween  = TweenMax.to @$ground, 1, { css:{ y: 0 } }
 		@controller.addTween start, @groundTween, dur
@@ -314,7 +327,7 @@ class App
 		@startPoints.push 
 			start: start + (@frameDurationTime-(@frameDurationTime/10))
 			delay: 3000
-			dur: 1.25*@autoplayDurationUnit
+			dur: @autoplayDurationUnit/2
 
 		@$moon = @$('#js-moon')
 

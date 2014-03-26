@@ -296,34 +296,43 @@
         onStart: StatSocial.helpers.bind(this.scrollStart, this),
         onReverseComplete: StatSocial.helpers.bind(this.scrollReverseStart, this)
       });
+      this.startPoints.push({
+        start: start,
+        delay: 0,
+        dur: 1
+      });
       start = 1;
-      dur = this.frameDurationTime;
+      dur = 2 * this.frameDurationTime;
       this.descr1Tween = TweenMax.to(this.$('#js-desc-1'), 1, {
         x: 160
       });
       this.controller.addTween(start, this.descr1Tween, dur);
-      start += 1.5 * dur;
-      dur = this.frameDurationTime;
+      this.startPoints.push({
+        start: start + dur,
+        delay: 1000,
+        dur: 1.5
+      });
+      start += dur;
+      dur = 2 * this.frameDurationTime;
       this.descr2Tween = TweenMax.to(this.$('#js-desc-2'), 1, {
         x: 190
       });
       this.controller.addTween(start, this.descr2Tween, dur);
       start += dur / 2;
-      dur = this.frameDurationTime / 2;
+      dur = 2 * this.frameDurationTime;
       this.descr1Tween = TweenMax.to(this.$('#js-desc-1'), 1, {
         left: '-100%'
       });
       this.controller.addTween(start, this.descr1Tween, dur);
-      start += 2 * dur;
-      dur = this.frameDurationTime / 2;
+      dur = this.frameDurationTime;
       this.descr2Tween = TweenMax.to(this.$('#js-desc-2'), 1, {
         x: 0
       });
       this.controller.addTween(start, this.descr2Tween, dur);
       this.startPoints.push({
-        start: start,
-        delay: 0,
-        dur: 1
+        start: start + dur,
+        delay: 1000,
+        dur: 2
       });
       start += 2 * dur;
       dur = 4 * this.frameDurationTime;
@@ -355,6 +364,15 @@
         y: 0
       });
       this.controller.addTween(start, this.largeLogoTween, dur);
+      this.descr2Tween = TweenMax.to(this.$('#js-desc-2, #js-desc-3'), 1, {
+        x: 55
+      });
+      this.controller.addTween(start, this.descr2Tween, dur);
+      this.startPoints.push({
+        start: start + dur - (dur / 7.5),
+        delay: 2000,
+        dur: 4
+      });
       this.groundTween = TweenMax.to(this.$ground, 1, {
         css: {
           y: 0
@@ -419,7 +437,7 @@
       this.startPoints.push({
         start: start + (this.frameDurationTime - (this.frameDurationTime / 10)),
         delay: 3000,
-        dur: 1.25 * this.autoplayDurationUnit
+        dur: this.autoplayDurationUnit / 2
       });
       this.$moon = this.$('#js-moon');
       it = this;
