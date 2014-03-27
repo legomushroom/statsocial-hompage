@@ -1,6 +1,7 @@
 class App 
 	constructor:->
 		@vars()
+		@fixFFPattern()
 		@initScroll()
 		@initController()
 		@buildAnimations()
@@ -47,6 +48,9 @@ class App
 		@startPoints = []
 		@readDelayItems = [3,4,5,6,8,10]
 
+	fixFFPattern:->
+		if StatSocial.helpers.isFF()
+			document.getElementById('check-pattern-double').setAttribute 'width', 35
 
 	hideMenu:-> 
 		@$mainMenu.addClass 'is-hidden'

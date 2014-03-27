@@ -5,6 +5,7 @@
   App = (function() {
     function App() {
       this.vars();
+      this.fixFFPattern();
       this.initScroll();
       this.initController();
       this.buildAnimations();
@@ -45,6 +46,12 @@
       this.readDelay = 3000;
       this.startPoints = [];
       return this.readDelayItems = [3, 4, 5, 6, 8, 10];
+    };
+
+    App.prototype.fixFFPattern = function() {
+      if (StatSocial.helpers.isFF()) {
+        return document.getElementById('check-pattern-double').setAttribute('width', 35);
+      }
     };
 
     App.prototype.hideMenu = function() {
