@@ -177,6 +177,8 @@ bottomColor = #e5d6b5
 			placeholder-mixin(#5f5c5c)
 			cbox()
 			padding-bottom 5px
+			&.is-blurred
+				transform translateZ(1px)
 
 	width = 40
 	&__btn
@@ -265,9 +267,9 @@ buildingLogoAnimTime = 5s
 		content ''
 		padding-bottom 42.592592593%
 		display block
-	&--wells-fargo-icon
-		background url('i/icons/wells-fargo.svg') no-repeat center center
-		background-size 100% auto
+	// &--wells-fargo-icon
+	// 	background url('i/icons/wells-fargo.svg') no-repeat center center
+	// 	background-size 100% auto
 	&--nbcu-icon
 		background url('i/icons/nbcu.svg') no-repeat center center
 		background-size 100% auto
@@ -288,6 +290,12 @@ buildingLogoAnimTime = 5s
 		background-size 100% auto
 	&--burson-icon
 		background url('i/icons/burson-marsteller.svg') no-repeat center center
+		background-size 100% auto
+	&--salesforce-icon
+		background url('i/icons/salesforce.svg') no-repeat center center
+		background-size 100% auto
+	&--viacom-icon
+		background url('i/icons/viacom.svg') no-repeat center center
 		background-size 100% auto
 
 .entrance

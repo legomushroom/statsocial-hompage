@@ -2177,6 +2177,13 @@ a,
 /* Internet Explorer 10+ */
   color: #5f5c5c;
 }
+.ticket2__line__input.is-blurred {
+  -webkit-transform: translateZ(1px);
+  -moz-transform: translateZ(1px);
+  -ms-transform: translateZ(1px);
+  -o-transform: translateZ(1px);
+  transform: translateZ(1px);
+}
 .ticket2__btn {
   width: 40%;
   margin-left: -20%;
@@ -2321,10 +2328,6 @@ a,
   padding-bottom: 42.592592593%;
   display: block;
 }
-.building-logo--wells-fargo-icon {
-  background: url("i/icons/wells-fargo.svg") no-repeat center center;
-  background-size: 100% auto;
-}
 .building-logo--nbcu-icon {
   background: url("i/icons/nbcu.svg") no-repeat center center;
   background-size: 100% auto;
@@ -2351,6 +2354,14 @@ a,
 }
 .building-logo--burson-icon {
   background: url("i/icons/burson-marsteller.svg") no-repeat center center;
+  background-size: 100% auto;
+}
+.building-logo--salesforce-icon {
+  background: url("i/icons/salesforce.svg") no-repeat center center;
+  background-size: 100% auto;
+}
+.building-logo--viacom-icon {
+  background: url("i/icons/viacom.svg") no-repeat center center;
   background-size: 100% auto;
 }
 .entrance {
@@ -2956,11 +2967,11 @@ a,
   transform: translateX(8.320233742203794em) translateY(17.965497051257152em) rotate(165deg);
 }
 .ferris-wheel .ferris-wheel--spike.s-8 {
-  -webkit-transform: translateX(6.509778202147154em) translateY(16.84875439060485em) rotate(180deg);
-  -moz-transform: translateX(6.509778202147154em) translateY(16.84875439060485em) rotate(180deg);
-  -ms-transform: translateX(6.509778202147154em) translateY(16.84875439060485em) rotate(180deg);
-  -o-transform: translateX(6.509778202147154em) translateY(16.84875439060485em) rotate(180deg);
-  transform: translateX(6.509778202147154em) translateY(16.84875439060485em) rotate(180deg);
+  -webkit-transform: translateX(6.509778202147153em) translateY(16.84875439060485em) rotate(180deg);
+  -moz-transform: translateX(6.509778202147153em) translateY(16.84875439060485em) rotate(180deg);
+  -ms-transform: translateX(6.509778202147153em) translateY(16.84875439060485em) rotate(180deg);
+  -o-transform: translateX(6.509778202147153em) translateY(16.84875439060485em) rotate(180deg);
+  transform: translateX(6.509778202147153em) translateY(16.84875439060485em) rotate(180deg);
 }
 .ferris-wheel .ferris-wheel--spike.s-9 {
   -webkit-transform: translateX(5.050047397075844em) translateY(15.301482788923867em) rotate(195deg);
@@ -3118,11 +3129,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-0 .human-1 {
-  top: -0.25em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-0 .human-2 {
-  top: -0.1875em;
+  top: -0.25em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-1 .human-0 {
@@ -3130,11 +3141,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-1 .human-1 {
-  top: -0.25em;
+  top: -0.3125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-1 .human-2 {
-  top: -0.3125em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-2 .human-0 {
@@ -3142,11 +3153,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-2 .human-1 {
-  top: 0em;
+  top: -0.125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-2 .human-2 {
-  top: -0.1875em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-3 .human-0 {
@@ -3154,11 +3165,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-3 .human-1 {
-  top: 0em;
+  top: -0.0625em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-3 .human-2 {
-  top: -0.3125em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-4 .human-0 {
@@ -3166,11 +3177,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-4 .human-1 {
-  top: 0em;
+  top: -0.3125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-4 .human-2 {
-  top: -0.375em;
+  top: -0.25em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-5 .human-0 {
@@ -3178,11 +3189,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-5 .human-1 {
-  top: -0.125em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-5 .human-2 {
-  top: -0.3125em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-6 .human-0 {
@@ -3194,7 +3205,7 @@ a,
   right: 40%;
 }
 .ferris-wheel .cabin.n-6 .human-2 {
-  top: -0.375em;
+  top: -0.25em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-7 .human-0 {
@@ -3202,11 +3213,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-7 .human-1 {
-  top: 0em;
+  top: -0.0625em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-7 .human-2 {
-  top: -0.1875em;
+  top: -0.375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-8 .human-0 {
@@ -3214,7 +3225,7 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-8 .human-1 {
-  top: -0.0625em;
+  top: -0.125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-8 .human-2 {
@@ -3238,11 +3249,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-10 .human-1 {
-  top: -0.0625em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-10 .human-2 {
-  top: -0.375em;
+  top: -0.3125em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-11 .human-0 {
@@ -3250,11 +3261,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-11 .human-1 {
-  top: -0.3125em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-11 .human-2 {
-  top: -0.1875em;
+  top: -0.3125em;
   right: 60%;
 }
 .ferris-wheel .cabin .icon {
@@ -4479,7 +4490,6 @@ a,
   -ms-transform: translateY(150%);
   -o-transform: translateY(150%);
   transform: translateY(150%);
-  display: none;
 }
 .curtain3-l .tickets .ticket {
   -webkit-transform-origin: right bottom;

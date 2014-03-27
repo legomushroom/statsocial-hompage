@@ -35,6 +35,14 @@
       return Math.floor((Math.random() * ((max + 1) - min)) + min);
     };
 
+    Helpers.prototype.isWindows = function() {
+      return navigator.appVersion.indexOf("Win") !== -1;
+    };
+
+    Helpers.prototype.isChrome = function() {
+      return navigator.userAgent.toLowerCase().indexOf('chrome');
+    };
+
     Helpers.prototype.isFF = function() {
       return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     };

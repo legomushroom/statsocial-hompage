@@ -2,6 +2,7 @@ class App
 	constructor:->
 		@vars()
 		@fixFFPattern()
+		@fixChromeChoppedText()
 		@initScroll()
 		@initController()
 		@buildAnimations()
@@ -43,10 +44,17 @@ class App
 		@$mainMenu 			= $('#js-main-menu')
 		@$menuSuggest 	= $('#js-menu-suggest')
 		@$largeLogo 		= $('#js-large-logo')
+		@$tickets = @$('#js-tickets')
+		@$ticketInputs = @$tickets.find 'input'
 		@prevPlaneProgress = -1
 		@readDelay = 3000
 		@startPoints = []
 		@readDelayItems = [3,4,5,6,8,10]
+
+	fixChromeChoppedText:->
+		if StatSocial.helpers.isWindows() and StatSocial.helpers.isChrome()
+			@$ticketInputs.addClass 'is-blurred'
+
 
 	fixFFPattern:->
 		if StatSocial.helpers.isFF()
@@ -208,7 +216,6 @@ class App
 
 	buildAnimations:->
 		$quoCurtain = @$('#js-quo-curtain')
-		$tickets = @$('#js-tickets')
 		$ticket1 = @$('#js-ticket1')
 		$ticket2 = @$('#js-ticket2')
 		$clip 	 = @$('#js-clip')
@@ -279,7 +286,7 @@ class App
 
 		@largeLogoTween  = TweenMax.to @$largeLogo, 1, { opacity: 1, y: 0 }
 		@controller.addTween start, @largeLogoTween, dur
-		@descr2Tween 	= TweenMax.to @$('#js-desc-2, #js-desc-3'), 	1, 	{ x: 55 }
+		@descr2Tween 	= TweenMax.to @$('#js-desc-2, #js-desc-3'), 	1, 	{ x: 57 }
 		@controller.addTween start, @descr2Tween, dur
 
 		@startPoints.push 
@@ -691,23 +698,9 @@ class App
 				StatSocial.helpers.isMobileSafari() and $bannersBuildings.addClass 'is-dark-bg'
 		}), dur
 
-		
-
-		start = start + dur
-		dur = @frameDurationTime
-
-		@moonTween = TweenMax.to $('.moon-n-text--side'), 1, { y: -60, opacity: 0 }
-		@moonOpacityTween = TweenMax.to $('.moon--chart'), 1, { 
-			opacity: 0
-			onReverseComplete:=>
-				# console.log 'reverse bg'
-				StatSocial.helpers.isMobileSafari() and $bannersBuildings.removeClass 'is-dark-bg'
-		}
-		@controller.addTween start, @moonOpacityTween, dur/2
-		@controller.addTween start, @moonTween, dur/2
 		StatSocial.helpers.isMobileSafari() and @controller.addTween(start+dur, TweenMax.to($bannersBuildings, 1, { backgroundColor: 'transparent' }), dur)
 
-		start += dur/5
+		start += dur
 		dur = 3*@frameDurationTime
 
 		it = @
@@ -721,13 +714,26 @@ class App
 					@oldP = p
 			}
 		@controller.addTween start, planeTween3, dur/3
-		
-		start = start + dur - (2*@frameDurationTime)
+
+		start += dur/8
+		dur = @frameDurationTime
+
+		@moonTween = TweenMax.to $('.moon-n-text--side'), 1, { y: -60, opacity: 0 }
+		@moonOpacityTween = TweenMax.to $('.moon--chart'), 1, { 
+			opacity: 0
+			onReverseComplete:=>
+				# console.log 'reverse bg'
+				StatSocial.helpers.isMobileSafari() and $bannersBuildings.removeClass 'is-dark-bg'
+		}
+		@controller.addTween start, @moonOpacityTween, dur/2
+		@controller.addTween start, @moonTween, dur/2
+
+		# start += dur/2
 		dur = @frameDurationTime
 		@startPoints.push
-			start: start - (@frameDurationTime/1.4)
+			start: start - (@frameDurationTime/15)
 			delay: 3000
-			dur: @autoplayDurationUnit/1.5
+			dur: @autoplayDurationUnit/2
 
 		@entranceTween  = TweenMax.to @$('#js-entrance'), 1, { y: 0 }
 		@controller.addTween start, @entranceTween, dur
@@ -788,7 +794,11 @@ class App
 			delay: 3000
 			dur: @autoplayDurationUnit/1.5
 
-		@ticketsTween  = TweenMax.to $tickets, 1, { y: 0 }
+		@ticketsTween  = TweenMax.to @$tickets, 1, { 
+			y: 0,
+			onStart:=> @$ticketInputs.attr 'disabled', false
+			onReverseComplete:=> @$ticketInputs.attr 'disabled', true
+		}
 		@controller.addTween start, @ticketsTween, dur
 
 		start = start + dur - (@frameDurationTime/2)
@@ -1068,7 +1078,6 @@ class App
 		if @scriptTween3.totalProgress() >= 1
 			@$scence2.hide()
 		else @$scence2.show()
-
 
 
 new App

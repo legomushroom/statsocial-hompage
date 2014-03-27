@@ -15,6 +15,12 @@ class Helpers
   getRand:(min,max)->
     Math.floor((Math.random() * ((max + 1) - min)) + min)
 
+  isWindows:->
+    navigator.appVersion.indexOf("Win") isnt -1
+
+  isChrome:->
+    navigator.userAgent.toLowerCase().indexOf('chrome')
+
   isFF:->
     navigator.userAgent.toLowerCase().indexOf('firefox') > -1
 
