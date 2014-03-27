@@ -55,7 +55,6 @@ class App
 		if StatSocial.helpers.isWindows() and StatSocial.helpers.isChrome()
 			@$ticketInputs.addClass 'is-blurred'
 
-
 	fixFFPattern:->
 		if StatSocial.helpers.isFF()
 			document.getElementById('check-pattern-double').setAttribute 'width', 35
