@@ -7,6 +7,7 @@
       this.vars();
       this.fixFFPattern();
       this.fixChromeChoppedText();
+      this.fixMobileSafariBuildings();
       this.initScroll();
       this.initController();
       this.buildAnimations();
@@ -45,10 +46,17 @@
       this.$largeLogo = $('#js-large-logo');
       this.$tickets = this.$('#js-tickets');
       this.$ticketInputs = this.$tickets.find('input');
+      this.$mainIcon = $('#js-main-icon');
       this.prevPlaneProgress = -1;
       this.readDelay = 3000;
       this.startPoints = [];
       return this.readDelayItems = [3, 4, 5, 6, 8, 10];
+    };
+
+    App.prototype.fixMobileSafariBuildings = function() {
+      if (StatSocial.helpers.isMobileSafari()) {
+        return $(document.body).addClass('at-mobile-safari');
+      }
     };
 
     App.prototype.fixChromeChoppedText = function() {
@@ -275,10 +283,13 @@
     };
 
     App.prototype.onBuildingsUpdate = function() {
-      var method;
+      var method, method2, progress;
 
-      method = this.curtainTextTween2.totalProgress() >= 1 ? 'hide' : 'show';
-      return this.$scence[method]();
+      progress = this.curtainTextTween2.totalProgress();
+      method = progress >= 1 ? 'hide' : 'show';
+      method2 = progress >= 1 ? 'show' : 'hide';
+      this.$scence[method]();
+      return this.$mainIcon[method2]();
     };
 
     App.prototype.scrollStart = function() {
@@ -415,6 +426,7 @@
       start += dur + this.frameDurationTime;
       dur = this.frameDurationTime;
       $buildings = this.$('.building-b');
+      this.$buildings = $buildings;
       for (i = _i = 0, _ref = $buildings.length; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
         $el = $($buildings.eq(i));
         this.controller.addTween(start - (($buildings.length - i) * (this.frameDurationTime / $buildings.length)), TweenMax.to($el, .1, {
@@ -891,12 +903,16 @@
       this.controller.addTween(start, TweenMax.to(this.$ground, 1, {
         backgroundColor: '#333040',
         onComplete: function() {
-          return StatSocial.helpers.isMobileSafari() && $bannersBuildings.addClass('is-dark-bg');
+          if (StatSocial.helpers.isMobileSafari()) {
+            return $bannersBuildings.addClass('is-dark-bg');
+          }
         }
       }), dur);
-      StatSocial.helpers.isMobileSafari() && this.controller.addTween(start + dur, TweenMax.to($bannersBuildings, 1, {
-        backgroundColor: 'transparent'
-      }), dur);
+      if (StatSocial.helpers.isMobileSafari()) {
+        this.controller.addTween(start + dur, TweenMax.to($bannersBuildings, 1, {
+          backgroundColor: 'transparent'
+        }), dur);
+      }
       start += dur;
       dur = 3 * this.frameDurationTime;
       it = this;

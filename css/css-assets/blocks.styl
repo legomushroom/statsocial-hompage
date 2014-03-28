@@ -878,13 +878,14 @@ ferrisWheelSize = 375
 		border-bottom-color #f9f0dd
 
 .building-b
-	// background-color #64c2c1
-	background url('i/building-bg.png') repeat
+	background-color #64c2c1
 	// background-size 100% auto
 	width 5.5%
 	height 50%
 	position relative
 	border 8px solid transparent
+	.at-mobile-safari &
+		background url('i/building-bg.png') repeat
 	&__icons
 		position absolute
 		top 0
@@ -933,6 +934,9 @@ ferrisWheelSize = 375
 			opacity 0
 			animation none
 			transition none
+
+	// &.is-dark-bg
+	// 	background #64c2c1
 
 .curtain3-building6-lh, .curtain3-building7-lh,
 .curtain3-building8-lh, .curtain3-building9-lh

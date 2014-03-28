@@ -3,10 +3,11 @@ class App
 		@vars()
 		@fixFFPattern()
 		@fixChromeChoppedText()
+		@fixMobileSafariBuildings()
 		@initScroll()
 		@initController()
 		@buildAnimations()
-		
+	
 		@maxScroll = -@startPoints[@startPoints.length]
 
 		@listenKeys()
@@ -44,12 +45,17 @@ class App
 		@$mainMenu 			= $('#js-main-menu')
 		@$menuSuggest 	= $('#js-menu-suggest')
 		@$largeLogo 		= $('#js-large-logo')
-		@$tickets = @$('#js-tickets')
-		@$ticketInputs = @$tickets.find 'input'
+		@$tickets 			= @$('#js-tickets')
+		@$ticketInputs 	= @$tickets.find 'input'
+		@$mainIcon 			= $('#js-main-icon')
 		@prevPlaneProgress = -1
 		@readDelay = 3000
 		@startPoints = []
 		@readDelayItems = [3,4,5,6,8,10]
+
+	fixMobileSafariBuildings:->
+		if StatSocial.helpers.isMobileSafari()
+			$(document.body).addClass 'at-mobile-safari'
 
 	fixChromeChoppedText:->
 		if StatSocial.helpers.isWindows() and StatSocial.helpers.isChrome()
@@ -201,8 +207,11 @@ class App
 		@setCurrentScenseNum num
 
 	onBuildingsUpdate:->
-		method = if @curtainTextTween2.totalProgress() >= 1 then 'hide' else 'show'
+		progress = @curtainTextTween2.totalProgress()
+		method = if progress >= 1 then 'hide' else 'show'
+		method2 = if progress >= 1 then 'show' else 'hide'
 		@$scence[method]()
+		@$mainIcon[method2]()
 
 	scrollStart:->
 		@$menuSuggest.addClass('is-transparent').hide()
@@ -310,6 +319,7 @@ class App
 		dur = @frameDurationTime
 
 		$buildings  = @$('.building-b')
+		@$buildings = $buildings
 		for i in [0..$buildings.length]
 			$el = $ $buildings.eq i
 			@controller.addTween start-(($buildings.length-i)*(@frameDurationTime/$buildings.length)), 
@@ -325,12 +335,13 @@ class App
 															onReverseComplete:(-> @target.removeClass('is-show-label is-tip bounce-eff'))
 														}), dur
 
-		@curtainTextTween2  = TweenMax.to @$('.underline-text, #js-desc-2, #js-desc-3'), 1, { css:{ top: '-25%' }, onReverseComplete:(=> @$('.underline-text').css 'top': '50%'), onUpdate: StatSocial.helpers.bind(@onBuildingsUpdate,@) }
+		@curtainTextTween2  = TweenMax.to @$('.underline-text, #js-desc-2, #js-desc-3'), 1, { \
+			css:{ top: '-25%' },
+			onReverseComplete:(=> @$('.underline-text').css 'top': '50%')
+			onUpdate: StatSocial.helpers.bind(@onBuildingsUpdate,@)
+		}
 		@controller.addTween start-(@frameDurationTime/10), @curtainTextTween2, dur
 
-		# @largeLogoTween  = TweenMax.to @$largeLogo, 1, { top: '-25%', marginTop: -1500 }
-		# @controller.addTween start, @largeLogoTween, dur
-		
 		# -> PLANE
 		start = start + dur - (@frameDurationTime/1.5)
 		dur = 3*@frameDurationTime
@@ -694,10 +705,12 @@ class App
 		@controller.addTween start, TweenMax.to(@$ground, 1, { 
 			backgroundColor: '#333040'
 			onComplete:=> 
-				StatSocial.helpers.isMobileSafari() and $bannersBuildings.addClass 'is-dark-bg'
+				if StatSocial.helpers.isMobileSafari()
+					$bannersBuildings.addClass 'is-dark-bg'
 		}), dur
 
-		StatSocial.helpers.isMobileSafari() and @controller.addTween(start+dur, TweenMax.to($bannersBuildings, 1, { backgroundColor: 'transparent' }), dur)
+		if StatSocial.helpers.isMobileSafari()
+			@controller.addTween(start+dur, TweenMax.to($bannersBuildings, 1, { backgroundColor: 'transparent' }), dur)
 
 		start += dur
 		dur = 3*@frameDurationTime
@@ -720,7 +733,9 @@ class App
 		@moonTween = TweenMax.to $('.moon-n-text--side'), 1, { y: -60, opacity: 0 }
 		@moonOpacityTween = TweenMax.to $('.moon--chart'), 1, { 
 			opacity: 0
+			# onComplete:=> @$buildings.addClass 'is-dark-bg'
 			onReverseComplete:=>
+				# @$buildings.removeClass('is-dark-bg')
 				# console.log 'reverse bg'
 				StatSocial.helpers.isMobileSafari() and $bannersBuildings.removeClass 'is-dark-bg'
 		}

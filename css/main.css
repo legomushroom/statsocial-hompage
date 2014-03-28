@@ -3129,11 +3129,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-0 .human-1 {
-  top: -0.1875em;
+  top: -0.125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-0 .human-2 {
-  top: -0.3125em;
+  top: -0.1875em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-1 .human-0 {
@@ -3141,11 +3141,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-1 .human-1 {
-  top: -0.3125em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-1 .human-2 {
-  top: -0.25em;
+  top: -0.1875em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-2 .human-0 {
@@ -3153,11 +3153,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-2 .human-1 {
-  top: -0.125em;
+  top: -0.3125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-2 .human-2 {
-  top: -0.1875em;
+  top: -0.375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-3 .human-0 {
@@ -3165,11 +3165,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-3 .human-1 {
-  top: -0.1875em;
+  top: -0.0625em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-3 .human-2 {
-  top: -0.4375em;
+  top: -0.25em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-4 .human-0 {
@@ -3177,7 +3177,7 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-4 .human-1 {
-  top: -0.3125em;
+  top: -0.125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-4 .human-2 {
@@ -3189,11 +3189,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-5 .human-1 {
-  top: -0.1875em;
+  top: -0.3125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-5 .human-2 {
-  top: -0.1875em;
+  top: -0.3125em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-6 .human-0 {
@@ -3201,11 +3201,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-6 .human-1 {
-  top: 0em;
+  top: -0.3125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-6 .human-2 {
-  top: -0.375em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-7 .human-0 {
@@ -3217,7 +3217,7 @@ a,
   right: 40%;
 }
 .ferris-wheel .cabin.n-7 .human-2 {
-  top: -0.375em;
+  top: -0.25em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-8 .human-0 {
@@ -3225,11 +3225,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-8 .human-1 {
-  top: -0.1875em;
+  top: -0.125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-8 .human-2 {
-  top: -0.3125em;
+  top: -0.375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-9 .human-0 {
@@ -3237,11 +3237,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-9 .human-1 {
-  top: -0.3125em;
+  top: -0.0625em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-9 .human-2 {
-  top: -0.3125em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-10 .human-0 {
@@ -3249,7 +3249,7 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-10 .human-1 {
-  top: -0.125em;
+  top: -0.3125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-10 .human-2 {
@@ -3261,11 +3261,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-11 .human-1 {
-  top: -0.0625em;
+  top: -0.1875em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-11 .human-2 {
-  top: -0.25em;
+  top: -0.3125em;
   right: 60%;
 }
 .ferris-wheel .cabin .icon {
@@ -3978,13 +3978,16 @@ a,
   border-bottom-color: #f9f0dd;
 }
 .building-b {
-  background: url("i/building-bg.png") repeat;
+  background-color: #64c2c1;
   width: 5.5%;
   height: 50%;
   position: relative;
   border-width: 8px;
   border-style: solid;
   border-color: transparent;
+}
+.at-mobile-safari .building-b {
+  background: url("i/building-bg.png") repeat;
 }
 .building-b__icons {
   position: absolute;
@@ -5148,6 +5151,19 @@ a,
   overflow: hidden;
   width: 100%;
   height: 100%;
+}
+.main-l .main-icon {
+  position: absolute;
+  fill: #fff;
+  z-index: 19;
+  width: 56px;
+  height: 56px;
+  display: block;
+  fill: #fff;
+  position: absolute;
+  top: 9px;
+  left: 50px;
+  display: none;
 }
 .main-l .menu-suggest {
   position: absolute;

@@ -19,11 +19,14 @@ html
         .play#js-play(title="autoplay")
           - el = { path: 'play-icon', class: 'play__icon play__icon--play', id: ''}
           include css/partials/icon
-          - el = { path: 'pause-icon', class: 'play__icon play__icon--pause', id: ''}
+          - el = { path: 'pause-ico†n', class: 'play__icon play__icon--pause', id: ''}
           include css/partials/icon
 
         .pages-btns.is-transparent.cf#js-pages-btns
         .menu-suggest#js-menu-suggest menu
+
+        - el = { path: 'statsocial-icon', class: 'main-icon', idAttribute: 'js-main-icon'}
+        include css/partials/icon
 
         .main-header.is-hidden#js-main-menu
           .sidebar-logo-e.is-blue-bg
