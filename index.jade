@@ -2,7 +2,8 @@
 html
   head
     meta(charset='UTF-8')
-    title STATSOCIAL
+    meta(name="description", content="Formerly known as PeekAnalytics, StatSocial offers statistically sound demographic and psychographic Twitter audience data")
+    title StatSocial - Unparalleled Twitter Demographics
     link(href="css/main.css", type="text/css", rel="stylesheet")
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700,800', rel='stylesheet', type='text/css')
   
@@ -41,18 +42,18 @@ html
               .header-btn-e.is-hoverable-blue2.f-r-g Log In
               .main-header-menu
                 .main-header-menu-section-l
-                  a.main-header-menu-item.is-hoverable.is-checkable About
-                  a.main-header-menu-item.is-hoverable.is-checkable FAQ
-                  a.main-header-menu-item.is-hoverable.is-checkable Support
-                  a.main-header-menu-item.is-hoverable.is-checkable API
+                  a.main-header-menu-item.is-hoverable.is-checkable(href="/about/") About
+                  a.main-header-menu-item.is-hoverable.is-checkable(href="/faq/") FAQ
+                  a.main-header-menu-item.is-hoverable.is-checkable(href="/support/") Support
+                  a.main-header-menu-item.is-hoverable.is-checkable(href="http://api.statsocial.com/") API
                 .main-header-menu-section-l
-                  a.main-header-menu-item.is-hoverable.is-checkable Sample reports
-                  a.main-header-menu-item.is-hoverable.is-checkable Top 1000 investors
+                  a.main-header-menu-item.is-hoverable.is-checkable(href="/sample-reports/") Sample reports
+                  a.main-header-menu-item.is-hoverable.is-checkable(href="/top-investors-twitter/") Top 1000 investors
                 .main-header-menu-section-l
-                  a.main-header-menu-item.is-hoverable.is-checkable Press
-                  a.main-header-menu-item.is-hoverable.is-checkable Blog
-                  a.main-header-menu-item.is-hoverable.is-checkable Privacy policy
-                  a.main-header-menu-item.is-hoverable.is-checkable Terms of service
+                  a.main-header-menu-item.is-hoverable.is-checkable(href="/press/") Press
+                  a.main-header-menu-item.is-hoverable.is-checkable(href="http://blog.statsocial.com/") Blog
+                  a.main-header-menu-item.is-hoverable.is-checkable(href="/privacy-policy/") Privacy policy
+                  a.main-header-menu-item.is-hoverable.is-checkable(href="/terms-of-service/") Terms of service
 
         .curtain-l#js-curtain1
           .curtain-l--left#js-left-curtain
@@ -70,7 +71,7 @@ html
           .description.description--2#js-desc-2 Big missed opportunities.
           .description.description--3#js-desc-3 Time to recapture them.
 
-          
+
 
         .underline-text.underline-text__right#js-curtain-text1 
           | social
@@ -88,15 +89,15 @@ html
               .ticket2__header Request demo
               .ticket2__content
                 .ticket2__line
-                  input.ticket2__line__input(placeholder="First name", disabled="true")
+                  input.ticket2__line__input(placeholder="First name", disabled="true", data-type="plain")
                 .ticket2__line
-                  input.ticket2__line__input(placeholder="Last name", disabled="true")
+                  input.ticket2__line__input(placeholder="Last name", disabled="true", data-type="plain")
                 .ticket2__line
-                  input.ticket2__line__input(placeholder="Email", disabled="true")
+                  input.ticket2__line__input(placeholder="Email", disabled="true", data-type="email")
                 .ticket2__line
-                  input.ticket2__line__input(placeholder="Phone number", disabled="true")
+                  input.ticket2__line__input(placeholder="Phone number", disabled="true", data-type="phone")
                 .ticket2__line
-                  input.ticket2__line__input(placeholder="Company", disabled="true")
+                  input.ticket2__line__input(placeholder="Company", disabled="true", data-type="plain")
               .ticket2__btn admit one
 
             .tickets__clip#js-clip
@@ -410,15 +411,17 @@ html
                               - icon = { path: icons[r]+'-icon' }
                               include css/partials/icon-banner
 
-    script(src="js/modernizr.js")
-    script(src="js/jquery-2.1.0.min.js")
-    script(src="js/jquery.parallax.js")
-    script(src="js/tweenmax.min.js")
-    script(src="js/jquery.superscrollorama.js")
-    script(src="js/iscroll.js")
-    script(src="js/helpers.js")
-    script(src="js/point.js")
-    script(src="js/main.js")
+    //- script(src="js/dist.js")
+
+    //- script(src="js/modernizr.js")
+    //- script(src="js/jquery-2.1.0.min.js")
+    //- script(src="js/jquery.parallax.js")
+    //- script(src="js/tweenmax.min.js")
+    //- script(src="js/jquery.superscrollorama.js")
+    //- script(src="js/iscroll.js")
+    //- script(src="js/helpers.js")
+    //- script(src="js/point.js")
+    //- script(src="js/main.js")
 
 
 

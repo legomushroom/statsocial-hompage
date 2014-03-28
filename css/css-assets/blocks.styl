@@ -9,12 +9,13 @@
 	top 50%
 	margin-top 70px
 	z-index 20
-	// hl green
 	&--1, &--2
 		width 45.25%
 		left 0
 		text-align right
-		transform translateX(200%)
+		transform translateX(240%)
+	&--2
+		padding-right 0
 	&--3
 		width 54.75%
 		z-index -1
@@ -23,6 +24,7 @@
 		text-align left
 		padding-left (gs/2)
 		z-index -1
+		padding-left gs
 
 .menu-suggest
 	outage()
@@ -180,6 +182,9 @@ bottomColor = #e5d6b5
 			padding-bottom 5px
 			&.is-blurred
 				transform translateZ(1px)
+
+			&.is-invalid
+				background-color rgba(#ff6667, .75)
 	width = 40
 	&__btn
 		width (width)%

@@ -12,11 +12,9 @@ class App
 
 		@listenKeys()
 		@initMap()
-		# @playSuggest()
 		@addCssClasses()
+		@ticketValidation()
 		@loopSequence = StatSocial.helpers.bind @loopSequence, @
-		# @initParallax()
-		# $('#js-toggle-btn').on 'click', => $('#js-curtain3').toggleClass('is-night')
 	
 	vars:->
 		@$main =  $('#js-main')
@@ -52,6 +50,30 @@ class App
 		@readDelay = 3000
 		@startPoints = []
 		@readDelayItems = [3,4,5,6,8,10]
+
+	ticketValidation:->
+		validTypes = 
+			'plain': /(.){1,2}\w+/
+			'email': /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+			'phone': /^\+?[\d|\-|\s]+$/
+			
+		validate = (e)->
+			e.stopPropagation()
+			e.preventDefault()
+			$it = $(@)
+			value = $it.val()
+			if $.trim(value).length is 0 then return
+			type = $it.data().type
+			valid = false
+			regEx = validTypes[type]
+			valid = regEx.test value
+			$it.toggleClass 'is-invalid', !valid
+			$it.data().isValid = valid
+			false
+
+		@$ticket2.on 'blur', 'input', validate
+		@$ticket2.on 'keyup', 'input.is-invalid', validate
+
 
 	fixMobileSafariBuildings:->
 		if StatSocial.helpers.isMobileSafari()
@@ -226,6 +248,7 @@ class App
 		$quoCurtain = @$('#js-quo-curtain')
 		$ticket1 = @$('#js-ticket1')
 		$ticket2 = @$('#js-ticket2')
+		@$ticket2 = $ticket2
 		$clip 	 = @$('#js-clip')
 
 		@frameDurationTime = 1000
@@ -245,7 +268,7 @@ class App
 
 		start = 1
 		dur = 2*@frameDurationTime
-		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ x: 0 }
+		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ x: 160 }
 		@controller.addTween start, @descr1Tween, dur
 
 		@startPoints.push 
@@ -253,22 +276,18 @@ class App
 			delay: 1000
 			dur: 1.5
 
-		# start += dur
-		# dur = 2*@frameDurationTime
-		# @descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 190 }
-		# @controller.addTween start, @descr2Tween, dur
-
-		start +=  dur
-		dur = @frameDurationTime
-		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 0 }
+		start += dur
+		dur = 2*@frameDurationTime
+		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 190 }
 		@controller.addTween start, @descr2Tween, dur
 
-		start += dur/2
+		start +=  dur - (dur)
 		dur = 2*@frameDurationTime
-		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ left: '-50%' }
+		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ left: '-100%' }
 		@controller.addTween start, @descr1Tween, dur
 
-		
+		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 0 }
+		@controller.addTween start, @descr2Tween, dur
 
 		@startPoints.push 
 			start: start+dur
@@ -297,7 +316,7 @@ class App
 
 		@largeLogoTween  = TweenMax.to @$largeLogo, 1, { opacity: 1, y: 0 }
 		@controller.addTween start, @largeLogoTween, dur
-		@descr2Tween 	= TweenMax.to @$('#js-desc-2, #js-desc-3'), 	1, 	{ x: 57 }
+		@descr2Tween 	= TweenMax.to @$('#js-desc-2, #js-desc-3'), 	1, 	{ x: 56 }
 		@controller.addTween start, @descr2Tween, dur
 
 		@startPoints.push 

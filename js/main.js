@@ -15,6 +15,7 @@
       this.listenKeys();
       this.initMap();
       this.addCssClasses();
+      this.ticketValidation();
       this.loopSequence = StatSocial.helpers.bind(this.loopSequence, this);
     }
 
@@ -51,6 +52,36 @@
       this.readDelay = 3000;
       this.startPoints = [];
       return this.readDelayItems = [3, 4, 5, 6, 8, 10];
+    };
+
+    App.prototype.ticketValidation = function() {
+      var validTypes, validate;
+
+      validTypes = {
+        'plain': /(.){1,2}\w+/,
+        'email': /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        'phone': /^\+?[\d|\-|\s]+$/
+      };
+      validate = function(e) {
+        var $it, regEx, type, valid, value;
+
+        e.stopPropagation();
+        e.preventDefault();
+        $it = $(this);
+        value = $it.val();
+        if ($.trim(value).length === 0) {
+          return;
+        }
+        type = $it.data().type;
+        valid = false;
+        regEx = validTypes[type];
+        valid = regEx.test(value);
+        $it.toggleClass('is-invalid', !valid);
+        $it.data().isValid = valid;
+        return false;
+      };
+      this.$ticket2.on('blur', 'input', validate);
+      return this.$ticket2.on('keyup', 'input.is-invalid', validate);
     };
 
     App.prototype.fixMobileSafariBuildings = function() {
@@ -311,6 +342,7 @@
       $quoCurtain = this.$('#js-quo-curtain');
       $ticket1 = this.$('#js-ticket1');
       $ticket2 = this.$('#js-ticket2');
+      this.$ticket2 = $ticket2;
       $clip = this.$('#js-clip');
       this.frameDurationTime = 1000;
       this.autoplayDurationUnit = 5;
@@ -330,7 +362,7 @@
       start = 1;
       dur = 2 * this.frameDurationTime;
       this.descr1Tween = TweenMax.to(this.$('#js-desc-1'), 1, {
-        x: 0
+        x: 160
       });
       this.controller.addTween(start, this.descr1Tween, dur);
       this.startPoints.push({
@@ -339,17 +371,21 @@
         dur: 1.5
       });
       start += dur;
-      dur = this.frameDurationTime;
+      dur = 2 * this.frameDurationTime;
+      this.descr2Tween = TweenMax.to(this.$('#js-desc-2'), 1, {
+        x: 190
+      });
+      this.controller.addTween(start, this.descr2Tween, dur);
+      start += dur - dur;
+      dur = 2 * this.frameDurationTime;
+      this.descr1Tween = TweenMax.to(this.$('#js-desc-1'), 1, {
+        left: '-100%'
+      });
+      this.controller.addTween(start, this.descr1Tween, dur);
       this.descr2Tween = TweenMax.to(this.$('#js-desc-2'), 1, {
         x: 0
       });
       this.controller.addTween(start, this.descr2Tween, dur);
-      start += dur / 2;
-      dur = 2 * this.frameDurationTime;
-      this.descr1Tween = TweenMax.to(this.$('#js-desc-1'), 1, {
-        left: '-50%'
-      });
-      this.controller.addTween(start, this.descr1Tween, dur);
       this.startPoints.push({
         start: start + dur,
         delay: 1000,
@@ -386,7 +422,7 @@
       });
       this.controller.addTween(start, this.largeLogoTween, dur);
       this.descr2Tween = TweenMax.to(this.$('#js-desc-2, #js-desc-3'), 1, {
-        x: 57
+        x: 56
       });
       this.controller.addTween(start, this.descr2Tween, dur);
       this.startPoints.push({
