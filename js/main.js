@@ -330,7 +330,7 @@
       start = 1;
       dur = 2 * this.frameDurationTime;
       this.descr1Tween = TweenMax.to(this.$('#js-desc-1'), 1, {
-        x: 160
+        x: 0
       });
       this.controller.addTween(start, this.descr1Tween, dur);
       this.startPoints.push({
@@ -339,22 +339,17 @@
         dur: 1.5
       });
       start += dur;
-      dur = 2 * this.frameDurationTime;
-      this.descr2Tween = TweenMax.to(this.$('#js-desc-2'), 1, {
-        x: 190
-      });
-      this.controller.addTween(start, this.descr2Tween, dur);
-      start += dur / 2;
-      dur = 2 * this.frameDurationTime;
-      this.descr1Tween = TweenMax.to(this.$('#js-desc-1'), 1, {
-        left: '-100%'
-      });
-      this.controller.addTween(start, this.descr1Tween, dur);
       dur = this.frameDurationTime;
       this.descr2Tween = TweenMax.to(this.$('#js-desc-2'), 1, {
         x: 0
       });
       this.controller.addTween(start, this.descr2Tween, dur);
+      start += dur / 2;
+      dur = 2 * this.frameDurationTime;
+      this.descr1Tween = TweenMax.to(this.$('#js-desc-1'), 1, {
+        left: '-50%'
+      });
+      this.controller.addTween(start, this.descr1Tween, dur);
       this.startPoints.push({
         start: start + dur,
         delay: 1000,

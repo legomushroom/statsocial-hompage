@@ -245,7 +245,7 @@ class App
 
 		start = 1
 		dur = 2*@frameDurationTime
-		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ x: 160 }
+		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ x: 0 }
 		@controller.addTween start, @descr1Tween, dur
 
 		@startPoints.push 
@@ -253,19 +253,22 @@ class App
 			delay: 1000
 			dur: 1.5
 
-		start += dur
-		dur = 2*@frameDurationTime
-		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 190 }
-		@controller.addTween start, @descr2Tween, dur
+		# start += dur
+		# dur = 2*@frameDurationTime
+		# @descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 190 }
+		# @controller.addTween start, @descr2Tween, dur
 
-		start +=  dur/2
-		dur = 2*@frameDurationTime
-		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ left: '-100%' }
-		@controller.addTween start, @descr1Tween, dur
-
+		start +=  dur
 		dur = @frameDurationTime
 		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 0 }
 		@controller.addTween start, @descr2Tween, dur
+
+		start += dur/2
+		dur = 2*@frameDurationTime
+		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ left: '-50%' }
+		@controller.addTween start, @descr1Tween, dur
+
+		
 
 		@startPoints.push 
 			start: start+dur

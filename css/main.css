@@ -3129,11 +3129,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-0 .human-1 {
-  top: -0.125em;
+  top: -0.1875em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-0 .human-2 {
-  top: -0.1875em;
+  top: -0.3125em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-1 .human-0 {
@@ -3141,11 +3141,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-1 .human-1 {
-  top: 0em;
+  top: -0.1875em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-1 .human-2 {
-  top: -0.1875em;
+  top: -0.3125em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-2 .human-0 {
@@ -3153,11 +3153,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-2 .human-1 {
-  top: -0.3125em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-2 .human-2 {
-  top: -0.375em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-3 .human-0 {
@@ -3165,11 +3165,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-3 .human-1 {
-  top: -0.0625em;
+  top: -0.125em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-3 .human-2 {
-  top: -0.25em;
+  top: -0.375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-4 .human-0 {
@@ -3177,11 +3177,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-4 .human-1 {
-  top: -0.125em;
+  top: -0.25em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-4 .human-2 {
-  top: -0.25em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-5 .human-0 {
@@ -3189,7 +3189,7 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-5 .human-1 {
-  top: -0.3125em;
+  top: -0.25em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-5 .human-2 {
@@ -3213,11 +3213,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-7 .human-1 {
-  top: -0.125em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-7 .human-2 {
-  top: -0.25em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-8 .human-0 {
@@ -3225,11 +3225,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-8 .human-1 {
-  top: -0.125em;
+  top: -0.1875em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-8 .human-2 {
-  top: -0.375em;
+  top: -0.25em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-9 .human-0 {
@@ -3237,11 +3237,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-9 .human-1 {
-  top: -0.0625em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-9 .human-2 {
-  top: -0.4375em;
+  top: -0.25em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-10 .human-0 {
@@ -3249,11 +3249,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-10 .human-1 {
-  top: -0.3125em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-10 .human-2 {
-  top: -0.375em;
+  top: -0.3125em;
   right: 60%;
 }
 .ferris-wheel .cabin.n-11 .human-0 {
@@ -3261,11 +3261,11 @@ a,
   right: 20%;
 }
 .ferris-wheel .cabin.n-11 .human-1 {
-  top: -0.1875em;
+  top: 0em;
   right: 40%;
 }
 .ferris-wheel .cabin.n-11 .human-2 {
-  top: -0.3125em;
+  top: -0.4375em;
   right: 60%;
 }
 .ferris-wheel .cabin .icon {
