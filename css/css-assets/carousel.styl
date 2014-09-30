@@ -10,63 +10,120 @@ carouselTransitionTime = .3s
 		height 387*PX
 		transform scale(1)
 		right 5%
-		margin-top -40px
-		.carousel-top
+
+		.carousel--3d, .carousel-bottom, .carousel-middle, .carousel-top
 			display none
-	.icon-banner
-		transform scale(0)
+
 	.carousel--3d
 		transform rotateY(-180deg)
+		transition all carouselTransitionTime ease
+
 	.cylinder-1
-		height 0
+		.side
+			height 0
+			transition height (carouselTransitionTime/2) ease-out
+			transition-delay carouselTransitionTime
+
 		.banner
 			backface-visibility hidden
-			transform scale(0) translateZ(2*PX)
+			transform scale(0) translateZ(PX)
+			transition all carouselTransitionTime ease-out
+			transsition-delay 0
+
 	.carousel-middle
 		width .75em
 		margin-left - 3*PX
+		transition all (carouselTransitionTime/2) cubic-bezier(0.545, 0.380, 0.465, 1.540)
 		transform translateY(400*PX) translateX(-2*PX) translateZ(22*PX) rotateY(-120deg)
-	.carousel__sticks
-		height 0
-		position relative
-		nw 0
-		top 50%
-		transform-style preserve-3d
-		.cylinder-2
-			opacity:1;
-			width:.25em
-			margin:-7.5em 0 0 -0.125em
-			height 100%
-			.side
-				width:0.4580127018922192em
-				backface-visibility visible
-				height 100%
-				background url('i/carousel-sticks-bg.png') repeat
-				// background-color: #faf4e5
-				// background-color: lighten(#9B2E2E, 15)
+		transition-delay 2*carouselTransitionTime
 
+	.cylinder-2
+		.icon-banner
+			transform scale(0) translateZ(1px)
+			transition all carouselTransitionTime linear
+			transition-delay 0
+
+		.side
+			height 0
+			top -2em
+			transition all carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
+			// 17em
+	
 	width = 20*PX
 	.carousel-bottom
 		width width
 		margin-left -(width/2)
 		left 50%
+		transition all carouselTransitionTime ease-in
+		transition-delay 2*carouselTransitionTime
+
 	carouselAnimationTime  = 40s
 	rotateTime = 6*carouselTransitionTime
 	rotateEasing = linear
 	&.is-open
 		.carousel--3d
 			animation rotateCarousel carouselAnimationTime rotateEasing infinite
-			animation-fill-mode both
+			animation-delay rotateTime
+
 		.carousel-middle
 			animation rotateCarouselMiddle carouselAnimationTime rotateEasing infinite
-			animation-fill-mode both
+			animation-delay rotateTime
+			transition all carouselTransitionTime cubic-bezier(0.545, 0.380, 0.465, 1.540)
+
+			
 		iconBannerAnimationTime = 4s
 		.icon-banner
+			top 35%
 			animation iconBanner iconBannerAnimationTime ease infinite
-			animation-fill-mode both
-		.icon-banner--odd
-			animation iconBanner2 iconBannerAnimationTime ease infinite
-			animation-fill-mode both
+			animation-delay rotateTime
+		.cylinder-2:nth-of-type(odd)
+			.icon-banner
+				top 65%
+				animation iconBanner2 iconBannerAnimationTime ease infinite
+				animation-delay rotateTime
+
+		.cylinder-1
+			.side
+				height 4em
+				transition-delay carouselTransitionTime
+				transition-timing-function cubic-bezier(0.545, 0.380, 0.465, 1.540)
+			
+			.banner
+				transform scale(1) translateZ(PX)
+
+			c = -1
+			for i in 0..36
+				if i % 4 == 0
+					.s{i}
+						.banner
+							c = c+1
+							transition-delay (3+(i/16))*carouselTransitionTime
+
+		.carousel-middle
+			transform translateY(400*PX) translateX(-2*PX) translateZ(22*PX) rotateY(-120deg)
+			width 5em
+			margin-left -2.5em
+			transition-delay 3*carouselTransitionTime
+
+		.carousel-bottom
+			width 36em - 10*PX
+			left 0
+			margin-left -2em
+			transition-timing-function cubic-bezier(0.545, 0.380, 0.465, 1.540)
+			transition-delay 2*carouselTransitionTime
+
+		.cylinder-2
+			.side
+				// background-color #dd5754
+				height 16em + 2*PX
+				top 0
+				transition-delay 4*carouselTransitionTime
+				transition-timing-function ease-out
+
+			.icon-banner
+				transform scale(1) translateZ(1px)
+				transition-delay 5.5*carouselTransitionTime
+				transition-delay 4.5*carouselTransitionTime
 
 .carousel-middle
 	position absolute
@@ -78,11 +135,11 @@ carouselTransitionTime = .3s
 
 .carousel-bottom
 	position absolute
-	// width 36em - 10*PX
+	width 36em - 10*PX
 	z-index 1
 	height   2.5em
 	bottom 	-4.75em
-	// margin-left -2em
+	margin-left - 2em
 	background-color #dd5754
 	transform translateZ(400*PX)
 
@@ -118,30 +175,24 @@ width = 90%
 .dome
 	position absolute
 	display inline-block
-	width: 50*PX
-	height: 370.5*PX
-	transform-style preserve-3d
-	transform-origin 50% top 0
+	transition all .25s ease-out
 	backface-visibility hidden
+	fill #f9f1dd
 	&:nth-of-type(even)
-		.dome__inner
-			background url('i/dome-red.png') no-repeat center center
-			background-size 100%
-	&__inner
-		rect 100%
-		nw 0
-		position absolute
-		background url('i/dome-white.png') no-repeat center center
-		background-size 100%
-		transform-origin 50% top 0
+		fill #ff6d6a
 
 .model
-	position relative
-	transform-style preserve-3d
 	for i in 1..36
 		.s{i}
 			transform translate3d(-60*PX, 0, 0) rotateZ(i*10deg) scaleZ(1) rotateX(-90deg)//
 			transform-origin 50% top 0
+			width: 50*PX
+			height: 370.5*PX
+			transition-delay .5s
+			.carousel.is-open &
+				transition-delay 0
+				transform translate3d(-60*PX, 0, 0) rotateZ(i*10deg) scaleZ(1) rotateX(-39.5deg)
+
 
 .carousel--scene
 	transform perspective(200000*PX) rotateX(90deg) rotateZ(50deg) translateZ(250*PX)
@@ -229,6 +280,7 @@ size = 28*PX
 	right -(size/2)
 	left auto
 
+
 size = 5em
 .icon-banner
 	width  size
@@ -236,12 +288,13 @@ size = 5em
 	margin-top  -(size/2)
 	margin-left -(size/2)
 	position absolute
-	top 35%
+	top 50%
 	left 0
 	background-color #faf4e5
 	border-radius 50%
 	backface-visibility visible
 	transform-style preserve-3d
+
 	.icon
 		rect 50%
 		left 25%
@@ -249,8 +302,6 @@ size = 5em
 		position absolute
 		transform translateZ(1px)
 
-	&--odd
-		top 65%
 
 width = 2.5em
 .carousel-top
@@ -346,14 +397,14 @@ width = 2.5em
 
 /* .cyl-1 styles */
 .cyl-1
-	transform translate3d(-0.1875em, 2.0625em, 1.1875em) rotateX(0deg) rotateY(-.25deg) rotateZ(0deg);
+	transform translate3d(-0.1875em, 2.0625em, 1.1875em) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
 	opacity:1;
 	width:35.8125em;
 	height:4em;
-	margin: -2em 0 0 -17.90625em
+	margin:-2em 0 0 -17.90625em;
 	.side
 		width:3.1581877625221533em
-		height: 100%
+		height:4em
 	.bm
 		width:35.8125em
 		height:35.8125em
@@ -387,6 +438,17 @@ for i in 2..9
 		degree = 70deg
 	.cyl-{i}
 		transform translate3d(xz[r], 10.249999999999998em, xz[r+1]) rotateX(0deg) rotateY(degree) rotateZ(0deg);
+		opacity:1;
+		width:.25em;
+		height:17em;
+		margin:-7.5em 0 0 -0.125em
+
+		.side
+			width:0.4580127018922192em
+			height:17em
+			backface-visibility visible
+		.face, .side
+			background-color: #faf4e5
 
 		start = 60
 		for j in 0..2

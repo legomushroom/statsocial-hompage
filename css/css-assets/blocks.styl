@@ -1,31 +1,6 @@
 // BLOCKS
 @import '../assets/imports.styl'
 
-.description
-	color white
-	openSans()
-	font-size 24px
-	position absolute
-	top 50%
-	margin-top 70px
-	z-index 20
-	&--1, &--2
-		width 45.25%
-		left 0
-		text-align right
-		transform translateX(240%)
-	&--2
-		padding-right 0
-	&--3
-		width 54.75%
-		z-index -1
-		padding-left gs - 1px
-		right 0
-		text-align left
-		padding-left (gs/2)
-		z-index -1
-		padding-left gs
-
 .menu-suggest
 	outage()
 	color white
@@ -34,41 +9,9 @@
 	border-radius 3px
 	padding 1px 4px
 	padding-right 44px
+
 	&.is-transparent
 		background-color #095273
-
-// I think two sentences will be perfect, 
-.play
-	circle 4*gs
-	background-color white
-	position fixed
-	z-index 20
-	bottom 2*gs
-	left 50%
-	margin-left - 2*gs
-	cursor pointer
-	.icon
-		rect 1.5*gs
-		fill #ff6c66
-	&__icon
-		position absolute
-		nw 50%
-		margin-left - .75*gs
-		margin-top  - .75*gs
-		fill #777
-		&--play
-			margin-left - .6*gs
-		&--pause
-			display none
-
-	&.is-playing
-		.play__icon--pause
-			display block
-		.play__icon--play
-			display none
-			// & ~ .pages-btns__btn.is-check
-			// 	animation playing 1s ease infinite
-
 
 .pages-btns
 	position absolute
@@ -76,11 +19,37 @@
 	bottom 20px
 	transform translateY(-50%)
 	z-index 11
-	&.is-playing
-		.pages-btns__btn.is-check
-			animation playing 1s ease infinite
-	.at-mobiles &
-		bottom 40px
+	&__play
+		circle 4*gs
+		background-color white
+		position absolute
+		top  - 1.25*gs
+		left - 5*gs
+		cursor pointer
+		.at-mobiles &
+			top - gs
+		.icon
+			rect 1.5*gs
+			fill #ff6c66
+		&__icon
+			position absolute
+			nw 50%
+			margin-left - .75*gs
+			margin-top  - .75*gs
+			fill #777
+		&__play
+			margin-left - .6*gs
+		&__pause
+			display none
+		&.is-playing
+			.pages-btns__play__pause
+				display block
+			.pages-btns__play__play
+				display none
+
+			& ~ .pages-btns__btn.is-check
+				animation playing 1s ease infinite
+			
 	&.is-transparent
 		opacity .75
 		.at-mobiles &
@@ -101,20 +70,20 @@
 			cursor pointer
 			background-color white
 
-// .scroll-suggest, .scroll-suggest-fork
-// 	width 128px
-// 	height 65px
-// 	position relative
+.scroll-suggest, .scroll-suggest-fork
+	width 128px
+	height 65px
+	position relative
 
-// .scroll-suggest
-// 	position absolute
-// 	nw 0
-// 	&--mouse
-// 		retina 'i/scroll-suggest' 100% transparent
-// 	&--keys
-// 		retina 'i/scroll-suggest-keys' 100% transparent
-// 	&--touch
-// 		retina 'i/scroll-suggest-touch@2x' 100% transparent
+.scroll-suggest
+	position absolute
+	nw 0
+	&--mouse
+		retina 'i/scroll-suggest' 100% transparent
+	&--keys
+		retina 'i/scroll-suggest-keys' 100% transparent
+	&--touch
+		retina 'i/scroll-suggest-touch@2x' 100% transparent
 
 .tickets
 	position relative
@@ -127,15 +96,14 @@
 		bottom 60px
 		left -30px
 		position absolute
-		display none
 		z-index 1
 		retina 'i/clip' 100% transparent
 		transform rotate(15deg)
 
 
 .ticket1, .ticket2, .tickets
-	width  224px
-	height 356px
+	width  236px
+	height 411px
 
 .ticket1
 	retina 'i/ticket1' 100% transparent
@@ -143,6 +111,8 @@
 color = #c94a4a
 bottomColor = #e5d6b5
 .ticket2
+	width  236px
+	height 411px
 	retina 'i/ticket2' 100% transparent
 	color color
 	outage()
@@ -151,15 +121,16 @@ bottomColor = #e5d6b5
 	text-align center
 	&__header
 		position absolute
-		top 23%
+		top 21.5%
 		width 100%
 		font-size 22px
 	&__content
 		position absolute
 		width (contentWidth)%
 		left ((100 - contentWidth)/2)%
-		top 35%
+		top 30%
 	&__line
+		// hl orange
 		text-align left
 		white-space nowrap
 		border-bottom 2px solid bottomColor
@@ -180,11 +151,7 @@ bottomColor = #e5d6b5
 			placeholder-mixin(#5f5c5c)
 			cbox()
 			padding-bottom 5px
-			&.is-blurred
-				transform translateZ(1px)
 
-			&.is-invalid
-				background-color rgba(#ff6667, .75)
 	width = 40
 	&__btn
 		width (width)%
@@ -192,7 +159,7 @@ bottomColor = #e5d6b5
 		text-align center
 		position absolute
 		left 50%
-		bottom 11%
+		bottom 10%
 		display inline-block
 		font-size 20px
 		border-radius 3px
@@ -272,9 +239,9 @@ buildingLogoAnimTime = 5s
 		content ''
 		padding-bottom 42.592592593%
 		display block
-	// &--wells-fargo-icon
-	// 	background url('i/icons/wells-fargo.svg') no-repeat center center
-	// 	background-size 100% auto
+	&--wells-fargo-icon
+		background url('i/icons/wells-fargo.svg') no-repeat center center
+		background-size 100% auto
 	&--nbcu-icon
 		background url('i/icons/nbcu.svg') no-repeat center center
 		background-size 100% auto
@@ -296,12 +263,6 @@ buildingLogoAnimTime = 5s
 	&--burson-icon
 		background url('i/icons/burson-marsteller.svg') no-repeat center center
 		background-size 100% auto
-	&--salesforce-icon
-		background url('i/icons/salesforce.svg') no-repeat center center
-		background-size 100% auto
-	&--viacom-icon
-		background url('i/icons/viacom.svg') no-repeat center center
-		background-size 100% auto
 
 .entrance
 	width  455px
@@ -311,53 +272,44 @@ buildingLogoAnimTime = 5s
 .moon-n-text
 	position relative
 	display inline-block
-	// padding 0 88px 0 70px
-	padding-right 50px
-	text-align right
+	padding 0 88px 0 70px
 	.moon-n-text--side
 		text-align center
 		padding 35px 16px
-		float left
+		position absolute
 	.moon-n-text--side__left
+		left 0
 		color #a5daf2
 	.moon-n-text--side__right
 		color #f6c855
+		right 0
 	.moon
-		float left
-	&__center
-		display inline-block
-		
+		transform translateZ(0)
 
 craterShadowColor = #b99a6b
 .moon
 	circle 102px
-	retina 'i/moon' 100% transparent
+	retina 'i/moon' 100% #fad296
 	position relative
 	overflow hidden
-	.moon__blind
-		background-color rgba(#f6c855, .78)
+	&:before
+		content ''
 		position absolute
+		circle 100%
 		nw 0
-		rect 100%
-		z-index 0
-	.moon--chart
-		overflow hidden
-		position absolute
-		width  50%
-		height 100%
+		background-color rgba(#f6c855, .58)
 		z-index 1
-		&:before
-			content ''
-			circle 	100%
-			width 	200%
-			background-color #4b99bd
-			position absolute
-			nw 0
-	.moon--chart__2
-		left 50%
-		&:before
-			left -100%
-			background-color #f6c855
+		border-radius 50%
+	// .moon--chart
+	.moon--chart__1
+		width 51%
+		height 102%
+		position absolute
+		z-index 2
+		nw -1px
+		background-color rgba(#4b99bd, .78)
+		border-top-left-radius  	100px
+		border-bottom-left-radius 100px
 
 /* fba4ecd90d2db7a0f9b5ed45a89284b6 */
 .baloon
@@ -400,12 +352,19 @@ ferrisWheelTransitionCoef = .3s
 	position relative
 	width 238*PX
 	height 39*PX
+	
 	.ferris-base--main
 		background-color #ce5250
 		rect 100%
 		position relative
 		z-index 1
-		transform translateY(225px)
+		height 0%
+		top 100%
+
+		.is-open &
+			height 100%
+			top 0
+			transition all ferrisWheelTransitionCoef linear
 
 	baseTopColor = #9b2e2e
 	topWidth = 108%
@@ -419,6 +378,16 @@ ferrisWheelTransitionCoef = .3s
 		width 0
 		margin-left 50%
 		overflow hidden
+		opacity 0
+
+		.is-open &
+			width topWidth
+			margin-left -4%
+			overflow visible
+			opacity 1
+			transition all ferrisWheelTransitionCoef linear
+			transition-delay ferrisWheelTransitionCoef
+
 		triangleWidth = 8*PX
 		&:before, &:after
 			content ''
@@ -428,8 +397,10 @@ ferrisWheelTransitionCoef = .3s
 			border-right-width triangleWidth
 			border-top-color baseTopColor
 			top 0
+
 		&:before
 			left  - triangleWidth
+
 		&:after
 			right - triangleWidth
 		
@@ -446,13 +417,25 @@ ferrisWheelTransitionCoef = .3s
 		transform-origin 50% top
 		z-index 0
 		height (baseSpikeHeight/2)
-		translateSize = baseSpikeHeight
 		opacity 0
-
+		
+		translateSize = baseSpikeHeight
 		&.is-1
 			transform rotate(90deg) translateX(translateSize)
 		&.is-2
 			transform rotate(-90deg) translateX(- translateSize)
+
+		.is-open &
+			rotateAngle = 19deg
+			transition all (1.5*ferrisWheelTransitionCoef) linear, opacity 0 linear
+			transition-delay 2*ferrisWheelTransitionCoef
+			height baseSpikeHeight
+			opacity 1
+
+			&.is-1
+				transform rotate(rotateAngle)
+			&.is-2
+				transform rotate(- rotateAngle)
 				
 	.ferris-base--handle
 		circle 30*PX
@@ -462,6 +445,12 @@ ferrisWheelTransitionCoef = .3s
 		margin-left - 15*PX
 		top - baseSpikeHeight + 10*PX
 		transform scale(0)
+
+		.is-open &
+			transform scale(1)
+			transition all ferrisWheelTransitionCoef cubic-bezier(0.350, 1.650, 0.375, 0.790);
+			transition-delay 4*ferrisWheelTransitionCoef
+
 		size = 35%
 		&:after
 			content ''
@@ -477,14 +466,6 @@ ferrisWheelSize = 375
 	rect ferrisWheelSize*PX
 	position relative
 	z-index 20
-
-	&__spikes
-		opacity 0
-		// transform scale(0)
-		rect 100%
-		nw 0
-		position absolute
-
 	.ferris-wheel--script-path
 		position absolute
 		top  - 16*gs
@@ -492,14 +473,110 @@ ferrisWheelSize = 375
 		text 
 			fill #493542
 			font-size 4*gs
-	
+	.ferris-wheel--core
+		animation-fill-mode both
+		animation ferris-wheel-rotate 30s linear infinite
+	.cabin--core
+		animation-fill-mode both
+		animation ferris-cabin-rotate 30s linear infinite
 	&.is-open 
-		.ferris-wheel--core
-			animation-fill-mode both
-			animation ferris-wheel-rotate 30s linear infinite
-		.cabin--core
-			animation-fill-mode both
-			animation ferris-cabin-rotate 30s linear infinite
+		.ferris-base
+			transform translateY(0)
+			transition all 0 linear
+
+		.ferris-base--center
+			transform scale(1)
+			transition all ferrisWheelTransitionCoef cubic-bezier(0.350, 1.650, 0.375, 0.790);
+			transition-delay 4.5*ferrisWheelTransitionCoef
+
+		.ferris-wheel--circle2
+			transform scale(1)
+			transition all ferrisWheelTransitionCoef cubic-bezier(0.350, 1.650, 0.375, 0.790);
+			transition-delay 5*ferrisWheelTransitionCoef
+
+		.ferris-wheel--circle1
+			transform scale(1)
+			transition all ferrisWheelTransitionCoef cubic-bezier(0.350, 1.650, 0.375, 0.790);
+			transition-delay 5.5*ferrisWheelTransitionCoef
+
+		.ferris-wheel--spike
+			transition all ferrisWheelTransitionCoef linear
+			transition-delay 6*ferrisWheelTransitionCoef
+			height spikeHeight
+			opacity 1
+
+			spikeAngle = 60
+			spikesCircleSize = (ferrisWheelSize*.69)
+			cnt = 24
+			PI = 3.141598
+			step = (2*PI)/cnt
+			rotateStep = 360/cnt
+			rotateAngle = 0
+			centerX = (ferrisWheelSize/2) - 1
+			centerY = (ferrisWheelSize/2) 
+			radius 	= spikesCircleSize/2
+			angle = 0
+			for i in 0..(cnt - 1)
+				&.n-{i}
+					x = centerX + cos(angle)*radius
+					y = centerY + sin(angle)*radius
+					transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle - spikeAngle)deg)
+					transform-origin 50% 50%
+				
+				rotateAngle = rotateAngle + rotateStep
+				angle = angle + step
+			
+			rotateAngle = 0
+			angle 			= .16
+			for i in 0..(cnt - 1)
+				&.s-{i}
+					x = centerX + cos(angle)*radius
+					y = centerY + sin(angle)*radius
+					transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle + spikeAngle)deg)
+					transform-origin 50% 50%
+				
+				rotateAngle = rotateAngle + rotateStep
+				angle = angle + step
+
+		.cabin
+			opacity 1
+			transition-duration 0
+
+			cnt = 12
+			PI = 3.141598
+			step = (2*PI)/cnt
+			rotateStep = 360/cnt
+			rotateAngle = 0
+			centerX = ferrisWheelSize/2
+			centerY = ferrisWheelSize/2
+			radius 	= ferrisWheelSize/2
+			angle = 0
+			.human
+				transition top ferrisWheelTransitionCoef linear
+			for i in 0..(cnt - 1)
+				&.n-{i}
+					.human-0
+						top  - 5*PX
+						right 20%
+						transition-delay 7*ferrisWheelTransitionCoef + (random(0,25)/100)
+					.human-1
+						top  - random(0,5)*PX
+						right 40%
+						transition-delay 7*ferrisWheelTransitionCoef + (random(0,25)/100)
+					.human-2
+						top  - random(3,7)*PX
+						right 60%
+						transition-delay 7*ferrisWheelTransitionCoef + (random(0,25)/100)
+
+		.cabin--handle
+			height 40*PX
+			transition all ferrisWheelTransitionCoef linear
+			transition-delay 6*ferrisWheelTransitionCoef
+
+		.cabin--core2
+			transform scale(1)
+			transition all ferrisWheelTransitionCoef linear
+			transition-delay 6.5*ferrisWheelTransitionCoef
 
 	.ferris-wheel--core
 		rect 100%
@@ -514,6 +591,8 @@ ferrisWheelSize = 375
 		z-index 2
 		left    20*PX
 		bottom  - 15*PX
+		transform translateY(300px)
+		transition all ferrisWheelTransitionCoef line
 
 	size = 115*PX
 	.ferris-base--center
@@ -535,12 +614,14 @@ ferrisWheelSize = 375
 
 	.ferris-wheel--spike
 		width  3*PX
+		height 0
 		height spikeHeight
 		background-color #9a3333
 		position absolute
 		z-index 0
 		transform-origin 50% 50%
-		height spikeHeight
+		opacity 0
+
 		spikeAngle = 60
 		spikesCircleSize = (ferrisWheelSize*.69)
 		cnt = 24
@@ -548,15 +629,15 @@ ferrisWheelSize = 375
 		step = (2*PI)/cnt
 		rotateStep = 360/cnt
 		rotateAngle = 0
-		centerX = (ferrisWheelSize/2) - 1
+		centerX = (ferrisWheelSize/2) - 0
 		centerY = (ferrisWheelSize/2)
-		radius 	= spikesCircleSize/2 + 1
+		radius 	= (spikesCircleSize/2) - 15
 		angle = 0
 		for i in 0..(cnt - 1)
 			&.n-{i}
 				x = centerX + cos(angle)*radius
 				y = centerY + sin(angle)*radius
-				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle - spikeAngle)deg)
+				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle)deg)
 			
 			rotateAngle = rotateAngle + rotateStep
 			angle = angle + step
@@ -567,7 +648,7 @@ ferrisWheelSize = 375
 			&.s-{i}
 				x = centerX + cos(angle)*radius
 				y = centerY + sin(angle)*radius
-				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle + spikeAngle)deg)
+				transform translateX(x*PX) translateY(y*PX - (spikeHeight/2)) rotate((rotateAngle)deg)
 			
 			rotateAngle = rotateAngle + rotateStep
 			angle = angle + step
@@ -582,39 +663,30 @@ ferrisWheelSize = 375
 		top  ((100% - circle1Size)/2)
 		z-index 1
 		transform scale(0)
+		transition all ferrisWheelTransitionCoef linear
+		transition-delay ferrisWheelTransitionCoef
 
 	circle2Size = 65%
 	.ferris-wheel--circle2
 		position absolute
 		circle circle2Size
+		// border 10*PX solid #c94a4a
 		border 10*PX solid white
 		left ((100% - circle2Size)/2)
 		top  ((100% - circle2Size)/2)
 		z-index 1
 		transform scale(0)
+		transition all ferrisWheelTransitionCoef linear
+		transition-delay 2*ferrisWheelTransitionCoef
 
 	.cabin
 		position absolute
 		nw 0
-		cnt = 12
-		.human
-			transform translateY(15*PX)
-		for i in 0..(cnt - 1)
-			&.n-{i}
-				.human-0
-					top  - 5*PX
-					right 20%
-				.human-1
-					top  - random(0,5)*PX
-					right 40%
-				.human-2
-					top  - random(3,7)*PX
-					right 60%
+		opacity 1
+		// z-index 10
 
 		.icon
 			fill #3f797f
-		
-
 	
 	cnt = 12
 	PI = 3.141598
@@ -652,6 +724,49 @@ ferrisWheelSize = 375
 		rotateAngle = rotateAngle + rotateStep
 		angle = angle + step
 
+	// cnt = 12
+	// PI = 3.141598
+	// step = (2*PI)/cnt
+	// rotateStep = 360/cnt
+	// rotateAngle = 0
+	// centerX = ferrisWheelSize/2
+	// centerY = ferrisWheelSize/2
+	// radius 	= ferrisWheelSize/2
+	// angle = 0
+	// for i in 0..(cnt - 1)
+	// 	.n-{i}
+	// 		x = centerX + cos(angle)*radius
+	// 		y = centerY + sin(angle)*radius
+	// 		transform translateX(x*PX - (cabinSize/2)) translateY(y*PX - (cabinSize/2))
+	// 		.cabin--handle
+	// 			transform rotate((90 + rotateAngle)deg)
+	// 			z-index -1
+
+	// 		.human
+	// 			position absolute
+
+	// 		.human-0
+	// 			top  - 5*PX
+	// 			left 20%
+
+	// 		.human-1
+	// 			top  - random(0,5)*PX
+	// 			left 40%
+
+	// 		.human-2
+	// 			top  - random(3,7)*PX
+	// 			left 60%
+
+	// 	.n-google-plus, .n-youtube, .n-quora
+	// 		.icon
+	// 			fill #f46f53
+
+	// 	.n-blogging
+	// 		.icon
+	// 			fill #8fa2a8
+
+				
+
 	// 	rotateAngle = rotateAngle + rotateStep
 	// 	angle = angle + step
 
@@ -667,6 +782,8 @@ ferrisWheelSize = 375
 		nw 0
 	 .cabin--core2
 		transform scale(0)
+		transition all ferrisWheelTransitionCoef linear
+		transition-delay 0
 
 	.human
 		z-index 0
@@ -748,7 +865,6 @@ ferrisWheelSize = 375
 		fill #399695
 	.svg-cabin-human
 		fill #43A4A3
-
 
 /* 25a33a14be99e39961e243eab6dfb19b */
 .bush-b
@@ -884,19 +1000,19 @@ ferrisWheelSize = 375
 		border-bottom-color #f9f0dd
 
 .building-b
-	background-color #64c2c1
+	background #64c2c1
 	// background-size 100% auto
 	width 5.5%
 	height 50%
 	position relative
 	border 8px solid transparent
-	.at-mobile-safari &
-		background url('i/building-bg.png') repeat
+
 	&__icons
 		position absolute
 		top 0
 		width  100%
 		height 4*gs
+
 	> .text-be
 		font-size 26px
 		color white
@@ -910,6 +1026,7 @@ ferrisWheelSize = 375
 		text-shadow 0 0 6px white
 		opacity 0
 		transition opacity .2s linear
+
 	> .tip-be
 			position absolute
 			display block
@@ -922,10 +1039,12 @@ ferrisWheelSize = 375
 			z-index 0
 			transition top .5s ease-out
 			display none
+
 	&.is-tip.curtain3-building7-lh
 		> .tip-be
 			top - 100px
 			display block
+		
 	&.is-show-label
 		> .text-be
 			opacity 1
@@ -934,21 +1053,13 @@ ferrisWheelSize = 375
 			animation-delay 3s
 			-webkit-animation-fill-mode both
 			animation-fill-mode both
+
 	&.is-hide-label
-		background #64c2c1
 		> .text-be
 			opacity 0
 			animation none
 			transition none
-
-	// &.is-dark-bg
-	// 	background #64c2c1
-
-.curtain3-building6-lh, .curtain3-building7-lh,
-.curtain3-building8-lh, .curtain3-building9-lh
-	&.is-dark-bg
-		background transparent url('i/building-bg-dark.png') repeat
-		background-color transparent
+			
 
 /* 4cbf1f487e13aad9100b274a119b2453 */
 .cloud-b
@@ -1073,6 +1184,7 @@ mainIcon = 323px
 			transition opacity .4s linear
 		.page-menu-header
 			transition background .4s linear
+
 	.sidebar-logo-e
 		width mainIcon
 		float left
@@ -1080,15 +1192,14 @@ mainIcon = 323px
 		margin-left mainIcon
 		.main-header-menu
 			display block
+
 	&.is-hidden
-		.sidebar-logo-e, .header-btn-e,
-		.main-header-menu
+		.sidebar-logo-e, .header-btn-e, .main-header-menu
 			opacity 0
-			cursor default
-		.main-header-menu
-			display none
 		.page-menu-header
 			background-color transparent
+		.main-header-menu
+			display none
 		.icon
 			fill white
 			&:hover

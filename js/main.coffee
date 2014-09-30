@@ -1,20 +1,16 @@
 class App 
 	constructor:->
 		@vars()
-		@fixFFPattern()
-		@fixChromeChoppedText()
-		@fixMobileSafariBuildings()
 		@initScroll()
 		@initController()
 		@buildAnimations()
-	
-		@maxScroll = -@startPoints[@startPoints.length]
-
 		@listenKeys()
 		@initMap()
+		@playSuggest()
 		@addCssClasses()
-		@ticketValidation()
 		@loopSequence = StatSocial.helpers.bind @loopSequence, @
+		# @initParallax()
+		# $('#js-toggle-btn').on 'click', => $('#js-curtain3').toggleClass('is-night')
 	
 	vars:->
 		@$main =  $('#js-main')
@@ -39,53 +35,15 @@ class App
 		@$keysSuggest 	= $('#js-scroll-suggest-keys')
 		@$touchSuggest 	= $('#js-scroll-suggest-touch')
 		@$pagesBtns 		= $('#js-pages-btns')
-		@$playBtn 			= $('#js-play')
+		@$playBtn 			= $('#js-pages-btns-play')
 		@$mainMenu 			= $('#js-main-menu')
 		@$menuSuggest 	= $('#js-menu-suggest')
-		@$largeLogo 		= $('#js-large-logo')
-		@$tickets 			= @$('#js-tickets')
-		@$ticketInputs 	= @$tickets.find 'input'
-		@$mainIcon 			= $('#js-main-icon')
 		@prevPlaneProgress = -1
+		@maxScroll = -19000
 		@readDelay = 3000
 		@startPoints = []
 		@readDelayItems = [3,4,5,6,8,10]
 
-	ticketValidation:->
-		validTypes = 
-			'plain': /(.){1,2}\w+/
-			'email': /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-			'phone': /^\+?[\d|\-|\s]+$/
-			
-		validate = (e)->
-			e.stopPropagation()
-			e.preventDefault()
-			$it = $(@)
-			value = $it.val()
-			if $.trim(value).length is 0 then return
-			type = $it.data().type
-			valid = false
-			regEx = validTypes[type]
-			valid = regEx.test value
-			$it.toggleClass 'is-invalid', !valid
-			$it.data().isValid = valid
-			false
-
-		@$ticket2.on 'blur', 'input', validate
-		@$ticket2.on 'keyup', 'input.is-invalid', validate
-
-
-	fixMobileSafariBuildings:->
-		if StatSocial.helpers.isMobileSafari()
-			$(document.body).addClass 'at-mobile-safari'
-
-	fixChromeChoppedText:->
-		if StatSocial.helpers.isWindows() and StatSocial.helpers.isChrome()
-			@$ticketInputs.addClass 'is-blurred'
-
-	fixFFPattern:->
-		if StatSocial.helpers.isFF()
-			document.getElementById('check-pattern-double').setAttribute 'width', 35
 
 	hideMenu:-> 
 		@$mainMenu.addClass 'is-hidden'
@@ -117,7 +75,6 @@ class App
 		}
 
 		@$playBtn.addClass 'is-playing'
-		@$pagesBtns.addClass 'is-playing'
 
 	addCssClasses:->
 		@$mainMenu.addClass 'is-allow-transition'
@@ -129,13 +86,12 @@ class App
 		@currSequenceTween?.kill()
 		@play = false
 		@$playBtn.removeClass 'is-playing'
-		@$pagesBtns.removeClass 'is-playing'
 
 	setCurrentScenseNum:(num)->
 		if (@currSequenceTweenNum is num) or (num >= @startPoints.length) then return num
 		@currSequenceTweenNum = num
 		@$pagesBtnsChildren.filter('.is-check').removeClass 'is-check'
-		@$pagesBtnsChildren.eq(num).addClass 'is-check'
+		@$pagesBtnsChildren.eq(num+1).addClass 'is-check'
 		num
 
 	initMap:->
@@ -145,7 +101,7 @@ class App
 		
 		@$pagesBtns.on 'click', '.pages-btns__btn', (e)=>
 			@stopLoopSequence()
-			num = $(e.target).index()
+			num = $(e.target).index()-1
 			@currSequenceTween = TweenMax.to @scroller, @startPoints[num].dur, 	{ 
 				y: -@startPoints[num].start
 				onUpdate:(=> @controller.setScrollContainerOffset(0, -(@scroller.y)).triggerCheckAnim(true) ) 
@@ -153,14 +109,42 @@ class App
 			@setCurrentScenseNum num
 
 		it = @
-		@$playBtn.on 'click', (e)->
+		@$pagesBtns.on 'click', '#js-pages-btns-play', (e)->
 			$it = $(this)
-			it.play = !it.play
+			it.play = !@play
 			$it.toggleClass 'is-playing', it.play
-			it.$pagesBtns.toggleClass 'is-playing', it.play
 			if it.play and (it.currSequenceTweenNum < it.startPoints.length-1)
 				it.loopSequence()
 			else it.stopLoopSequence()
+
+	playSuggest:->
+		@$scrollSuggest.show()
+
+		if !StatSocial.helpers.isMobile()
+			@$keysSuggest.hide()
+			@$mouseSuggest.show()
+			currBlock = @$mouseSuggest
+			@suggestInterval = setInterval =>
+				if currBlock is @$mouseSuggest
+					@$mouseSuggest.hide()
+					@$keysSuggest.fadeIn()
+					currBlock = @$keysSuggest
+				else
+					@$keysSuggest.hide()
+					@$mouseSuggest.fadeIn()
+					currBlock = @$mouseSuggest
+			, 5000
+		else 
+			@$touchSuggest.show()
+			@$mouseSuggest.hide()
+			@$keysSuggest.hide()
+
+	stopSuggest:->
+		clearInterval @suggestInterval
+		@$keysSuggest.hide()
+		@$mouseSuggest.hide()
+		@$touchSuggest.hide()
+		@$scrollSuggest.hide()
 
 	listenKeys:->
 		scrollStep = @frameDurationTime/4
@@ -168,7 +152,7 @@ class App
 		@currSequenceTweenNum = 0
 		$document = $(document)
 		$document.on 'keyup', (e)=>
-			switch e.which
+			switch e.keyCode
 				when 32
 					@play = !@play
 					if @play and (@currSequenceTweenNum < @startPoints.length-1)
@@ -178,7 +162,7 @@ class App
 		currTweenKeydown = null
 		stepSize = @frameDurationTime
 		$document.on 'keydown', (e)=>
-			switch e.which
+			switch e.keyCode
 				when 39, 40
 					@setCurrentScenseNum if @currSequenceTweenNum < @startPoints.length-1 then @currSequenceTweenNum+1 else @currSequenceTweenNum
 					@stopLoopSequence()
@@ -189,19 +173,20 @@ class App
 				when 37, 38
 					@setCurrentScenseNum if @currSequenceTweenNum > 0 then @currSequenceTweenNum-1 else @currSequenceTweenNum
 					@stopLoopSequence()
-					@currSequenceTween = TweenMax.to @scroller, @startPoints[@currSequenceTweenNum].dur, 	{ 
+					@currSequenceTween = TweenMax.to @scroller, @startPoints[@currSequenceTweenNum+1].dur, 	{ 
 						y: -@startPoints[@currSequenceTweenNum].start
 						onUpdate:(=> @controller.setScrollContainerOffset(0, -(@scroller.y)).triggerCheckAnim(true) ) 
 					}
 
-		$('#js-menu-btn, #js-main-menu').on 'click', (e)=> 
+		$('#js-menu-btn').on 'click', (e)=> 
 			if (@isMenuShow = !@isMenuShow) then @showMenu()
 			else @hideMenu()
 			e.stopPropagation()
 
-		$document.on 'click', (e)=>
+		$(document.body).on 'click', (e)=>
 			@hideMenu()
 			e.stopPropagation()
+
 
 	initScroll:->
 		@scroller = new IScroll '#js-main', { probeType: 3, mouseWheel: true, deceleration: 0.001 }
@@ -224,36 +209,34 @@ class App
 	calcCurrentScenseNum:(that)->
 		num = 0
 		for point, i in @startPoints
-			if -that.y >= point.start
+			if -that.y > point.start
 				num = i
 		@setCurrentScenseNum num
 
 	onBuildingsUpdate:->
-		progress = @curtainTextTween2.totalProgress()
-		method = if progress >= 1 then 'hide' else 'show'
-		method2 = if progress >= 1 then 'show' else 'hide'
+		method = if @curtainTextTween2.totalProgress() >= 1 then 'hide' else 'show'
 		@$scence[method]()
-		@$mainIcon[method2]()
 
 	scrollStart:->
+		@stopSuggest()
 		@$menuSuggest.addClass('is-transparent').hide()
 
 	scrollReverseStart:->
+		@playSuggest()
 		@$menuSuggest.removeClass('is-transparent').show()
 
-	scrollEnd:-> 
-	scrollReverseEnd:-> 
+	scrollEnd:-> @$menuSuggest.show()
+
+	scrollReverseEnd:-> @$menuSuggest.hide()
 
 	buildAnimations:->
 		$quoCurtain = @$('#js-quo-curtain')
+		$tickets = @$('#js-tickets')
 		$ticket1 = @$('#js-ticket1')
 		$ticket2 = @$('#js-ticket2')
-		@$ticket2 = $ticket2
 		$clip 	 = @$('#js-clip')
 
 		@frameDurationTime = 1000
-
-		@autoplayDurationUnit = 5
 
 		# THE FIRST CURTAIN
 		@curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { left: '-50%'}
@@ -261,41 +244,12 @@ class App
 		# @curtainTween1 	= TweenMax.to @$('#js-left-curtain'), 	1,  { rotation: 90, transformOrigin: 'center top', top: '100%' }
 		@curtainTween2 	= TweenMax.to @$('#js-right-curtain'), 	1, 	{	left: '100%', onStart: StatSocial.helpers.bind(@scrollStart,@), onReverseComplete: StatSocial.helpers.bind(@scrollReverseStart,@)}
 		
+		start = 1
+		dur = @frameDurationTime
 		@startPoints.push 
 			start: start
 			delay: 0
 			dur: 1
-
-		start = 1
-		dur = 2*@frameDurationTime
-		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ x: 160 }
-		@controller.addTween start, @descr1Tween, dur
-
-		@startPoints.push 
-			start: start+dur
-			delay: 1000
-			dur: 1.5
-
-		start += dur
-		dur = 2*@frameDurationTime
-		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 190 }
-		@controller.addTween start, @descr2Tween, dur
-
-		start +=  dur - (dur)
-		dur = 2*@frameDurationTime
-		@descr1Tween 	= TweenMax.to @$('#js-desc-1'), 	1, 	{ left: '-100%' }
-		@controller.addTween start, @descr1Tween, dur
-
-		@descr2Tween 	= TweenMax.to @$('#js-desc-2'), 	1, 	{ x: 0 }
-		@controller.addTween start, @descr2Tween, dur
-
-		@startPoints.push 
-			start: start+dur
-			delay: 1000
-			dur: 2
-
-		start += 2*dur
-		dur = 4*@frameDurationTime
 
 		@controller.addTween start, @curtainTween2, dur
 
@@ -304,25 +258,16 @@ class App
 		@curtainTextTween2	= TweenMax.to @$('#js-quo-curtain'), 1, { css:{ left: '-100%' } }
 		@controller.addTween start, @curtainTextTween2, dur
 
-		start += dur - dur/20
-		# dur = 3*@frameDurationTime
+		start = start + dur
+		dur = @frameDurationTime
+		
 
 		@controller.addTween start, @curtainTween1, dur
 		@leftPeelTween 	= TweenMax.to @$('#js-left-peel, #js-left-peel-gradient'), 	1, 	{ css:{ width: '100%' }}
-		@controller.addTween start, @leftPeelTween, dur
+		@controller.addTween start, @leftPeelTween, @frameDurationTime
 
-		start += dur/2
+		start = start + dur - @frameDurationTime
 		dur = @frameDurationTime
-
-		@largeLogoTween  = TweenMax.to @$largeLogo, 1, { opacity: 1, y: 0 }
-		@controller.addTween start, @largeLogoTween, dur
-		@descr2Tween 	= TweenMax.to @$('#js-desc-2, #js-desc-3'), 	1, 	{ x: 56 }
-		@controller.addTween start, @descr2Tween, dur
-
-		@startPoints.push 
-			start: start+dur
-			delay: 2000
-			dur: 7
 
 		@groundTween  = TweenMax.to @$ground, 1, { css:{ y: 0 } }
 		@controller.addTween start, @groundTween, dur
@@ -337,11 +282,10 @@ class App
 		@controller.addTween start, @cloudTween, dur
 		
 		# -> BUILDINGS
-		start += dur + (@frameDurationTime)
+		start = start + dur + (@frameDurationTime/2)
 		dur = @frameDurationTime
 
 		$buildings  = @$('.building-b')
-		@$buildings = $buildings
 		for i in [0..$buildings.length]
 			$el = $ $buildings.eq i
 			@controller.addTween start-(($buildings.length-i)*(@frameDurationTime/$buildings.length)), 
@@ -357,20 +301,16 @@ class App
 															onReverseComplete:(-> @target.removeClass('is-show-label is-tip bounce-eff'))
 														}), dur
 
-		@curtainTextTween2  = TweenMax.to @$('.underline-text, #js-desc-2, #js-desc-3'), 1, { \
-			css:{ top: '-25%' },
-			onReverseComplete:(=> @$('.underline-text').css 'top': '50%')
-			onUpdate: StatSocial.helpers.bind(@onBuildingsUpdate,@)
-		}
+		@curtainTextTween2  = TweenMax.to @$('.underline-text'), 1, { css:{ top: '-25%' }, onReverseComplete:(=> @$('.underline-text').css 'top': '50%'), onUpdate: StatSocial.helpers.bind(@onBuildingsUpdate,@) }
 		@controller.addTween start-(@frameDurationTime/10), @curtainTextTween2, dur
-
+		
 		# -> PLANE
 		start = start + dur - (@frameDurationTime/1.5)
 		dur = 3*@frameDurationTime
 		@startPoints.push 
-			start: start + (@frameDurationTime-(@frameDurationTime/10))
+			start: start + (@frameDurationTime)
 			delay: 3000
-			dur: @autoplayDurationUnit/2
+			dur: 3
 
 		@$moon = @$('#js-moon')
 
@@ -475,9 +415,9 @@ class App
 		start = start + dur 
 		dur = 3*@frameDurationTime
 		@startPoints.push 
-			start: start+@frameDurationTime-(@frameDurationTime/8)
+			start: start+@frameDurationTime
 			delay: 3000
-			dur: @autoplayDurationUnit
+			dur: 3
 
 		@rollerTextTween = TweenMax.to { offset: @rollerLine2.getTotalLength() }, 1, { offset: @rollerTextOffset, onUpdate: StatSocial.helpers.bind(@onRollerTextUpdate,@), onStart:=> @showTrain1() }
 		@controller.addTween start, @rollerTextTween, dur
@@ -487,84 +427,17 @@ class App
 		@rollerCabinsTriggerTween = TweenMax.to {}, 1, { onComplete: (=> @initRollerCabins();@showTrain2() ), onReverseComplete:(=> @rollerCabinsTween?.pause();@rollerCabinsTween2?.pause();@hideTrain2(); ) }
 		@controller.addTween start, @rollerCabinsTriggerTween, dur
 
-
-		# CAROUSEL
 		start = start + dur - (@frameDurationTime)
-		carouselConstrDuration = @frameDurationTime
-		carouselPartDuration = carouselConstrDuration/2
-		dur = @frameDurationTime/2
-		@carouselUpTween = TweenMax.to @$carousel, 1, { y: 0}
-		@controller.addTween start, @carouselUpTween, dur
-		# roof
-		dur = carouselPartDuration/2
-		start = start + (@frameDurationTime/2)
-		for i in [1..36]
-			name = "carouselDomeS#{i}Tween"
-			@[name] = TweenMax.to @$carousel.find(".dome__inner--#{i}"), 1, { 
-				rotationX: -50.675
-				z: 0
-			}
-			@controller.addTween start, @[name], dur
+		dur = 1
+		@carouselTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-carousel'); setTimeout (=> @$carousel.addClass('is-open') ), 10), onReverseComplete:=>( @$carousel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-carousel') ), 100) }
+		@controller.addTween start, @carouselTriggerTween, dur
 
-		start += dur
-		dur = carouselPartDuration
-		@carouselRoofBottom = TweenMax.to @$carousel.find('#js-carousel-roof-bottom'), 1, { height: 64, ease:Elastic.easeOut }
-		@controller.addTween start, @carouselRoofBottom, dur
-
-		start += dur - carouselPartDuration
-		dur = carouselPartDuration/2
-		@carouselMiddle = TweenMax.to @$carousel.find('#js-carousel-middle'), 1, { 
-			width: '5em'
-			marginLeft: '-2.5em'
-			# ease:Elastic.easeOut
-		}
-		@controller.addTween start, @carouselMiddle, dur
-
-		start += 0 #dur - dur/2
-		dur = carouselPartDuration/2
-		@carouselBottom = TweenMax.to @$carousel.find('#js-carousel-bottom'), 1, { 
-			left: 			0
-			width: 			'35.375em'
-			marginLeft: '-2em'
-			# ease:Bounce.Out
-		}
-		@controller.addTween start, @carouselBottom, dur
-
-		start += 0 #dur - dur/2
-		dur = carouselPartDuration
-		@carouselBottom = TweenMax.to @$carousel.find('#js-sticks'), 1, { 
-			height: '16.125em'
-			top: 		'40%'
-			ease: Bounce.easeOut
-		}
-		@controller.addTween start, @carouselBottom, dur
-
-		start += dur - dur/4
-		dur = 2*carouselPartDuration
-		@carouselBottom = TweenMax.to @$carousel.find('.banner'), 1, { 
-			scale: 1
-			z: 1
-			ease:Elastic.easeOut
-			onUpdate: StatSocial.helpers.bind(@onCarouselLastTweenUpdate,@)
-		}
-		@controller.addTween start, @carouselBottom, dur
-
-
-		start += dur/8#dur - dur/2
-		dur = 2*carouselPartDuration
-		@carouselBottom = TweenMax.to @$carousel.find('.icon-banner'), 1, { 
-			scale: 1
-			z: 1
-			ease:Elastic.easeOut
-		}
-		@controller.addTween start, @carouselBottom, dur
-
-		start = start - @frameDurationTime/1.5
-		dur = 3.5*@frameDurationTime
+		start = start + dur
+		dur = 3*@frameDurationTime
 		@startPoints.push 
-			start: start + 1.1*@frameDurationTime
+			start: start+(0.75*@frameDurationTime)
 			delay: 4000
-			dur: @autoplayDurationUnit/1.5
+			dur: 1
 
 		it = @
 		@$plane2Inner = @$plane2.find('#js-plane-inner')
@@ -578,123 +451,25 @@ class App
 			}
 		@controller.addTween start, planeTween2, dur
 
+		start = start + dur - (2*@frameDurationTime)
+		dur = 1
+		@ferrisWheelTriggerTween = TweenMax.to {}, 1, { onComplete:(=>@$scence3.addClass('is-show-ferris-wheel'); setTimeout( (=> @$ferrisWheel.addClass('is-open') ), 10)), onReverseComplete:=>( @$ferrisWheel.removeClass('is-open'); setTimeout (=> @$scence3.removeClass('is-show-ferris-wheel') ), 100) }
+		@controller.addTween start, @ferrisWheelTriggerTween, dur
 
-		# FERRIS WHEEL 
-		ferrisCoef = @frameDurationTime/1.5
-		start += dur - (2*@frameDurationTime)
-		dur = ferrisCoef
-		@ferrisBottomTween = TweenMax.to @$ferrisWheel.find('#js-ferris-main'), 1, { y: 0 }
-		@controller.addTween start, @ferrisBottomTween, dur
+		start = start + dur + @frameDurationTime
+		dur = 3*@frameDurationTime
+		@startPoints.push 
+			start: start+(@frameDurationTime/1.5)
+			delay: 3000
+			dur: 1
 
-		start += dur
-		dur = ferrisCoef
-		@ferrisTopTween = TweenMax.to @$ferrisWheel.find('#js-ferris-top'), 1, { 
-			width: 			'108%'
-			marginLeft: '-4%'
-			overflow: 'visible'
-		}
-		@controller.addTween start, @ferrisTopTween, dur
-
-		start += dur
-		dur = ferrisCoef
-		$ferrisSpikes = @$ferrisWheel.find('.ferris-base--spike')
-		@ferrisSpike1Tween = TweenMax.to @$ferrisWheel.find('#js-ferris-spike1'), 1, { 
-			rotation: 19
-			height: '11.5625em'
-			y: 0
-			onStart:-> $ferrisSpikes.css 'opacity': 1
-			onReverseComplete:-> $ferrisSpikes.css 'opacity': 0
-		}
-		@controller.addTween start, @ferrisSpike1Tween, dur
-		@ferrisSpike2Tween = TweenMax.to @$ferrisWheel.find('#js-ferris-spike2'), 1, {
-				rotation: -19
-				height: '11.5625em'
-				y: 0
-			}
-		@controller.addTween start, @ferrisSpike2Tween, dur
-
-		start += dur
-		dur = ferrisCoef
-		@ferrisHandleTween = TweenMax.to @$ferrisWheel.find('#js-ferris-handle'), 1, {
-				scale: 1
-				ease: Elastic.easeOut
-			}
-		@controller.addTween start, @ferrisHandleTween, dur
-
-		start += dur - dur/1.85
-		dur = 2*ferrisCoef
-		@ferrisCenterTween = TweenMax.to @$ferrisWheel.find('#js-ferris-center'), 1, {
-				scale: 1
-				ease: Elastic.easeOut
-			}
-		@controller.addTween start, @ferrisCenterTween, dur
-
-		start += dur - dur/1.75
-		dur = 2*ferrisCoef
-		@ferrisCircle2Tween = TweenMax.to @$ferrisWheel.find('#js-ferris-circle2'), 1, {
-				scale: 1
-				ease: Elastic.easeOut
-			}
-		@controller.addTween start, @ferrisCircle2Tween, dur
-
-		start += dur - dur/1.65
-		dur = 2*ferrisCoef
-		@ferrisCircle1Tween = TweenMax.to @$ferrisWheel.find('#js-ferris-circle1'), 1, {
-				scale: 1
-				ease: Elastic.easeOut
-			}
-		@controller.addTween start, @ferrisCircle1Tween, dur
-
-		start += dur - dur/1.65
-		dur = ferrisCoef
-		tween = TweenMax.to @$ferrisWheel.find("#js-ferris-spikes"), 1, {
-			opacity: 1
-			# ease: Elastic.easeOut
-		}
-		@controller.addTween start, tween, dur
-
-		# start += dur - dur/2
-		dur = 2*ferrisCoef
-		tween = TweenMax.to @$ferrisWheel.find(".cabin--core2"), 1, {
-			scale: 1
-			ease: Elastic.easeOut
-		}
-		@controller.addTween start, tween, dur
-
-		dur = ferrisCoef
-		tween = TweenMax.to @$ferrisWheel.find(".cabin--handle"), 1, {
-			height: '2.5em'
-		}
-		@controller.addTween start, tween, dur
-
-		start += dur - dur/2
-		dur = ferrisCoef
-		@ferrisHumansTween = TweenMax.to @$ferrisWheel.find(".human"), 1, {
-			y: 0
-			onUpdate: StatSocial.helpers.bind(@onFerrisLastTweenUpdate,@)
-		}
-		@controller.addTween start, @ferrisHumansTween, dur
-
-		@$ferrisText 		= @$('#js-ferris-text')
-		@ferrisText 		= @$ferrisText[0]
+		@ferrisText 		= @$('#js-ferris-text')[0]
 		@ferrisTextPath = @$('#ferris-script')[0]
-		start += dur/2 # ferrisCoef
-		dur = 3*ferrisCoef
-		@ferrisTextTween = TweenMax.to { offset: 2300 }, 1, { 
-			offset: 400
-			onUpdate: StatSocial.helpers.bind(@onFerrisTextUpdate,@)
-			onStart:=> @$ferrisText.show()
-			onComplete:=> @$ferrisText.hide()
-			onReverseComplete:=> @$ferrisText.hide()
-		}
+
+		@ferrisTextTween = TweenMax.to { offset: 2300 }, 1, { offset: 100, onUpdate: StatSocial.helpers.bind(@onFerrisTextUpdate,@) }
 		@controller.addTween start, @ferrisTextTween, dur
 
-		@startPoints.push 
-			start: start + ferrisCoef/1.1
-			delay: 3000
-			dur: @autoplayDurationUnit/2.5
-
-		start = start + dur - (1.35*@frameDurationTime)
+		start = start + dur - (1.5*@frameDurationTime)
 		dur = @frameDurationTime
 
 		@moonTween  = TweenMax.to @$moon, 1, { x: 0, y: 0 }
@@ -702,12 +477,10 @@ class App
 
 		$cloudParts = @$('.cloud-b > *')
 		$iconBanner = $('.icon-banner')
-		$buildings = @$('.building-b')
-		$bannersBuildings = @$('.curtain3-building6-lh, .curtain3-building7-lh, .curtain3-building8-lh, .curtain3-building9-lh')
 		@controller.addTween start, TweenMax.to(@$('.cabin--base, .icon-banner'), 1, { backgroundColor: '#f2d577' }), dur
 		@controller.addTween start, TweenMax.to(@$('#js-bg'), 1, { backgroundColor: '#095273' }), dur
 		@controller.addTween start, TweenMax.to($cloudParts, 1, { backgroundColor: '#4b99bd', onStart:(=> $cloudParts.addClass('no-transition-g-i'); $iconBanner.addClass('no-transition-g-i')), onReverseComplete:(=>$cloudParts.removeClass('no-transition-g-i'); $iconBanner.removeClass('no-transition-g-i')) }), dur
-		@controller.addTween start, TweenMax.to($buildings, 1, { backgroundColor: '#13688d' }), dur
+		@controller.addTween start, TweenMax.to(@$('.building-b'), 1, { backgroundColor: '#13688d' }), dur
 		@controller.addTween start, TweenMax.to(@$('.human'), 1, { backgroundColor: '#153750' }), dur
 		@controller.addTween start, TweenMax.to(@$('.bush-b > .part-be'), 1, { backgroundColor: '#70bb69' }), dur
 		@controller.addTween start, TweenMax.to(@$('.bush-b.is-light > .part-be'), 1, { backgroundColor: '#55d38c' }), dur
@@ -724,17 +497,19 @@ class App
 		@controller.addTween start, TweenMax.to(@$('.svg-cabin-base2'), 1, { fill: '#3f98c2' }), dur
 		@controller.addTween start, TweenMax.to(@$('.svg-cabin-base3'), 1, { fill: '#1c7691' }), dur
 		@controller.addTween start, TweenMax.to(@$('.svg-cabin-human'), 1, { fill: '#153750' }), dur
-		@controller.addTween start, TweenMax.to(@$ground, 1, { 
-			backgroundColor: '#333040'
-			onComplete:=> 
-				if StatSocial.helpers.isMobileSafari()
-					$bannersBuildings.addClass 'is-dark-bg'
-		}), dur
+		@controller.addTween start, TweenMax.to(@$ground, 1, { backgroundColor: '#333040' }), dur
 
-		if StatSocial.helpers.isMobileSafari()
-			@controller.addTween(start+dur, TweenMax.to($bannersBuildings, 1, { backgroundColor: 'transparent' }), dur)
+		start = start + dur
+		dur = @frameDurationTime
+		@startPoints.push 
+			start: start
+			delay: 1000
+			dur: 1
 
-		start += dur
+		@moonTween = TweenMax.to $('.moon-n-text--side'), 1, { y: -100, opacity: 0 }
+		@controller.addTween start, @moonTween, dur
+
+		start = start + dur - (@frameDurationTime)
 		dur = 3*@frameDurationTime
 
 		it = @
@@ -747,29 +522,14 @@ class App
 					it.$plane3Inner[method]('is-flip')
 					@oldP = p
 			}
-		@controller.addTween start, planeTween3, dur/3
-
-		start += dur/8
+		@controller.addTween start, planeTween3, dur
+		
+		start = start + dur - (2*@frameDurationTime)
 		dur = @frameDurationTime
-
-		@moonTween = TweenMax.to $('.moon-n-text--side'), 1, { y: -60, opacity: 0 }
-		@moonOpacityTween = TweenMax.to $('.moon--chart'), 1, { 
-			opacity: 0
-			# onComplete:=> @$buildings.addClass 'is-dark-bg'
-			onReverseComplete:=>
-				# @$buildings.removeClass('is-dark-bg')
-				# console.log 'reverse bg'
-				StatSocial.helpers.isMobileSafari() and $bannersBuildings.removeClass 'is-dark-bg'
-		}
-		@controller.addTween start, @moonOpacityTween, dur/2
-		@controller.addTween start, @moonTween, dur/2
-
-		# start += dur/2
-		dur = @frameDurationTime
-		@startPoints.push
-			start: start - (@frameDurationTime/15)
+		@startPoints.push 
+			start: start
 			delay: 3000
-			dur: @autoplayDurationUnit/2
+			dur: 1
 
 		@entranceTween  = TweenMax.to @$('#js-entrance'), 1, { y: 0 }
 		@controller.addTween start, @entranceTween, dur
@@ -828,13 +588,9 @@ class App
 		@startPoints.push 
 			start: start
 			delay: 3000
-			dur: @autoplayDurationUnit/1.5
+			dur: 3
 
-		@ticketsTween  = TweenMax.to @$tickets, 1, { 
-			y: 0,
-			onStart:=> @$ticketInputs.attr 'disabled', false
-			onReverseComplete:=> @$ticketInputs.attr 'disabled', true
-		}
+		@ticketsTween  = TweenMax.to $tickets, 1, { y: 0 }
 		@controller.addTween start, @ticketsTween, dur
 
 		start = start + dur - (@frameDurationTime/2)
@@ -842,7 +598,7 @@ class App
 		@startPoints.push 
 			start: start + @frameDurationTime
 			delay: 3
-			dur: @autoplayDurationUnit/2
+			dur: 1
 
 		@ticket1  = TweenMax.to $ticket1, 1, { rotation: -20, y: -20, x: -50 }
 		@controller.addTween start, @ticket1, dur
@@ -850,27 +606,12 @@ class App
 		@clip  = TweenMax.to $clip, 1, { rotation: -3, y: 56, x: -70 }
 		@controller.addTween start, @clip, dur
 
-		@ticket2  = TweenMax.to $ticket2, 1, { rotation: -10, onUpdate: StatSocial.helpers.bind(@onTicket2Update,@) }
+		@ticket2  = TweenMax.to $ticket2, 1, { rotation: -10, onComplete: StatSocial.helpers.bind(@scrollEnd,@)}
+
+		endTriggerTween = TweenMax.to {}, 1, { onReverseComplete: StatSocial.helpers.bind(@scrollReverseEnd,@)}
 
 		@controller.addTween start, @ticket2, dur
-
-	onFerrisLastTweenUpdate:->
-		method = if @ferrisHumansTween.progress() >= .5 then 'addClass' else 'removeClass'
-		@$ferrisWheel[method] 'is-open'
-
-	onCarouselLastTweenUpdate:->
-		if @carouselBottom.progress() >= .35
-			@$carousel.addClass 'is-open'
-		else @$carousel.removeClass 'is-open'
-
-	onTicket2Update:-> 
-		if (@ticket2.progress() < 1)  
-			if !@isReverseEnd 
-				@isReverseEnd = true
-				@scrollReverseEnd()
-		else 
-			@scrollEnd()
-			@isReverseEnd = false
+		@controller.addTween start+dur-1, endTriggerTween, 1
 
 	onBaloonsUpdate1:->
 		if @baloonsTween1.totalProgress() >= 1
@@ -902,7 +643,7 @@ class App
 		@setLiveLinesCurve @lineSimplifyTween.target.curve
 
 	onGridSimplifyUpdate:->
-		@$horizontalPattern.attr 'transform', 	"translate(-#{@gridSimplifyTween.target.x},0)"
+		@$horizontalPattern.attr 'transform', "translate(-#{@gridSimplifyTween.target.x},0)"
 		@$horizontalPatternDouble.attr 'transform', "translate(-#{@gridSimplifyTween.target.x},0)"
 		
 	onRollerRails1Update:()-> 
@@ -1114,6 +855,7 @@ class App
 		if @scriptTween3.totalProgress() >= 1
 			@$scence2.hide()
 		else @$scence2.show()
+
 
 
 new App

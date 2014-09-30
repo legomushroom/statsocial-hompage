@@ -26,6 +26,14 @@ firstCurtainText()
 	padding-bottom curtainMaskSize
 	overflow hidden
 	z-index 4
+
+	.scroll-suggest-fork
+		position absolute
+		z-index 11
+		bottom 20px
+		left 50%
+		margin-left -64px
+
 	&--left, &--right
 		width (leftSize)%
 		height 100%
@@ -98,20 +106,8 @@ firstCurtainText()
 				background: linear-gradient(to right,  rgba(255,255,255,1) 2%,rgba(230,230,230,1) 71%,rgba(238,238,238,1) 100%); /* W3C */
 
 .underline-text
-	position relative
 	firstCurtainText()
 	z-index 3
-	size = 40*gs
-	.large-logo
-		fill white
-		rect size
-		position absolute
-		margin-left - 10*gs
-		// center-shift size
-		margin-top - size - 8*gs
-		transform translateY(50px)
-		opacity 0
-
 .underline-text__left
 	left 0
 	text-align right
@@ -139,9 +135,8 @@ nightTransitionTime = 1.5s
 		position absolute
 		bottom 0
 		z-index 10
-		bottom 120px
-		left 50%
-		margin-left -30px
+		bottom 50px
+		left 15%
 		transform translateY(150%)
 		.ticket
 			transform-origin right bottom
@@ -152,8 +147,15 @@ nightTransitionTime = 1.5s
 			transform scale(1)
 	&.is-show-carousel
 		.carousel
+			transform translateY(0) scale(.6)
+			transition-delay 0
 			.no-preserve-3d &
 				transform translateY(-38px) scale(1)
+	&.is-show-ferris-wheel
+		.ferris-wheel
+			transition-delay 0
+			transform translateY(0)
+			transition all .35s ease-out
 	.entrance
 		position absolute
 		bottom groundHeight - 4px
@@ -162,26 +164,24 @@ nightTransitionTime = 1.5s
 		z-index 5
 		transform translateY(292px + groundHeight)
 	.moon-n-text
-		right 0%
+		right 1.5%
 		top 	2.5%
 		position absolute
-		transform translateX(-100%) translateY(100%)
+		transform translateX(400px) translateY(200px)
 		z-index 0
-		width  100%
-		height 100%
 	.carousel
 		position absolute
 		right 0
 		bottom 106px
 		z-index 4
 		transform translateY(600px) scale(.6)
+		transition all .35s ease-out
 		.no-preserve-3d &
 			transform translateY(600px) scale(1)
-			bottom 144px
 	.ferris-wheel
 		position absolute
 		bottom groundHeight + 15px
-		// transform translateY(150%)
+		transform translateY(150%)
 		z-index 4
 		left 5%
 	.roller-coaster-b
@@ -699,18 +699,6 @@ coef = 10
 	background: white
 	overflow: hidden
 	rect 100%
-
-	.main-icon
-		position absolute
-		fill white
-		z-index 19
-		rect 7*gs
-		display block
-		fill white
-		position absolute
-		top 1.5*gs - 3px
-		left 6*gs + 2px
-		display none
 
 	.menu-suggest
 		position absolute

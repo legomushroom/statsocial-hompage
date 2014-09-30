@@ -9,11 +9,5 @@
          url('css-assets/font/reklamescript-webfont.svg#reklame_script_regular_demoRg') format('svg');
     font-weight: normal;
     font-style: normal;
-}
 
-/*@media screen and (-webkit-min-device-pixel-ratio:0) {
-	@font-face {
-		font-family: 'reklame-script';
-		src: url('css-assets/font/reklamescript-webfont.svg#reklame_script_regular_demoRg') format('svg');
-	}
-}*/
+}
